@@ -1,5 +1,4 @@
 
-//This is for the ckecking
 
 import React from "react";
 import ReactDOM from "react-dom";
