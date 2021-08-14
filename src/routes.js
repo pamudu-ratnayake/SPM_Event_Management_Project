@@ -1,4 +1,3 @@
-
 import Index from "views/Index.js";
 import Profile from "views/examples/Profile.js";
 import Maps from "views/examples/Maps.js";
@@ -6,7 +5,7 @@ import Register from "views/examples/Register.js";
 import Login from "views/examples/Login.js";
 import Tables from "views/examples/Tables.js";
 import Icons from "views/examples/Icons.js";
-import Testing from "views/examples/Testing";
+import AddEvent from "views/examples/AddEvent.js";
 
 var routes = [
   {
@@ -31,10 +30,10 @@ var routes = [
     layout: "/admin",
   },
   {
-    path: "/testing",
-    name: "Test",
-    icon: "ni ni-pin-3 text-orange",
-    component: Testing,
+    path: "/add-event",
+    name: "Publish An Event",
+    icon: "ni ni-notification-70 text-orange",
+    component: AddEvent,
     layout: "/admin",
   },
   {
