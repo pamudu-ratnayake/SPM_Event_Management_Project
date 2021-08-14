@@ -7,6 +7,7 @@ import Tables from "views/examples/Tables.js";
 import Icons from "views/examples/Icons.js";
 import AddEvent from "views/examples/AddEvent.js";
 import EventDisplay from "views/examples/EventDisplay.js";
+import CustomerProfile from "views/examples/CustomerProfile";
 
 var routes = [
   {
@@ -42,6 +43,13 @@ var routes = [
     name: "Display Event",
     icon: "ni ni-notification-70 text-orange",
     component: EventDisplay,
+    layout: "/admin",
+  },
+  {
+    path: "/customer-profile",
+    name: "My Profile",
+    icon: "ni ni-single-02 text-orange",
+    component: CustomerProfile,
     layout: "/admin",
   },
   {

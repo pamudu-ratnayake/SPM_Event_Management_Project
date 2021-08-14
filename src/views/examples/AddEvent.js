@@ -1,4 +1,5 @@
 import ReactDatetime from "react-datetime";
+import { useFormik } from "formik";
 
 // reactstrap components
 import {
@@ -19,7 +20,32 @@ import {
 // core components
 import AddEventHeader from "components/Headers/AddEventHeader";
 
-const AddEvent = () => {
+// const AddEvent = (props) => {
+  function AddEvent(props){
+
+  const initialValues = {
+    enableReinitialize: true,
+    validateOnMount: true,
+    event_name: "",
+    event_id: "",
+    org_name: "",
+    event_time: "",
+    location: "",
+    days_occurs: "",
+    event_type: "",
+    organizer_name: "",
+    cus_id: "",
+    cus_email: "",
+    cus_con_number: "",
+    description: "",
+  };
+
+  const formik = useFormik({
+    initialValues,
+    onSubmit,
+    // validationSchema,
+  })
+
   return (
     <>
       <AddEventHeader />
@@ -46,7 +72,7 @@ const AddEvent = () => {
                 </Row>
               </CardHeader>
               <CardBody>
-                <Form>
+                <Form onSubmit={formik.handleSubmit}>
                   <Row>
                     <Col md="6">
                       <FormGroup>
@@ -55,13 +81,19 @@ const AddEvent = () => {
                           id="exampleFormControlInput1"
                           placeholder="Enter Event Name"
                           type="text"
+                          name="event_name"
                         />
                       </FormGroup>
                     </Col>
                     <Col md="6">
                       <FormGroup>
                         <label>Event ID</label>
-                        <Input disabled placeholder="Event ID" type="text" />
+                        <Input
+                          disabled
+                          placeholder="Event ID"
+                          type="text"
+                          name="event_id"
+                        />
                       </FormGroup>
                     </Col>
                   </Row>
@@ -73,6 +105,7 @@ const AddEvent = () => {
                           id="exampleFormControlInput1"
                           placeholder="Enter Organization Name"
                           type="text"
+                          name="org_name"
                         />
                       </FormGroup>
                     </Col>
@@ -103,6 +136,7 @@ const AddEvent = () => {
                           id="exampleFormControlInput1"
                           placeholder="Enter Time of the Event"
                           type="text"
+                          name="event_time"
                         />
                       </FormGroup>
                     </Col>
@@ -115,6 +149,7 @@ const AddEvent = () => {
                           id="exampleFormControlInput1"
                           placeholder="Enter Location"
                           type="text"
+                          name="location"
                         />
                       </FormGroup>
                     </Col>
@@ -125,6 +160,7 @@ const AddEvent = () => {
                           id="exampleFormControlInput1"
                           placeholder="Number of Days"
                           type="number"
+                          name="days_occurs"
                         />
                       </FormGroup>
                     </Col>
@@ -137,6 +173,7 @@ const AddEvent = () => {
                           id="exampleFormControlInput1"
                           placeholder="Enter Location"
                           type="select"
+                          name="event_type"
                         >
                           <option>Choose...</option>
                           <option>Indoor</option>
@@ -283,7 +320,8 @@ const AddEvent = () => {
                       </div>
                     </Col>
                   </Row>
-                  <h2 className="mt-5 mb-4">Contact Information</h2>
+                  <hr className="my-4" />
+                  <h2 className="mt-4 mb-4">Contact Information</h2>
                   <Row>
                     <Col md="6">
                       <FormGroup>
@@ -292,6 +330,7 @@ const AddEvent = () => {
                           id="exampleFormControlInput1"
                           placeholder="Enter Location"
                           type="text"
+                          name="organizer_name"
                         />
                       </FormGroup>
                     </Col>
@@ -302,6 +341,7 @@ const AddEvent = () => {
                           id="exampleFormControlInput1"
                           placeholder="Number of Days"
                           type="number"
+                          name="cus_id"
                         />
                       </FormGroup>
                     </Col>
@@ -314,6 +354,7 @@ const AddEvent = () => {
                           id="exampleFormControlInput1"
                           placeholder="Enter Location"
                           type="text"
+                          name="cus_email"
                         />
                       </FormGroup>
                     </Col>
@@ -324,6 +365,7 @@ const AddEvent = () => {
                           id="exampleFormControlInput1"
                           placeholder="Number of Days"
                           type="number"
+                          name="cus_con_number"
                         />
                       </FormGroup>
                     </Col>
@@ -337,12 +379,18 @@ const AddEvent = () => {
                           placeholder="Description..."
                           rows="3"
                           type="textarea"
+                          name="description"
                         />
                       </FormGroup>
                     </Col>
                   </Row>
                   <div className="text-center">
-                    <Button className="mt-4" color="primary" type="button">
+                    <Button
+                      className="mt-4"
+                      color="primary"
+                      id="POST"
+                      type="submit"
+                    >
                       Publish Event
                     </Button>
                   </div>
