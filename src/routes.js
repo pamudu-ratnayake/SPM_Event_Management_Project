@@ -7,6 +7,7 @@ import Login from "views/examples/Login.js";
 import Tables from "views/examples/Tables.js";
 import Icons from "views/examples/Icons.js";
 import Testing from "views/examples/Testing";
+import ServiceProviderProfile from 'views/service-provider/ServiceProviderProfile';
 
 var routes = [
   {
@@ -42,6 +43,13 @@ var routes = [
     name: "User Profile",
     icon: "ni ni-single-02 text-yellow",
     component: Profile,
+    layout: "/admin",
+  },
+  {
+    path: "/service-provider-profile",
+    name: "Service Provider Profile",
+    icon: "ni ni-single-02 text-yellow",
+    component: ServiceProviderProfile,
     layout: "/admin",
   },
   {
