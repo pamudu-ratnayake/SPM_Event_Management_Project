@@ -6,6 +6,7 @@ import Login from "views/examples/Login.js";
 import Tables from "views/examples/Tables.js";
 import Icons from "views/examples/Icons.js";
 import AddEvent from "views/examples/AddEvent.js";
+import EventDisplay from "views/examples/EventDisplay.js";
 
 var routes = [
   {
@@ -34,6 +35,13 @@ var routes = [
     name: "Publish An Event",
     icon: "ni ni-notification-70 text-orange",
     component: AddEvent,
+    layout: "/admin",
+  },
+  {
+    path: "/event-display",
+    name: "Display Event",
+    icon: "ni ni-notification-70 text-orange",
+    component: EventDisplay,
     layout: "/admin",
   },
   {

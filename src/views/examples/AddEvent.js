@@ -40,7 +40,7 @@ const AddEvent = () => {
                       onClick={(e) => e.preventDefault()}
                       size="sm"
                     >
-                      Settings
+                      Service Providers
                     </Button>
                   </Col>
                 </Row>
