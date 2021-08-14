@@ -15,12 +15,25 @@ import {
   InputGroup,
 } from "reactstrap";
 // core components
-import UserHeader from "components/Headers/UserHeader.js";
-
+import UserHeaderAdvertisement from "components/Headers/UserHeaderAdvertisement";
+import { Formik, useFormik } from "formik";
 const AdvertisementInformation = () => {
+  const initialValues = {
+    enableReinitialize: true,
+    validateOnMount: true,
+    service_Provider_Name: '',
+    service_Provider_ID: '',
+    contact_Number_SP: '',
+    email_SP: '',
+    advertisement_Duration: '',
+    advertisement_Des:"",
+  };
+  const formik = useFormik ({
+    initialValues,
+  });
   return (
     <>
-      <UserHeader />
+      <UserHeaderAdvertisement />
       {/* Page content */}
       <Container className="mt--7">
         <Row>
@@ -36,13 +49,14 @@ const AdvertisementInformation = () => {
                 </Row>
               </CardHeader>
               <CardBody>
-                <Form>
+                <Form onSubmit = {Formik.handleSubmit}>
                   <Row>
                     <Col md="12">
                       <FormGroup>
                         <label>Service Provider Name : </label>
-                        <Input
+                        <Input onChange = {formik.handleChange} onBlur = {formik.handleBlur} value = {formik.values.service_Provider_Name} 
                           id="Service_Provider_Name "
+                          name='service_Provider_Name'
                           placeholder="Enter Your Name"
                           type="text"
                         />
@@ -51,8 +65,9 @@ const AdvertisementInformation = () => {
                     <Col md="6">
                       <FormGroup>
                         <label>Service Provider ID : </label>
-                        <Input
+                        <Input onChange = {formik.handleChange} onBlur = {formik.handleBlur} value = {formik.values.service_Provider_ID}
                           id="Service_Provider_ID"
+                          name="service_Provider_ID"
                           disabled
                           placeholder="Enter your ID"
                           type="text"
@@ -62,8 +77,9 @@ const AdvertisementInformation = () => {
                     <Col md="6">
                       <FormGroup>
                         <label>Contact Number : </label>
-                        <Input
+                        <Input onChange = {formik.handleChange} onBlur = {formik.handleBlur} value = {formik.values.contact_Number_SP}
                           id="Contact_Number_SP"
+                          name="contact_Number_SP"
                           placeholder="Enter Contact Number"
                           type="text"
                         />
@@ -74,8 +90,9 @@ const AdvertisementInformation = () => {
                     <Col md="12">
                       <FormGroup>
                         <label>Customer Email : </label>
-                        <Input
+                        <Input onChange = {formik.handleChange} onBlur = {formik.handleBlur} value = {formik.email_SP}
                           id="Email_SP"
+                          name="email_SP"
                           placeholder="Enter Email"
                           type="text"
                         />
@@ -86,7 +103,10 @@ const AdvertisementInformation = () => {
                     <Col md="6">
                       <FormGroup>
                         <label>Service Type : </label>
-                        <Input id="Service_Type" type="select">
+                        <Input onChange = {formik.handleChange} onBlur = {formik.handleBlur} value = {formik.service_Type}
+                        id="Service_Type" 
+                        name ="service_Type" 
+                        type="select">
                           <option>Choose...</option>
                           <option>Photographer</option>
                           <option>Decorater</option>
@@ -100,7 +120,10 @@ const AdvertisementInformation = () => {
                     <Col md="6">
                       <FormGroup>
                         <label>Advertisement Available Duration :</label>
-                        <Input id="Advertisement_Duration" type="select">
+                        <Input onChange = {formik.handleChange} onBlur = {formik.handleBlur} value = {formik.advertisement_Duration}
+                        id="Advertisement_Duration" 
+                        name="advertisement_Duration" 
+                        type="select">
                           <option>Choose...</option>
                           <option>1 Day</option>
                           <option>3 Day</option>
@@ -118,8 +141,9 @@ const AdvertisementInformation = () => {
                   <Row>
                     <Col md="12">
                       <label>Advertisement Description :</label>
-                      <Input
+                      <Input onChange = {formik.handleChange} onBlur = {formik.handleBlur} value = {formik.advertisement_Des}
                         id="Advertisement_Des"
+                        name="advertisement_Des"
                         placeholder="Enter your Advertisement Description here ...................."
                         rows="6"
                         type="textarea"
@@ -132,6 +156,7 @@ const AdvertisementInformation = () => {
                       <label>Upload Advertisement Picture :</label>
                       <Input
                         id="Advertisement_Pic"
+                        name="Advertisement_Pic"
                         placeholder="Enter your Advertisement Picture here ..................."
                         rows="6"
                         type="textarea"
@@ -148,8 +173,8 @@ const AdvertisementInformation = () => {
                       <div className="custom-control custom-radio mb-3 ml-5">
                         <input
                           className="custom-control-input"
-                          id="customRadio5"
-                          name="custom-radio-2"
+                          id="cardtype"
+                          name="cardtype"
                           type="radio"
                         />
                         <label
@@ -164,8 +189,8 @@ const AdvertisementInformation = () => {
                         <input
                           className="custom-control-input"
                           defaultChecked
-                          id="customRadio6"
-                          name="custom-radio-2"
+                          id="onlinetransfering"
+                          name="onlinetransfering"
                           type="radio"
                         />
                         <label
@@ -177,7 +202,6 @@ const AdvertisementInformation = () => {
                       </div>
                     </Col>
                   </Row>
-
                   <br></br>
                   <br></br>
                   <Row>

@@ -18,7 +18,7 @@ const UserHeaderAdvertisement = () => {
         }}
       >
         {/* Mask */}
-        <span className="mask bg-gradient-default opacity-10" />
+        <span className="mask bg-gradient-default opacity-6" />
         {/* Header container */}
         <Container className="d-flex align-items-center" fluid>
           <Row>

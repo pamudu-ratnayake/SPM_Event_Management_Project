@@ -1,4 +1,3 @@
-
 import Index from "views/Index.js";
 import Profile from "views/examples/Profile.js";
 import Maps from "views/examples/Maps.js";
@@ -7,6 +6,9 @@ import Login from "views/examples/Login.js";
 import Tables from "views/examples/Tables.js";
 import Icons from "views/examples/Icons.js";
 import Testing from "views/examples/Testing";
+import AdvertisementInformation from "views/examples/AdvertisementInformation";
+import CardPayment from "views/examples/CardPayment";
+import DisplayedRequest from "views/examples/DisplayedRequest";
 
 var routes = [
   {
@@ -37,6 +39,28 @@ var routes = [
     component: Testing,
     layout: "/admin",
   },
+  {
+    path: "/cardpayment",
+    name: "Displayed Request",
+    icon: "ni ni-credit-card text-blue",
+    component: DisplayedRequest,
+    layout: "/admin",
+  },
+  {
+    path: "/displayedrequest",
+    name: "Card Payments",
+    icon: "ni ni-credit-card text-blue",
+    component: CardPayment,
+    layout: "/admin",
+  },
+  {
+    path: "/advertisement",
+    name: "Advertisement Information",
+    icon: "ni ni-tv-2 text-pink",
+    component: AdvertisementInformation,
+    layout: "/admin",
+  },
+
   {
     path: "/user-profile",
     name: "User Profile",
