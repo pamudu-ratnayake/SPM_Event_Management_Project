@@ -20,9 +20,8 @@ import {
 // core components
 import AddEventHeader from "components/Headers/AddEventHeader";
 
-// const AddEvent = (props) => {
-  function AddEvent(props){
-
+const AddEvent = (props) => {
+  // function AddEvent(props) {
   const initialValues = {
     enableReinitialize: true,
     validateOnMount: true,
@@ -42,9 +41,9 @@ import AddEventHeader from "components/Headers/AddEventHeader";
 
   const formik = useFormik({
     initialValues,
-    onSubmit,
+    // onSubmit,
     // validationSchema,
-  })
+  });
 
   return (
     <>
@@ -82,6 +81,9 @@ import AddEventHeader from "components/Headers/AddEventHeader";
                           placeholder="Enter Event Name"
                           type="text"
                           name="event_name"
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          value={formik.values.event_name}
                         />
                       </FormGroup>
                     </Col>
@@ -93,6 +95,8 @@ import AddEventHeader from "components/Headers/AddEventHeader";
                           placeholder="Event ID"
                           type="text"
                           name="event_id"
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
                         />
                       </FormGroup>
                     </Col>
@@ -106,6 +110,9 @@ import AddEventHeader from "components/Headers/AddEventHeader";
                           placeholder="Enter Organization Name"
                           type="text"
                           name="org_name"
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          value={formik.values.org_name}
                         />
                       </FormGroup>
                     </Col>
@@ -137,6 +144,9 @@ import AddEventHeader from "components/Headers/AddEventHeader";
                           placeholder="Enter Time of the Event"
                           type="text"
                           name="event_time"
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          value={formik.values.event_time}
                         />
                       </FormGroup>
                     </Col>
@@ -150,6 +160,9 @@ import AddEventHeader from "components/Headers/AddEventHeader";
                           placeholder="Enter Location"
                           type="text"
                           name="location"
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          value={formik.values.location}
                         />
                       </FormGroup>
                     </Col>
@@ -161,6 +174,9 @@ import AddEventHeader from "components/Headers/AddEventHeader";
                           placeholder="Number of Days"
                           type="number"
                           name="days_occurs"
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          value={formik.values.days_occurs}
                         />
                       </FormGroup>
                     </Col>
@@ -174,6 +190,9 @@ import AddEventHeader from "components/Headers/AddEventHeader";
                           placeholder="Enter Location"
                           type="select"
                           name="event_type"
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          value={formik.values.event_type}
                         >
                           <option>Choose...</option>
                           <option>Indoor</option>
@@ -331,6 +350,9 @@ import AddEventHeader from "components/Headers/AddEventHeader";
                           placeholder="Enter Location"
                           type="text"
                           name="organizer_name"
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          value={formik.values.organizer_name}
                         />
                       </FormGroup>
                     </Col>
@@ -342,6 +364,9 @@ import AddEventHeader from "components/Headers/AddEventHeader";
                           placeholder="Number of Days"
                           type="number"
                           name="cus_id"
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          value={formik.values.cus_id}
                         />
                       </FormGroup>
                     </Col>
@@ -355,6 +380,9 @@ import AddEventHeader from "components/Headers/AddEventHeader";
                           placeholder="Enter Location"
                           type="text"
                           name="cus_email"
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          value={formik.values.cus_email}
                         />
                       </FormGroup>
                     </Col>
@@ -366,6 +394,9 @@ import AddEventHeader from "components/Headers/AddEventHeader";
                           placeholder="Number of Days"
                           type="number"
                           name="cus_con_number"
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          value={formik.values.cus_con_number}
                         />
                       </FormGroup>
                     </Col>
@@ -380,6 +411,9 @@ import AddEventHeader from "components/Headers/AddEventHeader";
                           rows="3"
                           type="textarea"
                           name="description"
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          value={formik.values.description}
                         />
                       </FormGroup>
                     </Col>
