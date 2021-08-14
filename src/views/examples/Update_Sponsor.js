@@ -15,12 +15,12 @@ import {
   InputGroup,
 } from "reactstrap";
 // core components
-import UserHeader from "components/Headers/UserHeader.js";
+import Header from "components/Headers/Header.js";
 
 const Update_Sponsor = () => {
   return (
     <>
-      <UserHeader />
+      <Header />
       {/* Page content */}
       <Container className="mt--7" fluid>
         <Row>
@@ -68,15 +68,28 @@ const Update_Sponsor = () => {
                   <Row>
                     <Col md="12">
                       <FormGroup>
-                        <label>Event Type</label>
+                        <label>Sponsor Type</label>
                         <Input
                           id="exampleFormControlInput1"
                           placeholder="Enter Location"
                           type="select"
                         >
                           <option>Choose...</option>
-                          <option>Indoor</option>
-                          <option>Outdoor</option>
+                          <option>Bank</option>
+                          <option>Institute</option>
+                          <option>Clothing & accessories</option>
+                          <option>Mobile telecommunications</option>
+                          <option>Electronics</option>
+                          <option>Food products</option>
+                          <option>Exploration & production</option>
+                          <option>Health care providers</option>
+                          <option>Hotels</option>
+                          <option>Software</option>
+                          <option>Personal products</option>
+                          <option>Insurance</option>
+                          <option>Engineering</option>
+                          <option>Travel & tourism</option>
+                          <option>Other</option>
                         </Input>
                       </FormGroup>
                     </Col>
