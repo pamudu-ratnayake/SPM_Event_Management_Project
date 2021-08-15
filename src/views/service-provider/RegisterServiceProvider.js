@@ -64,6 +64,9 @@ const RegisterServiceProvider = () => {
 							</Row>
 
 							<FormGroup>
+								<label className="form-control-label" htmlFor="input-email">
+									Email
+								</label>
 								<InputGroup className="input-group-alternative mb-3">
 									<InputGroupAddon addonType="prepend">
 										<InputGroupText>
@@ -116,6 +119,9 @@ const RegisterServiceProvider = () => {
 							</Row>
 
 							<FormGroup>
+								<label className="form-control-label" htmlFor="input-password">
+									Password
+								</label>
 								<InputGroup className="input-group-alternative">
 									<InputGroupAddon addonType="prepend">
 										<InputGroupText>
@@ -131,6 +137,12 @@ const RegisterServiceProvider = () => {
 							</FormGroup>
 
 							<FormGroup>
+								<label
+									className="form-control-label"
+									htmlFor="input-re-password"
+								>
+									Re-Password
+								</label>
 								<InputGroup className="input-group-alternative">
 									<InputGroupAddon addonType="prepend">
 										<InputGroupText>
@@ -138,8 +150,8 @@ const RegisterServiceProvider = () => {
 										</InputGroupText>
 									</InputGroupAddon>
 									<Input
-										placeholder="Password"
-										type="password"
+										placeholder="Re-Password"
+										type="re-password"
 										autoComplete="new-password"
 									/>
 								</InputGroup>
