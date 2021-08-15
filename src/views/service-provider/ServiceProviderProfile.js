@@ -5,6 +5,7 @@ import {
 	Card,
 	CardHeader,
 	CardBody,
+	CardImg,
 	FormGroup,
 	Form,
 	Input,
@@ -18,8 +19,21 @@ import ServiceProviderHeader from "components/Headers/service-provider-header/Se
 const ServiceProviderProfile = () => {
 	useEffect(() => {
 		// Run! Like go get some data from an API.
-		document.getElementById("input-username").disabled = true;
+		disableInputs(); // Disable Inputs
 	}, []);
+
+	function disableInputs() {
+		document.getElementById("input-service-provider").disabled = true;
+		document.getElementById("input-nic-no").disabled = true;
+		document.getElementById("input-username").disabled = true;
+		document.getElementById("input-first-name").disabled = true;
+		document.getElementById("input-last-name").disabled = true;
+		document.getElementById("input-email").disabled = true;
+		document.getElementById("input-telepohone").disabled = true;
+		document.getElementById("input-mobile").disabled = true;
+		document.getElementById("input-address").disabled = true;
+		document.getElementById("btn-save").style.display = "none";
+	}
 
 	return (
 		<>
@@ -122,8 +136,32 @@ const ServiceProviderProfile = () => {
 											href="#pablo"
 											onClick={(e) => {
 												document.getElementById(
+													"input-service-provider"
+												).disabled = false;
+												document.getElementById(
+													"input-nic-no"
+												).disabled = false;
+												document.getElementById(
 													"input-username"
 												).disabled = false;
+												document.getElementById(
+													"input-first-name"
+												).disabled = false;
+												document.getElementById(
+													"input-last-name"
+												).disabled = false;
+												document.getElementById("input-email").disabled = false;
+												document.getElementById(
+													"input-telepohone"
+												).disabled = false;
+												document.getElementById(
+													"input-mobile"
+												).disabled = false;
+												document.getElementById(
+													"input-address"
+												).disabled = false;
+												document.getElementById("btn-save").style.display =
+													"block";
 											}}
 											size="sm"
 										>
@@ -143,14 +181,14 @@ const ServiceProviderProfile = () => {
 												<FormGroup>
 													<label
 														className="form-control-label"
-														htmlFor="serviceProvideId"
+														htmlFor="input-service-provider"
 													>
 														Service Provider ID
 													</label>
 													<Input
 														className="form-control-alternative"
 														defaultValue="SPS00001"
-														id="serviceProvideId"
+														id="input-service-provider"
 														placeholder="SPS00001"
 														type="text"
 													/>
@@ -158,12 +196,15 @@ const ServiceProviderProfile = () => {
 											</Col>
 											<Col lg="6">
 												<FormGroup>
-													<label className="form-control-label" htmlFor="nicNo">
+													<label
+														className="form-control-label"
+														htmlFor="input-nic-no"
+													>
 														NIC NO
 													</label>
 													<Input
 														className="form-control-alternative"
-														id="nicNo"
+														id="input-nic-no"
 														placeholder="jesse@example.com"
 														type="email"
 													/>
@@ -244,7 +285,6 @@ const ServiceProviderProfile = () => {
 										</Row>
 									</div>
 									<hr className="my-4" />
-									{/* Address */}
 									<h6 className="heading-small text-muted mb-4">
 										Contact information
 									</h6>
@@ -278,7 +318,7 @@ const ServiceProviderProfile = () => {
 													<Input
 														className="form-control-alternative"
 														defaultValue="0112699151"
-														id="input-mobil"
+														id="input-mobile"
 														placeholder="0770599151"
 														type="text"
 													/>
@@ -306,24 +346,81 @@ const ServiceProviderProfile = () => {
 											</Col>
 										</Row>
 									</div>
-									<hr className="my-4" />
-									{/* Description */}
-									<h6 className="heading-small text-muted mb-4">About me</h6>
-									<div className="pl-lg-4">
-										<FormGroup>
-											<label>About Me</label>
-											<Input
-												className="form-control-alternative"
-												placeholder="A few words about you ..."
-												rows="4"
-												defaultValue="A beautiful Dashboard for Bootstrap 4. It is Free and
-                          Open Source."
-												type="textarea"
-											/>
-										</FormGroup>
-									</div>
+									<Button
+										id="btn-save"
+										className="float-right"
+										color="success"
+										href="#pablo"
+										onClick={disableInputs}
+									>
+										Save
+									</Button>
 								</Form>
 							</CardBody>
+						</Card>
+					</Col>
+				</Row>
+				<Row className="mt-4">
+					<Col className="w-50">
+						<Card style={{ width: "34rem" }}>
+							{/* <CardBody> */}
+							<div
+								className=""
+								style={{
+									width: "540px",
+									height: "360px",
+									backgroundImage:
+										"url(" +
+										require("../../assets/img/theme/musicEvent.jpg").default +
+										")",
+									backgroundSize: "cover",
+									backgroundPosition: "center top",
+								}}
+							>
+								<div className="float-end m-1">
+									<Button
+										className=""
+										color="transparent"
+										href="#pablo"
+										onClick={(e) => e.preventDefault()}
+										size="sm"
+									>
+										<i class="bx bxs-cog bx-spin fs-6 text-white"></i>
+									</Button>
+								</div>
+							</div>
+							{/* </CardBody> */}
+						</Card>
+					</Col>
+					<Col className="w-50">
+						<Card style={{ width: "34rem" }}>
+							{/* <CardBody> */}
+							<div
+								className=""
+								style={{
+									width: "540px",
+									height: "360px",
+									backgroundImage:
+										"url(" +
+										require("../../assets/img/theme/musicEvent2.jpg").default +
+										")",
+									backgroundSize: "cover",
+									backgroundPosition: "center top",
+								}}
+							>
+								<div className="float-end m-1">
+									<Button
+										className=""
+										color="transparent"
+										href="#pablo"
+										onClick={(e) => e.preventDefault()}
+										size="sm"
+									>
+										<i class="bx bxs-cog bx-spin fs-6 text-white"></i>
+									</Button>
+								</div>
+							</div>
+							{/* </CardBody> */}
 						</Card>
 					</Col>
 				</Row>
