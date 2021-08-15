@@ -9,7 +9,7 @@ import AuthFooter from "components/Footers/AuthFooter.js";
 
 import routes from "routes.js";
 
-const Auth = (props) => {
+const AuthServiceProvider = (props) => {
 	const mainContent = React.useRef(null);
 	const location = useLocation();
 
@@ -27,7 +27,8 @@ const Auth = (props) => {
 
 	const getRoutes = (routes) => {
 		return routes.map((prop, key) => {
-			if (prop.layout === "/auth") {
+			console.log("prop.layout  : " + prop.layout);
+			if (prop.layout === "/authServiceProvider") {
 				return (
 					<Route
 						path={prop.layout + prop.path}
@@ -50,11 +51,8 @@ const Auth = (props) => {
 						<div className="header-body text-center mb-7">
 							<Row className="justify-content-center">
 								<Col lg="5" md="6">
-									<h1 className="text-white">Welcome!</h1>
-									<p className="text-lead text-light">
-										Use these awesome forms to login or create new account in
-										your project for free.
-									</p>
+									<h1 className="text-white">Hi! Are you Service Provider </h1>
+									<p className="text-lead text-light">You can register here</p>
 								</Col>
 							</Row>
 						</div>
@@ -80,7 +78,7 @@ const Auth = (props) => {
 					<Row className="justify-content-center">
 						<Switch>
 							{getRoutes(routes)}
-							<Redirect from="*" to="/auth/login" />
+							{/* <Redirect from="*" to="/auth/login" /> */}
 						</Switch>
 					</Row>
 				</Container>
@@ -90,4 +88,4 @@ const Auth = (props) => {
 	);
 };
 
-export default Auth;
+export default AuthServiceProvider;

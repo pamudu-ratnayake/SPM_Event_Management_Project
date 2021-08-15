@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import EditProfileModal from "./moadals/EditProfileModal";
 import {
 	Button,
@@ -16,6 +16,11 @@ import {
 import ServiceProviderHeader from "components/Headers/service-provider-header/ServiceProviderHeader";
 
 const ServiceProviderProfile = () => {
+	useEffect(() => {
+		// Run! Like go get some data from an API.
+		document.getElementById("input-username").disabled = true;
+	}, []);
+
 	return (
 		<>
 			<ServiceProviderHeader />
@@ -115,7 +120,11 @@ const ServiceProviderProfile = () => {
 										<Button
 											color="primary"
 											href="#pablo"
-											onClick={(e) => e.preventDefault()}
+											onClick={(e) => {
+												document.getElementById(
+													"input-username"
+												).disabled = false;
+											}}
 											size="sm"
 										>
 											Edit
