@@ -129,6 +129,7 @@ const ServiceProviderProfile = () => {
 										<h3 className="mb-0">My account</h3>
 									</Col>
 									<Col className="text-right" xs="4">
+										<Button size="sm">Download PDF</Button>
 										<Button
 											color="primary"
 											href="#pablo"

@@ -67,7 +67,10 @@ function RatingModal() {
 								</div>
 							</div>
 							<div>
-								<h4>*******</h4>
+								<i class="bx bxs-star bx-tada"></i>
+								<i class="bx bxs-star bx-tada"></i>
+								<i class="bx bxs-star bx-tada"></i>
+								<i class="bx bxs-star bx-tada"></i>
 							</div>
 							<div>
 								<h4>You have done realy good job</h4>
