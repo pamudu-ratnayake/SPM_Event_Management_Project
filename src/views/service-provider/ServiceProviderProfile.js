@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
+// Modals
 import EditProfileModal from "./moadals/EditProfileModal";
+import RatingModal from "./moadals/RatingModal";
 import {
 	Button,
 	Card,
 	CardHeader,
 	CardBody,
-	CardImg,
 	FormGroup,
 	Form,
 	Input,
@@ -15,6 +16,7 @@ import {
 } from "reactstrap";
 // core components
 import ServiceProviderHeader from "components/Headers/service-provider-header/ServiceProviderHeader";
+import CommentModal from "./moadals/CommentModal";
 
 const ServiceProviderProfile = () => {
 	useEffect(() => {
@@ -78,18 +80,14 @@ const ServiceProviderProfile = () => {
 								<Row>
 									<div className="col">
 										<div className="card-profile-stats d-flex justify-content-center mt-md-5">
-											<div>
-												<span className="heading">22</span>
-												<span className="description">Rating </span>
-											</div>
+											{/* Rating Modal */}
+											<RatingModal />
 											<div>
 												<span className="heading">10</span>
 												<span className="description">Completed</span>
 											</div>
-											<div>
-												<span className="heading">89</span>
-												<span className="description">Comments</span>
-											</div>
+											{/* Comment Modal */}
+											<CommentModal />
 										</div>
 									</div>
 								</Row>
