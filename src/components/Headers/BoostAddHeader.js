@@ -1,27 +1,31 @@
+
 // reactstrap components
 import { Button, Container, Row, Col } from "reactstrap";
 
-const UserHeaderCardPayment = () => {
+
+const BoostAddHeader = () => {
   return (
     <>
       <div
         className="header pb-8 pt-5 pt-lg-8 d-flex align-items-center"
         style={{
-          minHeight: "600px",
+          minHeight: "200px",
           backgroundImage:
-            "url(" + require("../../assets/img/theme/ok.jpg").default + ")",
+            "url(" +
+            require("../../assets/img/theme/nmm.jpeg").default +
+            ")",
           backgroundSize: "cover",
           backgroundPosition: "center top",
         }}
       >
         {/* Mask */}
-        <span className="mask bg-gradient-default opacity-6" />
+        <span className="mask bg-gradient-default opacity-3" />
         {/* Header container */}
         <Container className="d-flex align-items-center" fluid>
           <Row>
             <Col lg="7" md="10">
-              <h1 className="display-2 text-white">Make Your Payment</h1>
-              <p className="text-white mt-0 mb-5">
+              <h1 className="display-2 text-white">Boost Your Advertisement</h1>
+              <p className="text-white mt-0 mb-3">
                 This is your profile page. You can see the progress you've made
                 with your work and manage your projects or assigned tasks
               </p>
@@ -33,4 +37,4 @@ const UserHeaderCardPayment = () => {
   );
 };
 
-export default UserHeaderCardPayment;
+export default BoostAddHeader;

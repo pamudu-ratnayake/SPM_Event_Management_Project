@@ -9,6 +9,9 @@ import Testing from "views/examples/Testing";
 import AdvertisementInformation from "views/examples/AdvertisementInformation";
 import CardPayment from "views/examples/CardPayment";
 import DisplayedRequest from "views/examples/DisplayedRequest";
+import CardPaymentMethod from "views/examples/CardPaymentMethod";
+import BoostEvent from "views/examples/BoostEvent";
+import BoostAdvertisement from "views/examples/BoostAdvertisement";
 
 var routes = [
   {
@@ -32,13 +35,13 @@ var routes = [
     component: Maps,
     layout: "/admin",
   },
-  {
-    path: "/testing",
-    name: "Test",
-    icon: "ni ni-pin-3 text-orange",
-    component: Testing,
-    layout: "/admin",
-  },
+  // {
+  //   path: "/testing",
+  //   name: "Test",
+  //   icon: "ni ni-pin-3 text-orange",
+  //   component: Testing,
+  //   layout: "/admin",
+  // },
   {
     path: "/cardpayment",
     name: "Displayed Request",
@@ -54,19 +57,39 @@ var routes = [
     layout: "/admin",
   },
   {
+    path: "/boostEvent",
+    name: "Boost Event",
+    icon: "ni ni-credit-card text-blue",
+    component: BoostEvent,
+    layout: "/admin",
+  },
+  {
     path: "/advertisement",
     name: "Advertisement Information",
     icon: "ni ni-tv-2 text-pink",
     component: AdvertisementInformation,
     layout: "/admin",
   },
-
+  {
+    path: "/boostAdd",
+    name: "Boost Advertisement",
+    icon: "ni ni-tv-2 text-pink",
+    component: BoostAdvertisement,
+    layout: "/admin",
+  },
   {
     path: "/user-profile",
     name: "User Profile",
     icon: "ni ni-single-02 text-yellow",
     component: Profile,
     layout: "/admin",
+  },
+  {
+    path: "/payment-method",
+    name: "Card Payment Method",
+    icon: "ni ni-single-02 text-yellow",
+    component: CardPaymentMethod,
+    layout: "/auth",
   },
   {
     path: "/tables",

@@ -20,7 +20,7 @@ import {
 } from "reactstrap";
 import ReactDatetime from "react-datetime";
 // core components
-import UserHeaderCardPayment from "components/Headers/UserHeaderCardPayment";
+import CardPaymentHeader from "components/Headers/CardPaymentHeader";
 
 const CardPayment = () => {
   const [defaultModal, setmodalDemo] = useState(false);
@@ -31,7 +31,7 @@ const CardPayment = () => {
 
   return (
     <>
-      <UserHeaderCardPayment />
+      <CardPaymentHeader />
       {/* Page content */}
       <Container className="mt--7" fluid>
         <Row>

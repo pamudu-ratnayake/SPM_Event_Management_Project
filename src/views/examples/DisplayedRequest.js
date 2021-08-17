@@ -24,12 +24,12 @@ import {
 }  from "reactstrap";
 // import ReactDatetime from "react-datetime";
 // core components
-import UserHeaderCardPayment from "components/Headers/UserHeaderCardPayment";
+import DisplayedRequestHeader from "components/Headers/DisplayedRequestHeader";
 
 const DisplayedRequest = () => {
   return (
     <>
-      <UserHeaderCardPayment />
+      <DisplayedRequestHeader />
       {/* Page content */}
       <Container className="mt--7" fluid>
         <Card>
