@@ -1,25 +1,11 @@
 import ReactDatetime from "react-datetime";
 
 // reactstrap components
-import {
-  Button,
-  Card,
-  CardHeader,
-  CardBody,
-  FormGroup,
-  Form,
-  Input,
-  Container,
-  Row,
-  Col,
-  InputGroupAddon,
-  InputGroupText,
-  InputGroup,
-} from "reactstrap";
+import { Button, Card, CardHeader, CardBody, FormGroup, Form, Input, Container, Row, Col, InputGroupAddon, InputGroupText, InputGroup } from "reactstrap";
 // core components
 import AddEventHeader from "components/Headers/AddEventHeader";
 
-const EventDisplay = () => {
+const EventDisplay = (props) => {
   return (
     <>
       <AddEventHeader />
@@ -34,12 +20,7 @@ const EventDisplay = () => {
                     <h1 className="mb-0">Publish An Event</h1>
                   </Col>
                   <Col className="text-right" xs="4">
-                    <Button
-                      color="primary"
-                      href="#pablo"
-                      onClick={(e) => e.preventDefault()}
-                      size="sm"
-                    >
+                    <Button color="primary" href="#pablo" onClick={(e) => e.preventDefault()} size="sm">
                       Service Providers
                     </Button>
                   </Col>

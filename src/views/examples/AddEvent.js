@@ -1,48 +1,96 @@
 import ReactDatetime from "react-datetime";
 import { useFormik } from "formik";
+import * as Yup from "yup";
+import axios from "axios";
+import { moment } from "moment";
 
 // reactstrap components
-import {
-  Button,
-  Card,
-  CardHeader,
-  CardBody,
-  FormGroup,
-  Form,
-  Input,
-  Container,
-  Row,
-  Col,
-  InputGroupAddon,
-  InputGroupText,
-  InputGroup,
-} from "reactstrap";
+import { Button, Card, CardHeader, CardBody, FormGroup, Form, Input, Container, Row, Col, InputGroupAddon, InputGroupText, InputGroup } from "reactstrap";
 // core components
 import AddEventHeader from "components/Headers/AddEventHeader";
+import { useState, useEffect } from "react";
+
+const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+
+// phoneNumber: Yup.string().matches(phoneRegExp, 'Phone number is not valid')
+
+// const validationSchema = Yup.object({
+//   event_name: Yup.string().required("*Required!"),
+//   org_name: Yup.string().required("*Required!"),
+//   event_time: Yup.string().required("*Required!"),
+//   location: Yup.string().required("*Required!"),
+//   days_occurs: Yup.number().required("*Required!").max(20, "Limit exceed").min(0, "Invalid number"),
+//   event_type: Yup.string().required("*Required!"),
+//   organizer_name: Yup.string().required("*Required!"),
+//   cus_id: Yup.string().required("*Required!"),
+//   cus_email: Yup.string().email("*Invalid email!").required("*Required!"),
+//   cus_con_number: Yup.string().matches(phoneRegExp, "Phone number is not valid").required("*Required!").min(10, "Too short").max(10, "Too long"),
+//   description: Yup.string().required("*Required!"),
+// });
 
 const AddEvent = (props) => {
   // function AddEvent(props) {
+
+  // let date = '';
+  // const [event_date, setDate] = useState(date);
+
+  // const makeDate = () => {
+  //   date = values.date_event.format('DD-MM-YYYY');
+  //   setDate(date);
+  // }
+
+  // useEffect(() => {
+  //   makeDate();
+  // },[]);
+
   const initialValues = {
     enableReinitialize: true,
     validateOnMount: true,
     event_name: "",
-    event_id: "",
     org_name: "",
     event_time: "",
+    date_of_the_event: "",
     location: "",
     days_occurs: "",
     event_type: "",
     organizer_name: "",
-    cus_id: "",
+    org_nic: "",
     cus_email: "",
     cus_con_number: "",
     description: "",
   };
+  const validationSchema = Yup.object({
+    event_name: Yup.string().required("*Required!"),
+    org_name: Yup.string().required("*Required!"),
+    event_time: Yup.string().required("*Required!"),
+    location: Yup.string().required("*Required!"),
+    days_occurs: Yup.number().required("*Required!").max(20, "Limit exceed").min(0, "Invalid number"),
+    event_type: Yup.string().required("*Required!"),
+    organizer_name: Yup.string().required("*Required!"),
+    org_nic: Yup.string().required("*Required!"),
+    cus_email: Yup.string().email("*Invalid email!").required("*Required!"),
+    cus_con_number: Yup.string().matches(phoneRegExp, "Phone number is not valid").required("*Required!").min(10, "Too short").max(10, "Too long"),
+    description: Yup.string().required("*Required!"),
+  });
+
+  const onSubmit = (values) => {
+    console.log("Form Date", values);
+    //  values.date_of_the_event = event_date; //watch
+    axios
+      .post("http://localhost:8080/eventAdd/addevent", values)
+      .then((res) => {
+        console.log(res);
+        console.log("Data", values);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   const formik = useFormik({
     initialValues,
-    // onSubmit,
-    // validationSchema,
+    onSubmit,
+    validationSchema,
   });
 
   return (
@@ -59,12 +107,7 @@ const AddEvent = (props) => {
                     <h1 className="mb-0">Publish An Event</h1>
                   </Col>
                   <Col className="text-right" xs="4">
-                    <Button
-                      color="primary"
-                      href="#pablo"
-                      onClick={(e) => e.preventDefault()}
-                      size="sm"
-                    >
+                    <Button color="primary" href="#pablo" onClick={(e) => e.preventDefault()} size="sm">
                       Service Providers
                     </Button>
                   </Col>
@@ -85,103 +128,10 @@ const AddEvent = (props) => {
                           onBlur={formik.handleBlur}
                           value={formik.values.event_name}
                         />
+                        {formik.touched.event_name && formik.errors.event_name ? <div style={{ color: "red" }}>{formik.errors.event_name}</div> : null}
                       </FormGroup>
                     </Col>
-                    <Col md="6">
-                      <FormGroup>
-                        <label>Event ID</label>
-                        <Input
-                          disabled
-                          placeholder="Event ID"
-                          type="text"
-                          name="event_id"
-                          onChange={formik.handleChange}
-                          onBlur={formik.handleBlur}
-                        />
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col md="12">
-                      <FormGroup>
-                        <label>Organization Name</label>
-                        <Input
-                          id="exampleFormControlInput1"
-                          placeholder="Enter Organization Name"
-                          type="text"
-                          name="org_name"
-                          onChange={formik.handleChange}
-                          onBlur={formik.handleBlur}
-                          value={formik.values.org_name}
-                        />
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col md="6">
-                      <FormGroup>
-                        <label>Date of The Event</label>
-                        <InputGroup className="input-group-alternative">
-                          <InputGroupAddon addonType="prepend">
-                            <InputGroupText>
-                              <i className="ni ni-calendar-grid-58" />
-                            </InputGroupText>
-                          </InputGroupAddon>
-                          <ReactDatetime
-                            inputProps={{
-                              placeholder: "Select the Date",
-                            }}
-                            timeFormat={false}
-                          />
-                        </InputGroup>
-                      </FormGroup>
-                    </Col>
-                    <Col md="6">
-                      <FormGroup>
-                        <label>Event Time</label>
-                        <Input
-                          id="exampleFormControlInput1"
-                          placeholder="Enter Time of the Event"
-                          type="text"
-                          name="event_time"
-                          onChange={formik.handleChange}
-                          onBlur={formik.handleBlur}
-                          value={formik.values.event_time}
-                        />
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col md="6">
-                      <FormGroup>
-                        <label>Location</label>
-                        <Input
-                          id="exampleFormControlInput1"
-                          placeholder="Enter Location"
-                          type="text"
-                          name="location"
-                          onChange={formik.handleChange}
-                          onBlur={formik.handleBlur}
-                          value={formik.values.location}
-                        />
-                      </FormGroup>
-                    </Col>
-                    <Col md="6">
-                      <FormGroup>
-                        <label>Days Event Occurs</label>
-                        <Input
-                          id="exampleFormControlInput1"
-                          placeholder="Number of Days"
-                          type="number"
-                          name="days_occurs"
-                          onChange={formik.handleChange}
-                          onBlur={formik.handleBlur}
-                          value={formik.values.days_occurs}
-                        />
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                  <Row>
+
                     <Col md="6">
                       <FormGroup>
                         <label>Event Type</label>
@@ -198,6 +148,119 @@ const AddEvent = (props) => {
                           <option>Indoor</option>
                           <option>Outdoor</option>
                         </Input>
+                        {formik.touched.event_type && formik.errors.event_type ? <div style={{ color: "red" }}>{formik.errors.event_type}</div> : null}
+                      </FormGroup>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col md="12">
+                      <FormGroup>
+                        <label>Organization Name</label>
+                        <Input
+                          id="exampleFormControlInput1"
+                          placeholder="Enter Organization Name"
+                          type="text"
+                          name="org_name"
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          value={formik.values.org_name}
+                        />
+                        {formik.touched.org_name && formik.errors.org_name ? <div style={{ color: "red" }}>{formik.errors.org_name}</div> : null}
+                      </FormGroup>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col md="6">
+                      <FormGroup>
+                        <label>Date of The Event</label>
+                        <InputGroup className="input-group-alternative">
+                          <InputGroupAddon addonType="prepend">
+                            <InputGroupText>
+                              <i className="ni ni-calendar-grid-58" />
+                            </InputGroupText>
+                          </InputGroupAddon>
+                          {/* <ReactDatetime
+                            inputProps={{
+                              placeholder: "Select the Date",
+                            }}
+                            timeFormat={false}
+                            name="date_of_the_event"
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.date_of_the_event}
+                          /> */}
+                          <ReactDatetime
+                            inputProps={{
+                              placeholder: "Select the Date",
+                              // name: "date_of_the_event",
+                            }}
+                            timeFormat={false}
+                            onChange={(value) =>
+                              formik.handleChange({
+                                target: {
+                                  name: "date_of_the_event",
+                                  value,
+                                },
+                              })
+                            }
+                            onBlur={formik.handleBlur}
+                            value={formik.values.date_of_the_event}
+                          />
+                          {/* <Input onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.date_of_the_event} /> */}
+                        </InputGroup>
+                        {/* {formik.touched.event_name &&
+                        formik.errors.event_name ? (
+                          <div style={{ color: "red" }}>
+                            {formik.errors.event_name}
+                          </div>
+                        ) : null} */}
+                      </FormGroup>
+                    </Col>
+                    <Col md="6">
+                      <FormGroup>
+                        <label>Event Time</label>
+                        <Input
+                          id="exampleFormControlInput1"
+                          placeholder="Enter Time of the Event"
+                          type="text"
+                          name="event_time"
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          value={formik.values.event_time}
+                        />
+                        {formik.touched.event_time && formik.errors.event_time ? <div style={{ color: "red" }}>{formik.errors.event_time}</div> : null}
+                      </FormGroup>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col md="6">
+                      <FormGroup>
+                        <label>Location</label>
+                        <Input
+                          id="exampleFormControlInput1"
+                          placeholder="Enter Location"
+                          type="text"
+                          name="location"
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          value={formik.values.location}
+                        />
+                        {formik.touched.location && formik.errors.location ? <div style={{ color: "red" }}>{formik.errors.location}</div> : null}
+                      </FormGroup>
+                    </Col>
+                    <Col md="6">
+                      <FormGroup>
+                        <label>Days Event Occurs</label>
+                        <Input
+                          id="exampleFormControlInput1"
+                          placeholder="Number of Days"
+                          type="number"
+                          name="days_occurs"
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          value={formik.values.days_occurs}
+                        />
+                        {formik.touched.days_occurs && formik.errors.days_occurs ? <div style={{ color: "red" }}>{formik.errors.days_occurs}</div> : null}
                       </FormGroup>
                     </Col>
                   </Row>
@@ -205,135 +268,72 @@ const AddEvent = (props) => {
                   <Row>
                     <Col md="2">
                       <div className="custom-control custom-checkbox mb-3">
-                        <input
-                          className="custom-control-input"
-                          id="customCheck1"
-                          type="checkbox"
-                        />
-                        <label
-                          className="custom-control-label"
-                          htmlFor="customCheck1"
-                        >
+                        <input className="custom-control-input" id="customCheck1" type="checkbox" />
+                        <label className="custom-control-label" htmlFor="customCheck1">
                           Photography
                         </label>
                       </div>
                     </Col>
                     <Col md="2">
                       <div className="custom-control custom-checkbox mb-3">
-                        <input
-                          className="custom-control-input"
-                          id="customCheck2"
-                          type="checkbox"
-                        />
-                        <label
-                          className="custom-control-label"
-                          htmlFor="customCheck2"
-                        >
+                        <input className="custom-control-input" id="customCheck2" type="checkbox" />
+                        <label className="custom-control-label" htmlFor="customCheck2">
                           Sound Provider
                         </label>
                       </div>
                     </Col>
                     <Col md="2">
                       <div className="custom-control custom-checkbox mb-3">
-                        <input
-                          className="custom-control-input"
-                          id="customCheck3"
-                          type="checkbox"
-                        />
-                        <label
-                          className="custom-control-label"
-                          htmlFor="customCheck3"
-                        >
+                        <input className="custom-control-input" id="customCheck3" type="checkbox" />
+                        <label className="custom-control-label" htmlFor="customCheck3">
                           Florist
                         </label>
                       </div>
                     </Col>
                     <Col md="2">
                       <div className="custom-control custom-checkbox mb-3">
-                        <input
-                          className="custom-control-input"
-                          id="customCheck4"
-                          type="checkbox"
-                        />
-                        <label
-                          className="custom-control-label"
-                          htmlFor="customCheck4"
-                        >
+                        <input className="custom-control-input" id="customCheck4" type="checkbox" />
+                        <label className="custom-control-label" htmlFor="customCheck4">
                           Catering
                         </label>
                       </div>
                     </Col>
                     <Col md="2">
                       <div className="custom-control custom-checkbox mb-3">
-                        <input
-                          className="custom-control-input"
-                          id="customCheck5"
-                          type="checkbox"
-                        />
-                        <label
-                          className="custom-control-label"
-                          htmlFor="customCheck5"
-                        >
+                        <input className="custom-control-input" id="customCheck5" type="checkbox" />
+                        <label className="custom-control-label" htmlFor="customCheck5">
                           Cake Designer
                         </label>
                       </div>
                     </Col>
                     <Col md="2">
                       <div className="custom-control custom-checkbox mb-3">
-                        <input
-                          className="custom-control-input"
-                          id="customCheck6"
-                          type="checkbox"
-                        />
-                        <label
-                          className="custom-control-label"
-                          htmlFor="customCheck6"
-                        >
+                        <input className="custom-control-input" id="customCheck6" type="checkbox" />
+                        <label className="custom-control-label" htmlFor="customCheck6">
                           Costume Designer
                         </label>
                       </div>
                     </Col>
                     <Col md="2">
                       <div className="custom-control custom-checkbox mb-3">
-                        <input
-                          className="custom-control-input"
-                          id="customCheck7"
-                          type="checkbox"
-                        />
-                        <label
-                          className="custom-control-label"
-                          htmlFor="customCheck7"
-                        >
+                        <input className="custom-control-input" id="customCheck7" type="checkbox" />
+                        <label className="custom-control-label" htmlFor="customCheck7">
                           Event Planner
                         </label>
                       </div>
                     </Col>
                     <Col md="2">
                       <div className="custom-control custom-checkbox mb-3">
-                        <input
-                          className="custom-control-input"
-                          id="customCheck8"
-                          type="checkbox"
-                        />
-                        <label
-                          className="custom-control-label"
-                          htmlFor="customCheck8"
-                        >
+                        <input className="custom-control-input" id="customCheck8" type="checkbox" />
+                        <label className="custom-control-label" htmlFor="customCheck8">
                           Decorators
                         </label>
                       </div>
                     </Col>
                     <Col md="2">
                       <div className="custom-control custom-checkbox mb-3">
-                        <input
-                          className="custom-control-input"
-                          id="customCheck9"
-                          type="checkbox"
-                        />
-                        <label
-                          className="custom-control-label"
-                          htmlFor="customCheck9"
-                        >
+                        <input className="custom-control-input" id="customCheck9" type="checkbox" />
+                        <label className="custom-control-label" htmlFor="customCheck9">
                           Unchecked
                         </label>
                       </div>
@@ -354,20 +354,22 @@ const AddEvent = (props) => {
                           onBlur={formik.handleBlur}
                           value={formik.values.organizer_name}
                         />
+                        {formik.touched.organizer_name && formik.errors.organizer_name ? <div style={{ color: "red" }}>{formik.errors.organizer_name}</div> : null}
                       </FormGroup>
                     </Col>
                     <Col md="6">
                       <FormGroup>
-                        <label>Customer ID</label>
+                        <label>Oraganizer NIC</label>
                         <Input
                           id="exampleFormControlInput1"
-                          placeholder="Number of Days"
-                          type="number"
-                          name="cus_id"
+                          placeholder="NIC Number"
+                          type="text"
+                          name="org_nic"
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
-                          value={formik.values.cus_id}
+                          value={formik.values.org_nic}
                         />
+                        {formik.touched.org_nic && formik.errors.org_nic ? <div style={{ color: "red" }}>{formik.errors.org_nic}</div> : null}
                       </FormGroup>
                     </Col>
                   </Row>
@@ -384,6 +386,7 @@ const AddEvent = (props) => {
                           onBlur={formik.handleBlur}
                           value={formik.values.cus_email}
                         />
+                        {formik.touched.cus_email && formik.errors.cus_email ? <div style={{ color: "red" }}>{formik.errors.cus_email}</div> : null}
                       </FormGroup>
                     </Col>
                     <Col md="6">
@@ -392,12 +395,13 @@ const AddEvent = (props) => {
                         <Input
                           id="exampleFormControlInput1"
                           placeholder="Number of Days"
-                          type="number"
+                          type="text"
                           name="cus_con_number"
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
                           value={formik.values.cus_con_number}
                         />
+                        {formik.touched.cus_con_number && formik.errors.cus_con_number ? <div style={{ color: "red" }}>{formik.errors.cus_con_number}</div> : null}
                       </FormGroup>
                     </Col>
                   </Row>
@@ -419,12 +423,7 @@ const AddEvent = (props) => {
                     </Col>
                   </Row>
                   <div className="text-center">
-                    <Button
-                      className="mt-4"
-                      color="primary"
-                      id="POST"
-                      type="submit"
-                    >
+                    <Button className="mt-4" color="primary" type="submit">
                       Publish Event
                     </Button>
                   </div>

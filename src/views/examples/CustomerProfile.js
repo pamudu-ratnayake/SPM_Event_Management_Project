@@ -1,20 +1,34 @@
+import { useFormik } from "formik";
+import React, { useState } from "react";
 // reactstrap components
-import {
-  Button,
-  Card,
-  CardHeader,
-  CardBody,
-  FormGroup,
-  Form,
-  Input,
-  Container,
-  Row,
-  Col,
-} from "reactstrap";
+import { Button, Card, CardHeader, CardBody, FormGroup, Form, Input, Container, Row, Col, Modal } from "reactstrap";
 // core components
 import CustomerProfileHeader from "components/Headers/CustomerProfileHeader.js";
 
 const CustomerProfile = () => {
+  const initialValues = {
+    enableReinitialize: true,
+    validateOnMount: true,
+    user_name: "",
+    user_id: "",
+    f_name: "",
+    l_name: "",
+    user_email: "",
+    user_conNumber: "",
+    user_address: "",
+    user_des: "",
+  };
+
+  const formik = useFormik({
+    initialValues,
+  });
+
+  const [defaultModal, setmodalDemo] = useState(false);
+
+  function toggleModal() {
+    setmodalDemo(!defaultModal);
+  }
+
   return (
     <>
       <CustomerProfileHeader />
@@ -27,14 +41,7 @@ const CustomerProfile = () => {
                 <Col className="order-lg-2" lg="3">
                   <div className="card-profile-image">
                     <a href="#pablo" onClick={(e) => e.preventDefault()}>
-                      <img
-                        alt="..."
-                        className="rounded-circle"
-                        src={
-                          require("../../assets/img/theme/team-4-800x800.jpg")
-                            .default
-                        }
-                      />
+                      <img alt="..." className="rounded-circle" src={require("../../assets/img/theme/team-4-800x800.jpg").default} />
                     </a>
                   </div>
                 </Col>
@@ -59,14 +66,7 @@ const CustomerProfile = () => {
                     University of Computer Science
                   </div>
                   <hr className="my-4" />
-                  <p>
-                    Ryan — the name taken by Melbourne-raised, Brooklyn-based
-                    Nick Murphy — writes, performs and records all of his own
-                    music.
-                  </p>
-                  <a href="#pablo" onClick={(e) => e.preventDefault()}>
-                    Show more
-                  </a>
+                  <p>Ryan — the name taken by Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs and records all of his own music.</p>
                 </div>
               </CardBody>
             </Card>
@@ -79,30 +79,45 @@ const CustomerProfile = () => {
                     <h3 className="mb-0">My account</h3>
                   </Col>
                   <Col className="text-right" xs="4">
-                    <Button
-                      color="primary"
-                      href="#pablo"
-                      onClick={(e) => e.preventDefault()}
-                      size="sm"
-                    >
-                      Settings
+                    <Button color="primary" href="#pablo" size="sm" type="button" onClick={() => toggleModal("defaultModal")}>
+                      Edit Profile
                     </Button>
+                    <Modal className="modal-dialog-centered" isOpen={defaultModal} toggle={() => toggleModal("defaultModal")}>
+                      <div className="modal-header">
+                        <h6 className="modal-title" id="modal-title-default">
+                          Type your modal title
+                        </h6>
+                        <button aria-label="Close" className="close" data-dismiss="modal" type="button" onClick={() => toggleModal("defaultModal")}>
+                          <span aria-hidden={true}>×</span>
+                        </button>
+                      </div>
+                      <div className="modal-body">
+                        <p>Are you sure?</p>
+                      </div>
+                      <div className="modal-footer">
+                        <Button color="primary" type="button">
+                          Save changes
+                        </Button>
+                        <Button className="ml-auto" color="link" data-dismiss="modal" type="button" onClick={() => toggleModal("defaultModal")}>
+                          Close
+                        </Button>
+                      </div>
+                    </Modal>
+
+                    {/* <Button color="primary" href="#pablo" onClick={(e) => e.preventDefault()} size="sm">
+                      Edit Profile
+                    </Button> */}
                   </Col>
                 </Row>
               </CardHeader>
               <CardBody>
-                <Form>
-                  <h6 className="heading-small text-muted mb-4">
-                    User information
-                  </h6>
+                <Form onSubmit={formik.handleSubmit}>
+                  <h6 className="heading-small text-muted mb-4">User information</h6>
                   <div className="pl-lg-4">
                     <Row>
                       <Col lg="6">
                         <FormGroup>
-                          <label
-                            className="form-control-label"
-                            htmlFor="customername"
-                          >
+                          <label className="form-control-label" htmlFor="customername">
                             Username
                           </label>
                           <Input
@@ -111,15 +126,16 @@ const CustomerProfile = () => {
                             id="customername"
                             placeholder="Username"
                             type="text"
+                            name="user_name"
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.user_name}
                           />
                         </FormGroup>
                       </Col>
                       <Col lg="6">
                         <FormGroup>
-                          <label
-                            className="form-control-label"
-                            htmlFor="customerId"
-                          >
+                          <label className="form-control-label" htmlFor="customerId">
                             User ID
                           </label>
                           <Input
@@ -127,6 +143,10 @@ const CustomerProfile = () => {
                             id="customerId"
                             placeholder="jesse@example.com"
                             type="text"
+                            name="user_id"
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.user_id}
                           />
                         </FormGroup>
                       </Col>
@@ -134,10 +154,7 @@ const CustomerProfile = () => {
                     <Row>
                       <Col lg="6">
                         <FormGroup>
-                          <label
-                            className="form-control-label"
-                            htmlFor="customerFirstName"
-                          >
+                          <label className="form-control-label" htmlFor="customerFirstName">
                             First Name
                           </label>
                           <Input
@@ -146,15 +163,16 @@ const CustomerProfile = () => {
                             id="customerFirstName"
                             placeholder="First Name"
                             type="text"
+                            name="f_name"
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.f_name}
                           />
                         </FormGroup>
                       </Col>
                       <Col lg="6">
                         <FormGroup>
-                          <label
-                            className="form-control-label"
-                            htmlFor="customerLastName"
-                          >
+                          <label className="form-control-label" htmlFor="customerLastName">
                             Last Name
                           </label>
                           <Input
@@ -163,6 +181,10 @@ const CustomerProfile = () => {
                             id="customerLastName"
                             placeholder="Last Name"
                             type="text"
+                            name="l_name"
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.l_name}
                           />
                         </FormGroup>
                       </Col>
@@ -170,10 +192,7 @@ const CustomerProfile = () => {
                     <Row>
                       <Col lg="6">
                         <FormGroup>
-                          <label
-                            className="form-control-label"
-                            htmlFor="customerFirstName"
-                          >
+                          <label className="form-control-label" htmlFor="customerFirstName">
                             Email
                           </label>
                           <Input
@@ -182,15 +201,16 @@ const CustomerProfile = () => {
                             id="customerFirstName"
                             placeholder="First Name"
                             type="text"
+                            name="user_email"
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.user_email}
                           />
                         </FormGroup>
                       </Col>
                       <Col lg="6">
                         <FormGroup>
-                          <label
-                            className="form-control-label"
-                            htmlFor="customerLastName"
-                          >
+                          <label className="form-control-label" htmlFor="customerLastName">
                             Contact Number
                           </label>
                           <Input
@@ -199,43 +219,46 @@ const CustomerProfile = () => {
                             id="customerLastName"
                             placeholder="Last Name"
                             type="text"
+                            name="user_conNumber"
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.user_conNumber}
                           />
                         </FormGroup>
                       </Col>
                     </Row>
-                    <label
-                      className="form-control-label"
-                      htmlFor="customerLastName"
-                    >
+                    <Row>
+                      <Col md="6">
+                        <FormGroup>
+                          <label className="form-control-label" htmlFor="input-address">
+                            NIC Number
+                          </label>
+                          <Input
+                            className="form-control-alternative"
+                            id="input-address"
+                            placeholder="NIC Number"
+                            type="text"
+                            namw="user_nic"
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.user_nic}
+                          />
+                        </FormGroup>
+                      </Col>
+                    </Row>
+                    <label className="form-control-label" htmlFor="customerLastName">
                       Gender
                     </label>
                     <div className="ml-5">
                       <div className="custom-control custom-radio mb-3">
-                        <input
-                          className="custom-control-input"
-                          id="customRadio5"
-                          name="custom-radio-2"
-                          type="radio"
-                        />
-                        <label
-                          className="custom-control-label"
-                          htmlFor="customRadio5"
-                        >
+                        <input className="custom-control-input" id="customRadio5" name="custom-radio-2" type="radio" />
+                        <label className="custom-control-label" htmlFor="customRadio5">
                           Male
                         </label>
                       </div>
                       <div className="custom-control custom-radio mb-3">
-                        <input
-                          className="custom-control-input"
-                          defaultChecked
-                          id="customRadio6"
-                          name="custom-radio-2"
-                          type="radio"
-                        />
-                        <label
-                          className="custom-control-label"
-                          htmlFor="customRadio6"
-                        >
+                        <input className="custom-control-input" defaultChecked id="customRadio6" name="custom-radio-2" type="radio" />
+                        <label className="custom-control-label" htmlFor="customRadio6">
                           Female
                         </label>
                       </div>
@@ -250,70 +273,19 @@ const CustomerProfile = () => {
                     <Row>
                       <Col md="12">
                         <FormGroup>
-                          <label
-                            className="form-control-label"
-                            htmlFor="input-address"
-                          >
+                          <label className="form-control-label" htmlFor="input-address">
                             Address
                           </label>
                           <Input
                             className="form-control-alternative"
-                            defaultValue="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09"
+                            defaultValue="Bld Mi"
                             id="input-address"
                             placeholder="Home Address"
                             type="text"
-                          />
-                        </FormGroup>
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col lg="4">
-                        <FormGroup>
-                          <label
-                            className="form-control-label"
-                            htmlFor="input-city"
-                          >
-                            City
-                          </label>
-                          <Input
-                            className="form-control-alternative"
-                            defaultValue="New York"
-                            id="input-city"
-                            placeholder="City"
-                            type="text"
-                          />
-                        </FormGroup>
-                      </Col>
-                      <Col lg="4">
-                        <FormGroup>
-                          <label
-                            className="form-control-label"
-                            htmlFor="input-country"
-                          >
-                            Country
-                          </label>
-                          <Input
-                            className="form-control-alternative"
-                            defaultValue="United States"
-                            id="input-country"
-                            placeholder="Country"
-                            type="text"
-                          />
-                        </FormGroup>
-                      </Col>
-                      <Col lg="4">
-                        <FormGroup>
-                          <label
-                            className="form-control-label"
-                            htmlFor="input-country"
-                          >
-                            Postal code
-                          </label>
-                          <Input
-                            className="form-control-alternative"
-                            id="input-postal-code"
-                            placeholder="Postal code"
-                            type="number"
+                            name="user_address"
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.user_address}
                           />
                         </FormGroup>
                       </Col>
@@ -332,6 +304,10 @@ const CustomerProfile = () => {
                         defaultValue="A beautiful Dashboard for Bootstrap 4. It is Free and
                         Open Source."
                         type="textarea"
+                        name="user_des"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={formik.values.user_des}
                       />
                     </FormGroup>
                   </div>
