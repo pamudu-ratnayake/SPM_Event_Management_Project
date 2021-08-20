@@ -36,12 +36,12 @@ const Register = () => {
                   <img
                     alt="..."
                     src={
-                      require("../../assets/img/icons/common/github.svg")
+                      require("../../assets/img/icons/common/facebook2.svg")
                         .default
                     }
                   />
                 </span>
-                <span className="btn-inner--text">Github</span>
+                <span className="btn-inner--text">Facebook</span>
               </Button>
               <Button
                 className="btn-neutral btn-icon"
