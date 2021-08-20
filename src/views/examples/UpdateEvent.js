@@ -30,7 +30,7 @@ const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2
 //   description: Yup.string().required("*Required!"),
 // });
 
-const AddEvent = (props) => {
+const UpdateEvent = (props) => {
   // function AddEvent(props) {
 
   // let date = '';
@@ -45,51 +45,54 @@ const AddEvent = (props) => {
   //   makeDate();
   // },[]);
 
-  const checkboxOptions = [
-    { key: "Option 01", value: "cOption1" },
-    { key: "Option 02", value: "cOption2" },
-    { key: "Option 03", value: "cOption3" },
-  ];
+  // const checkboxOptions = [
+  //   { key: "Option 01", value: "cOption1" },
+  //   { key: "Option 02", value: "cOption2" },
+  //   { key: "Option 03", value: "cOption3" },
+  // ];
+
+
+  const [event, setEvent] = useState(0);
 
   const initialValues = {
     enableReinitialize: true,
     validateOnMount: true,
-    event_name: "",
-    org_name: "",
-    event_time: "",
-    date_of_the_event: "",
-    location: "",
-    days_occurs: "",
-    event_type: "",
-    organizer_name: "",
-    org_nic: "",
-    cus_email: "",
-    cus_con_number: "",
-    description: "",
-    checkboxOption: [],
+    event_name: event.event_name,
+    org_name: event.org_name,
+    event_time: event.event_time,
+    date_of_the_event: event.date_of_the_event,
+    location: event.location,
+    days_occurs: event.days_occurs,
+    event_type: event.event_type,
+    organizer_name: event.organizer_name,
+    org_nic: event.org_nic,
+    cus_email: event.cus_email,
+    cus_con_number: event.cus_con_number,
+    description: event.description,
+    // checkboxOption: [],
   };
 
-  const validationSchema = Yup.object({
-    event_name: Yup.string().required("*Required!"),
-    org_name: Yup.string().required("*Required!"),
-    event_time: Yup.string().required("*Required!"),
-    location: Yup.string().required("*Required!"),
-    days_occurs: Yup.number().required("*Required!").max(20, "Limit exceed").min(0, "Invalid number"),
-    event_type: Yup.string().required("*Required!"),
-    organizer_name: Yup.string().required("*Required!"),
-    org_nic: Yup.string().required("*Required!"),
-    cus_email: Yup.string().email("*Invalid email!").required("*Required!"),
-    cus_con_number: Yup.string().matches(phoneRegExp, "Phone number is not valid").required("*Required!").min(10, "Too short").max(10, "Too long"),
-    description: Yup.string().required("*Required!"),
-    date_of_the_event: Yup.string().required("*Required!"),
-    checkboxOption: Yup.array().required("Required"),
-  });
+  // const validationSchema = Yup.object({
+  //   event_name: Yup.string().required("*Required!"),
+  //   org_name: Yup.string().required("*Required!"),
+  //   event_time: Yup.string().required("*Required!"),
+  //   location: Yup.string().required("*Required!"),
+  //   days_occurs: Yup.number().required("*Required!").max(20, "Limit exceed").min(0, "Invalid number"),
+  //   event_type: Yup.string().required("*Required!"),
+  //   organizer_name: Yup.string().required("*Required!"),
+  //   org_nic: Yup.string().required("*Required!"),
+  //   cus_email: Yup.string().email("*Invalid email!").required("*Required!"),
+  //   cus_con_number: Yup.string().matches(phoneRegExp, "Phone number is not valid").required("*Required!").min(10, "Too short").max(10, "Too long"),
+  //   description: Yup.string().required("*Required!"),
+  //   date_of_the_event: Yup.string().required("*Required!"),
+  //   // checkboxOption: Yup.array().required("Required"),
+  // });
 
   const onSubmit = (values) => {
     console.log("Form Date", values);
     //  values.date_of_the_event = event_date; //watch
     axios
-      .post("http://localhost:8080/eventAdd/addevent", values)
+      .put(`http://localhost:8080/eventAdd/updateevent/${props.match.params._id}`, values)
       .then((res) => {
         console.log(res);
         console.log("Data", values);
@@ -99,10 +102,22 @@ const AddEvent = (props) => {
       });
   };
 
+  useEffect(() => {
+    axios
+      .get(`http://localhost:8080/eventAdd/getOneEvent/${props.match.params._id}`)
+      .then((res) => {
+        console.log(res);
+        setEvent(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
   const formik = useFormik({
     initialValues,
     onSubmit,
-    validationSchema,
+   // validationSchema,
   });
 
   return (
@@ -140,8 +155,8 @@ const AddEvent = (props) => {
                           name="event_name"
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
-                          value={formik.values.event_name}
-                        />
+                          defaultValue={event.event_name}
+                        > {event.event_name} </Input>
                         {formik.touched.event_name && formik.errors.event_name ? <div style={{ color: "red" }}>{formik.errors.event_name}</div> : null}
                       </FormGroup>
                     </Col>
@@ -156,7 +171,7 @@ const AddEvent = (props) => {
                           name="event_type"
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
-                          value={formik.values.event_type}
+                          defaultValue={event.event_type}
                         >
                           <option>Choose...</option>
                           <option>Indoor</option>
@@ -177,7 +192,7 @@ const AddEvent = (props) => {
                           name="org_name"
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
-                          value={formik.values.org_name}
+                          defaultValue={event.org_name}
                         />
                         {formik.touched.org_name && formik.errors.org_name ? <div style={{ color: "red" }}>{formik.errors.org_name}</div> : null}
                       </FormGroup>
@@ -209,7 +224,7 @@ const AddEvent = (props) => {
                               })
                             }
                             onBlur={formik.handleBlur}
-                            value={formik.values.date_of_the_event}
+                            defaultValue={event.date_of_the_event}
                           />
                         </InputGroup>
                       </FormGroup>
@@ -224,7 +239,7 @@ const AddEvent = (props) => {
                           name="event_time"
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
-                          value={formik.values.event_time}
+                          defaultValue={event.event_time}
                         />
                         {formik.touched.event_time && formik.errors.event_time ? <div style={{ color: "red" }}>{formik.errors.event_time}</div> : null}
                       </FormGroup>
@@ -241,7 +256,7 @@ const AddEvent = (props) => {
                           name="location"
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
-                          value={formik.values.location}
+                          defaultValue={event.location}
                         />
                         {formik.touched.location && formik.errors.location ? <div style={{ color: "red" }}>{formik.errors.location}</div> : null}
                       </FormGroup>
@@ -256,7 +271,7 @@ const AddEvent = (props) => {
                           name="days_occurs"
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
-                          value={formik.values.days_occurs}
+                          defaultValue={event.days_occurs}
                         />
                         {formik.touched.days_occurs && formik.errors.days_occurs ? <div style={{ color: "red" }}>{formik.errors.days_occurs}</div> : null}
                       </FormGroup>
@@ -350,7 +365,7 @@ const AddEvent = (props) => {
                           name="organizer_name"
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
-                          value={formik.values.organizer_name}
+                          defaultValue={event.organizer_name}
                         />
                         {formik.touched.organizer_name && formik.errors.organizer_name ? <div style={{ color: "red" }}>{formik.errors.organizer_name}</div> : null}
                       </FormGroup>
@@ -365,7 +380,7 @@ const AddEvent = (props) => {
                           name="org_nic"
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
-                          value={formik.values.org_nic}
+                          defaultValue={event.org_nic}
                         />
                         {formik.touched.org_nic && formik.errors.org_nic ? <div style={{ color: "red" }}>{formik.errors.org_nic}</div> : null}
                       </FormGroup>
@@ -382,7 +397,7 @@ const AddEvent = (props) => {
                           name="cus_email"
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
-                          value={formik.values.cus_email}
+                          defaultValue={event.cus_email}
                         />
                         {formik.touched.cus_email && formik.errors.cus_email ? <div style={{ color: "red" }}>{formik.errors.cus_email}</div> : null}
                       </FormGroup>
@@ -397,7 +412,7 @@ const AddEvent = (props) => {
                           name="cus_con_number"
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
-                          value={formik.values.cus_con_number}
+                          defaultValue={event.cus_con_number}
                         />
                         {formik.touched.cus_con_number && formik.errors.cus_con_number ? <div style={{ color: "red" }}>{formik.errors.cus_con_number}</div> : null}
                       </FormGroup>
@@ -415,18 +430,18 @@ const AddEvent = (props) => {
                           name="description"
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
-                          value={formik.values.description}
+                          defaultValue={event.description}
                         />
                       </FormGroup>
                     </Col>
                   </Row>
-                  {({formik}) => {  
+                  {/* {({formik}) => {  
                     <FormikControl 
                      control="checkbox"
                      label="Checkbox topic"
                      name="checkboxOption" 
                      option={checkboxOptions} />
-                  }}
+                  }} */}
                   <div className="text-center">
                     <Button className="mt-4" color="primary" type="submit">
                       Publish Event
@@ -443,4 +458,4 @@ const AddEvent = (props) => {
   );
 };
 
-export default AddEvent;
+export default UpdateEvent;

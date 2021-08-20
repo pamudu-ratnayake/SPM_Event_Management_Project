@@ -56,12 +56,7 @@ const Sidebar = (props) => {
     return routes.map((prop, key) => {
       return (
         <NavItem key={key}>
-          <NavLink
-            to={prop.layout + prop.path}
-            tag={NavLinkRRD}
-            onClick={closeCollapse}
-            activeClassName="active"
-          >
+          <NavLink to={prop.layout + prop.path} tag={NavLinkRRD} onClick={closeCollapse} activeClassName="active">
             <i className={prop.icon} />
             {prop.name}
           </NavLink>
@@ -85,11 +80,7 @@ const Sidebar = (props) => {
   }
 
   return (
-    <Navbar
-      className="navbar-vertical fixed-left navbar-light bg-white"
-      expand="md"
-      id="sidenav-main"
-    >
+    <Navbar className="navbar-vertical fixed-left navbar-light bg-white" expand="md" id="sidenav-main">
       <Container fluid>
         {/* Toggler */}
         <button className="navbar-toggler" type="button" onClick={toggleCollapse}>
@@ -98,7 +89,8 @@ const Sidebar = (props) => {
         {/* Brand */}
         {logo ? (
           <NavbarBrand className="pt-0" {...navbarBrandProps}>
-            <img alt={logo.imgAlt} className="navbar-brand-img" src={logo.imgSrc} />
+            {/* <img alt={logo.imgAlt} className="navbar-brand-img" src={logo.imgSrc} /> */}
+            <h2>Events</h2>
           </NavbarBrand>
         ) : null}
         {/* User */}
@@ -107,11 +99,7 @@ const Sidebar = (props) => {
             <DropdownToggle nav className="nav-link-icon">
               <i className="ni ni-bell-55" />
             </DropdownToggle>
-            <DropdownMenu
-              aria-labelledby="navbar-default_dropdown_1"
-              className="dropdown-menu-arrow"
-              right
-            >
+            <DropdownMenu aria-labelledby="navbar-default_dropdown_1" className="dropdown-menu-arrow" right>
               <DropdownItem>Action</DropdownItem>
               <DropdownItem>Another action</DropdownItem>
               <DropdownItem divider />
@@ -122,10 +110,7 @@ const Sidebar = (props) => {
             <DropdownToggle nav>
               <Media className="align-items-center">
                 <span className="avatar avatar-sm rounded-circle">
-                  <img
-                    alt="..."
-                    src={require("../../assets/img/theme/team-1-800x800.jpg").default}
-                  />
+                  <img alt="..." src={require("../../assets/img/theme/team-1-800x800.jpg").default} />
                 </span>
               </Media>
             </DropdownToggle>
@@ -186,12 +171,7 @@ const Sidebar = (props) => {
           {/* Form */}
           <Form className="mt-4 mb-3 d-md-none">
             <InputGroup className="input-group-rounded input-group-merge">
-              <Input
-                aria-label="Search"
-                className="form-control-rounded form-control-prepended"
-                placeholder="Search"
-                type="search"
-              />
+              <Input aria-label="Search" className="form-control-rounded form-control-prepended" placeholder="Search" type="search" />
               <InputGroupAddon addonType="prepend">
                 <InputGroupText>
                   <span className="fa fa-search" />
@@ -202,30 +182,6 @@ const Sidebar = (props) => {
           {/* Navigation */}
           <Nav navbar>{createLinks(routes)}</Nav>
           {/* Divider */}
-          <hr className="my-3" />
-          {/* Heading */}
-          <h6 className="navbar-heading text-muted">Documentation</h6>
-          {/* Navigation */}
-          <Nav className="mb-md-3" navbar>
-            <NavItem>
-              <NavLink href="https://demos.creative-tim.com/argon-dashboard-react/#/documentation/overview?ref=adr-admin-sidebar">
-                <i className="ni ni-spaceship" />
-                Getting started
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="https://demos.creative-tim.com/argon-dashboard-react/#/documentation/colors?ref=adr-admin-sidebar">
-                <i className="ni ni-palette" />
-                Foundation
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="https://demos.creative-tim.com/argon-dashboard-react/#/documentation/alerts?ref=adr-admin-sidebar">
-                <i className="ni ni-ui-04" />
-                Components
-              </NavLink>
-            </NavItem>
-          </Nav>
         </Collapse>
       </Container>
     </Navbar>

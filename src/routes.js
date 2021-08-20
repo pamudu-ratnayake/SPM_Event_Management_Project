@@ -8,6 +8,8 @@ import Icons from "views/examples/Icons.js";
 import AddEvent from "views/examples/AddEvent.js";
 import EventDisplay from "views/examples/EventDisplay.js";
 import CustomerProfile from "views/examples/CustomerProfile";
+import MyEvents from "views/examples/MyEvents";
+import UpdateEvent from "views/examples/UpdateEvent";
 
 var routes = [
   {
@@ -39,10 +41,17 @@ var routes = [
     layout: "/admin",
   },
   {
-    path: "/event-display",
+    path: "/event-display/:_id",
     name: "Display Event",
     icon: "ni ni-notification-70 text-orange",
     component: EventDisplay,
+    layout: "/admin",
+  },
+  {
+    path: "/event-update/:_id",
+    name: "Update Event",
+    icon: "ni ni-notification-70 text-orange",
+    component: UpdateEvent,
     layout: "/admin",
   },
   {
@@ -50,6 +59,13 @@ var routes = [
     name: "My Profile",
     icon: "ni ni-single-02 text-orange",
     component: CustomerProfile,
+    layout: "/admin",
+  },
+  {
+    path: "/my-event",
+    name: "My Events",
+    icon: "ni ni-notification-70 text-orange",
+    component: MyEvents,
     layout: "/admin",
   },
   {

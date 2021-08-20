@@ -1,11 +1,29 @@
 import ReactDatetime from "react-datetime";
+import axios from "axios";
 
 // reactstrap components
 import { Button, Card, CardHeader, CardBody, FormGroup, Form, Input, Container, Row, Col, InputGroupAddon, InputGroupText, InputGroup } from "reactstrap";
 // core components
 import AddEventHeader from "components/Headers/AddEventHeader";
+import { useEffect, useState } from "react";
 
 const EventDisplay = (props) => {
+  console.log("ID is : ", props.match.params._id);
+
+  const [event, setEvent] = useState(0);
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:8080/eventAdd/getOneEvent/${props.match.params._id}`)
+      .then((res) => {
+        console.log(res);
+        setEvent(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
   return (
     <>
       <AddEventHeader />
@@ -32,13 +50,13 @@ const EventDisplay = (props) => {
                     <Col md="6">
                       <FormGroup>
                         <label>Event Name : </label>
-                        <label className="ml-3">gdsgds</label>
+                        <label className="ml-3"> {event.event_name} </label>
                       </FormGroup>
                     </Col>
                     <Col md="6">
                       <FormGroup>
                         <label>Event ID : </label>
-                        <label className="ml-3">gdsgds</label>
+                        <label className="ml-3">gsfsf</label>
                       </FormGroup>
                     </Col>
                   </Row>
@@ -46,13 +64,13 @@ const EventDisplay = (props) => {
                     <Col md="6">
                       <FormGroup>
                         <label>Organization Name : </label>
-                        <label className="ml-3">gdsgds</label>
+                        <label className="ml-3">{event.org_name}</label>
                       </FormGroup>
                     </Col>
                     <Col md="6">
                       <FormGroup>
                         <label>Date of The Event : </label>
-                        <label className="ml-3">gdsgds</label>
+                        <label className="ml-3"> {event.date_of_the_event} </label>
                       </FormGroup>
                     </Col>
                   </Row>
@@ -60,13 +78,13 @@ const EventDisplay = (props) => {
                     <Col md="6">
                       <FormGroup>
                         <label>Event Time : </label>
-                        <label className="ml-3">gdsgds</label>
+                        <label className="ml-3"> {event.event_time} </label>
                       </FormGroup>
                     </Col>
                     <Col md="6">
                       <FormGroup>
                         <label>Days Event Occurs : </label>
-                        <label className="ml-3">gdsgds</label>
+                        <label className="ml-3"> {event.days_occurs} day</label>
                       </FormGroup>
                     </Col>
                   </Row>
@@ -74,13 +92,13 @@ const EventDisplay = (props) => {
                     <Col md="6">
                       <FormGroup>
                         <label>Location : </label>
-                        <label className="ml-3">gdsgds</label>
+                        <label className="ml-3"> {event.location} </label>
                       </FormGroup>
                     </Col>
                     <Col md="6">
                       <FormGroup>
                         <label>Event Type : </label>
-                        <label className="ml-3">gdsgds</label>
+                        <label className="ml-3"> {event.event_type} </label>
                       </FormGroup>
                     </Col>
                   </Row>
@@ -110,13 +128,13 @@ const EventDisplay = (props) => {
                     <Col md="6">
                       <FormGroup>
                         <label>Organizer Name : </label>
-                        <label className="ml-3">gdsgds</label>
+                        <label className="ml-3"> {event.organizer_name} </label>
                       </FormGroup>
                     </Col>
                     <Col md="6">
                       <FormGroup>
-                        <label>Customer ID : </label>
-                        <label className="ml-3">gdsgds</label>
+                        <label>Organizer's NIC : </label>
+                        <label className="ml-3"> {event.org_nic} </label>
                       </FormGroup>
                     </Col>
                   </Row>
@@ -124,13 +142,13 @@ const EventDisplay = (props) => {
                     <Col md="6">
                       <FormGroup>
                         <label>Email : </label>
-                        <label className="ml-3">gdsgds</label>
+                        <label className="ml-3"> {event.cus_email} </label>
                       </FormGroup>
                     </Col>
                     <Col md="6">
                       <FormGroup>
                         <label>Contact Number : </label>
-                        <label className="ml-3">gdsgds</label>
+                        <label className="ml-3"> {event.cus_con_number} </label>
                       </FormGroup>
                     </Col>
                   </Row>
@@ -138,7 +156,7 @@ const EventDisplay = (props) => {
                     <Col md="10">
                       <FormGroup>
                         <label>Description : </label>
-                        <label className="ml-3">gdsgds</label>
+                        <label className="ml-3"> {event.description} </label>
                       </FormGroup>
                     </Col>
                   </Row>
