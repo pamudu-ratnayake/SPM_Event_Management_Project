@@ -15,333 +15,88 @@ import {
   InputGroup,
   CardTitle,
   CardImg,
+  CardText,
 } from "reactstrap";
 // core components
-import UserHeader from "components/Headers/UserHeader.js";
+import UserHeaderSponsors from "components/Headers/UserHeaderSponsors.js";
+import axios from "axios";
+import { useState, useEffect } from "react";
 
 const Sponsorship_Request = () => {
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/sponsor/getSponsors")
+      .then((res) => {
+        setPosts(res.data);
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   return (
     <>
-      <UserHeader />
+      <UserHeaderSponsors />
       {/* Page content */}
-      <Container className="mt--7" fluid>
-        <Row>
-          <Col className="order-xl-1" xl="12">
-            <Card className="bg-secondary shadow">
-              <CardHeader className="bg-white border-0">
-                <Row className="align-items-center">
-                  <Col xs="8">
-                    <h2 className="mb-0">Sponsors</h2>
-                  </Col>
-                  <Col className="text-right" xs="4">
-                    <Button
-                      color="primary"
-                      href="#pablo"
-                      onClick={(e) => e.preventDefault()}
-                      size="sm"
-                    >
-                      Settings
-                    </Button>
-                  </Col>
-                </Row>
-              </CardHeader>
-
-              <CardBody>
-                <Row>
-                  <Col>
-                    <div style={{ width: "18rem" }}>
-                      <Col xl="14">
-                        <Card className="card-stats mb-4 mb-lg-0">
-                          <CardImg
-                            alt="..."
-                            src={require("../../assets/img/logo/logo.png").default}
-                            top
-                          />
-                          <CardBody>
-                            <Row>
-                              <div className="col">
-                                <CardTitle className="text-uppercase text-muted mb-0">
-                                  BOC
-                                </CardTitle>
-                                <span className="h2 font-weight-bold mb-0">
-                                  boc@gmail.com
-                                </span>
-                              </div>
-                              {/* <Col className="col-auto">
-                                <div className="icon icon-shape bg-danger text-white rounded-circle shadow">
-                                  <i className="fas fa-chart-bar" />
-                                </div>
-                              </Col> */}
-                            </Row>
-                            <p className="mt-3 mb-0 text-muted text-sm">
-                              <span className="text-success mr-2">
-                                <i className="fa fa-arrow-up" />
-                                0767846213
-                              </span>
-                              {/* <Button
-                                className="btn-icon btn-2"
-                                color="default"
-                                outline
-                                type="button"
-                                size="sm"
+      <Container className="mt--4" fluid>
+        <Col className="order-xl-1" xl="12">
+          <Card className="bg-secondary shadow">
+            <CardHeader className="bg-white border-0">
+              <Row className="align-items-center">
+                <Col xs="8">
+                  <h2 className="mb-0">Sponsors</h2>
+                </Col>
+              </Row>
+            </CardHeader>
+            <CardBody>
+              <div style={{ width: "18rem" }}>
+                <Col xl="12">
+                  {posts.map((posts) => (
+                    <div key={posts._id}>
+                      <Card className="card-stats mb-10 mb-lg-0">
+                        <CardImg
+                          alt="..."
+                          src={
+                            require("../../assets/img/logo/logo.png").default
+                          }
+                          top
+                        />
+                        <CardBody>
+                          
+                            <div className="col">
+                              <CardTitle
+                                className="h2 font-weight-bold mb-0"
+                                style={{ fontSize: "1rem" }}
                               >
-                                <span className="btn-inner--icon">
-                                  <i className="ni ni-email-83" />
-                                </span>
-                              </Button> */}
-                            </p>
-                          </CardBody>
-                        </Card>
-                      </Col>
+                                {posts.companyName}
+                              </CardTitle>
+                              <CardText className="text-success mr-2">
+                                {/* <i className="fa fa-arrow-up" /> */}
+                                {posts.sponsorType}
+                              </CardText>
+                              <CardText className="text-muted mb-0">
+                                {posts.sponsorEmail}
+                              </CardText>
+                          
+                          {/* <p className="mt-3 mb-0 text-muted text-sm"> */}
+                          <CardText className="text-muted mb-0">
+                            {/* <i className="fa fa-arrow-up" /> */}
+                            {posts.SponsorPhoneNo}
+                          </CardText>
+                          </div>
+                          {/* </p> */}
+                        </CardBody>
+                      </Card>
                     </div>
-                  </Col>
-
-                  <Col>
-                    <div style={{ width: "18rem" }}>
-                      <Col xl="14">
-                        <Card className="card-stats mb-4 mb-lg-0">
-                          <CardImg
-                            alt="..."
-                            src={require("../../assets/img/logo/logo.png").default}
-                            top
-                          />
-                          <CardBody>
-                            <Row>
-                              <div className="col">
-                                <CardTitle className="text-uppercase text-muted mb-0">
-                                  BOC
-                                </CardTitle>
-                                <span className="h2 font-weight-bold mb-0">
-                                  boc@gmail.com
-                                </span>
-                              </div>
-                              {/* <Col className="col-auto">
-                                <div className="icon icon-shape bg-danger text-white rounded-circle shadow">
-                                  <i className="fas fa-chart-bar" />
-                                </div>
-                              </Col> */}
-                            </Row>
-                            <p className="mt-3 mb-0 text-muted text-sm">
-                              <span className="text-success mr-2">
-                                <i className="fa fa-arrow-up" />
-                                0767846213
-                              </span>
-                              {/* <Button
-                                className="btn-icon btn-2"
-                                color="default"
-                                outline
-                                type="button"
-                                size="sm"
-                              >
-                                <span className="btn-inner--icon">
-                                  <i className="ni ni-email-83" />
-                                </span>
-                              </Button> */}
-                            </p>
-                          </CardBody>
-                        </Card>
-                      </Col>
-                    </div>
-                  </Col>
-
-                  <Col>
-                    <div style={{ width: "18rem" }}>
-                      <Col xl="14">
-                        <Card className="card-stats mb-4 mb-lg-0">
-                          <CardImg
-                            alt="..."
-                            src={require("../../assets/img/logo/logo.png").default}
-                            top
-                          />
-                          <CardBody>
-                            <Row>
-                              <div className="col">
-                                <CardTitle className="text-uppercase text-muted mb-0">
-                                  BOC
-                                </CardTitle>
-                                <span className="h2 font-weight-bold mb-0">
-                                  boc@gmail.com
-                                </span>
-                              </div>
-                              {/* <Col className="col-auto">
-                                <div className="icon icon-shape bg-danger text-white rounded-circle shadow">
-                                  <i className="fas fa-chart-bar" />
-                                </div>
-                              </Col> */}
-                            </Row>
-                            <p className="mt-3 mb-0 text-muted text-sm">
-                              <span className="text-success mr-2">
-                                <i className="fa fa-arrow-up" />
-                                0767846213
-                              </span>
-                              {/* <Button
-                                className="btn-icon btn-2"
-                                color="default"
-                                outline
-                                type="button"
-                                size="sm"
-                              >
-                                <span className="btn-inner--icon">
-                                  <i className="ni ni-email-83" />
-                                </span>
-                              </Button> */}
-                            </p>
-                          </CardBody>
-                        </Card>
-                      </Col>
-                    </div>
-                  </Col>
-                </Row>
-
-                <Row>
-                  <Col>
-                    <div style={{ width: "18rem" }}>
-                      <Col xl="14">
-                        <Card className="card-stats mb-4 mb-lg-0">
-                          <CardImg
-                            alt="..."
-                            src={require("../../assets/img/logo/logo.png").default}
-                            top
-                          />
-                          <CardBody>
-                            <Row>
-                              <div className="col">
-                                <CardTitle className="text-uppercase text-muted mb-0">
-                                  BOC
-                                </CardTitle>
-                                <span className="h2 font-weight-bold mb-0">
-                                  boc@gmail.com
-                                </span>
-                              </div>
-                              {/* <Col className="col-auto">
-                                <div className="icon icon-shape bg-danger text-white rounded-circle shadow">
-                                  <i className="fas fa-chart-bar" />
-                                </div>
-                              </Col> */}
-                            </Row>
-                            <p className="mt-3 mb-0 text-muted text-sm">
-                              <span className="text-success mr-2">
-                                <i className="fa fa-arrow-up" />
-                                0767846213
-                              </span>
-                              {/* <Button
-                                className="btn-icon btn-2"
-                                color="default"
-                                outline
-                                type="button"
-                                size="sm"
-                              >
-                                <span className="btn-inner--icon">
-                                  <i className="ni ni-email-83" />
-                                </span>
-                              </Button> */}
-                            </p>
-                          </CardBody>
-                        </Card>
-                      </Col>
-                    </div>
-                  </Col>
-
-                  <Col>
-                    <div style={{ width: "18rem" }}>
-                      <Col xl="14">
-                        <Card className="card-stats mb-4 mb-lg-0">
-                          <CardImg
-                            alt="..."
-                            src={require("../../assets/img/logo/logo.png").default}
-                            top
-                          />
-                          <CardBody>
-                            <Row>
-                              <div className="col">
-                                <CardTitle className="text-uppercase text-muted mb-0">
-                                  BOC
-                                </CardTitle>
-                                <span className="h2 font-weight-bold mb-0">
-                                  boc@gmail.com
-                                </span>
-                              </div>
-                              {/* <Col className="col-auto">
-                                <div className="icon icon-shape bg-danger text-white rounded-circle shadow">
-                                  <i className="fas fa-chart-bar" />
-                                </div>
-                              </Col> */}
-                            </Row>
-                            <p className="mt-3 mb-0 text-muted text-sm">
-                              <span className="text-success mr-2">
-                                <i className="fa fa-arrow-up" />
-                                0767846213
-                              </span>
-                              {/* <Button
-                                className="btn-icon btn-2"
-                                color="default"
-                                outline
-                                type="button"
-                                size="sm"
-                              >
-                                <span className="btn-inner--icon">
-                                  <i className="ni ni-email-83" />
-                                </span>
-                              </Button> */}
-                            </p>
-                          </CardBody>
-                        </Card>
-                      </Col>
-                    </div>
-                  </Col>
-
-                  <Col>
-                    <div style={{ width: "18rem" }}>
-                      <Col xl="14">
-                        <Card className="card-stats mb-4 mb-lg-0">
-                          <CardImg
-                            alt="..."
-                            src={require("../../assets/img/logo/logo.png").default}
-                            top
-                          />
-                          <CardBody>
-                            <Row>
-                              <div className="col">
-                                <CardTitle className="text-uppercase text-muted mb-0">
-                                  BOC
-                                </CardTitle>
-                                <span className="h2 font-weight-bold mb-0">
-                                  boc@gmail.com
-                                </span>
-                              </div>
-                              {/* <Col className="col-auto">
-                                <div className="icon icon-shape bg-danger text-white rounded-circle shadow">
-                                  <i className="fas fa-chart-bar" />
-                                </div>
-                              </Col> */}
-                            </Row>
-                            <p className="mt-3 mb-0 text-muted text-sm">
-                              <span className="text-success mr-2">
-                                <i className="fa fa-arrow-up" />
-                                0767846213
-                              </span>
-                              {/* <Button
-                                className="btn-icon btn-2"
-                                color="default"
-                                outline
-                                type="button"
-                                size="sm"
-                              >
-                                <span className="btn-inner--icon">
-                                  <i className="ni ni-email-83" />
-                                </span>
-                              </Button> */}
-                            </p>
-                          </CardBody>
-                        </Card>
-                      </Col>
-                    </div>
-                  </Col>
-                </Row>
-              </CardBody>
-            </Card>
-          </Col>
-        </Row>
+                  ))}
+                </Col>
+              </div>
+            </CardBody>
+          </Card>
+        </Col>
       </Container>
     </>
   );

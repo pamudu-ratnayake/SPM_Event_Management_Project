@@ -15,27 +15,67 @@ import {
   InputGroup,
 } from "reactstrap";
 // core components
-import Header from "components/Headers/Header.js";
+import UserHeaderAddSponsor from "components/Headers/UserHeaderAddSponsor.js";
 import { Formik, useFormik } from "formik";
+import * as Yup from "yup";
+import axios from "axios";
+
+const phoneRegExp =
+  /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+
+const validationSchema = Yup.object({
+  regNo: Yup.string().required("Required!"),
+  companyName: Yup.string().required("Required!"),
+  sponsorType: Yup.string().required("Required!"),
+  SponsorPhoneNo: Yup.string()
+    .matches(phoneRegExp, "Phone Number is not Valid!")
+    .required("Required!")
+    .min(10, "Too short")
+    .max(10, "Too long"),
+  sponsorEmail: Yup.string().email("Invalid Email!").required("Required!"),
+});
 
 const Add_Sponsor = () => {
   const initialValues = {
     enableReinitialize: true,
     validateOnMount: true,
-    sponsorID: "",
+    regNo: "",
     companyName: "",
     sponsorType: "",
     SponsorPhoneNo: "",
     sponsorEmail: "",
   };
+
+  const onSubmit = (values) => {
+    console.log("form data", values);
+
+    // values.id = ID;
+
+    axios
+      .post("http://localhost:8080/sponsor/addSponsors", values)
+      .then((res) => {
+        console.log(res);
+        console.log('Data', values);
+        // history.push({
+        //   pathname:`/admin/customerprofile/${values.id}`
+        // })
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   const formik = useFormik({
     initialValues,
+    onSubmit,
+    validationSchema,
   });
+
   return (
     <>
-      <Header />
+      <UserHeaderAddSponsor />
       {/* Page content */}
-      <Container className="mt--7" fluid>
+      <Container className="mt--4" fluid>
         <Row>
           <Col className="order-xl-2 mb-5 mb-xl-0" xl="4"></Col>
           <Col className="order-xl-1" xl="12">
@@ -52,17 +92,21 @@ const Add_Sponsor = () => {
                   <Row>
                     <Col md="6">
                       <FormGroup>
-                        <label>Sponsor ID</label>
+                        <label>Company Registration Number</label>
                         <Input
                           id="exampleFormControlInput1"
-                          disabled
                           placeholder="Sponsor ID"
                           type="text"
-                          name="sponsorID"
+                          name="regNo"
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
-                          value={formik.values.sponsorID}
+                          value={formik.values.regNo}
                         />
+                        {formik.touched.regNo && formik.errors.regNo ? (
+                          <div style={{ color: "red" }}>
+                            {formik.errors.regNo}
+                          </div>
+                        ) : null}
                       </FormGroup>
                     </Col>
                     <Col md="6">
@@ -76,6 +120,12 @@ const Add_Sponsor = () => {
                           onBlur={formik.handleBlur}
                           value={formik.values.companyName}
                         />
+                        {formik.touched.companyName &&
+                        formik.errors.companyName ? (
+                          <div style={{ color: "red" }}>
+                            {formik.errors.companyName}
+                          </div>
+                        ) : null}
                       </FormGroup>
                     </Col>
                   </Row>
@@ -109,6 +159,12 @@ const Add_Sponsor = () => {
                           <option>Travel & tourism</option>
                           <option>Other</option>
                         </Input>
+                        {formik.touched.sponsorType &&
+                        formik.errors.sponsorType ? (
+                          <div style={{ color: "red" }}>
+                            {formik.errors.sponsorType}
+                          </div>
+                        ) : null}
                       </FormGroup>
                     </Col>
                   </Row>
@@ -124,6 +180,12 @@ const Add_Sponsor = () => {
                           onBlur={formik.handleBlur}
                           value={formik.values.SponsorPhoneNo}
                         />
+                        {formik.touched.SponsorPhoneNo &&
+                        formik.errors.SponsorPhoneNo ? (
+                          <div style={{ color: "red" }}>
+                            {formik.errors.SponsorPhoneNo}
+                          </div>
+                        ) : null}
                       </FormGroup>
                     </Col>
                     <Col md="6">
@@ -138,20 +200,26 @@ const Add_Sponsor = () => {
                           onBlur={formik.handleBlur}
                           value={formik.values.sponsorEmail}
                         />
+                        {formik.touched.sponsorEmail &&
+                        formik.errors.sponsorEmail ? (
+                          <div style={{ color: "red" }}>
+                            {formik.errors.sponsorEmail}
+                          </div>
+                        ) : null}
                       </FormGroup>
                     </Col>
                   </Row>
                   <div className="d-flex justify-content-between">
                     <Button
+                      id="POST"
+                      type="submit"
                       color="primary"
-                      href="#pablo"
-                      onClick={(e) => e.preventDefault()}
                       size="sm"
                       name=""
                     >
                       Add
                     </Button>
-                    <Button
+                    {/* <Button
                       color="primary"
                       href="#pablo"
                       onClick={(e) => e.preventDefault()}
@@ -159,7 +227,7 @@ const Add_Sponsor = () => {
                       name=""
                     >
                       Cancle
-                    </Button>
+                    </Button> */}
                   </div>
                 </Form>
               </CardBody>

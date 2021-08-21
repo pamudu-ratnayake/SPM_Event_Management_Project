@@ -9,7 +9,7 @@ import Testing from "views/examples/Testing";
 import Sponsorship_Request from "views/examples/Sponsorship_Request";
 import Add_Sponsor from "views/examples/Add_Sponsor";
 import Update_Sponsor from "views/examples/Update_Sponsor";
-import Requested_Sponsors from "views/examples/Requested_Sponsors";
+import SponsorList from "views/examples/SponsorList";
 import Sponsorship_Documentation from "views/examples/Sponsorship_Documentation";
 
 var routes = [
@@ -62,13 +62,6 @@ var routes = [
     component: Login,
     layout: "/auth",
   },
-  // {
-  //   path: "/register",
-  //   name: "Register",
-  //   icon: "ni ni-circle-08 text-pink",
-  //   component: Register,
-  //   layout: "/auth",
-  // },
   {
     path: "/Sponsorship_Request",
     name: "Sponsors",
@@ -84,17 +77,17 @@ var routes = [
     layout: "/admin",
   },
   {
-    path: "/Update_Sponsor",
+    path: "/Update_Sponsor/:_id",
     name: "Update Sponsor",
     icon: "ni ni-circle-08 text-pink",
     component: Update_Sponsor,
     layout: "/admin",
   },
   {
-    path: "/Requested_Sponsors",
-    name: "Requested Sponsors",
+    path: "/SponsorList",
+    name: "Sponsor List",
     icon: "ni ni-bullet-list-67 text-red",
-    component: Requested_Sponsors,
+    component: SponsorList,
     layout: "/admin",
   },
   {
