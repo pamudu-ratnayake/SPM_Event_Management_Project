@@ -5,9 +5,15 @@ import Register from "views/examples/Register.js";
 import Login from "views/examples/Login.js";
 import Tables from "views/examples/Tables.js";
 import Icons from "views/examples/Icons.js";
-import Testing from "views/examples/Testing";
+// import Testing from "views/examples/Testing";
 import ServiceProviderProfile from "views/service-provider/ServiceProviderProfile";
 import RegisterServiceProvider from "views/service-provider/RegisterServiceProvider";
+import AddEvent from "views/examples/AddEvent.js";
+import EventDisplay from "views/examples/EventDisplay.js";
+import CustomerProfile from "views/examples/CustomerProfile";
+import MyEvents from "views/examples/MyEvents";
+import UpdateEvent from "views/examples/UpdateEvent";
+import ServiceProviders from "views/service-provider/ServiceProviders";
 
 var routes = [
 	{
@@ -32,10 +38,10 @@ var routes = [
 		layout: "/admin",
 	},
 	{
-		path: "/testing",
-		name: "Test",
+		path: "/serviceProviders",
+		name: "Service Providers",
 		icon: "ni ni-pin-3 text-orange",
-		component: Testing,
+		component: ServiceProviders,
 		layout: "/admin",
 	},
 	{
@@ -79,6 +85,70 @@ var routes = [
 		icon: "ni ni-circle-08 text-pink",
 		component: RegisterServiceProvider,
 		layout: "/authServiceProvider",
+	},
+
+	{
+		path: "/add-event",
+		name: "Publish An Event",
+		icon: "ni ni-notification-70 text-orange",
+		component: AddEvent,
+		layout: "/admin",
+	},
+	{
+		path: "/event-display/:_id",
+		name: "Display Event",
+		icon: "ni ni-notification-70 text-orange",
+		component: EventDisplay,
+		layout: "/admin",
+	},
+	{
+		path: "/event-update/:_id",
+		name: "Update Event",
+		icon: "ni ni-notification-70 text-orange",
+		component: UpdateEvent,
+		layout: "/admin",
+	},
+	{
+		path: "/customer-profile",
+		name: "My Profile",
+		icon: "ni ni-single-02 text-orange",
+		component: CustomerProfile,
+		layout: "/admin",
+	},
+	{
+		path: "/my-event",
+		name: "My Events",
+		icon: "ni ni-notification-70 text-orange",
+		component: MyEvents,
+		layout: "/admin",
+	},
+	{
+		path: "/user-profile",
+		name: "User Profile",
+		icon: "ni ni-single-02 text-yellow",
+		component: Profile,
+		layout: "/admin",
+	},
+	{
+		path: "/tables",
+		name: "Tables",
+		icon: "ni ni-bullet-list-67 text-red",
+		component: Tables,
+		layout: "/admin",
+	},
+	{
+		path: "/login",
+		name: "Login",
+		icon: "ni ni-key-25 text-info",
+		component: Login,
+		layout: "/auth",
+	},
+	{
+		path: "/register",
+		name: "Register",
+		icon: "ni ni-circle-08 text-pink",
+		component: Register,
+		layout: "/auth",
 	},
 ];
 export default routes;

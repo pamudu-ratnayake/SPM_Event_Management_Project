@@ -17,12 +17,118 @@ import {
 // core components
 import ServiceProviderHeader from "components/Headers/service-provider-header/ServiceProviderHeader";
 import CommentModal from "./moadals/CommentModal";
+import ReactDatetime from "react-datetime";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import axios from "axios";
+import FormikControl from "./FormikControl";
+//import { moment } from "moment";
+import DatePicker from "react-datepicker";
+import { post } from "jquery";
 
-const ServiceProviderProfile = () => {
+const phoneRegExp =
+	/^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+
+const ServiceProviderProfile = (props) => {
+	const [posts, setPosts] = useState("");
+	const [profile, setprofile] = useState(0);
+
 	useEffect(() => {
-		// Run! Like go get some data from an API.
-		disableInputs(); // Disable Inputs
+		console.log("res.dat ");
+		axios
+			.get(`http://localhost:8080/company/`)
+			.then((res) => {
+				setPosts(res.data[0]);
+				console.log(res.data[0]);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+
+		axios
+			.get(`http://localhost:8080/serviceProvider/getOne`)
+			.then((res) => {
+				setprofile(res.data[0]);
+				console.log(res.data[0]);
+				console.log(res.data[0].servic_provider_Id);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
 	}, []);
+
+	const deleteCompany = () => {
+		if (window.confirm("Are you sure you wish to delete this item?")) {
+			axios
+				.delete(`http://localhost:8080/company/delete/${posts._id}`)
+				.then((res) => {
+					// setPosts(res.data);
+					console.log(res.data);
+					alert(posts.company_name + " has Deleted !");
+					window.location.reload(false);
+				})
+				.catch((error) => {
+					console.log(error);
+				});
+		}
+	};
+
+	const initialValues = {
+		servic_provider_Id: profile.servic_provider_Id,
+		nic_no: profile.nic_no,
+		first_name: profile.first_name,
+		last_name: profile.last_name,
+		user_name: profile.user_name,
+		email: profile.email,
+		mobile: profile.mobile,
+		telephone: profile.telephone,
+		address: profile.address,
+	};
+
+	const validationSchema = Yup.object({
+		servic_provider_Id: Yup.string().required("*Required!"),
+		nic_no: Yup.string().required("*Required!"),
+		user_name: Yup.string().required("*Required!"),
+		first_name: Yup.string().required("*Required!"),
+		last_name: Yup.string().required("*Required!"),
+		email: Yup.string().email("*Invalid email!").required("*Required!"),
+		mobile: Yup.string()
+			.matches(phoneRegExp, "Phone number is not valid")
+			.required("*Required!")
+			.min(10, "Too short")
+			.max(10, "Too long"),
+		telephone: Yup.string()
+			.matches(phoneRegExp, "Phone number is not valid")
+			.required("*Required!")
+			.min(10, "Too short")
+			.max(10, "Too long"),
+		address: Yup.string().required("*Required!"),
+	});
+
+	const onSubmit = (values) => {
+		console.log("Form Date", values);
+		//  values.date_of_the_event = event_date; //watch
+		axios
+			.put(
+				`http://localhost:8080/serviceProvider/update/${profile._id}`,
+				values
+			)
+			.then((res) => {
+				console.log(res);
+				console.log("Data", values);
+				alert("Updated Successfully !!");
+				disableInputs();
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	};
+
+	const formik = useFormik({
+		initialValues,
+		onSubmit,
+		validationSchema,
+	});
 
 	function disableInputs() {
 		document.getElementById("input-service-provider").disabled = true;
@@ -31,7 +137,7 @@ const ServiceProviderProfile = () => {
 		document.getElementById("input-first-name").disabled = true;
 		document.getElementById("input-last-name").disabled = true;
 		document.getElementById("input-email").disabled = true;
-		document.getElementById("input-telepohone").disabled = true;
+		document.getElementById("input-telephone").disabled = true;
 		document.getElementById("input-mobile").disabled = true;
 		document.getElementById("input-address").disabled = true;
 		document.getElementById("btn-save").style.display = "none";
@@ -67,12 +173,12 @@ const ServiceProviderProfile = () => {
 
 									<Button
 										className="float-right"
-										color="default"
+										color="danger"
 										href="#pablo"
-										onClick={(e) => e.preventDefault()}
+										onClick={deleteCompany}
 										size="sm"
 									>
-										Logout
+										Delete
 									</Button>
 								</div>
 							</CardHeader>
@@ -93,27 +199,24 @@ const ServiceProviderProfile = () => {
 								</Row>
 								<div className="text-center">
 									<h3>
-										Malith Madusankha
-										<span className="font-weight-light">, 27</span>
+										{profile.user_name}
+										<span className="font-weight-light"></span>
 									</h3>
 									<div className="h5 font-weight-300">
 										<i className="ni location_pin mr-2" />
-										Kadawatha, Gampaha
+										{profile.address}
 									</div>
 									<div className="h5 mt-4">
 										<i className="ni business_briefcase-24 mr-2" />
-										Sound Provider
+
+										{posts.service_provider_type}
 									</div>
 									<div>
 										<i className="ni education_hat mr-2" />
-										JSound (pvt) Ltd
+										{posts.company_name} (pvt) Ltd
 									</div>
 									<hr className="my-4" />
-									<p>
-										I have work in this indurstry more than 10 years Ryan — the
-										name taken by Melbourne-raised, Brooklyn-based Nick Murphy —
-										writes, performs and records all of his own music.
-									</p>
+									<p>{posts.details}</p>
 									<a href="#pablo" onClick={(e) => e.preventDefault()}>
 										Show more
 									</a>
@@ -136,7 +239,7 @@ const ServiceProviderProfile = () => {
 											onClick={(e) => {
 												document.getElementById(
 													"input-service-provider"
-												).disabled = false;
+												).disabled = true;
 												document.getElementById(
 													"input-nic-no"
 												).disabled = false;
@@ -151,7 +254,7 @@ const ServiceProviderProfile = () => {
 												).disabled = false;
 												document.getElementById("input-email").disabled = false;
 												document.getElementById(
-													"input-telepohone"
+													"input-telephone"
 												).disabled = false;
 												document.getElementById(
 													"input-mobile"
@@ -170,7 +273,7 @@ const ServiceProviderProfile = () => {
 								</Row>
 							</CardHeader>
 							<CardBody>
-								<Form>
+								<Form onSubmit={formik.handleSubmit}>
 									<h6 className="heading-small text-muted mb-4">
 										User information
 									</h6>
@@ -186,11 +289,22 @@ const ServiceProviderProfile = () => {
 													</label>
 													<Input
 														className="form-control-alternative"
-														defaultValue="SPS00001"
 														id="input-service-provider"
 														placeholder="SPS00001"
 														type="text"
-													/>
+														name="servic_provider_Id"
+														onChange={formik.handleChange}
+														onBlur={formik.handleBlur}
+														defaultValue={profile.servic_provider_Id}
+													>
+														{profile.servic_provider_Id}
+													</Input>
+													{formik.touched.servic_provider_Id &&
+													formik.errors.servic_provider_Id ? (
+														<div style={{ color: "red" }}>
+															{formik.errors.servic_provider_Id}
+														</div>
+													) : null}
 												</FormGroup>
 											</Col>
 											<Col lg="6">
@@ -205,8 +319,19 @@ const ServiceProviderProfile = () => {
 														className="form-control-alternative"
 														id="input-nic-no"
 														placeholder="jesse@example.com"
-														type="email"
-													/>
+														type="text"
+														name="nic_no"
+														onChange={formik.handleChange}
+														onBlur={formik.handleBlur}
+														defaultValue={profile.nic_no}
+													>
+														{profile.nic_no}
+													</Input>
+													{formik.touched.nic_no && formik.errors.nic_no ? (
+														<div style={{ color: "red" }}>
+															{formik.errors.nic_no}
+														</div>
+													) : null}
 												</FormGroup>
 											</Col>
 										</Row>
@@ -222,11 +347,22 @@ const ServiceProviderProfile = () => {
 													</label>
 													<Input
 														className="form-control-alternative"
-														defaultValue="lucky.jesse"
 														id="input-username"
 														placeholder="Username"
 														type="text"
-													/>
+														name="user_name"
+														onChange={formik.handleChange}
+														onBlur={formik.handleBlur}
+														defaultValue={profile.user_name}
+													>
+														{profile.user_name}
+													</Input>
+													{formik.touched.user_name &&
+													formik.errors.user_name ? (
+														<div style={{ color: "red" }}>
+															{formik.errors.user_name}
+														</div>
+													) : null}
 												</FormGroup>
 											</Col>
 											<Col lg="6">
@@ -240,9 +376,20 @@ const ServiceProviderProfile = () => {
 													<Input
 														className="form-control-alternative"
 														id="input-email"
-														placeholder="jesse@example.com"
-														type="email"
-													/>
+														placeholder="Enter email address"
+														type="text"
+														name="email"
+														onChange={formik.handleChange}
+														onBlur={formik.handleBlur}
+														defaultValue={profile.email}
+													>
+														{profile.email}
+													</Input>
+													{formik.touched.email && formik.errors.email ? (
+														<div style={{ color: "red" }}>
+															{formik.errors.email}
+														</div>
+													) : null}
 												</FormGroup>
 											</Col>
 										</Row>
@@ -257,11 +404,22 @@ const ServiceProviderProfile = () => {
 													</label>
 													<Input
 														className="form-control-alternative"
-														defaultValue="Lucky"
 														id="input-first-name"
 														placeholder="First name"
 														type="text"
-													/>
+														name="first_name"
+														onChange={formik.handleChange}
+														onBlur={formik.handleBlur}
+														defaultValue={profile.first_name}
+													>
+														{profile.first_name}
+													</Input>
+													{formik.touched.first_name &&
+													formik.errors.first_name ? (
+														<div style={{ color: "red" }}>
+															{formik.errors.first_name}
+														</div>
+													) : null}
 												</FormGroup>
 											</Col>
 											<Col lg="6">
@@ -274,11 +432,22 @@ const ServiceProviderProfile = () => {
 													</label>
 													<Input
 														className="form-control-alternative"
-														defaultValue="Jesse"
 														id="input-last-name"
 														placeholder="Last name"
 														type="text"
-													/>
+														name="last_name"
+														onChange={formik.handleChange}
+														onBlur={formik.handleBlur}
+														defaultValue={profile.last_name}
+													>
+														{profile.last_name}
+													</Input>
+													{formik.touched.last_name &&
+													formik.errors.last_name ? (
+														<div style={{ color: "red" }}>
+															{formik.errors.last_name}
+														</div>
+													) : null}
 												</FormGroup>
 											</Col>
 										</Row>
@@ -295,15 +464,26 @@ const ServiceProviderProfile = () => {
 														className="form-control-label"
 														htmlFor="input-telepohon"
 													>
-														Telepohone
+														Telephone
 													</label>
 													<Input
 														className="form-control-alternative"
-														defaultValue="0112699151"
-														id="input-telepohone"
+														id="input-telephone"
 														placeholder="0112699151"
 														type="text"
-													/>
+														name="telephone"
+														onChange={formik.handleChange}
+														onBlur={formik.handleBlur}
+														defaultValue={profile.telephone}
+													>
+														{profile.telephone}
+													</Input>
+													{formik.touched.telephone &&
+													formik.errors.telephone ? (
+														<div style={{ color: "red" }}>
+															{formik.errors.telephone}
+														</div>
+													) : null}
 												</FormGroup>
 											</Col>
 											<Col lg="6">
@@ -316,11 +496,21 @@ const ServiceProviderProfile = () => {
 													</label>
 													<Input
 														className="form-control-alternative"
-														defaultValue="0112699151"
 														id="input-mobile"
 														placeholder="0770599151"
 														type="text"
-													/>
+														name="mobile"
+														onChange={formik.handleChange}
+														onBlur={formik.handleBlur}
+														defaultValue={profile.mobile}
+													>
+														{profile.mobile}
+													</Input>
+													{formik.touched.mobile && formik.errors.mobile ? (
+														<div style={{ color: "red" }}>
+															{formik.errors.mobile}
+														</div>
+													) : null}
 												</FormGroup>
 											</Col>
 										</Row>
@@ -336,11 +526,21 @@ const ServiceProviderProfile = () => {
 													</label>
 													<Input
 														className="form-control-alternative"
-														defaultValue="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09"
 														id="input-address"
 														placeholder="Home Address"
 														type="text"
-													/>
+														name="address"
+														onChange={formik.handleChange}
+														onBlur={formik.handleBlur}
+														defaultValue={profile.address}
+													>
+														{profile.address}
+													</Input>
+													{formik.touched.address && formik.errors.address ? (
+														<div style={{ color: "red" }}>
+															{formik.errors.address}
+														</div>
+													) : null}
 												</FormGroup>
 											</Col>
 										</Row>
@@ -349,8 +549,7 @@ const ServiceProviderProfile = () => {
 										id="btn-save"
 										className="float-right"
 										color="success"
-										href="#pablo"
-										onClick={disableInputs}
+										type="submit"
 									>
 										Save
 									</Button>
