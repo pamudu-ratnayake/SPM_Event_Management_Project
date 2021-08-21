@@ -27,7 +27,7 @@ const Sponsorship_Documentation = () => {
     <>
       <UserHeaderSpnDocumentation />
       {/* Page content */}
-      <Container className="mt--4" fluid>
+      <Container className="mt--7" fluid>
         
           <Card className="card-stats mb-4 mb-lg-0">
             <CardBody>

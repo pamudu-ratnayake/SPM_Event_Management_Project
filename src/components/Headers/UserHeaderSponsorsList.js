@@ -7,7 +7,7 @@ const UserHeader = () => {
       <div
         className="header pb-8 pt-5 pt-lg-8 d-flex align-items-center"
         style={{
-          minHeight: "450px",
+          minHeight: "500px",
           backgroundImage:
             "url(" +
             require("../../assets/img/header/header5.jpg").default +
@@ -22,10 +22,9 @@ const UserHeader = () => {
         <Container className="d-flex align-items-center" fluid>
           <Row>
             <Col lg="7" md="10">
-              <h1 className="display-2 text-white">Publish Your Event</h1>
+              <h1 className="display-2 text-white">Sponsor List</h1>
               <p className="text-white mt-0 mb-5">
-                This is your profile page. You can see the progress you've made
-                with your work and manage your projects or assigned tasks
+                This is your Sponsor List page. You can see the List of Sponsors and navigate to add, edit or remove Sponsors from the system
               </p>
             </Col>
           </Row>

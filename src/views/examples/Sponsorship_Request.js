@@ -41,7 +41,7 @@ const Sponsorship_Request = () => {
     <>
       <UserHeaderSponsors />
       {/* Page content */}
-      <Container className="mt--4" fluid>
+      <Container className="mt--7" fluid>
         <Col className="order-xl-1" xl="12">
           <Card className="bg-secondary shadow">
             <CardHeader className="bg-white border-0">

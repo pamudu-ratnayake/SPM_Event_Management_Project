@@ -19,6 +19,9 @@ import UserHeaderAddSponsor from "components/Headers/UserHeaderAddSponsor.js";
 import { Formik, useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
+import { useHistory } from "react-router";
+import { Link } from "react-router-dom";
+import { useState } from "react";
 
 const phoneRegExp =
   /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
@@ -36,6 +39,8 @@ const validationSchema = Yup.object({
 });
 
 const Add_Sponsor = () => {
+  let history = useHistory();
+
   const initialValues = {
     enableReinitialize: true,
     validateOnMount: true,
@@ -56,13 +61,16 @@ const Add_Sponsor = () => {
       .then((res) => {
         console.log(res);
         console.log('Data', values);
+        
         // history.push({
-        //   pathname:`/admin/customerprofile/${values.id}`
+        //   pathname:`/admin/SponsorList`
         // })
       })
       .catch((error) => {
         console.log(error);
       });
+
+
   };
 
   const formik = useFormik({
@@ -75,7 +83,7 @@ const Add_Sponsor = () => {
     <>
       <UserHeaderAddSponsor />
       {/* Page content */}
-      <Container className="mt--4" fluid>
+      <Container className="mt--7" fluid>
         <Row>
           <Col className="order-xl-2 mb-5 mb-xl-0" xl="4"></Col>
           <Col className="order-xl-1" xl="12">
@@ -219,15 +227,16 @@ const Add_Sponsor = () => {
                     >
                       Add
                     </Button>
-                    {/* <Button
+                    {/* <Link to={"/admin/SponsorList"}> */}
+                    <Button
                       color="primary"
-                      href="#pablo"
-                      onClick={(e) => e.preventDefault()}
                       size="sm"
                       name=""
+                      type="reset"
                     >
                       Cancle
-                    </Button> */}
+                    </Button>
+                    {/* </Link> */}
                   </div>
                 </Form>
               </CardBody>

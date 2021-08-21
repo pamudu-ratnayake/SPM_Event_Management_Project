@@ -7,7 +7,7 @@ const UserHeader = () => {
       <div
         className="header pb-8 pt-5 pt-lg-8 d-flex align-items-center"
         style={{
-          minHeight: "450px",
+          minHeight: "500px",
           backgroundImage:
             "url(" +
             require("../../assets/img/header/header8.jpg").default +
@@ -17,7 +17,7 @@ const UserHeader = () => {
         }}
       >
         {/* Mask */}
-        <span className="mask bg-gradient-default opacity-3" />
+        <span className="mask bg-gradient-default opacity-4" />
         {/* Header container */}
         <Container className="d-flex align-items-center" fluid>
           <Row>
