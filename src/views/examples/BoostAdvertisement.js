@@ -58,7 +58,7 @@ const BoostAdvertisement = () => {
               <CardHeader className="bg-white border-0">
                 <Row className="align-items-center">
                   <Col xs="8">
-                    <h2 className="mb-0">Event Boosting Information</h2>
+                    <h2 className="mb-0">Advertisement Boosting Information</h2>
                   </Col>
                   <Col className="text-right" xs="4"></Col>
                 </Row>

@@ -1,16 +1,10 @@
 // reactstrap components
-import React, { useState } from "react";
-
 import {
   Button,
   Card,
   CardHeader,
-  CardTitle,
-  CardText,
-  Modal,
   CardBody,
   FormGroup,
-  CardImg,
   Form,
   Input,
   Container,
@@ -18,61 +12,87 @@ import {
   Col,
 } from "reactstrap";
 import * as Yup from "yup";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useHistory } from "react-router";
+
 // core components
 import AdvertisementHeader from "components/Headers/AdvertisementHeader";
 
 import { useFormik } from "formik";
 
-const AdvertisementInformation = (props) => {
-  const [defaultModal, setmodalDemo] = useState(false);
+const phoneRegExp =
+  /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
-  function toggleModal() {
-    setmodalDemo(!defaultModal);
-  }
+const UpdateAdvertisementInformation = (props) => {
+  console.log("ID is", props.match.params._id);
+
+  const [details, setupdateRequest] = useState(0);
+  let history = useHistory();
 
   const initialValues = {
     enableReinitialize: true,
     validateOnMount: true,
-    service_Provider_Name: "",
+    service_Provider_Name: details.service_Provider_Name,
     // service_Provider_ID: "",
-    contact_Number_SP: "",
-    email_SP: "",
-    service_Type: "",
-    advertisement_Duration: "",
-    advertisement_Des: "",
-    advertisement_Pic: "",
+    contact_Number_SP: details.contact_Number_SP,
+    email_SP: details.email_SP,
+    service_Type: details.service_Type,
+    advertisement_Duration: details.advertisement_Duration,
+    advertisement_Des: details.advertisement_Des,
+    advertisement_Pic: details.advertisement_Pic,
   };
 
   const validationSchema = Yup.object({
-    service_Provider_Name: Yup.string().required("Required"),
-    contact_Number_SP: Yup.string().required("Required"),
-    email_SP: Yup.string().required("Required"),
-    service_Type: Yup.string().required("Required"),
-    advertisement_Duration: Yup.string().required("Required"),
-    advertisement_Des: Yup.string().required("Required"),
-    advertisement_Pic: Yup.string().required("Required"),
+    service_Provider_Name: Yup.string().required("Required !"),
+    contact_Number_SP: Yup.string().matches(
+      phoneRegExp,
+      "Phone Number is not Valid !"
+    ),
+    email_SP: Yup.string().email("Invalid Email!").required("Required !"),
+    service_Type: Yup.string().required("Required !"),
+    advertisement_Duration: Yup.string().required("Required !"),
+    advertisement_Des: Yup.string().required("Required !"),
+    advertisement_Pic: Yup.string().required("Required !"),
     // cardtype: Yup.string().required("Required"),
   });
 
   const onSubmit = (values) => {
     console.log("form data", values);
     axios
-      .post("http://localhost:8080/advertisement/addadvertisement", values)
+      .put(
+        `http://localhost:8080/advertisement/updateadvertisement/${props.match.params._id}`, values)
       .then((res) => {
         console.log(res);
-        console.log("Data", values);
+        history.push({
+          pathname: `/admin`,
+        });
         // history.pushState({
         //   pathname: ''
         // })
       })
       .catch((error) => {
-        console.log(error);
+        console(error);
       });
   };
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:8080/advertisement/get/${props.match.params._id}`)
+      .then((res) => {
+        console.log(res);
+        setupdateRequest(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
   const formik = useFormik({
+    enableReinitialize: true,
+    validateOnMount: true,
     initialValues,
-   // onSubmit,
+    onSubmit,
     validationSchema,
   });
 
@@ -101,7 +121,8 @@ const AdvertisementInformation = (props) => {
                         <Input
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
-                          value={formik.values.service_Provider_Name}
+                          // value={formik.values.service_Provider_Name}
+                          defaultValue={details.service_Provider_Name}
                           id="Service_Provider_Name "
                           name="service_Provider_Name"
                           placeholder="Enter Your Name"
@@ -123,7 +144,8 @@ const AdvertisementInformation = (props) => {
                         <Input
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
-                          value={formik.email_SP}
+                          // value={formik.email_SP}
+                          defaultValue={details.email_SP}
                           id="Email_SP"
                           name="email_SP"
                           placeholder="Enter Email"
@@ -142,7 +164,8 @@ const AdvertisementInformation = (props) => {
                         <Input
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
-                          value={formik.values.contact_Number_SP}
+                          // value={formik.values.contact_Number_SP}
+                          defaultValue={details.contact_Number_SP}
                           id="Contact_Number_SP"
                           name="contact_Number_SP"
                           placeholder="Enter Contact Number"
@@ -164,12 +187,13 @@ const AdvertisementInformation = (props) => {
                         <Input
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
-                          value={formik.service_Type}
+                          // value={formik.service_Type}
+                          defaultValue={details.service_Type}
                           id="Service_Type"
                           name="service_Type"
                           type="select"
                         >
-                          <option>Choose...</option>
+                          <option>{details.service_Type}</option>
                           <option>Photographer</option>
                           <option>Decorater</option>
                           <option>Cake Designer</option>
@@ -191,12 +215,13 @@ const AdvertisementInformation = (props) => {
                         <Input
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
-                          value={formik.advertisement_Duration}
+                          // value={formik.advertisement_Duration}
+                          defaultValue={details.advertisement_Duration}
                           id="Advertisement_Duration"
                           name="advertisement_Duration"
                           type="select"
                         >
-                          <option>Choose...</option>
+                          <option>{details.advertisement_Duration}</option>
                           <option>1 Day</option>
                           <option>3 Day</option>
                           <option>5 Day</option>
@@ -222,7 +247,8 @@ const AdvertisementInformation = (props) => {
                       <Input
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        value={formik.advertisement_Des}
+                        // value={formik.advertisement_Des}
+                        defaultValue={details.advertisement_Des}
                         id="Advertisement_Des"
                         name="advertisement_Des"
                         placeholder="Enter your Advertisement Description here ...................."
@@ -244,7 +270,8 @@ const AdvertisementInformation = (props) => {
                       <Input
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        value={formik.advertisement_Pic}
+                        //
+                        defaultValue={details.advertisement_Pic}
                         id="Advertisement_Pic"
                         name="advertisement_Pic"
                         placeholder="Enter your Advertisement Picture here ..................."
@@ -270,7 +297,8 @@ const AdvertisementInformation = (props) => {
                         <input
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
-                          value={formik.cardtype}
+                          // value={formik.cardtype}
+                          defaultValue={details.cardtype}
                           className="custom-control-input"
                           id="cardtype"
                           name="cardtype"
@@ -307,89 +335,28 @@ const AdvertisementInformation = (props) => {
                       </div>
                     </Col>
                   </Row>
-
                   <br></br>
                   <br></br>
                   <Row>
                     <Col className="text-right" xs="4">
                       <Button
-                        block
-                        className="mb-3 ml-6"
                         color="primary"
-                        type="button"
-                        onClick={() => toggleModal("defaultModal")}
+                        type="submit"
+                        //  onClick={(e) => e.preventDefault()}
+                        size="lm"
                       >
                         Request Advertisement
                       </Button>
                     </Col>
-                    <Modal
-                      className="modal-dialog-centered"
-                      isOpen={defaultModal}
-                      toggle={() => toggleModal("defaultModal")}
-                    >
-                      <div className="modal-header">
-                        <h6 className="modal-title" id="modal-title-default">
-                          Advertisement Preview
-                        </h6>
-                        <button
-                          aria-label="Close"
-                          className="close"
-                          data-dismiss="modal"
-                          type="button"
-                          onClick={() => toggleModal("defaultModal")}
-                        >
-                          <span aria-hidden={true}>×</span>
-                        </button>
-                      </div>
-                      <div className="modal-body">
-                        <Card
-                          className="bg-secondary shadow"
-                          style={{ width: "28rem" }}
-                        >
-                          <Card style={{ width: "28rem" }}>
-                            <CardImg
-                              alt="..."
-                              src={require("assets/img/theme/ui.jpg").default}
-                              top
-                            />
-                            <CardBody>
-                              <CardTitle>Card title</CardTitle>
-                              <CardText>
-                                ---------- Advertisement Description --------
-                              </CardText>
-                            </CardBody>
-                          </Card>
-                        </Card>
-                      </div>
-                      <div className="modal-footer">
-                        <Button
-                          color="primary"
-                          type="submit"
-                          onClick={() => {onSubmit(formik.values)}}
-                        >
-                          Confirm Your Request
-                        </Button>
-                        <Button
-                          className="ml-auto"
-                          color="link"
-                          data-dismiss="modal"
-                          type="button"
-                          onClick={() => toggleModal("defaultModal")}
-                        >
-                          Close
-                        </Button>
-                      </div>
-                    </Modal>
                     <Col className="text-right" xs="4">
-                      <Button
-                        className="mr-8 ml-6"
+                      {/* <Button
                         color="primary"
                         href="#pablo"
                         onClick={(e) => e.preventDefault()}
                         size="lm"
                       >
                         Cancle
-                      </Button>
+                      </Button> */}
                     </Col>
                   </Row>
                 </Form>
@@ -402,4 +369,4 @@ const AdvertisementInformation = (props) => {
   );
 };
 
-export default AdvertisementInformation;
+export default UpdateAdvertisementInformation;

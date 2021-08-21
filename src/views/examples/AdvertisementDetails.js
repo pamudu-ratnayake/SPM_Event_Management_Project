@@ -1,16 +1,10 @@
 // reactstrap components
-import React, { useState } from "react";
-
 import {
   Button,
   Card,
   CardHeader,
-  CardTitle,
-  CardText,
-  Modal,
   CardBody,
   FormGroup,
-  CardImg,
   Form,
   Input,
   Container,
@@ -20,17 +14,11 @@ import {
 import * as Yup from "yup";
 import axios from "axios";
 // core components
-import AdvertisementHeader from "components/Headers/AdvertisementHeader";
+import AdvertisementDetailsHeader from "components/Headers/AdvertisementDetailsHeader";
 
 import { useFormik } from "formik";
 
-const AdvertisementInformation = (props) => {
-  const [defaultModal, setmodalDemo] = useState(false);
-
-  function toggleModal() {
-    setmodalDemo(!defaultModal);
-  }
-
+const AdvertisementDetails = () => {
   const initialValues = {
     enableReinitialize: true,
     validateOnMount: true,
@@ -67,18 +55,18 @@ const AdvertisementInformation = (props) => {
         // })
       })
       .catch((error) => {
-        console.log(error);
+        console(error);
       });
   };
   const formik = useFormik({
     initialValues,
-   // onSubmit,
+    onSubmit,
     validationSchema,
   });
 
   return (
     <>
-      <AdvertisementHeader />
+      <AdvertisementDetailsHeader />
       {/* Page content */}
       <Container className="mt--7">
         <Row>
@@ -87,7 +75,7 @@ const AdvertisementInformation = (props) => {
               <CardHeader className="bg-white border-0">
                 <Row className="align-items-center">
                   <Col xs="8">
-                    <h2 className="mb-0">Advertisement Information</h2>
+                    <h2 className="mb-0">Advertisement Details</h2>
                   </Col>
                   <Col className="text-right" xs="4"></Col>
                 </Row>
@@ -98,15 +86,7 @@ const AdvertisementInformation = (props) => {
                     <Col md="12">
                       <FormGroup>
                         <label>Service Provider Name </label>
-                        <Input
-                          onChange={formik.handleChange}
-                          onBlur={formik.handleBlur}
-                          value={formik.values.service_Provider_Name}
-                          id="Service_Provider_Name "
-                          name="service_Provider_Name"
-                          placeholder="Enter Your Name"
-                          type="text"
-                        />
+                        
                         {formik.touched.service_Provider_Name &&
                         formik.errors.service_Provider_Name ? (
                           <div style={{ color: "red" }}>
@@ -307,89 +287,28 @@ const AdvertisementInformation = (props) => {
                       </div>
                     </Col>
                   </Row>
-
                   <br></br>
                   <br></br>
                   <Row>
                     <Col className="text-right" xs="4">
                       <Button
-                        block
-                        className="mb-3 ml-6"
                         color="primary"
-                        type="button"
-                        onClick={() => toggleModal("defaultModal")}
+                        type="submit"
+                        //  onClick={(e) => e.preventDefault()}
+                        size="lm"
                       >
                         Request Advertisement
                       </Button>
                     </Col>
-                    <Modal
-                      className="modal-dialog-centered"
-                      isOpen={defaultModal}
-                      toggle={() => toggleModal("defaultModal")}
-                    >
-                      <div className="modal-header">
-                        <h6 className="modal-title" id="modal-title-default">
-                          Advertisement Preview
-                        </h6>
-                        <button
-                          aria-label="Close"
-                          className="close"
-                          data-dismiss="modal"
-                          type="button"
-                          onClick={() => toggleModal("defaultModal")}
-                        >
-                          <span aria-hidden={true}>×</span>
-                        </button>
-                      </div>
-                      <div className="modal-body">
-                        <Card
-                          className="bg-secondary shadow"
-                          style={{ width: "28rem" }}
-                        >
-                          <Card style={{ width: "28rem" }}>
-                            <CardImg
-                              alt="..."
-                              src={require("assets/img/theme/ui.jpg").default}
-                              top
-                            />
-                            <CardBody>
-                              <CardTitle>Card title</CardTitle>
-                              <CardText>
-                                ---------- Advertisement Description --------
-                              </CardText>
-                            </CardBody>
-                          </Card>
-                        </Card>
-                      </div>
-                      <div className="modal-footer">
-                        <Button
-                          color="primary"
-                          type="submit"
-                          onClick={() => {onSubmit(formik.values)}}
-                        >
-                          Confirm Your Request
-                        </Button>
-                        <Button
-                          className="ml-auto"
-                          color="link"
-                          data-dismiss="modal"
-                          type="button"
-                          onClick={() => toggleModal("defaultModal")}
-                        >
-                          Close
-                        </Button>
-                      </div>
-                    </Modal>
                     <Col className="text-right" xs="4">
-                      <Button
-                        className="mr-8 ml-6"
+                      {/* <Button
                         color="primary"
                         href="#pablo"
                         onClick={(e) => e.preventDefault()}
                         size="lm"
                       >
                         Cancle
-                      </Button>
+                      </Button> */}
                     </Col>
                   </Row>
                 </Form>
@@ -402,4 +321,4 @@ const AdvertisementInformation = (props) => {
   );
 };
 
-export default AdvertisementInformation;
+export default AdvertisementDetails;

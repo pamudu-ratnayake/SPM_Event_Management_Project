@@ -68,31 +68,40 @@ const BoostEvent = () => {
                   <Row>
                   <Col md="6">
                       <FormGroup>
-                        <label>Customer ID  </label>
+                        <label>Customer Name  </label>
                         <Input
-                          id="Customer_ID "
-                          name="Customer_ID_Name"
-                          disabled
-                          type="text"
+                         onChange={formik.handleChange}
+                         onBlur={formik.handleBlur}
+                         value={formik.values.Customer_Name}
+                          id="Customer_Name "
+                          name="Customer_Name"
+                          placeholder="Enter your Name"
+                           type="text"
                         />
+                        {formik.touched.Customer_Name &&
+                        formik.errors.Customer_Name? (
+                          <div style={{ color: "red" }}>
+                            {formik.errors.Customer_Name}
+                          </div>
+                        ) : null}
                       </FormGroup>
                     </Col>
                     <Col md="6">
                       <FormGroup>
-                        <label>Event ID  </label>
+                        <label>NIC Number </label>
                         <Input
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        value={formik.values.Event_ID}
-                          id="Event_ID"
-                          name="Event_ID"
-                           placeholder="Enter your Event ID"
+                        value={formik.values.nic_no}
+                          id="NIC"
+                          name="nic_no"
+                          placeholder="Enter your NIC Number"
                           type="text"
                         />
-                        {formik.touched.Event_ID &&
-                        formik.errors.Event_ID? (
+                        {formik.touched.nic_no &&
+                        formik.errors.nic_no? (
                           <div style={{ color: "red" }}>
-                            {formik.errors.Event_ID}
+                            {formik.errors.nic_no}
                           </div>
                         ) : null}
                       </FormGroup>

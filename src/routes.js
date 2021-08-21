@@ -5,13 +5,15 @@ import Register from "views/examples/Register.js";
 import Login from "views/examples/Login.js";
 import Tables from "views/examples/Tables.js";
 import Icons from "views/examples/Icons.js";
-import Testing from "views/examples/Testing";
 import AdvertisementInformation from "views/examples/AdvertisementInformation";
 import CardPayment from "views/examples/CardPayment";
 import DisplayedRequest from "views/examples/DisplayedRequest";
 import CardPaymentMethod from "views/examples/CardPaymentMethod";
 import BoostEvent from "views/examples/BoostEvent";
 import BoostAdvertisement from "views/examples/BoostAdvertisement";
+import UpdateAdvertisementInformation from "views/examples/UpdateAdvertisementInformation";
+import AdvertisementDetails from "views/examples/AdvertisementDetails";
+import ViewAdvertisement from "views/examples/ViewAdvertisement";
 
 var routes = [
   {
@@ -50,6 +52,13 @@ var routes = [
     layout: "/admin",
   },
   {
+    path: "/advertisementdetails",
+    name: "Advertisement Details ",
+    icon: "ni ni-credit-card text-blue",
+    component: AdvertisementDetails,
+    layout: "/admin",
+  },
+  {
     path: "/displayedrequest",
     name: "Card Payments",
     icon: "ni ni-credit-card text-blue",
@@ -68,6 +77,20 @@ var routes = [
     name: "Advertisement Information",
     icon: "ni ni-tv-2 text-pink",
     component: AdvertisementInformation,
+    layout: "/admin",
+  },
+  {
+    path: "/viewadvertisement/:_id",
+    name: "View Advertisement",
+    icon: "ni ni-tv-2 text-pink",
+    component: ViewAdvertisement,
+    layout: "/admin",
+  },
+  {
+    path: "/updateadvertisement/:_id",
+    name: "Update Advertisement Information",
+    icon: "ni ni-tv-2 text-pink",
+    component: UpdateAdvertisementInformation,
     layout: "/admin",
   },
   {
