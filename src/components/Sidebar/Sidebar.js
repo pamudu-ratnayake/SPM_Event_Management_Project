@@ -67,18 +67,6 @@ const Sidebar = (props) => {
   };
 
   const { bgColor, routes, logo } = props;
-  let navbarBrandProps;
-  if (logo && logo.innerLink) {
-    navbarBrandProps = {
-      to: logo.innerLink,
-      tag: Link,
-    };
-  } else if (logo && logo.outterLink) {
-    navbarBrandProps = {
-      href: logo.outterLink,
-      target: "_blank",
-    };
-  }
 
   return (
     <Navbar className="navbar-vertical fixed-left navbar-light bg-white" expand="md" id="sidenav-main">
@@ -88,7 +76,14 @@ const Sidebar = (props) => {
           <span className="navbar-toggler-icon" />
         </button>
         {/* Brand */}
-
+        <div
+          className="header pb-9 pt-2 pt-lg-8 d-flex align-items-center"
+          style={{
+            backgroundImage: "url(" + require("../../assets/img/theme/thebliss5.png").default + ")",
+            backgroundSize: "290px",
+            backgroundPosition: "center bottom",
+          }}
+        />
         {/* User */}
         <Nav className="align-items-center d-md-none">
           <UncontrolledDropdown nav>
