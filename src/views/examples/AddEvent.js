@@ -16,21 +16,6 @@ import { useState, useEffect } from "react";
 
 const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
-// phoneNumber: Yup.string().matches(phoneRegExp, 'Phone number is not valid')
-
-// const validationSchema = Yup.object({
-//   event_name: Yup.string().required("*Required!"),
-//   org_name: Yup.string().required("*Required!"),
-//   event_time: Yup.string().required("*Required!"),
-//   location: Yup.string().required("*Required!"),
-//   days_occurs: Yup.number().required("*Required!").max(20, "Limit exceed").min(0, "Invalid number"),
-//   event_type: Yup.string().required("*Required!"),
-//   organizer_name: Yup.string().required("*Required!"),
-//   cus_id: Yup.string().required("*Required!"),
-//   cus_email: Yup.string().email("*Invalid email!").required("*Required!"),
-//   cus_con_number: Yup.string().matches(phoneRegExp, "Phone number is not valid").required("*Required!").min(10, "Too short").max(10, "Too long"),
-//   description: Yup.string().required("*Required!"),
-// });
 
 const AddEvent = (props) => {
   // function AddEvent(props) {
