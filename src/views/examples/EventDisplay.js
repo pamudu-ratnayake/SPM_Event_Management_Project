@@ -37,6 +37,11 @@ const EventDisplay = (props) => {
                   <Col xs="8">
                     <h1 className="mb-0">Details of The Event</h1>
                   </Col>
+                  <Col className="text-right" xs="4">
+                    <Button color="primary" href="#pablo" onClick={(e) => e.preventDefault()} size="sm">
+                      Service Providers
+                    </Button>
+                  </Col>
                 </Row>
               </CardHeader>
               <CardBody>
@@ -112,30 +117,35 @@ const EventDisplay = (props) => {
                       })}
                     </Col>
                   )} */}
-                {(arrayHelper) => (
+
+                  {/* ----------- This one is correct---------------- */}
+
+                {/* {(arrayHelper) => (
                   <div>
                   {event.checkboxOption.map(boxValue => {
                       return <label className="ml-5" key={boxValue.checkboxOption}> {boxValue.checkboxOption[0]}  </label>
                     }
                     )} 
                     </div>            
-                    )}     
+                    )}      */}
 
-                  {/* <Col>
-                    <label className="ml-5"> {event.checkboxOption} </label>
+                    {/* ---------------------------------------------------------- */}
+
+                  <Col>
+                    <label className="ml-5"> </label>
                   </Col>
                   <Col>
-                    <label className="ml-5"> fdg </label>
+                    <label className="ml-5"> Photography </label>
                   </Col>
                   <Col>
-                    <label className="ml-5"> dfgdfg</label>
+                    <label className="ml-5"> Sound Provider</label>
                   </Col>
                   <Col>
-                    <label className="ml-5">gdsgds</label>
+                    <label className="ml-5">Decorators</label>
                   </Col>
                   <Col>
-                    <label className="ml-5">gdsgds</label>
-                  </Col> */}
+                    <label className="ml-5">Dancers</label>
+                  </Col>
 
                   <h2 className="mt-5 mb-4">Contact Information</h2>
                   <Row>

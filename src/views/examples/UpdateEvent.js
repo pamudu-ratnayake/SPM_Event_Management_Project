@@ -11,24 +11,10 @@ import { Button, Card, CardHeader, CardBody, FormGroup, Form, Input, Container, 
 // core components
 import UpdateEventHeader from "components/Headers/UpdateEventHeader";
 import { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 
 const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
-// phoneNumber: Yup.string().matches(phoneRegExp, 'Phone number is not valid')
-
-// const validationSchema = Yup.object({
-//   event_name: Yup.string().required("*Required!"),
-//   org_name: Yup.string().required("*Required!"),
-//   event_time: Yup.string().required("*Required!"),
-//   location: Yup.string().required("*Required!"),
-//   days_occurs: Yup.number().required("*Required!").max(20, "Limit exceed").min(0, "Invalid number"),
-//   event_type: Yup.string().required("*Required!"),
-//   organizer_name: Yup.string().required("*Required!"),
-//   cus_id: Yup.string().required("*Required!"),
-//   cus_email: Yup.string().email("*Invalid email!").required("*Required!"),
-//   cus_con_number: Yup.string().matches(phoneRegExp, "Phone number is not valid").required("*Required!").min(10, "Too short").max(10, "Too long"),
-//   description: Yup.string().required("*Required!"),
-// });
 
 const UpdateEvent = (props) => {
   // function AddEvent(props) {
@@ -87,6 +73,8 @@ const UpdateEvent = (props) => {
     // checkboxOption: Yup.array().required("Required"),
   });
 
+  let history = useHistory();
+
   const onSubmit = (values) => {
     console.log("Form Date", values);
     //  values.date_of_the_event = event_date; //watch
@@ -95,6 +83,9 @@ const UpdateEvent = (props) => {
       .then((res) => {
         console.log(res);
         console.log("Data", values);
+        history.push({
+          pathname: `/admin/my-event`,
+        });
       })
       .catch((error) => {
         console.log(error);
@@ -134,11 +125,7 @@ const UpdateEvent = (props) => {
                   <Col xs="8">
                     <h1 className="mb-0">Update Details of The Event</h1>
                   </Col>
-                  <Col className="text-right" xs="4">
-                    <Button color="primary" href="#pablo" onClick={(e) => e.preventDefault()} size="sm">
-                      Service Providers
-                    </Button>
-                  </Col>
+
                 </Row>
               </CardHeader>
               <CardBody>
@@ -348,7 +335,7 @@ const UpdateEvent = (props) => {
                       <div className="custom-control custom-checkbox mb-3">
                         <input className="custom-control-input" id="customCheck9" type="checkbox" />
                         <label className="custom-control-label" htmlFor="customCheck9">
-                          Unchecked
+                          Dancers
                         </label>
                       </div>
                     </Col>
@@ -445,7 +432,7 @@ const UpdateEvent = (props) => {
                   }} */}
                   <div className="text-center">
                     <Button className="mt-4" color="primary" type="submit">
-                      Publish Event
+                      Update Event
                     </Button>
                   </div>
                 </Form>

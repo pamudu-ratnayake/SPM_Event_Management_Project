@@ -172,7 +172,7 @@ const Sidebar = (props) => {
           </Form>
           {/* Navigation */}
           <Nav navbar>{createLinks(routes)}</Nav>
-          {/* Divider */}
+        
         </Collapse>
       </Container>
     </Navbar>

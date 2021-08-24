@@ -110,11 +110,11 @@ const AddEvent = (props) => {
                   <Col xs="8">
                     <h1 className="mb-0">Publish An Event</h1>
                   </Col>
-                  <Col className="text-right" xs="4">
+                  {/* <Col className="text-right" xs="4">
                     <Button color="primary" href="#pablo" onClick={(e) => e.preventDefault()} size="sm">
                       Service Providers
                     </Button>
-                  </Col>
+                  </Col> */}
                 </Row>
               </CardHeader>
               <CardBody>
@@ -315,7 +315,7 @@ const AddEvent = (props) => {
                     <Col md="2">
                       <div className="custom-control custom-checkbox mb-3">
                       <input className="custom-control-input" id="customCheck9" onChange={formik.handleChange}  onBlur={formik.handleBlur} value="Unchecked" name="checkboxOption" type="checkbox" as={Checkbox} />                        <label className="custom-control-label" htmlFor="customCheck9">
-                          Unchecked
+                          Dancers
                         </label>
                       </div>
                     </Col>
