@@ -34,6 +34,7 @@ import {
   Row,
   Col,
 } from "reactstrap";
+import { minWidth } from "@material-ui/system";
 
 var ps;
 
@@ -87,13 +88,7 @@ const Sidebar = (props) => {
           <span className="navbar-toggler-icon" />
         </button>
         {/* Brand */}
-        {logo ? (
-          <NavbarBrand className="pt-0" {...navbarBrandProps}>
-            {/* <img alt={logo.imgAlt} className="navbar-brand-img" src={logo.imgSrc} /> */}
-            <h2>Events</h2>
-            <h1>THE BLISS</h1>
-          </NavbarBrand>
-        ) : null}
+
         {/* User */}
         <Nav className="align-items-center d-md-none">
           <UncontrolledDropdown nav>

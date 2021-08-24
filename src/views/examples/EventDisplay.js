@@ -4,7 +4,7 @@ import axios from "axios";
 // reactstrap components
 import { Button, Card, CardHeader, CardBody, FormGroup, Form, Input, Container, Row, Col, InputGroupAddon, InputGroupText, InputGroup } from "reactstrap";
 // core components
-import AddEventHeader from "components/Headers/AddEventHeader";
+import ViewEventHeader from "components/Headers/ViewEventHeader";
 import { useEffect, useState } from "react";
 
 const EventDisplay = (props) => {
@@ -26,21 +26,16 @@ const EventDisplay = (props) => {
 
   return (
     <>
-      <AddEventHeader />
+      <ViewEventHeader />
       {/* Page content */}
-      <Container className="mt--7" fluid>
+      <Container className="mt--9" fluid>
         <Row>
           <Col className="order-xl-1" xl="12">
             <Card className="bg-secondary shadow">
               <CardHeader className="bg-white border-0">
                 <Row className="align-items-center">
                   <Col xs="8">
-                    <h1 className="mb-0">Publish An Event</h1>
-                  </Col>
-                  <Col className="text-right" xs="4">
-                    <Button color="primary" href="#pablo" onClick={(e) => e.preventDefault()} size="sm">
-                      Service Providers
-                    </Button>
+                    <h1 className="mb-0">Details of The Event</h1>
                   </Col>
                 </Row>
               </CardHeader>
@@ -55,8 +50,8 @@ const EventDisplay = (props) => {
                     </Col>
                     <Col md="6">
                       <FormGroup>
-                        <label>Event ID : </label>
-                        <label className="ml-3">gsfsf</label>
+                        <label>Event Type : </label>
+                        <label className="ml-3"> {event.event_type} </label>
                       </FormGroup>
                     </Col>
                   </Row>
@@ -95,33 +90,52 @@ const EventDisplay = (props) => {
                         <label className="ml-3"> {event.location} </label>
                       </FormGroup>
                     </Col>
-                    <Col md="6">
-                      <FormGroup>
-                        <label>Event Type : </label>
-                        <label className="ml-3"> {event.event_type} </label>
-                      </FormGroup>
-                    </Col>
                   </Row>
                   <Row>
                     <Col>
                       <label className="mb-2">Required Services : </label>
                     </Col>
                   </Row>
+                  {/* <Col>
+                  {
+                    event.checkboxOption.map(function(checkbox, index){
+                      return <label className="ml-5" key={index}> {checkbox.title} </label>
+
+                    })
+                  }
+                  </Col> */}
+                  {/* {(arrayHelper) => (
+                    <Col>
+                      {event.checkboxOption.map((checkboxOption, index) => {
+                        // const boxValue = `event.chechboxOption.${index}`;
+                        return <label className="ml-5">{checkboxOption[index]}</label>
+                      })}
+                    </Col>
+                  )} */}
+                {(arrayHelper) => (
+                  <div>
+                  {event.checkboxOption.map(boxValue => {
+                      return <label className="ml-5" key={boxValue.checkboxOption}> {boxValue.checkboxOption[0]}  </label>
+                    }
+                    )} 
+                    </div>            
+                    )}     
+
+                  {/* <Col>
+                    <label className="ml-5"> {event.checkboxOption} </label>
+                  </Col>
                   <Col>
-                    <label className="ml-5">gdsgds</label>
+                    <label className="ml-5"> fdg </label>
+                  </Col>
+                  <Col>
+                    <label className="ml-5"> dfgdfg</label>
                   </Col>
                   <Col>
                     <label className="ml-5">gdsgds</label>
                   </Col>
                   <Col>
                     <label className="ml-5">gdsgds</label>
-                  </Col>
-                  <Col>
-                    <label className="ml-5">gdsgds</label>
-                  </Col>
-                  <Col>
-                    <label className="ml-5">gdsgds</label>
-                  </Col>
+                  </Col> */}
 
                   <h2 className="mt-5 mb-4">Contact Information</h2>
                   <Row>

@@ -19,20 +19,7 @@ var routes = [
     component: Index,
     layout: "/admin",
   },
-  {
-    path: "/icons",
-    name: "Icons",
-    icon: "ni ni-planet text-blue",
-    component: Icons,
-    layout: "/admin",
-  },
-  {
-    path: "/maps",
-    name: "Maps",
-    icon: "ni ni-pin-3 text-orange",
-    component: Maps,
-    layout: "/admin",
-  },
+
   {
     path: "/add-event",
     name: "Publish An Event",
@@ -40,20 +27,7 @@ var routes = [
     component: AddEvent,
     layout: "/admin",
   },
-  {
-    path: "/event-display/:_id",
-    name: "Display Event",
-    icon: "ni ni-notification-70 text-orange",
-    component: EventDisplay,
-    layout: "/admin",
-  },
-  {
-    path: "/event-update/:_id",
-    name: "Update Event",
-    icon: "ni ni-notification-70 text-orange",
-    component: UpdateEvent,
-    layout: "/admin",
-  },
+
   {
     path: "/customer-profile",
     name: "My Profile",
@@ -64,7 +38,7 @@ var routes = [
   {
     path: "/my-event",
     name: "My Events",
-    icon: "ni ni-notification-70 text-orange",
+    icon: "ni ni-book-bookmark text-purple",
     component: MyEvents,
     layout: "/admin",
   },
@@ -82,13 +56,13 @@ var routes = [
   //   component: Maps,
   //   layout: "/admin",
   // },
-  {
-    path: "/user-profile",
-    name: "User Profile",
-    icon: "ni ni-single-02 text-yellow",
-    component: Profile,
-    layout: "/admin",
-  },
+  // {
+  //   path: "/user-profile",
+  //   name: "User Profile",
+  //   icon: "ni ni-single-02 text-yellow",
+  //   component: Profile,
+  //   layout: "/admin",
+  // },
   // {
   //   path: "/tables",
   //   name: "Tables",
@@ -109,6 +83,35 @@ var routes = [
     icon: "ni ni-circle-08 text-pink",
     component: Register,
     layout: "/auth",
+  },
+  {
+    path: "/event-display/:_id",
+   // name: "Display Event",
+   // icon: "ni ni-notification-70 text-orange",
+    component: EventDisplay,
+    layout: "/admin",
+  },
+  {
+    path: "/event-update/:_id",
+   // name: "Update Event",
+    //icon: "ni ni-notification-70 text-orange",
+    component: UpdateEvent,
+    layout: "/admin",
+    invisible:true
+  },
+  {
+    path: "/icons",
+    name: "Icons",
+    icon: "ni ni-planet text-blue",
+    component: Icons,
+    layout: "/admin",
+  },
+  {
+    path: "/maps",
+    name: "Maps",
+    icon: "ni ni-pin-3 text-orange",
+    component: Maps,
+    layout: "/admin",
   },
 ];
 export default routes;

@@ -5,9 +5,11 @@ import axios from "axios";
 import FormikControl from "./FormikControl";
 //import { moment } from "moment";
 import DatePicker from "react-datepicker";
+import { useHistory } from "react-router-dom";
+import { Checkbox } from "@material-ui/core";
 
 // reactstrap components
-import { Button, Card, CardHeader, CardBody, FormGroup, Form , Input, Container, Row, Col, InputGroupAddon, InputGroupText, InputGroup } from "reactstrap";
+import { Button, Card, CardHeader, CardBody, FormGroup, Form, Input, Container, Row, Col, InputGroupAddon, InputGroupText, InputGroup } from "reactstrap";
 // core components
 import AddEventHeader from "components/Headers/AddEventHeader";
 import { useState, useEffect } from "react";
@@ -45,11 +47,11 @@ const AddEvent = (props) => {
   //   makeDate();
   // },[]);
 
-  const checkboxOptions = [
-    { key: "Option 01", value: "cOption1" },
-    { key: "Option 02", value: "cOption2" },
-    { key: "Option 03", value: "cOption3" },
-  ];
+  // const checkboxOptions = [
+  //   { key: "Option 01", value: "cOption1" },
+  //   { key: "Option 02", value: "cOption2" },
+  //   { key: "Option 03", value: "cOption3" },
+  // ];
 
   const initialValues = {
     enableReinitialize: true,
@@ -85,6 +87,8 @@ const AddEvent = (props) => {
     checkboxOption: Yup.array().required("Required"),
   });
 
+  let history = useHistory();
+
   const onSubmit = (values) => {
     console.log("Form Date", values);
     //  values.date_of_the_event = event_date; //watch
@@ -93,6 +97,9 @@ const AddEvent = (props) => {
       .then((res) => {
         console.log(res);
         console.log("Data", values);
+        history.push({
+          pathname: `/admin/my-event`,
+        });
       })
       .catch((error) => {
         console.log(error);
@@ -109,7 +116,7 @@ const AddEvent = (props) => {
     <>
       <AddEventHeader />
       {/* Page content */}
-      <Container className="mt--7" fluid>
+      <Container className="mt--9" fluid>
         <Row>
           <Col className="order-xl-1" xl="12">
             <Card className="bg-secondary shadow">
@@ -126,9 +133,8 @@ const AddEvent = (props) => {
                 </Row>
               </CardHeader>
               <CardBody>
-                
                 {/* <Form onSubmit={formik.handleSubmit}> */}
-                  <Form onSubmit={formik.handleSubmit}>
+                <Form onSubmit={formik.handleSubmit}>
                   <Row>
                     <Col md="6">
                       <FormGroup>
@@ -266,7 +272,7 @@ const AddEvent = (props) => {
                   <Row>
                     <Col md="2">
                       <div className="custom-control custom-checkbox mb-3">
-                        <input className="custom-control-input" id="customCheck1" type="checkbox" />
+                        <input className="custom-control-input" id="customCheck1" onChange={formik.handleChange}  onBlur={formik.handleBlur} value="Photography" name="checkboxOption" type="checkbox" as={Checkbox} />
                         <label className="custom-control-label" htmlFor="customCheck1">
                           Photography
                         </label>
@@ -274,64 +280,56 @@ const AddEvent = (props) => {
                     </Col>
                     <Col md="2">
                       <div className="custom-control custom-checkbox mb-3">
-                        <input className="custom-control-input" id="customCheck2" type="checkbox" />
-                        <label className="custom-control-label" htmlFor="customCheck2">
+                      <input className="custom-control-input" id="customCheck2" onChange={formik.handleChange}  onBlur={formik.handleBlur}  value="Sound Provider" name="checkboxOption" type="checkbox" as={Checkbox} />                        <label className="custom-control-label" htmlFor="customCheck2">
                           Sound Provider
                         </label>
                       </div>
                     </Col>
                     <Col md="2">
                       <div className="custom-control custom-checkbox mb-3">
-                        <input className="custom-control-input" id="customCheck3" type="checkbox" />
-                        <label className="custom-control-label" htmlFor="customCheck3">
+                      <input className="custom-control-input" id="customCheck3" onChange={formik.handleChange}  onBlur={formik.handleBlur} value="Florist" name="checkboxOption" type="checkbox" as={Checkbox} />                        <label className="custom-control-label" htmlFor="customCheck3">
                           Florist
                         </label>
                       </div>
                     </Col>
                     <Col md="2">
                       <div className="custom-control custom-checkbox mb-3">
-                        <input className="custom-control-input" id="customCheck4" type="checkbox" />
-                        <label className="custom-control-label" htmlFor="customCheck4">
+                      <input className="custom-control-input" id="customCheck4" onChange={formik.handleChange}  onBlur={formik.handleBlur} value="Catering" name="checkboxOption" type="checkbox" as={Checkbox} />                        <label className="custom-control-label" htmlFor="customCheck4">
                           Catering
                         </label>
                       </div>
                     </Col>
                     <Col md="2">
                       <div className="custom-control custom-checkbox mb-3">
-                        <input className="custom-control-input" id="customCheck5" type="checkbox" />
-                        <label className="custom-control-label" htmlFor="customCheck5">
+                      <input className="custom-control-input" id="customCheck5" onChange={formik.handleChange}  onBlur={formik.handleBlur} value="Cake Designer" name="checkboxOption" type="checkbox" as={Checkbox} />                        <label className="custom-control-label" htmlFor="customCheck5">
                           Cake Designer
                         </label>
                       </div>
                     </Col>
                     <Col md="2">
                       <div className="custom-control custom-checkbox mb-3">
-                        <input className="custom-control-input" id="customCheck6" type="checkbox" />
-                        <label className="custom-control-label" htmlFor="customCheck6">
+                      <input className="custom-control-input" id="customCheck6" onChange={formik.handleChange}  onBlur={formik.handleBlur} value="Costume Designer" name="checkboxOption" type="checkbox" as={Checkbox} />                        <label className="custom-control-label" htmlFor="customCheck6">
                           Costume Designer
                         </label>
                       </div>
                     </Col>
                     <Col md="2">
                       <div className="custom-control custom-checkbox mb-3">
-                        <input className="custom-control-input" id="customCheck7" type="checkbox" />
-                        <label className="custom-control-label" htmlFor="customCheck7">
+                      <input className="custom-control-input" id="customCheck7" onChange={formik.handleChange}  onBlur={formik.handleBlur} value="Event Planner" name="checkboxOption" type="checkbox" as={Checkbox} />                        <label className="custom-control-label" htmlFor="customCheck7">
                           Event Planner
                         </label>
                       </div>
                     </Col>
                     <Col md="2">
                       <div className="custom-control custom-checkbox mb-3">
-                        <input className="custom-control-input" id="customCheck8" type="checkbox" />
-                        <label className="custom-control-label" htmlFor="customCheck8">
+                      <input className="custom-control-input" id="customCheck8" onChange={formik.handleChange}  onBlur={formik.handleBlur} value="Decorators" name="checkboxOption" type="checkbox" as={Checkbox} />                        <label className="custom-control-label" htmlFor="customCheck8">
                           Decorators
                         </label>
                       </div>
                     </Col>
                     <Col md="2">
                       <div className="custom-control custom-checkbox mb-3">
-                        <input className="custom-control-input" id="customCheck9" type="checkbox" />
-                        <label className="custom-control-label" htmlFor="customCheck9">
+                      <input className="custom-control-input" id="customCheck9" onChange={formik.handleChange}  onBlur={formik.handleBlur} value="Unchecked" name="checkboxOption" type="checkbox" as={Checkbox} />                        <label className="custom-control-label" htmlFor="customCheck9">
                           Unchecked
                         </label>
                       </div>
@@ -420,20 +418,19 @@ const AddEvent = (props) => {
                       </FormGroup>
                     </Col>
                   </Row>
-                  {({formik}) => {  
+                  {/* {({formik}) => {  
                     <FormikControl 
                      control="checkbox"
                      label="Checkbox topic"
                      name="checkboxOption" 
                      option={checkboxOptions} />
-                  }}
+                  }} */}
                   <div className="text-center">
                     <Button className="mt-4" color="primary" type="submit">
                       Publish Event
                     </Button>
                   </div>
                 </Form>
-           
               </CardBody>
             </Card>
           </Col>

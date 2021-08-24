@@ -7,7 +7,7 @@ const CustomerProfileHeader = () => {
       <div
         className="header pb-3 pt-5 pt-lg-8 d-flex align-items-center"
         style={{
-          minHeight: "500px",
+          minHeight: "600px",
           backgroundImage:
             "url(" +
             require("../../assets/img/theme/profile-cover.jpg").default +
@@ -21,12 +21,12 @@ const CustomerProfileHeader = () => {
         {/* Header container */}
         <Container className="d-flex align-items-center" fluid>
           <Row>
-            <Col lg="7" md="10">
-              <h1 className="display-2 text-white">Publish Your Event</h1>
-              <p className="text-white mt-0 mb-5">
+            <Col lg="12" md="10">
+              <h1 className="display-2 text-white">My Profile</h1>
+              {/* <p className="text-white mt-0 mb-5">
                 This is your profile page. You can see the progress you've made
                 with your work and manage your projects or assigned tasks
-              </p>
+              </p> */}
             </Col>
           </Row>
         </Container>

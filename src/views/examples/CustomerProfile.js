@@ -33,7 +33,7 @@ const CustomerProfile = () => {
     <>
       <CustomerProfileHeader />
       {/* Page content */}
-      <Container className="mt--7" fluid>
+      <Container className="mt--9" fluid>
         <Row>
           <Col className="order-xl-2 mb-5 mb-xl-0" xl="4">
             <Card className="card-profile shadow">
@@ -55,15 +55,15 @@ const CustomerProfile = () => {
                   </h3>
                   <div className="h5 font-weight-300">
                     <i className="ni location_pin mr-2" />
-                    Bucharest, Romania
+                    Kottawa, Colombo.
                   </div>
                   <div className="h5 mt-4">
                     <i className="ni business_briefcase-24 mr-2" />
-                    Solution Manager - Creative Tim Officer
+                    Software Engineer
                   </div>
                   <div>
                     <i className="ni education_hat mr-2" />
-                    University of Computer Science
+                    Pearson Lanka
                   </div>
                   <hr className="my-4" />
                   <p>Ryan — the name taken by Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs and records all of his own music.</p>
@@ -76,7 +76,7 @@ const CustomerProfile = () => {
               <CardHeader className="bg-white border-0">
                 <Row className="align-items-center">
                   <Col xs="8">
-                    <h3 className="mb-0">My account</h3>
+                    <h3 className="mb-0">My Account</h3>
                   </Col>
                   <Col className="text-right" xs="4">
                     <Button color="primary" href="#pablo" size="sm" type="button" onClick={() => toggleModal("defaultModal")}>
