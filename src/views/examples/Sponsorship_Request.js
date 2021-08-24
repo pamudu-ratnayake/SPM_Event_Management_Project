@@ -43,7 +43,7 @@ const Sponsorship_Request = () => {
       {/* Page content */}
       <Container className="mt--7" fluid>
         <Col className="order-xl-1" xl="12">
-          <Card className="bg-secondary shadow">
+          <Card className="bg">
             <CardHeader className="bg-white border-0">
               <Row className="align-items-center">
                 <Col xs="8">
@@ -52,48 +52,50 @@ const Sponsorship_Request = () => {
               </Row>
             </CardHeader>
             <CardBody>
-              <div style={{ width: "18rem" }}>
-                <Col xl="12">
-                  {posts.map((posts) => (
-                    <div key={posts._id}>
-                      <Card className="card-stats mb-10 mb-lg-0">
-                        <CardImg
-                          alt="..."
-                          src={
-                            require("../../assets/img/logo/logo.png").default
-                          }
-                          top
-                        />
-                        <CardBody>
-                          
-                            <div className="col">
-                              <CardTitle
-                                className="h2 font-weight-bold mb-0"
-                                style={{ fontSize: "1rem" }}
-                              >
-                                {posts.companyName}
-                              </CardTitle>
-                              <CardText className="text-success mr-2">
-                                {/* <i className="fa fa-arrow-up" /> */}
-                                {posts.sponsorType}
-                              </CardText>
-                              <CardText className="text-muted mb-0">
-                                {posts.sponsorEmail}
-                              </CardText>
-                          
-                          {/* <p className="mt-3 mb-0 text-muted text-sm"> */}
-                          <CardText className="text-muted mb-0">
-                            {/* <i className="fa fa-arrow-up" /> */}
-                            {posts.SponsorPhoneNo}
+              <Row>
+                {posts.map((posts) => (
+                  <Col key={posts._id} xl="3">
+                    <Card className="card-stats mb-4 mb-lg-3 bg-secondary">
+                      <CardImg
+                        alt="..."
+                        src={require("../../assets/img/logo/logo.png").default}
+                        top
+                      />
+                      <CardBody>
+                        <div className="col">
+                          <CardTitle
+                            className="h2 font-weight-bold text-default mb-1"
+                            style={{ fontSize: "1.2rem" }}
+                          >
+                            {posts.companyName}
+                          </CardTitle>
+                          <CardText className="text-success mr-2 mb-0">
+                            <small>{posts.sponsorType}</small>
                           </CardText>
-                          </div>
-                          {/* </p> */}
-                        </CardBody>
-                      </Card>
-                    </div>
-                  ))}
-                </Col>
-              </div>
+                          <CardText
+                            className="font-weight text-default mr-2 mb-0"
+                            style={{ fontSize: "0.8rem" }}
+                          >
+                            <strong>{posts.sponsorEmail}</strong>
+                          </CardText>
+                          <CardText
+                            className="font-weight text-default mr-2 mb-0"
+                            style={{ fontSize: "0.9rem" }}
+                          >
+                            <strong>{posts.SponsorPhoneNo}</strong>
+                          </CardText>
+                          <CardText
+                            className="font-weight text-default mr-2 mb-0"
+                            style={{ fontSize: "0.8rem" }}
+                          >
+                            <strong>{posts.sponsorAddress}</strong>
+                          </CardText>
+                        </div>
+                      </CardBody>
+                    </Card>
+                  </Col>
+                ))}
+              </Row>
             </CardBody>
           </Card>
         </Col>

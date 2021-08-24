@@ -95,6 +95,7 @@ const SponsorList = (props) => {
                     <th scope="col">Email</th>
                     <th scope="col">Tell</th>
                     <th scope="col">Sponsor Type</th>
+                    <th scope="col">Address</th>
                     <th scope="col" />
                   </tr>
                 </thead>
@@ -145,6 +146,11 @@ const SponsorList = (props) => {
                       <td>
                         <div className="d-flex align-items-center">
                           <span className="mr-2">{posts.sponsorType}</span>
+                        </div>
+                      </td>
+                      <td>
+                        <div className="d-flex align-items-center">
+                          <span className="mr-2">{posts.sponsorAddress}</span>
                         </div>
                       </td>
                       <td className="text-right">

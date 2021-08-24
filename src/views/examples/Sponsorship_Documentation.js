@@ -21,16 +21,45 @@ import {
 } from "reactstrap";
 // core components
 import UserHeaderSpnDocumentation from "components/Headers/UserHeaderSpnDocumentation.js";
+import { Formik, useFormik } from "formik";
+import * as Yup from "yup";
+
+const phoneRegExp =
+  /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+
+const validationSchema = Yup.object({
+  oEmail: Yup.string().email("Invalid Email!").required("Required!"),
+  oContactNo: Yup.string()
+    .matches(phoneRegExp, "Phone Number is not Valid!")
+    .required("Required!")
+    .min(10, "Too short")
+    .max(10, "Too long"),
+  package: Yup.string().required("Required!"),
+  amount: Yup.string().required("Required!"),
+});
 
 const Sponsorship_Documentation = () => {
+  const initialValues = {
+    enableReinitialize: true,
+    validateOnMount: true,
+    oEmail: "",
+    oContactNo: "",
+    package: "",
+    amount: "",
+  };
+
+  const formik = useFormik({
+    initialValues,
+    validationSchema,
+  });
+
   return (
     <>
       <UserHeaderSpnDocumentation />
       {/* Page content */}
       <Container className="mt--7" fluid>
-        
-          <Card className="card-stats mb-4 mb-lg-0">
-            <CardBody>
+        <Card className="card-stats mb-4 mb-lg-0">
+          <CardBody>
             {/* <Col> */}
             <Row>
               <Col className="order-xl-2 mb-5 mb-xl-5" xl="6">
@@ -213,7 +242,7 @@ const Sponsorship_Documentation = () => {
                             <Row>
                               <Col xs="5">
                                 <span className="h5" style={{ font: "menu" }}>
-                                  Item Description
+                                  Event Description
                                 </span>
                               </Col>
                               <Col xs="6">
@@ -248,20 +277,37 @@ const Sponsorship_Documentation = () => {
                                   id="exampleFormControlInput1"
                                   placeholder="Email"
                                   type="text"
+                                  name="oEmail"
+                                  onChange={formik.handleChange}
+                                  onBlur={formik.handleBlur}
+                                  value={formik.values.oEmail}
                                 />
+                                {formik.touched.oEmail && formik.errors.oEmail ? (
+                                  <div style={{ color: "red" }}>
+                                    {formik.errors.oEmail}
+                                  </div>
+                                ) : null}
                               </Col>
                               <Col>
                                 <Input
                                   id="exampleFormControlInput1"
                                   placeholder="Contact Number"
                                   type="text"
+                                  name="oContactNo"
+                                  onChange={formik.handleChange}
+                                  onBlur={formik.handleBlur}
+                                  value={formik.values.oContactNo}
                                 />
+                                {formik.touched.oContactNo && formik.errors.oContactNo ? (
+                                  <div style={{ color: "red" }}>
+                                    {formik.errors.oContactNo}
+                                  </div>
+                                ) : null}
                               </Col>
                             </Row>
                           </FormGroup>
                         </Col>
                       </Row>
-
                       <Row>
                         <Col>
                           <FormGroup>
@@ -272,14 +318,32 @@ const Sponsorship_Documentation = () => {
                                   id="exampleFormControlInput1"
                                   placeholder="Package Name"
                                   type="text"
+                                  name="package"
+                                  onChange={formik.handleChange}
+                                  onBlur={formik.handleBlur}
+                                  value={formik.values.package}
                                 />
+                                {formik.touched.package && formik.errors.package ? (
+                                  <div style={{ color: "red" }}>
+                                    {formik.errors.package}
+                                  </div>
+                                ) : null}
                               </Col>
                               <Col xs="5">
                                 <Input
                                   id="exampleFormControlInput1"
-                                  placeholder="Amount"
+                                  placeholder="Amount in Rupees"
                                   type="text"
+                                  name="amount"
+                                  onChange={formik.handleChange}
+                                  onBlur={formik.handleBlur}
+                                  value={formik.values.amount}
                                 />
+                                {formik.touched.amount && formik.errors.amount ? (
+                                  <div style={{ color: "red" }}>
+                                    {formik.errors.amount}
+                                  </div>
+                                ) : null}
                               </Col>
                               <Col lg={{ size: "auto" }} className="pt-2">
                                 <Button
@@ -295,13 +359,11 @@ const Sponsorship_Documentation = () => {
                               </Col>
                             </Row>
                           </FormGroup>
-
                           <span>Packages</span>
-
                           <Row xs="">
                             <Col xs="">
                               <span className="h5" style={{ font: "menu" }}>
-                                Item Description
+                                Package Description
                               </span>
                             </Col>
                             <Col xs="">
@@ -315,7 +377,7 @@ const Sponsorship_Documentation = () => {
                                 type="button"
                               >
                                 <span className="btn-inner--icon">
-                                  <i className="ni ni-fat-remove" />
+                                  <i className="ni ni-fat-delete" />
                                 </span>
                               </Button>
                             </Col>
@@ -323,7 +385,7 @@ const Sponsorship_Documentation = () => {
                           <Row xs="">
                             <Col xs="">
                               <span className="h5" style={{ font: "menu" }}>
-                                Event Description
+                                Package Description
                               </span>
                             </Col>
                             <Col xs="">
@@ -337,18 +399,17 @@ const Sponsorship_Documentation = () => {
                                 type="button"
                               >
                                 <span className="btn-inner--icon">
-                                  <i className="ni ni-fat-remove" />
+                                  <i className="ni ni-fat-delete" />
                                 </span>
                               </Button>
                             </Col>
                           </Row>
                         </Col>
                       </Row>
-
                       <Row>
                         <Col>
                           <FormGroup>
-                            <label>Event Name</label>
+                            <label>Sponsorship Description</label>
                             <Row>
                               <Col>
                                 <Input
@@ -356,7 +417,16 @@ const Sponsorship_Documentation = () => {
                                   placeholder="Write a large text here ..."
                                   rows="3"
                                   type="textarea"
+                                  name="description"
+                                  onChange={formik.handleChange}
+                                  onBlur={formik.handleBlur}
+                                  value={formik.values.description}
                                 />
+                                {formik.touched.description && formik.errors.description ? (
+                                  <div style={{ color: "red" }}>
+                                    {formik.errors.description}
+                                  </div>
+                                ) : null}
                               </Col>
                             </Row>
                           </FormGroup>
@@ -372,8 +442,8 @@ const Sponsorship_Documentation = () => {
                 </Card>
               </Col>
             </Row>
-            </CardBody>
-          </Card>
+          </CardBody>
+        </Card>
       </Container>
     </>
   );

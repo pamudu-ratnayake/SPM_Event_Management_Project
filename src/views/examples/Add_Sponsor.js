@@ -21,7 +21,6 @@ import * as Yup from "yup";
 import axios from "axios";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
-import { useState } from "react";
 
 const phoneRegExp =
   /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
@@ -36,6 +35,7 @@ const validationSchema = Yup.object({
     .min(10, "Too short")
     .max(10, "Too long"),
   sponsorEmail: Yup.string().email("Invalid Email!").required("Required!"),
+  sponsorAddress: Yup.string().required("Required")
 });
 
 const Add_Sponsor = () => {
@@ -49,6 +49,7 @@ const Add_Sponsor = () => {
     sponsorType: "",
     SponsorPhoneNo: "",
     sponsorEmail: "",
+    sponsorAddress: "",
   };
 
   const onSubmit = (values) => {
@@ -70,6 +71,7 @@ const Add_Sponsor = () => {
         console.log(error);
       });
 
+      window.location.reload(false);
 
   };
 
@@ -103,7 +105,7 @@ const Add_Sponsor = () => {
                         <label>Company Registration Number</label>
                         <Input
                           id="exampleFormControlInput1"
-                          placeholder="Sponsor ID"
+                          placeholder="reg000123456"
                           type="text"
                           name="regNo"
                           onChange={formik.handleChange}
@@ -121,7 +123,7 @@ const Add_Sponsor = () => {
                       <FormGroup>
                         <label>Company Name</label>
                         <Input
-                          placeholder="Event ID"
+                          placeholder="ABC (pvt).Ltd"
                           type="text"
                           name="companyName"
                           onChange={formik.handleChange}
@@ -143,7 +145,6 @@ const Add_Sponsor = () => {
                         <label>Sponsor Type</label>
                         <Input
                           id="exampleFormControlInput1"
-                          placeholder="Enter Location"
                           type="select"
                           name="sponsorType"
                           onChange={formik.handleChange}
@@ -181,7 +182,7 @@ const Add_Sponsor = () => {
                       <FormGroup>
                         <label>Phone Number</label>
                         <Input
-                          placeholder="Event ID"
+                          placeholder="+94768945678"
                           type="text"
                           name="SponsorPhoneNo"
                           onChange={formik.handleChange}
@@ -217,6 +218,28 @@ const Add_Sponsor = () => {
                       </FormGroup>
                     </Col>
                   </Row>
+                  <Row>
+                    <Col>
+                  <FormGroup>
+                        <label>Address</label>
+                        <Input
+                          id="exampleFormControlInput1"
+                          placeholder="142, Palm Avenue, Colombo 10 "
+                          type="text"
+                          name="sponsorAddress"
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          value={formik.values.sponsorAddress}
+                        />
+                        {formik.touched.sponsorAddress &&
+                        formik.errors.sponsorAddress ? (
+                          <div style={{ color: "red" }}>
+                            {formik.errors.sponsorAddress}
+                          </div>
+                        ) : null}
+                      </FormGroup>
+                      </Col>
+                  </Row>
                   <div className="d-flex justify-content-between">
                     <Button
                       id="POST"
@@ -227,7 +250,7 @@ const Add_Sponsor = () => {
                     >
                       Add
                     </Button>
-                    {/* <Link to={"/admin/SponsorList"}> */}
+                    <Link to={"/admin/SponsorList"}>
                     <Button
                       color="primary"
                       size="sm"
@@ -236,7 +259,7 @@ const Add_Sponsor = () => {
                     >
                       Cancle
                     </Button>
-                    {/* </Link> */}
+                    </Link>
                   </div>
                 </Form>
               </CardBody>

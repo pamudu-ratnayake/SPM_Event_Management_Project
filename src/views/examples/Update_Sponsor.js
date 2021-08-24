@@ -30,6 +30,7 @@ const validationSchema = Yup.object({
   sponsorType: Yup.string().required("Required!"),
   SponsorPhoneNo: Yup.string().matches(phoneRegExp, "Phone Number is not Valid!").required("Required!").min(10,"Too short").max(10, "Too long"),
   sponsorEmail: Yup.string().email("Invalid Email!").required("Required!"),
+  sponsorAddress: Yup.string().required()
 });
 
 const Update_Sponsor = (props) => {
@@ -48,6 +49,7 @@ const Update_Sponsor = (props) => {
     sponsorType: details.sponsorType,
     SponsorPhoneNo: details.SponsorPhoneNo,
     sponsorEmail: details.sponsorEmail,
+    sponsorAddress: details.sponsorAddress
   };
 
   const onSubmit = values =>{
@@ -242,6 +244,28 @@ const Update_Sponsor = (props) => {
                         : null}
                       </FormGroup>
                     </Col>
+                  </Row>
+                  <Row>
+                    <Col>
+                  <FormGroup>
+                        <label>Address</label>
+                        <Input
+                          id="exampleFormControlInput1"
+                          placeholder="142, Palm Avenue, Colombo 10 "
+                          type="text"
+                          name="sponsorAddress"
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          value={formik.values.sponsorAddress}
+                        />
+                        {formik.touched.sponsorAddress &&
+                        formik.errors.sponsorAddress ? (
+                          <div style={{ color: "red" }}>
+                            {formik.errors.sponsorAddress}
+                          </div>
+                        ) : null}
+                      </FormGroup>
+                      </Col>
                   </Row>
                   <div className="d-flex justify-content-between">
                     
