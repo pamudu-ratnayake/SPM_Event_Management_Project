@@ -45,7 +45,7 @@ var routes = [
   //   layout: "/admin",
   // },
   {
-    path: "/cardpayment",
+    path: "/displayedrequest",
     name: "Displayed Request",
     icon: "ni ni-credit-card text-blue",
     component: DisplayedRequest,
@@ -59,7 +59,7 @@ var routes = [
     layout: "/admin",
   },
   {
-    path: "/displayedrequest",
+    path: "/cardpayment",
     name: "Card Payments",
     icon: "ni ni-credit-card text-blue",
     component: CardPayment,
@@ -68,6 +68,13 @@ var routes = [
   {
     path: "/boostEvent",
     name: "Boost Event",
+    icon: "ni ni-credit-card text-blue",
+    component: BoostEvent,
+    layout: "/admin",
+  },
+  {
+    path: "/updateboostEvent",
+    name: "Update Boost Event",
     icon: "ni ni-credit-card text-blue",
     component: BoostEvent,
     layout: "/admin",
@@ -100,6 +107,20 @@ var routes = [
     component: BoostAdvertisement,
     layout: "/admin",
   },
+  // {
+  //   path: "/icons",
+  //   name: "Icons",
+  //   icon: "ni ni-planet text-blue",
+  //   component: Icons,
+  //   layout: "/admin",
+  // },
+  // {
+  //   path: "/maps",
+  //   name: "Maps",
+  //   icon: "ni ni-pin-3 text-orange",
+  //   component: Maps,
+  //   layout: "/admin",
+  // },
   {
     path: "/user-profile",
     name: "User Profile",
@@ -121,6 +142,13 @@ var routes = [
     component: Tables,
     layout: "/admin",
   },
+  // {
+  //   path: "/tables",
+  //   name: "Tables",
+  //   icon: "ni ni-bullet-list-67 text-red",
+  //   component: Tables,
+  //   layout: "/admin",
+  // },
   {
     path: "/login",
     name: "Login",

@@ -20,7 +20,7 @@ import BoostHeader from "components/Headers/BoostHeader";
 
 import { useFormik } from "formik";
 
-const BoostEvent = () => {
+const UpdateBoostEvent = () => {
   const initialValues = {
     enableReinitialize: true,
     validateOnMount: true,
@@ -157,8 +157,8 @@ const BoostEvent = () => {
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         value={formik.advertisement_Des}
-                        id="Boost_Purpose"
-                        name="Boost_Purpose"
+                        id="Advertisement_Des"
+                        name="advertisement_Des"
                         placeholder="Enter your Boost Description here ...................."
                         rows="6"
                         type="textarea"
@@ -175,7 +175,7 @@ const BoostEvent = () => {
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
                           value={formik.service_Type}
-                          id="service_Type"
+                          id="Service_Type"
                           name="service_Type"
                           type="select"
                         >
@@ -231,4 +231,4 @@ const BoostEvent = () => {
   );
 };
 
-export default BoostEvent;
+export default UpdateBoostEvent;

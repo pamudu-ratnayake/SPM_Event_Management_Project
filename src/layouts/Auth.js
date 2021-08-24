@@ -15,9 +15,9 @@ const Auth = (props) => {
   const location = useLocation();
 
   React.useEffect(() => {
-    document.body.classList.add("bg-default");
+    document.body.classList.add("bg-primary");
     return () => {
-      document.body.classList.remove("bg-default");
+      document.body.classList.remove("bg-primary");
     };
   }, []);
   React.useEffect(() => {
@@ -51,11 +51,7 @@ const Auth = (props) => {
             <div className="header-body text-center mb-7">
               <Row className="justify-content-center">
                 <Col lg="5" md="6">
-                  <h1 className="text-white">Welcome!</h1>
-                  <p className="text-lead text-light">
-                    Use these awesome forms to login or create new account in
-                    your project for free.
-                  </p>
+                  <h1 className="text-white">Welcome To The BLISS!</h1>
                 </Col>
               </Row>
             </div>
@@ -70,7 +66,7 @@ const Auth = (props) => {
               y="0"
             >
               <polygon
-                className="fill-default"
+                className="fill-primary"
                 points="2560 0 2560 100 0 100"
               />
             </svg>

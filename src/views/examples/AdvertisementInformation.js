@@ -25,6 +25,10 @@ import AdvertisementHeader from "components/Headers/AdvertisementHeader";
 import { useFormik } from "formik";
 
 const AdvertisementInformation = (props) => {
+
+  const phoneRegExp =
+  /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+
   const [defaultModal, setmodalDemo] = useState(false);
 
   function toggleModal() {
@@ -35,23 +39,27 @@ const AdvertisementInformation = (props) => {
     enableReinitialize: true,
     validateOnMount: true,
     service_Provider_Name: "",
-    // service_Provider_ID: "",
     contact_Number_SP: "",
     email_SP: "",
     service_Type: "",
     advertisement_Duration: "",
+    advertisement_title:"",
     advertisement_Des: "",
     advertisement_Pic: "",
   };
 
   const validationSchema = Yup.object({
-    service_Provider_Name: Yup.string().required("Required"),
-    contact_Number_SP: Yup.string().required("Required"),
-    email_SP: Yup.string().required("Required"),
-    service_Type: Yup.string().required("Required"),
-    advertisement_Duration: Yup.string().required("Required"),
-    advertisement_Des: Yup.string().required("Required"),
-    advertisement_Pic: Yup.string().required("Required"),
+    service_Provider_Name: Yup.string().required("Required !"),
+    contact_Number_SP: Yup.string().matches(
+      phoneRegExp,
+      "Phone Number is not Valid !"
+    ).min(10, "Too short").max(10,"Too Long"),
+    email_SP: Yup.string().email("Invalid Email!").required("Required !"),
+    service_Type: Yup.string().required("Required !"),
+    advertisement_Duration: Yup.string().required("Required !"),
+    advertisement_title:Yup.string().required("Required !"),
+    advertisement_Des: Yup.string().required("Required !"),
+    advertisement_Pic: Yup.string().required("Required !"),
     // cardtype: Yup.string().required("Required"),
   });
 
@@ -75,6 +83,9 @@ const AdvertisementInformation = (props) => {
    // onSubmit,
     validationSchema,
   });
+
+  // const Addtitle = formik.value.advertisement_title;
+  // const Adddes = formik.value.advertisement_Des ;
 
   return (
     <>
@@ -215,9 +226,33 @@ const AdvertisementInformation = (props) => {
                         ) : null}
                       </FormGroup>
                     </Col>
+                  </Row> 
+                  <Row>
+                  <Col md="12">
+                  <FormGroup>
+                      <label>Advertisement Title </label>
+                      <Input
+                        mb="3"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={formik.advertisement_title}
+                        id="Advertisement_title"
+                        name="advertisement_title"
+                        placeholder="Enter your Advertisement Title here ...................."
+                        rows="2"
+                        type="textarea"
+                      />
+                      {formik.touched.advertisement_title &&
+                      formik.errors.advertisement_title ? (
+                        <div style={{ color: "red" }}>
+                          {formik.errors.advertisement_title}
+                        </div>
+                      ) : null}
+                      </FormGroup>
+                    </Col>
                   </Row>
                   <Row>
-                    <Col md="12">
+                    <Col md="12" mt="3">
                       <label>Advertisement Description </label>
                       <Input
                         onChange={formik.handleChange}
@@ -311,10 +346,10 @@ const AdvertisementInformation = (props) => {
                   <br></br>
                   <br></br>
                   <Row>
-                    <Col className="text-right" xs="4">
+                    <Col className="text-center" xs="3" >
                       <Button
                         block
-                        className="mb-3 ml-6"
+                        className="mb-4 ml-9"
                         color="primary"
                         type="button"
                         onClick={() => toggleModal("defaultModal")}
@@ -353,9 +388,9 @@ const AdvertisementInformation = (props) => {
                               top
                             />
                             <CardBody>
-                              <CardTitle>Card title</CardTitle>
+                              <CardTitle>{formik.values.advertisement_title}</CardTitle>
                               <CardText>
-                                ---------- Advertisement Description --------
+                              {formik.values.advertisement_Des}
                               </CardText>
                             </CardBody>
                           </Card>
@@ -380,9 +415,9 @@ const AdvertisementInformation = (props) => {
                         </Button>
                       </div>
                     </Modal>
-                    <Col className="text-right" xs="4">
+                    <Col className="text-center ml-9" xs="4">
                       <Button
-                        className="mr-8 ml-6"
+                        className="mr-2 ml-9"
                         color="primary"
                         href="#pablo"
                         onClick={(e) => e.preventDefault()}
