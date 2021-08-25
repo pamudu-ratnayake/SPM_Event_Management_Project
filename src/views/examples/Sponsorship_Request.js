@@ -55,42 +55,43 @@ const Sponsorship_Request = () => {
               <Row>
                 {posts.map((posts) => (
                   <Col key={posts._id} xl="3">
-                    <Card className="card-stats mb-4 mb-lg-3 bg-secondary">
+                    <Card className="card-stats mb-4 mb-lg-3 secondary" style={{height:"20rem"}}>
                       <CardImg
+                      style={{height:"120px"}}
                         alt="..."
-                        src={require("../../assets/img/logo/logo.png").default}
+                        src={require("../../assets/img/logo/logo4.jpg").default}
                         top
                       />
                       <CardBody>
-                        <div className="col">
+                        {/* <div className="col"> */}
                           <CardTitle
-                            className="h2 font-weight-bold text-default mb-1"
-                            style={{ fontSize: "1.2rem" }}
+                            className="h2 font-weight-bold text-danger mb-1"
+                            style={{ fontSize: "1.1rem" }}
                           >
                             {posts.companyName}
                           </CardTitle>
-                          <CardText className="text-success mr-2 mb-0">
+                          <CardText className="text-default mr-0 mb-1">
                             <small>{posts.sponsorType}</small>
                           </CardText>
                           <CardText
-                            className="font-weight text-default mr-2 mb-0"
+                            className="font-weight text-success mr-0 mb-1"
                             style={{ fontSize: "0.8rem" }}
                           >
                             <strong>{posts.sponsorEmail}</strong>
                           </CardText>
                           <CardText
-                            className="font-weight text-default mr-2 mb-0"
+                            className="font-weight text-success mr-0 mb-1"
                             style={{ fontSize: "0.9rem" }}
                           >
                             <strong>{posts.SponsorPhoneNo}</strong>
                           </CardText>
                           <CardText
-                            className="font-weight text-default mr-2 mb-0"
+                            className="font-weight text-default mr-0 mb-1"
                             style={{ fontSize: "0.8rem" }}
                           >
                             <strong>{posts.sponsorAddress}</strong>
                           </CardText>
-                        </div>
+                        {/* </div> */}
                       </CardBody>
                     </Card>
                   </Col>

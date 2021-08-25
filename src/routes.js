@@ -94,7 +94,7 @@ var routes = [
   },
   {
     path: "/My_Issue",
-    name: "My Issues",
+    name: "Take Help",
     icon: "ni ni-bullet-list-67 text-red",
     component: My_Issue,
     layout: "/admin",

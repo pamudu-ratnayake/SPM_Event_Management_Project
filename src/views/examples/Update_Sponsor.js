@@ -183,17 +183,19 @@ const Update_Sponsor = (props) => {
                           <option>Bank</option>
                           <option>Institute</option>
                           <option>Clothing & accessories</option>
-                          <option>Mobile telecommunications</option>
+                          <option>Telecommunications</option>
                           <option>Electronics</option>
                           <option>Food products</option>
                           <option>Exploration & production</option>
-                          <option>Health care providers</option>
+                          <option>Health care</option>
                           <option>Hotels</option>
                           <option>Software</option>
                           <option>Personal products</option>
                           <option>Insurance</option>
                           <option>Engineering</option>
                           <option>Travel & tourism</option>
+                          <option>Consumer goods, retail</option>
+                          <option>Insurance</option>
                           <option>Other</option>
                         </Input>
                         {formik.touched.sponsorType && 

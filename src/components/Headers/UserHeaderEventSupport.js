@@ -10,21 +10,21 @@ const UserHeader = () => {
           minHeight: "500px",
           backgroundImage:
             "url(" +
-            require("../../assets/img/header/header12.jpg").default +
+            require("../../assets/img/header/header7.jpg").default +
             ")",
           backgroundSize: "cover",
           backgroundPosition: "center bottom",
         }}
       >
         {/* Mask */}
-        <span className="mask bg-gradient-yellow opacity-1" />
+        <span className="mask bg-gradient-default opacity-5" />
         {/* Header container */}
         <Container className="d-flex align-items-center" fluid>
           <Row>
             <Col lg="10" md="10">
-              <h1 className="display-2 text-white">Take Help</h1>
+              <h1 className="display-2 text-white">Event Support</h1>
               <p className="text-white mt-0 mb-5">
-              This is the Take Help Page. You can obtain answers to your questions about the event by adding issues to this page.
+              This is the page for Event Support. You may get expert advice for any concerns you have about arranging an event. As an event management specialist, you may share your knowledge by offering solutions.
               </p>
             </Col>
           </Row>

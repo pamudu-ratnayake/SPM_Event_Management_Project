@@ -18,7 +18,7 @@ import {
   CardFooter,
 } from "reactstrap";
 // core components
-import UserHeaderMyIssue from "components/Headers/UserHeaderMyIssue.js";
+import UserHeaderEventSupport from "components/Headers/UserHeaderEventSupport.js";
 import { Formik, useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
@@ -81,7 +81,7 @@ const Event_Support = () => {
 
   return (
     <>
-      <UserHeaderMyIssue />
+      <UserHeaderEventSupport />
       {/* Page content */}
       <Container className="mt--7" fluid>
         <Card className="bg-secondary shadow">
@@ -89,39 +89,148 @@ const Event_Support = () => {
             <h2 className="mb-0"> Event Support</h2>
           </CardHeader>
           <CardBody>
-            <Card className="mb-1">
-              <CardBody className="pt-1 pt-md-0 pb-1">
-                <div>
-                  <CardText className="h5 mt-1">
-                    <Row>
-                      <Col xs="3">Event Name</Col>
-                      <Col xs="6">NUHIuoIJIN KJNJOJ</Col>
-                    </Row>
-                  </CardText>
-                  <CardText className="h5 mb-1">
-                    <Row>
-                      <Col xs="3">Event Discription</Col>
-                      <Col xs="6">NUHIuoIJIN KJNJOJ</Col>
-                    </Row>
-                  </CardText>
-                  <CardText className="h5 pt-2 pb-2"> Question?</CardText>
-                </div>
-              </CardBody>
-            </Card>
+            <div className="mb-4">
+              <Card className="mb-1">
+                <CardBody className="pt-1 pt-md-0 pb-1">
+                  <div>
+                    <CardText className="h5 mt-1">
+                      <Row>
+                        <Col xs="3">Event Name</Col>
+                        <Col xs="6">NUHIuoIJIN KJNJOJ</Col>
+                      </Row>
+                    </CardText>
+                    <CardText className="h5 mb-1">
+                      <Row>
+                        <Col xs="3">Event Discription</Col>
+                        <Col xs="6">NUHIuoIJIN KJNJOJ</Col>
+                      </Row>
+                    </CardText>
+                    <CardText className="h5 pt-2 pb-2"> Question?</CardText>
+                  </div>
+                </CardBody>
+              </Card>
+              <div className="ml-6">
+                <Form>
+                  <Card className="card-stats mb-1">
+                    <CardBody>
+                      <Input
+                        id="exampleFormControlTextarea1"
+                        placeholder="Type your response here"
+                        rows="3"
+                        type="textarea"
+                      />
+                    </CardBody>
+                  </Card>
+                </Form>
+              </div>
+            </div>
 
-            <div>
-              <Form>
-                <Card className="card-stats mb-1">
-                  <CardBody>
-                    <Input
-                      id="exampleFormControlTextarea1"
-                      placeholder="Type your response here"
-                      rows="3"
-                      type="textarea"
-                    />
-                  </CardBody>
-                </Card>
-              </Form>
+            <div className="mb-4">
+              <Card className="mb-1">
+                <CardBody className="pt-1 pt-md-0 pb-1">
+                  <div>
+                    <CardText className="h5 mt-1">
+                      <Row>
+                        <Col xs="3">Event Name</Col>
+                        <Col xs="6">NUHIuoIJIN KJNJOJ</Col>
+                      </Row>
+                    </CardText>
+                    <CardText className="h5 mb-1">
+                      <Row>
+                        <Col xs="3">Event Discription</Col>
+                        <Col xs="6">NUHIuoIJIN KJNJOJ</Col>
+                      </Row>
+                    </CardText>
+                    <CardText className="h5 pt-2 pb-2"> Question?</CardText>
+                  </div>
+                </CardBody>
+              </Card>
+              <div className="ml-6">
+                <Form>
+                  <Card className="card-stats mb-1">
+                    <CardBody>
+                      <Input
+                        id="exampleFormControlTextarea1"
+                        placeholder="Type your response here"
+                        rows="3"
+                        type="textarea"
+                      />
+                    </CardBody>
+                  </Card>
+                </Form>
+              </div>
+            </div>
+
+            <div className="mb-4">
+              <Card className="mb-1">
+                <CardBody className="pt-1 pt-md-0 pb-1">
+                  <div>
+                    <CardText className="h5 mt-1">
+                      <Row>
+                        <Col xs="3">Event Name</Col>
+                        <Col xs="6">NUHIuoIJIN KJNJOJ</Col>
+                      </Row>
+                    </CardText>
+                    <CardText className="h5 mb-1">
+                      <Row>
+                        <Col xs="3">Event Discription</Col>
+                        <Col xs="6">NUHIuoIJIN KJNJOJ</Col>
+                      </Row>
+                    </CardText>
+                    <CardText className="h5 pt-2 pb-2"> Question?</CardText>
+                  </div>
+                </CardBody>
+              </Card>
+              <div className="ml-6">
+                <Form>
+                  <Card className="card-stats mb-1">
+                    <CardBody>
+                      <Input
+                        id="exampleFormControlTextarea1"
+                        placeholder="Type your response here"
+                        rows="3"
+                        type="textarea"
+                      />
+                    </CardBody>
+                  </Card>
+                </Form>
+              </div>
+            </div>
+
+            <div className="mb-4">
+              <Card className="mb-1">
+                <CardBody className="pt-1 pt-md-0 pb-1">
+                  <div>
+                    <CardText className="h5 mt-1">
+                      <Row>
+                        <Col xs="3">Event Name</Col>
+                        <Col xs="6">NUHIuoIJIN KJNJOJ</Col>
+                      </Row>
+                    </CardText>
+                    <CardText className="h5 mb-1">
+                      <Row>
+                        <Col xs="3">Event Discription</Col>
+                        <Col xs="6">NUHIuoIJIN KJNJOJ</Col>
+                      </Row>
+                    </CardText>
+                    <CardText className="h5 pt-2 pb-2"> Question?</CardText>
+                  </div>
+                </CardBody>
+              </Card>
+              <div className="ml-6">
+                <Form>
+                  <Card className="card-stats mb-1">
+                    <CardBody>
+                      <Input
+                        id="exampleFormControlTextarea1"
+                        placeholder="Type your response here"
+                        rows="3"
+                        type="textarea"
+                      />
+                    </CardBody>
+                  </Card>
+                </Form>
+              </div>
             </div>
           </CardBody>
         </Card>

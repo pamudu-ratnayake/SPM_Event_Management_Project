@@ -86,7 +86,7 @@ const My_Issue = () => {
       <Container className="mt--7" fluid>
         <Card className="bg-secondary shadow">
           <CardHeader className="bg-white border-0">
-            <h2 className="mb-0">Publish Event Issue</h2>
+            <h2 className="mb-0">What exactly would you like to know?</h2>
           </CardHeader>
           <CardBody>
             <Card

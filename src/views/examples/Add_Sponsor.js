@@ -104,6 +104,7 @@ const Add_Sponsor = () => {
                       <FormGroup>
                         <label>Company Registration Number</label>
                         <Input
+                        className="h5"
                           id="exampleFormControlInput1"
                           placeholder="reg000123456"
                           type="text"
@@ -123,6 +124,7 @@ const Add_Sponsor = () => {
                       <FormGroup>
                         <label>Company Name</label>
                         <Input
+                        className="h5"
                           placeholder="ABC (pvt).Ltd"
                           type="text"
                           name="companyName"
@@ -144,6 +146,7 @@ const Add_Sponsor = () => {
                       <FormGroup>
                         <label>Sponsor Type</label>
                         <Input
+                        className="h5"
                           id="exampleFormControlInput1"
                           type="select"
                           name="sponsorType"
@@ -155,17 +158,19 @@ const Add_Sponsor = () => {
                           <option>Bank</option>
                           <option>Institute</option>
                           <option>Clothing & accessories</option>
-                          <option>Mobile telecommunications</option>
+                          <option>Telecommunications</option>
                           <option>Electronics</option>
                           <option>Food products</option>
                           <option>Exploration & production</option>
-                          <option>Health care providers</option>
+                          <option>Health care</option>
                           <option>Hotels</option>
                           <option>Software</option>
                           <option>Personal products</option>
                           <option>Insurance</option>
                           <option>Engineering</option>
                           <option>Travel & tourism</option>
+                          <option>Consumer goods, retail</option>
+                          <option>Insurance</option>
                           <option>Other</option>
                         </Input>
                         {formik.touched.sponsorType &&
@@ -182,6 +187,7 @@ const Add_Sponsor = () => {
                       <FormGroup>
                         <label>Phone Number</label>
                         <Input
+                        className="h5"
                           placeholder="+94768945678"
                           type="text"
                           name="SponsorPhoneNo"
@@ -201,6 +207,7 @@ const Add_Sponsor = () => {
                       <FormGroup>
                         <label>Email</label>
                         <Input
+                        className="h5"
                           id="exampleFormControlInput1"
                           placeholder="name@example.com"
                           type="email"
@@ -223,6 +230,7 @@ const Add_Sponsor = () => {
                   <FormGroup>
                         <label>Address</label>
                         <Input
+                        className="h5-black"
                           id="exampleFormControlInput1"
                           placeholder="142, Palm Avenue, Colombo 10 "
                           type="text"
