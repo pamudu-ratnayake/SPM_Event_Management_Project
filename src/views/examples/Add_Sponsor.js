@@ -248,7 +248,8 @@ const Add_Sponsor = () => {
                       </FormGroup>
                       </Col>
                   </Row>
-                  <div className="d-flex justify-content-between">
+                  <Row className="d-flex justify-content-between">
+                    <Col className="text-center">
                     <Button
                       id="POST"
                       type="submit"
@@ -258,6 +259,8 @@ const Add_Sponsor = () => {
                     >
                       Add
                     </Button>
+                    </Col>
+                    <Col className="text-center">
                     <Link to={"/admin/SponsorList"}>
                     <Button
                       color="primary"
@@ -268,7 +271,8 @@ const Add_Sponsor = () => {
                       Cancle
                     </Button>
                     </Link>
-                  </div>
+                    </Col>
+                  </Row>
                 </Form>
               </CardBody>
             </Card>

@@ -21,10 +21,10 @@ const UserHeader = () => {
         {/* Header container */}
         <Container className="d-flex align-items-center" fluid>
           <Row>
-            <Col lg="10" md="10">
+            <Col lg="12" md="10">
               <h1 className="display-2 text-white">Take Help</h1>
               <p className="text-white mt-0 mb-5">
-              This is the Take Help Page. You can obtain answers to your questions about the event by adding issues to this page.
+              {/* This is the Take Help Page. You can obtain answers to your questions about the event by adding issues to this page. */}
               </p>
             </Col>
           </Row>

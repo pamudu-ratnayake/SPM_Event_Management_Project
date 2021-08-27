@@ -65,7 +65,7 @@ const Sponsorship_Request = () => {
                       <CardBody>
                         {/* <div className="col"> */}
                           <CardTitle
-                            className="h2 font-weight-bold text-danger mb-1"
+                            className="h2 font-weight-bold text-danger mb-0"
                             style={{ fontSize: "1.1rem" }}
                           >
                             {posts.companyName}

@@ -107,7 +107,9 @@ const My_Issue = () => {
                         </span>
                       </Col>
                       <Col xs="6">
-                        <span className="h5">.col-6</span>
+                        <span className="h5">
+                          Annual Get Together of NIBM Students
+                        </span>
                       </Col>
                     </Row>
                   </CardText>
@@ -128,7 +130,9 @@ const My_Issue = () => {
                         </span>
                       </Col>
                       <Col xs="6">
-                        <span className="h5">.col-6</span>
+                        <span className="h5">
+                          Have many activities. 250+ Crowd. 2 days event.
+                        </span>
                       </Col>
                     </Row>
                   </CardText>
@@ -148,9 +152,11 @@ const My_Issue = () => {
                     />
                   </CardBody>
                   <Col className="mb-2">
-                  <Button color="primary" size="sm" type="button">
-                    Publish
-                  </Button>
+                    <Link to={"/admin/Event_Support"}>
+                    <Button color="primary" size="sm" type="button">
+                      Publish
+                    </Button>
+                    </Link>
                   </Col>
                 </Card>
               </Form>

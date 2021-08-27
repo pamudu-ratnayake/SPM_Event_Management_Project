@@ -22,10 +22,10 @@ const UserHeader = () => {
         {/* Header container */}
         <Container className="d-flex align-items-center" fluid>
           <Row>
-            <Col lg="10" md="10">
+            <Col lg="12" md="10">
               <h1 className="display-2 text-white">Update Sponsor</h1>
               <p className="text-white mt-0 mb-5">
-                This is Update Sponsor page. You can see update Sponsor details
+                {/* This is Update Sponsor page. You can see update Sponsor details */}
               </p>
             </Col>
           </Row>

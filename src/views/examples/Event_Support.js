@@ -96,16 +96,24 @@ const Event_Support = () => {
                     <CardText className="h5 mt-1">
                       <Row>
                         <Col xs="3">Event Name</Col>
-                        <Col xs="6">NUHIuoIJIN KJNJOJ</Col>
+                        <Col xs="6">Phantom League Cricket Match</Col>
                       </Row>
                     </CardText>
                     <CardText className="h5 mb-1">
                       <Row>
                         <Col xs="3">Event Discription</Col>
-                        <Col xs="6">NUHIuoIJIN KJNJOJ</Col>
+                        <Col xs="6">
+                          Have many activities. 250+ Crowd. 1 day event.
+                        </Col>
                       </Row>
                     </CardText>
-                    <CardText className="h5 pt-2 pb-2"> Question?</CardText>
+                    <CardText className="h5 pt-2 pb-2">
+                      <em>
+                        {" "}
+                        I want to create a well structured match schedule for
+                        finish 10 matches as a one day event?
+                      </em>
+                    </CardText>
                   </div>
                 </CardBody>
               </Card>
@@ -132,16 +140,21 @@ const Event_Support = () => {
                     <CardText className="h5 mt-1">
                       <Row>
                         <Col xs="3">Event Name</Col>
-                        <Col xs="6">NUHIuoIJIN KJNJOJ</Col>
+                        <Col xs="6">NSBM Aurudu</Col>
                       </Row>
                     </CardText>
                     <CardText className="h5 mb-1">
                       <Row>
                         <Col xs="3">Event Discription</Col>
-                        <Col xs="6">NUHIuoIJIN KJNJOJ</Col>
+                        <Col xs="6">
+                          This is our annual Aurudu. 500+ students. Winners will
+                          be awarded 200,000.00/= LKR.
+                        </Col>
                       </Row>
                     </CardText>
-                    <CardText className="h5 pt-2 pb-2"> Question?</CardText>
+                    <CardText className="h5 pt-2 pb-2">
+                      <em> How many events can be cover withing one day?</em>
+                    </CardText>
                   </div>
                 </CardBody>
               </Card>
@@ -168,16 +181,22 @@ const Event_Support = () => {
                     <CardText className="h5 mt-1">
                       <Row>
                         <Col xs="3">Event Name</Col>
-                        <Col xs="6">NUHIuoIJIN KJNJOJ</Col>
+                        <Col xs="6">IIT Halloween Party</Col>
                       </Row>
                     </CardText>
                     <CardText className="h5 mb-1">
                       <Row>
                         <Col xs="3">Event Discription</Col>
-                        <Col xs="6">NUHIuoIJIN KJNJOJ</Col>
+                        <Col xs="6">200+ Crowd. Annual Halloween party</Col>
                       </Row>
                     </CardText>
-                    <CardText className="h5 pt-2 pb-2"> Question?</CardText>
+                    <CardText className="h5 pt-2 pb-2">
+                      <em>
+                        {" "}
+                        What are the event items can be add to a Halloween
+                        party?
+                      </em>
+                    </CardText>
                   </div>
                 </CardBody>
               </Card>
@@ -204,16 +223,20 @@ const Event_Support = () => {
                     <CardText className="h5 mt-1">
                       <Row>
                         <Col xs="3">Event Name</Col>
-                        <Col xs="6">NUHIuoIJIN KJNJOJ</Col>
+                        <Col xs="6">Tilan's Birthday Party</Col>
                       </Row>
                     </CardText>
                     <CardText className="h5 mb-1">
                       <Row>
                         <Col xs="3">Event Discription</Col>
-                        <Col xs="6">NUHIuoIJIN KJNJOJ</Col>
+                        <Col xs="6">
+                          100+ Crowd. Till midnight. want unlimited photos
+                        </Col>
                       </Row>
                     </CardText>
-                    <CardText className="h5 pt-2 pb-2"> Question?</CardText>
+                    <CardText className="h5 pt-2 pb-2">
+                      <em> Question?</em>
+                    </CardText>
                   </div>
                 </CardBody>
               </Card>

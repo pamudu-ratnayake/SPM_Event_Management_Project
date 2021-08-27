@@ -76,15 +76,11 @@ const Sponsorship_Documentation = () => {
                     <Card style={({ width: "28rem" }, { height: "2.5rem" })}>
                       <CardBody className="pt-1 pt-md-0">
                         <div>
-                          <CardText>
+                          <CardText className="h5">
                             <Row>
-                              <Col xs="5">
-                                <span className="h5" style={{ font: "menu" }}>
-                                  Event Name
-                                </span>
-                              </Col>
+                              <Col xs="5">Event Name</Col>
                               <Col xs="6">
-                                <span className="h5">.col-6</span>
+                                Annual Get Together of NIBM Students
                               </Col>
                             </Row>
                           </CardText>
@@ -94,15 +90,11 @@ const Sponsorship_Documentation = () => {
                     <Card style={({ width: "28rem" }, { height: "2.5rem" })}>
                       <CardBody className="pt-1 pt-md-0">
                         <div>
-                          <CardText>
+                          <CardText className="h5">
                             <Row>
-                              <Col xs="5">
-                                <span className="h5" style={{ font: "menu" }}>
-                                  Organization Name
-                                </span>
-                              </Col>
+                              <Col xs="5">Organization Name</Col>
                               <Col xs="6">
-                                <span className="h5">.col-6</span>
+                                National Institute of Business Management (NIBM)
                               </Col>
                             </Row>
                           </CardText>
@@ -112,15 +104,47 @@ const Sponsorship_Documentation = () => {
                     <Card style={({ width: "28rem" }, { height: "2.5rem" })}>
                       <CardBody className="pt-1 pt-md-0">
                         <div>
-                          <CardText>
+                          <CardText className="h5">
                             <Row>
-                              <Col xs="5">
-                                <span className="h5" style={{ font: "menu" }}>
-                                  Event Time
-                                </span>
-                              </Col>
+                              <Col xs="5">Event Time</Col>
+                              <Col xs="6">6.00 PM</Col>
+                            </Row>
+                          </CardText>
+                        </div>
+                      </CardBody>
+                    </Card>
+                    <Card style={({ width: "28rem" }, { height: "2.5rem" })}>
+                      <CardBody className="pt-1 pt-md-0">
+                        <div>
+                          <CardText className="h5">
+                            <Row>
+                              <Col xs="5">Location</Col>
+                              <Col xs="6">Cinnamon Grand, Ball Room</Col>
+                            </Row>
+                          </CardText>
+                        </div>
+                      </CardBody>
+                    </Card>
+                    <Card style={({ width: "28rem" }, { height: "2.5rem" })}>
+                      <CardBody className="pt-1 pt-md-0">
+                        <div>
+                          <CardText className="h5">
+                            <Row>
+                              <Col xs="5">Days Occurs</Col>
+                              <Col xs="6">2</Col>
+                            </Row>
+                          </CardText>
+                        </div>
+                      </CardBody>
+                    </Card>
+                    <Card style={({ width: "28rem" }, { height: "2.5rem" })}>
+                      <CardBody className="pt-1 pt-md-0">
+                        <div>
+                          <CardText className="h5">
+                            <Row>
+                              <Col xs="5">Event Type</Col>
                               <Col xs="6">
-                                <span className="h5">.col-6</span>
+                                <span className="h5">Indoor</span>
                               </Col>
                             </Row>
                           </CardText>
@@ -130,16 +154,10 @@ const Sponsorship_Documentation = () => {
                     <Card style={({ width: "28rem" }, { height: "2.5rem" })}>
                       <CardBody className="pt-1 pt-md-0">
                         <div>
-                          <CardText>
+                          <CardText className="h5">
                             <Row>
-                              <Col xs="5">
-                                <span className="h5" style={{ font: "menu" }}>
-                                  Location
-                                </span>
-                              </Col>
-                              <Col xs="6">
-                                <span className="h5">.col-6</span>
-                              </Col>
+                              <Col xs="5">Organizer Name</Col>
+                              <Col xs="6">Hansani Bandara</Col>
                             </Row>
                           </CardText>
                         </div>
@@ -148,16 +166,10 @@ const Sponsorship_Documentation = () => {
                     <Card style={({ width: "28rem" }, { height: "2.5rem" })}>
                       <CardBody className="pt-1 pt-md-0">
                         <div>
-                          <CardText>
+                          <CardText className="h5">
                             <Row>
-                              <Col xs="5">
-                                <span className="h5" style={{ font: "menu" }}>
-                                  Days Occurs
-                                </span>
-                              </Col>
-                              <Col xs="6">
-                                <span className="h5">.col-6</span>
-                              </Col>
+                              <Col xs="5">Organizer Email</Col>
+                              <Col xs="6">hansani@gmail.com</Col>
                             </Row>
                           </CardText>
                         </div>
@@ -166,16 +178,10 @@ const Sponsorship_Documentation = () => {
                     <Card style={({ width: "28rem" }, { height: "2.5rem" })}>
                       <CardBody className="pt-1 pt-md-0">
                         <div>
-                          <CardText>
+                          <CardText className="h5">
                             <Row>
-                              <Col xs="5">
-                                <span className="h5" style={{ font: "menu" }}>
-                                  Event Type
-                                </span>
-                              </Col>
-                              <Col xs="6">
-                                <span className="h5">.col-6</span>
-                              </Col>
+                              <Col xs="5">Organizer Contact No</Col>
+                              <Col xs="6">0702548561</Col>
                             </Row>
                           </CardText>
                         </div>
@@ -184,69 +190,11 @@ const Sponsorship_Documentation = () => {
                     <Card style={({ width: "28rem" }, { height: "2.5rem" })}>
                       <CardBody className="pt-1 pt-md-0">
                         <div>
-                          <CardText>
+                          <CardText className="h5">
                             <Row>
-                              <Col xs="5">
-                                <span className="h5" style={{ font: "menu" }}>
-                                  Organizer Name
-                                </span>
-                              </Col>
+                              <Col xs="5">Event Description</Col>
                               <Col xs="6">
-                                <span className="h5">.col-6</span>
-                              </Col>
-                            </Row>
-                          </CardText>
-                        </div>
-                      </CardBody>
-                    </Card>
-                    <Card style={({ width: "28rem" }, { height: "2.5rem" })}>
-                      <CardBody className="pt-1 pt-md-0">
-                        <div>
-                          <CardText>
-                            <Row>
-                              <Col xs="5">
-                                <span className="h5" style={{ font: "menu" }}>
-                                  Organizer Email
-                                </span>
-                              </Col>
-                              <Col xs="6">
-                                <span className="h5">.col-6</span>
-                              </Col>
-                            </Row>
-                          </CardText>
-                        </div>
-                      </CardBody>
-                    </Card>
-                    <Card style={({ width: "28rem" }, { height: "2.5rem" })}>
-                      <CardBody className="pt-1 pt-md-0">
-                        <div>
-                          <CardText>
-                            <Row>
-                              <Col xs="5">
-                                <span className="h5" style={{ font: "menu" }}>
-                                  Organizer Contact Number
-                                </span>
-                              </Col>
-                              <Col xs="6">
-                                <span className="h5">.col-6</span>
-                              </Col>
-                            </Row>
-                          </CardText>
-                        </div>
-                      </CardBody>
-                    </Card>
-                    <Card style={({ width: "28rem" }, { height: "2.5rem" })}>
-                      <CardBody className="pt-1 pt-md-0">
-                        <div>
-                          <CardText>
-                            <Row>
-                              <Col xs="5">
-                                <span className="h5" style={{ font: "menu" }}>
-                                  Event Description
-                                </span>
-                              </Col>
-                              <Col xs="6">
-                                <span className="h5">.col-6</span>
+                                Have many activities. 250+ Crowd. 2 days event.
                               </Col>
                             </Row>
                           </CardText>
@@ -261,7 +209,7 @@ const Sponsorship_Documentation = () => {
                   <CardHeader className="bg-white border-0">
                     <Row className="align-items-center">
                       <Col xs="8">
-                        <h2 className="mb-0">Additional Information</h2>
+                        <h2 className="mb-0">Sponsorship Information</h2>
                       </Col>
                     </Row>
                   </CardHeader>
@@ -282,7 +230,8 @@ const Sponsorship_Documentation = () => {
                                   onBlur={formik.handleBlur}
                                   value={formik.values.oEmail}
                                 />
-                                {formik.touched.oEmail && formik.errors.oEmail ? (
+                                {formik.touched.oEmail &&
+                                formik.errors.oEmail ? (
                                   <div style={{ color: "red" }}>
                                     {formik.errors.oEmail}
                                   </div>
@@ -298,7 +247,8 @@ const Sponsorship_Documentation = () => {
                                   onBlur={formik.handleBlur}
                                   value={formik.values.oContactNo}
                                 />
-                                {formik.touched.oContactNo && formik.errors.oContactNo ? (
+                                {formik.touched.oContactNo &&
+                                formik.errors.oContactNo ? (
                                   <div style={{ color: "red" }}>
                                     {formik.errors.oContactNo}
                                   </div>
@@ -323,7 +273,8 @@ const Sponsorship_Documentation = () => {
                                   onBlur={formik.handleBlur}
                                   value={formik.values.package}
                                 />
-                                {formik.touched.package && formik.errors.package ? (
+                                {formik.touched.package &&
+                                formik.errors.package ? (
                                   <div style={{ color: "red" }}>
                                     {formik.errors.package}
                                   </div>
@@ -339,7 +290,8 @@ const Sponsorship_Documentation = () => {
                                   onBlur={formik.handleBlur}
                                   value={formik.values.amount}
                                 />
-                                {formik.touched.amount && formik.errors.amount ? (
+                                {formik.touched.amount &&
+                                formik.errors.amount ? (
                                   <div style={{ color: "red" }}>
                                     {formik.errors.amount}
                                   </div>
@@ -348,7 +300,7 @@ const Sponsorship_Documentation = () => {
                               <Col lg={{ size: "auto" }} className="pt-2">
                                 <Button
                                   className="btn-icon btn-3"
-                                  color="default"
+                                  color="primary"
                                   size="sm"
                                   type="button"
                                 >
@@ -372,7 +324,7 @@ const Sponsorship_Documentation = () => {
                             <Col lg={{ size: "auto" }} className="pt-2">
                               <Button
                                 className="btn-icon btn-2"
-                                color="default"
+                                color="primary"
                                 size="sm"
                                 type="button"
                               >
@@ -394,7 +346,7 @@ const Sponsorship_Documentation = () => {
                             <Col lg={{ size: "auto" }} className="pt-2">
                               <Button
                                 className="btn-icon btn-2"
-                                color="default"
+                                color="primary"
                                 size="sm"
                                 type="button"
                               >
@@ -422,7 +374,8 @@ const Sponsorship_Documentation = () => {
                                   onBlur={formik.handleBlur}
                                   value={formik.values.description}
                                 />
-                                {formik.touched.description && formik.errors.description ? (
+                                {formik.touched.description &&
+                                formik.errors.description ? (
                                   <div style={{ color: "red" }}>
                                     {formik.errors.description}
                                   </div>
@@ -433,7 +386,7 @@ const Sponsorship_Documentation = () => {
                         </Col>
                       </Row>
                       <div>
-                        <Button color="default" size="sm" type="button">
+                        <Button color="primary" size="sm" type="button">
                           Creat Document
                         </Button>
                       </div>

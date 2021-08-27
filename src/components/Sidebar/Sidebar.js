@@ -80,7 +80,7 @@ const Sidebar = (props) => {
           className="header pb-9 pt-2 pt-lg-8 d-flex align-items-center"
           style={{
             backgroundImage: "url(" + require("../../assets/img/theme/thebliss5.png").default + ")",
-            backgroundSize: "290px",
+            backgroundSize: "280px",
             backgroundPosition: "center bottom",
           }}
         />

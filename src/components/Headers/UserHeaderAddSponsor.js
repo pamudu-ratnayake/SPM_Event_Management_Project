@@ -21,10 +21,10 @@ const UserHeader = () => {
         {/* Header container */}
         <Container className="d-flex align-items-center" fluid>
           <Row>
-            <Col lg="10" md="10">
+            <Col lg="12" md="10">
               <h1 className="display-2 text-white">Add Sponsors</h1>
               <p className="text-white mt-0 mb-5">
-                This is Add Sponsor Page. You can add sponsors to Sponsor List 
+                {/* This is Add Sponsor Page. You can add sponsors to Sponsor List  */}
               </p>
             </Col>
           </Row>

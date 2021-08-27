@@ -21,10 +21,10 @@ const UserHeader = () => {
         {/* Header container */}
         <Container className="d-flex align-items-center" fluid>
           <Row>
-            <Col lg="10" md="10">
-              <h1 className="display-2 text-white">Event Support</h1>
+            <Col lg="12" md="10">
+              <h1 className="display-2 text-white">Event Consulting</h1>
               <p className="text-white mt-0 mb-5">
-              This is the page for Event Support. You may get expert advice for any concerns you have about arranging an event. As an event management specialist, you may share your knowledge by offering solutions.
+              {/* This is the page for Event Consulting. You may get expert advice for any concerns you have about arranging an event. As an event management specialist, you may share your knowledge by offering solutions. */}
               </p>
             </Col>
           </Row>

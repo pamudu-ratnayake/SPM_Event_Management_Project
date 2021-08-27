@@ -57,6 +57,8 @@ const SponsorList = (props) => {
       .catch((error) => {
         console.log(error);
       });
+
+      window.location.reload(false);
   };
 
   return (
@@ -202,7 +204,7 @@ const SponsorList = (props) => {
                                   <span aria-hidden={true}>×</span>
                                 </button>
                               </div>
-                              <div className="modal-body">...</div>
+                              <div className="modal-body">Do you want to remove Sponsor?</div>
                               <div className="modal-footer">
                                 <Button
                                   color="secondary"
