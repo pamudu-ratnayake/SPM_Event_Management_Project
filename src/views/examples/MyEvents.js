@@ -25,6 +25,7 @@ const MyEvents = (props) => {
 
   const [exampleModal, setmodalDemo] = useState(false);
 
+  //toggle function
   function toggleModal() {
     setmodalDemo(!exampleModal);
   }
@@ -40,6 +41,7 @@ const MyEvents = (props) => {
         console.log(error);
       });
 
+      //refreshing
     window.location.reload(false);
   };
 

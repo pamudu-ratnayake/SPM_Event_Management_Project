@@ -72,6 +72,7 @@ const AddEvent = (props) => {
     checkboxOption: Yup.array().required("Required"),
   });
 
+  //using history
   let history = useHistory();
 
   const onSubmit = (values) => {
