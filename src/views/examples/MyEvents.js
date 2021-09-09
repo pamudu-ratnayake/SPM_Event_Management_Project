@@ -35,7 +35,7 @@ const MyEvents = (props) => {
       .delete(`http://localhost:8080/eventAdd/deleteevent/${_id}`)
       .then((response) => {
         console.log(response);
-        // props.history.push('/admin')
+        // props.history.push('/admin');
       })
       .catch((error) => {
         console.log(error);
