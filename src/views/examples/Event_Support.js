@@ -86,35 +86,26 @@ const Event_Support = () => {
       <Container className="mt--7" fluid>
         <Card className="bg-secondary shadow">
           <CardHeader className="bg-white border-0">
-            <h2 className="mb-0"> Event Support</h2>
+            <h2 className="mb-0"> Event Consulting</h2>
           </CardHeader>
           <CardBody>
             <div className="mb-4">
               <Card className="mb-1">
+                <CardText className="h5 mt-1">
+                  Phantom League Cricket Match
+                </CardText>
+                <CardText className="h5 mt-1">
+                  Have many activities. 250+ Crowd. 1 day event.
+                </CardText>
                 <CardBody className="pt-1 pt-md-0 pb-1">
-                  <div>
-                    <CardText className="h5 mt-1">
-                      <Row>
-                        <Col xs="3">Event Name</Col>
-                        <Col xs="6">Phantom League Cricket Match</Col>
-                      </Row>
-                    </CardText>
-                    <CardText className="h5 mb-1">
-                      <Row>
-                        <Col xs="3">Event Discription</Col>
-                        <Col xs="6">
-                          Have many activities. 250+ Crowd. 1 day event.
-                        </Col>
-                      </Row>
-                    </CardText>
-                    <CardText className="h5 pt-2 pb-2">
+                  <CardText className="h5 pt-2 pb-2">
+                    <Col>
                       <em>
-                        {" "}
                         I want to create a well structured match schedule for
                         finish 10 matches as a one day event?
                       </em>
-                    </CardText>
-                  </div>
+                    </Col>
+                  </CardText>
                 </CardBody>
               </Card>
               <div className="ml-6">
