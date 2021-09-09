@@ -19,14 +19,14 @@ const CustomerProfile = () => {
     user_des: "",
   };
 
-  //use formik
+  //use formik here
   const formik = useFormik({
     initialValues,
   });
 
   const [defaultModal, setmodalDemo] = useState(false);
 
-  //toggle function
+  //toggle function here
   function toggleModal() {
     setmodalDemo(!defaultModal);
   }
