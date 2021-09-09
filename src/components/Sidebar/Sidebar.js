@@ -173,6 +173,8 @@ const Sidebar = (props) => {
           {/* Navigation */}
           <Nav navbar>{createLinks(routes)}</Nav>
           {/* Divider */}
+
+          
         </Collapse>
       </Container>
     </Navbar>

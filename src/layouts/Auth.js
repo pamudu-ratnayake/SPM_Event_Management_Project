@@ -15,9 +15,9 @@ const Auth = (props) => {
   const location = useLocation();
 
   React.useEffect(() => {
-    document.body.classList.add("bg-default");
+    document.body.classList.add("bg-primary");
     return () => {
-      document.body.classList.remove("bg-default");
+      document.body.classList.remove("bg-primary");
     };
   }, []);
   React.useEffect(() => {
@@ -66,7 +66,7 @@ const Auth = (props) => {
               y="0"
             >
               <polygon
-                className="fill-default"
+                className="fill-primary"
                 points="2560 0 2560 100 0 100"
               />
             </svg>
