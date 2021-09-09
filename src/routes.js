@@ -15,6 +15,14 @@ import UpdateAdvertisementInformation from "views/examples/UpdateAdvertisementIn
 import AdvertisementDetails from "views/examples/AdvertisementDetails";
 import ViewAdvertisement from "views/examples/ViewAdvertisement";
 
+import Sponsorship_Request from "views/examples/Sponsorship_Request";
+import Add_Sponsor from "views/examples/Add_Sponsor";
+import Update_Sponsor from "views/examples/Update_Sponsor";
+import SponsorList from "views/examples/SponsorList";
+import Sponsorship_Documentation from "views/examples/Sponsorship_Documentation";
+import My_Issue from "views/examples/My_Issue";
+import Event_Support from "views/examples/Event_Support";
+
 var routes = [
   {
     path: "/index",
@@ -23,20 +31,13 @@ var routes = [
     component: Index,
     layout: "/admin",
   },
-  {
-    path: "/icons",
-    name: "Icons",
-    icon: "ni ni-planet text-blue",
-    component: Icons,
-    layout: "/admin",
-  },
-  {
-    path: "/maps",
-    name: "Maps",
-    icon: "ni ni-pin-3 text-orange",
-    component: Maps,
-    layout: "/admin",
-  },
+  // {
+  //   path: "/maps",
+  //   name: "Maps",
+  //   icon: "ni ni-pin-3 text-orange",
+  //   component: Maps,
+  //   layout: "/admin",
+  // },
   // {
   //   path: "/testing",
   //   name: "Test",
@@ -135,13 +136,6 @@ var routes = [
     component: CardPaymentMethod,
     layout: "/auth",
   },
-  {
-    path: "/tables",
-    name: "Tables",
-    icon: "ni ni-bullet-list-67 text-red",
-    component: Tables,
-    layout: "/admin",
-  },
   // {
   //   path: "/tables",
   //   name: "Tables",
@@ -149,6 +143,13 @@ var routes = [
   //   component: Tables,
   //   layout: "/admin",
   // },
+  // {
+    //   path: "/tables",
+    //   name: "Tables",
+    //   icon: "ni ni-bullet-list-67 text-red",
+    //   component: Tables,
+    //   layout: "/admin",
+    // },
   {
     path: "/login",
     name: "Login",
@@ -157,11 +158,60 @@ var routes = [
     layout: "/auth",
   },
   {
-    path: "/register",
-    name: "Register",
-    icon: "ni ni-circle-08 text-pink",
-    component: Register,
-    layout: "/auth",
+    path: "/Sponsorship_Request",
+    name: "Sponsors",
+    icon: "ni ni-paper-diploma text-pink",
+    component: Sponsorship_Request,
+    layout: "/admin",
   },
+  {
+    path: "/Add_Sponsor",
+    name: "Add Sponsor",
+    icon: "ni ni-single-copy-04 text-primary",
+    component: Add_Sponsor,
+    layout: "/admin",
+  },
+  {
+    path: "/SponsorList",
+    name: "Sponsor List",
+    icon: "ni ni-active-40 text-yellow",
+    component: SponsorList,
+    layout: "/admin",
+  },
+  {
+    path: "/Sponsorship_Documentation",
+    name: "Sponsorship Documentation",
+    icon: "ni ni-collection text-info",
+    component: Sponsorship_Documentation,
+    layout: "/admin",
+  },
+  {
+    path: "/My_Issue",
+    name: "Take Help",
+    icon: "ni ni-ungroup text-pink",
+    component: My_Issue,
+    layout: "/admin",
+  },
+  {
+    path: "/Event_Support",
+    name: "Event Consulting",
+    icon: "ni ni-support-16 text-red",
+    component: Event_Support,
+    layout: "/admin",
+  },
+  {
+    path: "/Update_Sponsor/:_id",
+    // name: "Update Sponsor",
+    // icon: "ni ni-circle-08 text-pink",
+    component: Update_Sponsor,
+    layout: "/admin",
+  },
+  // {
+  //   path: "/icons",
+  //   name: "Icons",
+  //   icon: "ni ni-planet text-blue",
+  //   component: Icons,
+  //   layout: "/admin",
+  // },
 ];
 export default routes;
