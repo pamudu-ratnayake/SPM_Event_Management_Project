@@ -12,7 +12,7 @@ const EventDisplay = (props) => {
 
   const [event, setEvent] = useState(0);
 
-  //useEffect;
+  //useEffect
   useEffect(() => {
     axios
       .get(`http://localhost:8080/eventAdd/getOneEvent/${props.match.params._id}`)
