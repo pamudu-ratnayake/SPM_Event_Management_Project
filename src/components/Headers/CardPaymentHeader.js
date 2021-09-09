@@ -1,8 +1,7 @@
-
 // reactstrap components
 import { Button, Container, Row, Col } from "reactstrap";
 
-const UserHeaderAdvertisement = () => {
+const CardPaymentHeader = () => {
   return (
     <>
       <div
@@ -10,21 +9,19 @@ const UserHeaderAdvertisement = () => {
         style={{
           minHeight: "200px",
           backgroundImage:
-            "url(" +
-            require("../../assets/img/theme/kk.jpg").default +
-            ")",
+            "url(" + require("../../assets/img/theme/ok.jpg").default + ")",
           backgroundSize: "cover",
           backgroundPosition: "center top",
         }}
       >
         {/* Mask */}
-        <span className="mask bg-gradient-default opacity-10" />
+        <span className="mask bg-gradient-default opacity-6" />
         {/* Header container */}
         <Container className="d-flex align-items-center" fluid>
           <Row>
             <Col lg="7" md="10">
-              <h1 className="display-2 text-white">Publish Your Advertisement</h1>
-              <p className="text-white mt-0 mb-5">
+              <h1 className="display-2 text-white">Make Your Payment</h1>
+              <p className="text-white mt-0 ">
                 This is your profile page. You can see the progress you've made
                 with your work and manage your projects or assigned tasks
               </p>
@@ -36,4 +33,4 @@ const UserHeaderAdvertisement = () => {
   );
 };
 
-export default UserHeaderAdvertisement;
+export default CardPaymentHeader;

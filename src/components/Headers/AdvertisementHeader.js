@@ -2,7 +2,7 @@
 // reactstrap components
 import { Button, Container, Row, Col } from "reactstrap";
 
-const UserHeaderAdvertisement = () => {
+const AdvertisementHeader = () => {
   return (
     <>
       <div
@@ -18,13 +18,13 @@ const UserHeaderAdvertisement = () => {
         }}
       >
         {/* Mask */}
-        <span className="mask bg-gradient-default opacity-10" />
+        <span className="mask bg-gradient-default opacity-5" />
         {/* Header container */}
         <Container className="d-flex align-items-center" fluid>
           <Row>
             <Col lg="7" md="10">
               <h1 className="display-2 text-white">Publish Your Advertisement</h1>
-              <p className="text-white mt-0 mb-5">
+              <p className="text-white mt-0 mb-3">
                 This is your profile page. You can see the progress you've made
                 with your work and manage your projects or assigned tasks
               </p>
@@ -36,4 +36,4 @@ const UserHeaderAdvertisement = () => {
   );
 };
 
-export default UserHeaderAdvertisement;
+export default AdvertisementHeader;
