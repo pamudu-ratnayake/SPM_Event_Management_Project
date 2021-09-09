@@ -14,6 +14,7 @@ import { Button, Card, CardHeader, CardBody, FormGroup, Form, Input, Container, 
 import AddEventHeader from "components/Headers/AddEventHeader";
 import { useState, useEffect } from "react";
 
+//phone number definition
 const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
 
