@@ -23,24 +23,25 @@ const MyEvents = (props) => {
       });
   }, []);
 
-
   const [exampleModal, setmodalDemo] = useState(false);
 
   function toggleModal() {
-          setmodalDemo(!exampleModal)
+    setmodalDemo(!exampleModal);
   }
 
   const deleteEvent = (_id) => {
-    axios.delete(`http://localhost:8080/eventAdd/deleteevent/${_id}`)
-    .then(response =>{
-        console.log(response)
-        props.history.push('/admin')
-    })
-    .catch(error => {
-        console.log(error)
-    })
-  }
+    axios
+      .delete(`http://localhost:8080/eventAdd/deleteevent/${_id}`)
+      .then((response) => {
+        console.log(response);
+        // props.history.push('/admin')
+      })
+      .catch((error) => {
+        console.log(error);
+      });
 
+    window.location.reload(false);
+  };
 
   return (
     <>
@@ -56,10 +57,10 @@ const MyEvents = (props) => {
                     <h1 className="mb-0">Published Events</h1>
                   </Col>
                   <Col className="text-right" xs="4">
-                    <Link to={'/admin/add-event'}>
-                    <Button color="primary" size="sm">
-                      Publish An Event
-                    </Button>
+                    <Link to={"/admin/add-event"}>
+                      <Button color="primary" size="sm">
+                        Publish An Event
+                      </Button>
                     </Link>
                   </Col>
                 </Row>
@@ -94,7 +95,7 @@ const MyEvents = (props) => {
                               <Link to={`/admin/event-update/${posts._id}`}>
                                 <DropdownItem>Update Event</DropdownItem>
                               </Link>
-                              <DropdownItem onClick={() => toggleModal("exampleModal")} > Delete Event</DropdownItem>
+                              <DropdownItem onClick={() => toggleModal("exampleModal")}> Delete Event</DropdownItem>
 
                               <Modal className="modal-dialog-centered" isOpen={exampleModal} toggle={() => toggleModal("exampleModal")}>
                                 <div className="modal-header">
@@ -107,7 +108,7 @@ const MyEvents = (props) => {
                                 </div>
                                 <div className="modal-body">Do you want to delete this event?</div>
                                 <div className="modal-footer">
-                                  <Button color="primary" type="button" onClick = {deleteEvent.bind(props.this,posts._id)}>
+                                  <Button color="primary" type="button" onClick={deleteEvent.bind(props.this, posts._id)}>
                                     Confirm Delete
                                   </Button>
                                   <Button color="secondary" data-dismiss="modal" type="button" onClick={() => toggleModal("exampleModal")}>

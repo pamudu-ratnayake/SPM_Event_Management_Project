@@ -184,11 +184,7 @@ const EventDisplay = (props) => {
                       </FormGroup>
                     </Col>
                   </Row>
-                  <div className="text-center">
-                    <Button className="mt-4" color="primary" type="button">
-                      Publish Event
-                    </Button>
-                  </div>
+
                 </Form>
               </CardBody>
             </Card>
