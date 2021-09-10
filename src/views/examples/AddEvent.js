@@ -8,7 +8,7 @@ import DatePicker from "react-datepicker";
 import { useHistory } from "react-router-dom";
 import { Checkbox } from "@material-ui/core";
 
-// reactstrap components....
+// reactstrap components
 import { Button, Card, CardHeader, CardBody, FormGroup, Form, Input, Container, Row, Col, InputGroupAddon, InputGroupText, InputGroup } from "reactstrap";
 // core components
 import AddEventHeader from "components/Headers/AddEventHeader";
