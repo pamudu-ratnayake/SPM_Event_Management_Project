@@ -1,7 +1,7 @@
 // reactstrap components
 import { Button, Container, Row, Col } from "reactstrap";
 
-const AddEventHeader = () => {
+const EventListHeader = () => {
   return (
     <>
       <div
@@ -9,20 +9,19 @@ const AddEventHeader = () => {
         style={{
           minHeight: "600px",
           backgroundImage:
-            "url(" + require("../../assets/img/theme/event1.jpg").default + ")",
+            "url(" + require("../../assets/img/theme/event11.jpg").default + ")",
           backgroundSize: "cover",
           backgroundPosition: "center top",
         }}
       >
         {/* Mask */}
-        <span className="mask bg-gradient-default opacity-5" />
+        <span className="mask bg-gradient-default opacity-7" />
         {/* Header container */}
         <Container className="d-flex align-items-center" fluid>
           <Row>
             <Col lg="12" md="10">
-              <h1 className="display-2 text-white">Publish Your Event...</h1>
+              <h1 className="display-2 text-white">My Events</h1>
               {/* <p className="text-white mt-0 mb-2">
-                Publish your event by adding all the required services and find any service provider as you want!
               </p> */}
             </Col>
           </Row>
@@ -32,4 +31,4 @@ const AddEventHeader = () => {
   );
 };
 
-export default AddEventHeader;
+export default EventListHeader;

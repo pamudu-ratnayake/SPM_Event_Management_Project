@@ -7,28 +7,15 @@ import FormikControl from "./FormikControl";
 import DatePicker from "react-datepicker";
 
 // reactstrap components
-import { Button, Card, CardHeader, CardBody, FormGroup, Form , Input, Container, Row, Col, InputGroupAddon, InputGroupText, InputGroup } from "reactstrap";
+import { Button, Card, CardHeader, CardBody, FormGroup, Form, Input, Container, Row, Col, InputGroupAddon, InputGroupText, InputGroup } from "reactstrap";
 // core components
-import AddEventHeader from "components/Headers/AddEventHeader";
+import UpdateEventHeader from "components/Headers/UpdateEventHeader";
 import { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 
+//type of the phone number
 const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
-// phoneNumber: Yup.string().matches(phoneRegExp, 'Phone number is not valid')
-
-// const validationSchema = Yup.object({
-//   event_name: Yup.string().required("*Required!"),
-//   org_name: Yup.string().required("*Required!"),
-//   event_time: Yup.string().required("*Required!"),
-//   location: Yup.string().required("*Required!"),
-//   days_occurs: Yup.number().required("*Required!").max(20, "Limit exceed").min(0, "Invalid number"),
-//   event_type: Yup.string().required("*Required!"),
-//   organizer_name: Yup.string().required("*Required!"),
-//   cus_id: Yup.string().required("*Required!"),
-//   cus_email: Yup.string().email("*Invalid email!").required("*Required!"),
-//   cus_con_number: Yup.string().matches(phoneRegExp, "Phone number is not valid").required("*Required!").min(10, "Too short").max(10, "Too long"),
-//   description: Yup.string().required("*Required!"),
-// });
 
 const UpdateEvent = (props) => {
   // function AddEvent(props) {
@@ -51,7 +38,6 @@ const UpdateEvent = (props) => {
   //   { key: "Option 03", value: "cOption3" },
   // ];
 
-
   const [event, setEvent] = useState(0);
 
   const initialValues = {
@@ -72,21 +58,24 @@ const UpdateEvent = (props) => {
     // checkboxOption: [],
   };
 
-  // const validationSchema = Yup.object({
-  //   event_name: Yup.string().required("*Required!"),
-  //   org_name: Yup.string().required("*Required!"),
-  //   event_time: Yup.string().required("*Required!"),
-  //   location: Yup.string().required("*Required!"),
-  //   days_occurs: Yup.number().required("*Required!").max(20, "Limit exceed").min(0, "Invalid number"),
-  //   event_type: Yup.string().required("*Required!"),
-  //   organizer_name: Yup.string().required("*Required!"),
-  //   org_nic: Yup.string().required("*Required!"),
-  //   cus_email: Yup.string().email("*Invalid email!").required("*Required!"),
-  //   cus_con_number: Yup.string().matches(phoneRegExp, "Phone number is not valid").required("*Required!").min(10, "Too short").max(10, "Too long"),
-  //   description: Yup.string().required("*Required!"),
-  //   date_of_the_event: Yup.string().required("*Required!"),
-  //   // checkboxOption: Yup.array().required("Required"),
-  // });
+  const validationSchema = Yup.object({
+    event_name: Yup.string().required("*Required!"),
+    org_name: Yup.string().required("*Required!"),
+    event_time: Yup.string().required("*Required!"),
+    location: Yup.string().required("*Required!"),
+    days_occurs: Yup.number().required("*Required!").max(20, "Limit exceed").min(0, "Invalid number"),
+    event_type: Yup.string().required("*Required!"),
+    organizer_name: Yup.string().required("*Required!"),
+    org_nic: Yup.string().required("*Required!"),
+    cus_email: Yup.string().email("*Invalid email!").required("*Required!"),
+    cus_con_number: Yup.string().matches(phoneRegExp, "Phone number is not valid").required("*Required!").min(10, "Too short").max(10, "Too long"),
+    description: Yup.string().required("*Required!"),
+    date_of_the_event: Yup.string().required("*Required!"),
+    // checkboxOption: Yup.array().required("Required"),
+  });
+
+  //using history
+  let history = useHistory();
 
   const onSubmit = (values) => {
     console.log("Form Date", values);
@@ -96,6 +85,9 @@ const UpdateEvent = (props) => {
       .then((res) => {
         console.log(res);
         console.log("Data", values);
+        history.push({
+          pathname: `/admin/my-event`,
+        });
       })
       .catch((error) => {
         console.log(error);
@@ -115,35 +107,32 @@ const UpdateEvent = (props) => {
   }, []);
 
   const formik = useFormik({
+    enableReinitialize: true,
+    validateOnMount: true,
     initialValues,
     onSubmit,
-   // validationSchema,
+    validationSchema,
   });
 
   return (
     <>
-      <AddEventHeader />
+      <UpdateEventHeader />
       {/* Page content */}
-      <Container className="mt--7" fluid>
+      <Container className="mt--9" fluid>
         <Row>
           <Col className="order-xl-1" xl="12">
             <Card className="bg-secondary shadow">
               <CardHeader className="bg-white border-0">
                 <Row className="align-items-center">
                   <Col xs="8">
-                    <h1 className="mb-0">Publish An Event</h1>
+                    <h1 className="mb-0">Update Details of The Event</h1>
                   </Col>
-                  <Col className="text-right" xs="4">
-                    <Button color="primary" href="#pablo" onClick={(e) => e.preventDefault()} size="sm">
-                      Service Providers
-                    </Button>
-                  </Col>
+
                 </Row>
               </CardHeader>
               <CardBody>
-                
                 {/* <Form onSubmit={formik.handleSubmit}> */}
-                  <Form onSubmit={formik.handleSubmit}>
+                <Form onSubmit={formik.handleSubmit}>
                   <Row>
                     <Col md="6">
                       <FormGroup>
@@ -156,7 +145,8 @@ const UpdateEvent = (props) => {
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
                           defaultValue={event.event_name}
-                        > {event.event_name} </Input>
+                        >
+                        </Input>
                         {formik.touched.event_name && formik.errors.event_name ? <div style={{ color: "red" }}>{formik.errors.event_name}</div> : null}
                       </FormGroup>
                     </Col>
@@ -173,7 +163,7 @@ const UpdateEvent = (props) => {
                           onBlur={formik.handleBlur}
                           defaultValue={event.event_type}
                         >
-                          <option>Choose...</option>
+                          <option>{event.event_type}</option>
                           <option>Indoor</option>
                           <option>Outdoor</option>
                         </Input>
@@ -347,7 +337,7 @@ const UpdateEvent = (props) => {
                       <div className="custom-control custom-checkbox mb-3">
                         <input className="custom-control-input" id="customCheck9" type="checkbox" />
                         <label className="custom-control-label" htmlFor="customCheck9">
-                          Unchecked
+                          Dancers
                         </label>
                       </div>
                     </Col>
@@ -444,11 +434,10 @@ const UpdateEvent = (props) => {
                   }} */}
                   <div className="text-center">
                     <Button className="mt-4" color="primary" type="submit">
-                      Publish Event
+                      Update Event
                     </Button>
                   </div>
                 </Form>
-           
               </CardBody>
             </Card>
           </Col>

@@ -1,9 +1,9 @@
 import ReactDatetime from "react-datetime";
 
 // reactstrap components
-import { Button, Card, CardHeader, CardBody, FormGroup, Form, Input, Container, Row, Col, DropdownMenu, DropdownItem, UncontrolledDropdown, DropdownToggle, Table } from "reactstrap";
+import { Button, Modal, Card, CardHeader, CardBody, FormGroup, Form, Input, Container, Row, Col, DropdownMenu, DropdownItem, UncontrolledDropdown, DropdownToggle, Table } from "reactstrap";
 // core components
-import AddEventHeader from "components/Headers/AddEventHeader";
+import EventListHeader from "components/Headers/EventListHeader";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -23,11 +23,33 @@ const MyEvents = (props) => {
       });
   }, []);
 
+  const [exampleModal, setmodalDemo] = useState(false);
+
+  //toggle function
+  function toggleModal() {
+    setmodalDemo(!exampleModal);
+  }
+
+  const deleteEvent = (_id) => {
+    axios
+      .delete(`http://localhost:8080/eventAdd/deleteevent/${_id}`)
+      .then((response) => {
+        console.log(response);
+        // props.history.push('/admin');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+      //refreshing
+    window.location.reload(false);
+  };
+
   return (
     <>
-      <AddEventHeader />
+      <EventListHeader />
       {/* Page content */}
-      <Container className="mt--7" fluid>
+      <Container className="mt--9" fluid>
         <Row>
           <Col className="order-xl-1" xl="12">
             <Card className="bg-secondary shadow">
@@ -37,9 +59,11 @@ const MyEvents = (props) => {
                     <h1 className="mb-0">Published Events</h1>
                   </Col>
                   <Col className="text-right" xs="4">
-                    <Button color="primary" href="#pablo" onClick={(e) => e.preventDefault()} size="sm">
-                      Service Providers
-                    </Button>
+                    <Link to={"/admin/add-event"}>
+                      <Button color="primary" size="sm">
+                        Publish An Event
+                      </Button>
+                    </Link>
                   </Col>
                 </Row>
               </CardHeader>
@@ -67,19 +91,33 @@ const MyEvents = (props) => {
                               <i className="fas fa-ellipsis-v" />
                             </DropdownToggle>
                             <DropdownMenu className="dropdown-menu-arrow" right>
-                              <Link to={`/admin/event-display/${posts._id}`} >
-                              <DropdownItem >
-                                View Event
-                              </DropdownItem>
+                              <Link to={`/admin/event-display/${posts._id}`}>
+                                <DropdownItem>View Event</DropdownItem>
                               </Link>
-                              <Link to={`/admin/event-update/${posts._id}`} >
-                              <DropdownItem>
-                                Update Event
-                              </DropdownItem>
+                              <Link to={`/admin/event-update/${posts._id}`}>
+                                <DropdownItem>Update Event</DropdownItem>
                               </Link>
-                              <DropdownItem href="#pablo" onClick={(e) => e.preventDefault()}>
-                                Delete Event
-                              </DropdownItem>
+                              <DropdownItem onClick={() => toggleModal("exampleModal")}> Delete Event</DropdownItem>
+
+                              <Modal className="modal-dialog-centered" isOpen={exampleModal} toggle={() => toggleModal("exampleModal")}>
+                                <div className="modal-header">
+                                  <h5 className="modal-title" id="exampleModalLabel">
+                                    Confirm to delete this event
+                                  </h5>
+                                  <button aria-label="Close" className="close" data-dismiss="modal" type="button" onClick={() => toggleModal("exampleModal")}>
+                                    <span aria-hidden={true}>×</span>
+                                  </button>
+                                </div>
+                                <div className="modal-body">Do you want to delete this event?</div>
+                                <div className="modal-footer">
+                                  <Button color="primary" type="button" onClick={deleteEvent.bind(props.this, posts._id)}>
+                                    Confirm Delete
+                                  </Button>
+                                  <Button color="secondary" data-dismiss="modal" type="button" onClick={() => toggleModal("exampleModal")}>
+                                    Close
+                                  </Button>
+                                </div>
+                              </Modal>
                             </DropdownMenu>
                           </UncontrolledDropdown>
                         </td>
