@@ -126,13 +126,13 @@ var routes = [
     component: Icons,
     layout: "/admin",
   },
-  {
-    path: "/maps",
-    // name: "Maps",
-    // icon: "ni ni-pin-3 text-orange",
-    component: Maps,
-    layout: "/admin",
-  },
+  // {
+  //   path: "/maps",
+  //   // name: "Maps",
+  //   // icon: "ni ni-pin-3 text-orange",
+  //   component: Maps,
+  //   layout: "/admin",
+  // },
 
 //   import ServiceProviders from "views/service-provider/ServiceProviders";
 
