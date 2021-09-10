@@ -302,6 +302,26 @@ const Profile = () => {
                       />
                     </FormGroup>
                   </div>
+                  <Row>
+                    <Col md="6">
+                      <FormGroup className="has-success">
+                        <Input
+                          className="is-valid"
+                          placeholder="Success"
+                          type="text"
+                        />
+                      </FormGroup>
+                    </Col>
+                    <Col md="6">
+                      <FormGroup className="has-danger">
+                        <Input
+                          className="is-invalid"
+                          placeholder="Error Input"
+                          type="email"
+                        />
+                      </FormGroup>
+                    </Col>
+                  </Row>
                 </Form>
               </CardBody>
             </Card>
