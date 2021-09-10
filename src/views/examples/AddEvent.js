@@ -19,19 +19,19 @@ const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2
 
 
 const AddEvent = (props) => {
-  // function AddEvent(props) {
+	// function AddEvent(props) {
 
-  // let date = '';
-  // const [event_date, setDate] = useState(date);
+	// let date = '';
+	// const [event_date, setDate] = useState(date);
 
-  // const makeDate = () => {
-  //   date = values.date_event.format('DD-MM-YYYY');
-  //   setDate(date);
-  // }
+	// const makeDate = () => {
+	//   date = values.date_event.format('DD-MM-YYYY');
+	//   setDate(date);
+	// }
 
-  // useEffect(() => {
-  //   makeDate();
-  // },[]);
+	// useEffect(() => {
+	//   makeDate();
+	// },[]);
 
   // const checkboxOptions = [
   //   { key: "Option 01", value: "cOption1" },
@@ -39,39 +39,46 @@ const AddEvent = (props) => {
   //   { key: "Option 03", value: "cOption3" },
   // ];
 
-  const initialValues = {
-    enableReinitialize: true,
-    validateOnMount: true,
-    event_name: "",
-    org_name: "",
-    event_time: "",
-    date_of_the_event: "",
-    location: "",
-    days_occurs: "",
-    event_type: "",
-    organizer_name: "",
-    org_nic: "",
-    cus_email: "",
-    cus_con_number: "",
-    description: "",
-    checkboxOption: [],
-  };
+	const initialValues = {
+		enableReinitialize: true,
+		validateOnMount: true,
+		event_name: "",
+		org_name: "",
+		event_time: "",
+		date_of_the_event: "",
+		location: "",
+		days_occurs: "",
+		event_type: "",
+		organizer_name: "",
+		org_nic: "",
+		cus_email: "",
+		cus_con_number: "",
+		description: "",
+		checkboxOption: [],
+	};
 
-  const validationSchema = Yup.object({
-    event_name: Yup.string().required("*Required!"),
-    org_name: Yup.string().required("*Required!"),
-    event_time: Yup.string().required("*Required!"),
-    location: Yup.string().required("*Required!"),
-    days_occurs: Yup.number().required("*Required!").max(20, "Limit exceed").min(0, "Invalid number"),
-    event_type: Yup.string().required("*Required!"),
-    organizer_name: Yup.string().required("*Required!"),
-    org_nic: Yup.string().required("*Required!"),
-    cus_email: Yup.string().email("*Invalid email!").required("*Required!"),
-    cus_con_number: Yup.string().matches(phoneRegExp, "Phone number is not valid").required("*Required!").min(10, "Too short").max(10, "Too long"),
-    description: Yup.string().required("*Required!"),
-    date_of_the_event: Yup.string().required("*Required!"),
-    checkboxOption: Yup.array().required("Required"),
-  });
+	const validationSchema = Yup.object({
+		event_name: Yup.string().required("*Required!"),
+		org_name: Yup.string().required("*Required!"),
+		event_time: Yup.string().required("*Required!"),
+		location: Yup.string().required("*Required!"),
+		days_occurs: Yup.number()
+			.required("*Required!")
+			.max(20, "Limit exceed")
+			.min(0, "Invalid number"),
+		event_type: Yup.string().required("*Required!"),
+		organizer_name: Yup.string().required("*Required!"),
+		org_nic: Yup.string().required("*Required!"),
+		cus_email: Yup.string().email("*Invalid email!").required("*Required!"),
+		cus_con_number: Yup.string()
+			.matches(phoneRegExp, "Phone number is not valid")
+			.required("*Required!")
+			.min(10, "Too short")
+			.max(10, "Too long"),
+		description: Yup.string().required("*Required!"),
+		date_of_the_event: Yup.string().required("*Required!"),
+		checkboxOption: Yup.array().required("Required"),
+	});
 
   //using history
   let history = useHistory();
@@ -93,11 +100,11 @@ const AddEvent = (props) => {
       });
   };
 
-  const formik = useFormik({
-    initialValues,
-    onSubmit,
-    validationSchema,
-  });
+	const formik = useFormik({
+		initialValues,
+		onSubmit,
+		validationSchema,
+	});
 
   return (
     <>
