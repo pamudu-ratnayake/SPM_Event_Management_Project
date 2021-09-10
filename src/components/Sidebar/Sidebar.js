@@ -34,6 +34,7 @@ import {
 	Row,
 	Col,
 } from "reactstrap";
+// import { minWidth } from "@material-ui/system";
 
 var ps;
 
@@ -95,7 +96,7 @@ const Sidebar = (props) => {
 							"url(" +
 							require("../../assets/img/theme/thebliss5.png").default +
 							")",
-						backgroundSize: "290px",
+						backgroundSize: "280px",
 						backgroundPosition: "center bottom",
 					}}
 				/>
