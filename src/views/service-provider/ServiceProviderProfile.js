@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 // Modals
 import EditProfileModal from "./moadals/EditProfileModal";
 import RatingModal from "./moadals/RatingModal";
+// Form Element
 import {
 	Button,
 	Card,
@@ -17,14 +18,9 @@ import {
 // core components
 import ServiceProviderHeader from "components/Headers/service-provider-header/ServiceProviderHeader";
 import CommentModal from "./moadals/CommentModal";
-import ReactDatetime from "react-datetime";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
-import FormikControl from "./FormikControl";
-//import { moment } from "moment";
-import DatePicker from "react-datepicker";
-import { post } from "jquery";
 
 const phoneRegExp =
 	/^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
