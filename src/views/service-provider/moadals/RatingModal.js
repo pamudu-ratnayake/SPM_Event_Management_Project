@@ -6,6 +6,7 @@ import { Button, Modal } from "reactstrap";
 function RatingModal() {
 	const [showModal, setShowModal] = useState(false);
 
+	// Toggle Modal
 	const toggleModal = (state) => {
 		setShowModal(state);
 	};
