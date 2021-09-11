@@ -44,6 +44,8 @@ const UpdateBoostEvent = () => {
     advertisement_Pic: Yup.string().required("Required"),
     cardtype: Yup.string().required("Required"),
   });
+
+  //use formik
   const formik = useFormik({
     initialValues,
     validationSchema,
