@@ -1,29 +1,13 @@
 import { React, useState } from "react";
 
 // reactstrap components
-import {
-	Button,
-	FormGroup,
-	Form,
-	Input,
-	Modal,
-	Row,
-	Col,
-	Card,
-	CardBody,
-} from "reactstrap";
-import { ListFormat } from "typescript";
+import { Button, Modal } from "reactstrap";
 
 function CommentModal() {
 	const [showModal, setShowModal] = useState(false);
-	const [selectedFile, setSelectedFile] = useState(null);
 
 	const toggleModal = (state) => {
 		setShowModal(state);
-	};
-
-	const saveData = () => {
-		alert(" Clicked ");
 	};
 
 	return (
