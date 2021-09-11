@@ -42,7 +42,7 @@ const AdvertisementDetails = () => {
     advertisement_Pic: Yup.string().required("Required"),
     // cardtype: Yup.string().required("Required"),
   });
-
+//
   const onSubmit = (values) => {
     console.log("form data", values);
     axios
