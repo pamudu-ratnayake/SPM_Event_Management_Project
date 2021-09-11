@@ -23,7 +23,6 @@ const ViewAdvertisement = (props) => {
 
   const [addsData, setAdd] = useState(0);
 
-  //use effect
   useEffect(() => {
     axios
       .get(`http://localhost:8080/advertisement/get/${props.match.params._id}`)
