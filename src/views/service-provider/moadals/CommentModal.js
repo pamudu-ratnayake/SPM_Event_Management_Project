@@ -6,6 +6,7 @@ import { Button, Modal } from "reactstrap";
 function CommentModal() {
 	const [showModal, setShowModal] = useState(false);
 
+	//  Toggle Modal
 	const toggleModal = (state) => {
 		setShowModal(state);
 	};
@@ -54,7 +55,7 @@ function CommentModal() {
 							<div className="row">
 								<div className="d-flex justify-content-between pt-2">
 									<h4 className="">Malith Madusankha</h4>
-
+									{/* Button for Navigate to the relevent Event */}
 									<Button size="sm" className=" px-2 me-3" color="primary">
 										Event
 									</Button>
