@@ -24,6 +24,7 @@ function CommentModal() {
 				isOpen={showModal}
 				toggle={() => toggleModal(false)}
 			>
+				{/* 	Rating & Comments */}
 				<div className="modal-header mb--3 mt--2 mx--2">
 					<h4 className="modal-title" id="showModalLabel">
 						Rating & Comments
