@@ -6,7 +6,7 @@ import { Container, Row, Col } from "reactstrap";
 // core components
 import AuthNavbar from "components/Navbars/AuthNavbar.js";
 import AuthFooter from "components/Footers/AuthFooter.js";
-
+// imort routes
 import routes from "routes.js";
 
 const AuthServiceProvider = (props) => {
@@ -25,6 +25,7 @@ const AuthServiceProvider = (props) => {
 		mainContent.current.scrollTop = 0;
 	}, [location]);
 
+	//  Auth Routes
 	const getRoutes = (routes) => {
 		return routes.map((prop, key) => {
 			console.log("prop.layout  : " + prop.layout);
@@ -42,6 +43,7 @@ const AuthServiceProvider = (props) => {
 		});
 	};
 
+	//  Register Componet
 	return (
 		<>
 			<div className="main-content" ref={mainContent}>
