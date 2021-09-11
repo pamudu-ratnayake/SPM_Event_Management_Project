@@ -16,6 +16,7 @@ function EditProfileModal() {
 		setShowModal(state);
 	};
 
+	// initial Values
 	const initialValues = {
 		// company Variavles
 		company_Id: "SPC0005",
@@ -25,6 +26,7 @@ function EditProfileModal() {
 		file: "",
 	};
 
+	// Validation Schema
 	const validationSchema = Yup.object({
 		company_name: Yup.string().required("*Required!"),
 		service_provider_type: Yup.string().required("*Required!"),
@@ -32,6 +34,7 @@ function EditProfileModal() {
 		file: Yup.string().required("*Required!"),
 	});
 
+	// Submite Method
 	const onSubmit = (values) => {
 		console.log("Form Date", values);
 		//  values.date_of_the_event = event_date; //watch
