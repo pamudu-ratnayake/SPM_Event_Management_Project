@@ -33,6 +33,7 @@ const UpdateBoostEvent = () => {
     advertisement_Pic: "",
   };
 
+  //Yup validations
   const validationSchema = Yup.object({
     service_Provider_Name: Yup.string().required("Required"),
     contact_Number_SP: Yup.string().required("Required"),
