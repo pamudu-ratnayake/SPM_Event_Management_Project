@@ -1,28 +1,18 @@
-import ReactDatetime from "react-datetime";
-
 // reactstrap components
 import {
 	Button,
 	Card,
 	CardHeader,
 	CardBody,
-	FormGroup,
-	Form,
-	Input,
 	Container,
 	Row,
 	Col,
-	DropdownMenu,
-	DropdownItem,
-	UncontrolledDropdown,
-	DropdownToggle,
 	Table,
 } from "reactstrap";
 // core components
 import ServiceProviderHeader from "components/Headers/service-provider-header/ServiceProviderHeader";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
 
 const ServiceProviders = (props) => {
 	const [posts, setPosts] = useState([]);
