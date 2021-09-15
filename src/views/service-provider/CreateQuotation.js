@@ -21,6 +21,7 @@ import CommentModal from "./moadals/CommentModal";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
+import CreateQuotionHeader from "components/Headers/service-provider-header/CreateQuotionHeader";
 
 const phoneRegExp =
 	/^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
@@ -141,131 +142,119 @@ const CreateQuotation = (props) => {
 
 	return (
 		<>
-			<ServiceProviderHeader />
+			<CreateQuotionHeader />
 			{/* Page content */}
-			<Container className="mt--7" fluid>
+			<Container className="mt--9" fluid>
 				<Row>
-					<Col className="order-xl-2 mb-5 mb-xl-0" xl="4">
-						<Card className="card-profile shadow">
-							<Row className="justify-content-center">
-								<Col className="order-lg-2" lg="3">
-									<div className="card-profile-image">
-										<a href="#pablo" onClick={(e) => e.preventDefault()}>
-											<img
-												alt="..."
-												className="rounded-circle"
-												src={
-													require("../../assets/img/theme/team-4-800x800.jpg")
-														.default
-												}
-											/>
-										</a>
-									</div>
-								</Col>
-							</Row>
-							<CardHeader className="text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
-								<div className="d-flex justify-content-between">
-									<EditProfileModal />
-
-									<Button
-										className="float-right"
-										color="danger"
-										href="#pablo"
-										onClick={deleteCompany}
-										size="sm"
-									>
-										Delete
-									</Button>
-								</div>
-							</CardHeader>
-							<CardBody className="pt-0 pt-md-4">
-								<Row>
-									<div className="col">
-										<div className="card-profile-stats d-flex justify-content-center mt-md-5">
-											{/* Rating Modal */}
-											<RatingModal />
-											<div>
-												<span className="heading">10</span>
-												<span className="description">Completed</span>
-											</div>
-											{/* Comment Modal */}
-											<CommentModal />
-										</div>
-									</div>
-								</Row>
-								<div className="text-center">
-									<h3>
-										{profile.user_name}
-										<span className="font-weight-light"></span>
-									</h3>
-									<div className="h5 font-weight-300">
-										<i className="ni location_pin mr-2" />
-										{profile.address}
-									</div>
-									<div className="h5 mt-4">
-										<i className="ni business_briefcase-24 mr-2" />
-
-										{posts.service_provider_type}
-									</div>
-									<div>
-										<i className="ni education_hat mr-2" />
-										{posts.company_name} (pvt) Ltd
-									</div>
-									<hr className="my-4" />
-									<p>{posts.details}</p>
-									<a href="#pablo" onClick={(e) => e.preventDefault()}>
-										Show more
-									</a>
-								</div>
-							</CardBody>
-						</Card>
-					</Col>
-					<Col className="order-xl-1" xl="8">
+					<Col className="order-xl-1" xl="12">
 						<Card className="bg-secondary shadow">
-							<CardHeader className="bg-white border-0">
+							<CardHeader className="bg-secondary border-0">
 								<Row className="align-items-center">
-									<Col xs="8">
-										<h3 className="mb-0">My account</h3>
-									</Col>
-									<Col className="text-right" xs="4">
-										<Button size="sm">Download PDF</Button>
-										<Button
-											color="primary"
-											href="#pablo"
-											onClick={(e) => {
-												document.getElementById(
-													"input-service-provider"
-												).disabled = true;
-												document.getElementById(
-													"input-nic-no"
-												).disabled = false;
-												document.getElementById(
-													"input-username"
-												).disabled = false;
-												document.getElementById(
-													"input-first-name"
-												).disabled = false;
-												document.getElementById(
-													"input-last-name"
-												).disabled = false;
-												document.getElementById("input-email").disabled = false;
-												document.getElementById(
-													"input-telephone"
-												).disabled = false;
-												document.getElementById(
-													"input-mobile"
-												).disabled = false;
-												document.getElementById(
-													"input-address"
-												).disabled = false;
-												document.getElementById("btn-save").style.display =
-													"block";
-											}}
-											size="sm"
-										>
-											Edit
-										</Button>
-									</Col>
+									<Row className="d-flex flex-row-reverse bd-highlight">
+										<div class="col-1 text-right">
+											<Button
+												color="primary"
+												href="#pablo"
+												onClick={(e) => {
+													document.getElementById(
+														"input-service-provider"
+													).disabled = true;
+													document.getElementById(
+														"input-nic-no"
+													).disabled = false;
+													document.getElementById(
+														"input-username"
+													).disabled = false;
+													document.getElementById(
+														"input-first-name"
+													).disabled = false;
+													document.getElementById(
+														"input-last-name"
+													).disabled = false;
+													document.getElementById(
+														"input-email"
+													).disabled = false;
+													document.getElementById(
+														"input-telephone"
+													).disabled = false;
+													document.getElementById(
+														"input-mobile"
+													).disabled = false;
+													document.getElementById(
+														"input-address"
+													).disabled = false;
+													document.getElementById("btn-save").style.display =
+														"block";
+												}}
+												size="sm"
+											>
+												Edit
+											</Button>
+										</div>
+										<div className="col-2 text-right">
+											<Button size="sm"> Download Pdf</Button>
+										</div>
+									</Row>
+									<Row className="mt-3">
+										<Col xs="10">
+											<h3 className="mb-0 text-success display-4">
+												Company Name
+											</h3>
+										</Col>
+										<Col className="text-right" xs="2">
+											<h3 className="mb-0 text-success display-4">Quotaion</h3>
+										</Col>
+									</Row>
+
+									<Row className="mt-3">
+										<Col xs="9">
+											<h3 className="mb-0 text-success h2 ">Quotaion to :</h3>
+										</Col>
+										<Col className="text-right" xs="3">
+											<h3 className="mb-0 text-success h2 ">
+												Quotaion Details :
+											</h3>
+										</Col>
+									</Row>
+									<Row className="mt-3">
+										<Col xs="8">
+											<h3> Company Name</h3>
+										</Col>
+										<Col className="text-right" xs="4">
+											<Row>
+												<Col xs="6">
+													{" "}
+													<h4> VALID DATE FROM : </h4>
+												</Col>
+												<Col xs="6">11/09/2021</Col>
+											</Row>
+										</Col>
+									</Row>
+									<Row className="">
+										<Col xs="8 ">445/2, Kandy Road, Kadawatha.</Col>
+										<Col className="text-right" xs="4">
+											<Row>
+												<Col xs="6">
+													<h4>TO : </h4>{" "}
+												</Col>
+												<Col xs="6">11/10/2021</Col>
+											</Row>
+										</Col>
+									</Row>
+									<Row className="">
+										<Col xs="8">malith@gmail.com</Col>
+										<Col className="text-right" xs="4">
+											<Row>
+												<Col xs="6">
+													<h4>QUOTE NO : </h4>
+												</Col>
+												<Col xs="6"> #QT00125 </Col>
+											</Row>
+										</Col>
+									</Row>
+									<Row className="">
+										<Col xs="8">Ph : 0112901271</Col>
+									</Row>
 								</Row>
 							</CardHeader>
 							<CardBody>

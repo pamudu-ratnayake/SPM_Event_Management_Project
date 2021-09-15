@@ -13,6 +13,7 @@ import {
 import ServiceProviderHeader from "components/Headers/service-provider-header/ServiceProviderHeader";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import HeaderAllServiceProviders from "components/Headers/service-provider-header/HeaderAllServiceProviders";
 
 const ServiceProviders = (props) => {
 	const [posts, setPosts] = useState([]);
@@ -31,9 +32,9 @@ const ServiceProviders = (props) => {
 
 	return (
 		<>
-			<ServiceProviderHeader />
+			<HeaderAllServiceProviders />
 			{/* Page content */}
-			<Container className="mt--7" fluid>
+			<Container className="mt--9" fluid>
 				<Row>
 					<Col className="order-xl-1" xl="12">
 						<Card className="bg-secondary shadow">
