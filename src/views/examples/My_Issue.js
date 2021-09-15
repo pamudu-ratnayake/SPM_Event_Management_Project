@@ -155,9 +155,9 @@ const My_Issue = () => {
                   </CardBody>
                   <Col className="mb-2">
                     <Link to={"/admin/Event_Support"}>
-                    <Button color="primary" size="sm" type="button">
-                      Publish
-                    </Button>
+                      <Button color="primary" size="sm" type="button">
+                        Publish
+                      </Button>
                     </Link>
                   </Col>
                 </Card>

@@ -2,10 +2,11 @@ import ReactDatetime from "react-datetime";
 import axios from "axios";
 
 // reactstrap components
-import { Button, Card, CardHeader, CardBody, FormGroup, Form, Input, Container, Row, Col, InputGroupAddon, InputGroupText, InputGroup } from "reactstrap";
+import { Button, Card, CardHeader, CardBody, FormGroup, Form, Container, Row, Col } from 'reactstrap';
 // core components
 import ViewEventHeader from "components/Headers/ViewEventHeader";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const EventDisplay = (props) => {
   console.log("ID is : ", props.match.params._id);
@@ -185,7 +186,15 @@ const EventDisplay = (props) => {
                       </FormGroup>
                     </Col>
                   </Row>
-
+                  <Row>
+                  <Col className="text-right" xs="4">
+                  <Link to={`/admin/Sponsorship_Documentation/${event._id}`}>
+                    <Button color="primary" href="#pablo">
+                      Create Sponsorship Request
+                    </Button>
+                    </Link>
+                  </Col>
+                  </Row>
                 </Form>
               </CardBody>
             </Card>

@@ -245,7 +245,7 @@ var routes = [
     layout: "/admin",
   },
   {
-    path: "/Sponsorship_Documentation",
+    path: "/Sponsorship_Documentation/:_id",
     name: "* Sponsorship Documentation",
     icon: "ni ni-collection text-info",
     component: Sponsorship_Documentation,
