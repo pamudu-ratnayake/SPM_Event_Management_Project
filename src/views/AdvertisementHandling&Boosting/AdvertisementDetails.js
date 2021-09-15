@@ -1,72 +1,43 @@
+import { useState, useEffect } from "react";
+import {Link} from "react-router-dom"
 // reactstrap components
 import {
   Button,
   Card,
   CardHeader,
   CardBody,
-  FormGroup,
-  Form,
-  Input,
+  CardImg,
+  CardTitle,
+  CardText,
   Container,
   Row,
   Col,
 } from "reactstrap";
 import * as Yup from "yup";
-import axios from "axios";
 // core components
-import AdvertisementDetailsHeader from "components/Headers/AdvertisementDetailsHeader";
-//
-import { useFormik } from "formik";
+import BoostAddHeader from "components/Headers/AdvertisementHandling&BoostingHeaders/BoostAddHeader";
+import axios from "axios";
 
-const AdvertisementDetails = () => {
-  const initialValues = {
-    enableReinitialize: true,
-    validateOnMount: true,
-    service_Provider_Name: "",
-    // service_Provider_ID: "",
-    contact_Number_SP: "",
-    email_SP: "",
-    service_Type: "",
-    advertisement_Duration: "",
-    advertisement_Des: "",
-    advertisement_Pic: "",
-  };
+const AdvertisementDetails = (props) => {
+  console.log("Id is: ", props.match.params._id);
 
-  const validationSchema = Yup.object({
-    service_Provider_Name: Yup.string().required("Required"),
-    contact_Number_SP: Yup.string().required("Required"),
-    email_SP: Yup.string().required("Required"),
-    service_Type: Yup.string().required("Required"),
-    advertisement_Duration: Yup.string().required("Required"),
-    advertisement_Des: Yup.string().required("Required"),
-    advertisement_Pic: Yup.string().required("Required"),
-    // cardtype: Yup.string().required("Required"),
-  });
+  const [addsData, setAdd] = useState(0);
 
-  const onSubmit = (values) => {
-    console.log("form data", values);
+  useEffect(() => {
     axios
-      .post("http://localhost:8080/advertisement/addadvertisement", values)
+      .get(`http://localhost:8080/advertisement/get/${props.match.params._id}`)
       .then((res) => {
         console.log(res);
-        console.log("Data", values);
-        // history.pushState({
-        //   pathname: ''
-        // })
+        setAdd(res.data);
       })
       .catch((error) => {
-        console(error);
+        console.log(error);
       });
-  };
-  const formik = useFormik({
-    initialValues,
-    onSubmit,
-    validationSchema,
-  });
+  }, []);
 
   return (
     <>
-      <AdvertisementDetailsHeader />
+      <BoostAddHeader />
       {/* Page content */}
       <Container className="mt--7">
         <Row>
@@ -75,244 +46,257 @@ const AdvertisementDetails = () => {
               <CardHeader className="bg-white border-0">
                 <Row className="align-items-center">
                   <Col xs="8">
-                    <h2 className="mb-0">Advertisement Details</h2>
+                    <h2 className="mb-0">Advertisement Information</h2>
                   </Col>
                   <Col className="text-right" xs="4"></Col>
                 </Row>
               </CardHeader>
-              <CardBody>
-                <Form onSubmit={formik.handleSubmit}>
-                  <Row>
-                    <Col md="12">
-                      <FormGroup>
-                        <label>Service Provider Name </label>
-                        
-                        {formik.touched.service_Provider_Name &&
-                        formik.errors.service_Provider_Name ? (
-                          <div style={{ color: "red" }}>
-                            {formik.errors.service_Provider_Name}
-                          </div>
-                        ) : null}
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col md="6">
-                      <FormGroup>
-                        <label>Customer Email </label>
-                        <Input
-                          onChange={formik.handleChange}
-                          onBlur={formik.handleBlur}
-                          value={formik.email_SP}
-                          id="Email_SP"
-                          name="email_SP"
-                          placeholder="Enter Email"
-                          type="text"
-                        />
-                        {formik.touched.email_SP && formik.errors.email_SP ? (
-                          <div style={{ color: "red" }}>
-                            {formik.errors.email_SP}
-                          </div>
-                        ) : null}
-                      </FormGroup>
-                    </Col>
-                    <Col md="6">
-                      <FormGroup>
-                        <label>Contact Number </label>
-                        <Input
-                          onChange={formik.handleChange}
-                          onBlur={formik.handleBlur}
-                          value={formik.values.contact_Number_SP}
-                          id="Contact_Number_SP"
-                          name="contact_Number_SP"
-                          placeholder="Enter Contact Number"
-                          type="text"
-                        />
-                        {formik.touched.contact_Number_SP &&
-                        formik.errors.contact_Number_SP ? (
-                          <div style={{ color: "red" }}>
-                            {formik.errors.contact_Number_SP}
-                          </div>
-                        ) : null}
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col md="6">
-                      <FormGroup>
-                        <label>Service Type </label>
-                        <Input
-                          onChange={formik.handleChange}
-                          onBlur={formik.handleBlur}
-                          value={formik.service_Type}
-                          id="Service_Type"
-                          name="service_Type"
-                          type="select"
-                        >
-                          <option>Choose...</option>
-                          <option>Photographer</option>
-                          <option>Decorater</option>
-                          <option>Cake Designer</option>
-                          <option>Event Planner</option>
-                          <option>Sound Provider</option>
-                          <option>florist</option>
-                        </Input>
-                        {formik.touched.service_Type &&
-                        formik.errors.service_Type ? (
-                          <div style={{ color: "red" }}>
-                            {formik.errors.service_Type}
-                          </div>
-                        ) : null}
-                      </FormGroup>
-                    </Col>
-                    <Col md="6">
-                      <FormGroup>
-                        <label>Advertisement Available Duration </label>
-                        <Input
-                          onChange={formik.handleChange}
-                          onBlur={formik.handleBlur}
-                          value={formik.advertisement_Duration}
-                          id="Advertisement_Duration"
-                          name="advertisement_Duration"
-                          type="select"
-                        >
-                          <option>Choose...</option>
-                          <option>1 Day</option>
-                          <option>3 Day</option>
-                          <option>5 Day</option>
-                          <option>10 Day</option>
-                          <option>15 Day</option>
-                          <option>20 Day</option>
-                          <option>1 month</option>
-                          <option>2 month</option>
-                          <option>3 month</option>
-                        </Input>
-                        {formik.touched.advertisement_Duration &&
-                        formik.errors.advertisement_Duration ? (
-                          <div style={{ color: "red" }}>
-                            {formik.errors.advertisement_Duration}
-                          </div>
-                        ) : null}
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col md="12">
-                      <label>Advertisement Description </label>
-                      <Input
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        value={formik.advertisement_Des}
-                        id="Advertisement_Des"
-                        name="advertisement_Des"
-                        placeholder="Enter your Advertisement Description here ...................."
-                        rows="6"
-                        type="textarea"
-                      />
-                      {formik.touched.advertisement_Des &&
-                      formik.errors.advertisement_Des ? (
-                        <div style={{ color: "red" }}>
-                          {formik.errors.advertisement_Des}
-                        </div>
-                      ) : null}
-                    </Col>
-                  </Row>
-                  <br></br>
-                  <Row>
-                    <Col md="12">
-                      <label>Upload Advertisement Picture </label>
-                      <Input
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        value={formik.advertisement_Pic}
-                        id="Advertisement_Pic"
-                        name="advertisement_Pic"
-                        placeholder="Enter your Advertisement Picture here ..................."
-                        rows="6"
-                        type="textarea"
-                      />
-                      {formik.touched.advertisement_Pic &&
-                      formik.errors.advertisement_Pic ? (
-                        <div style={{ color: "red" }}>
-                          {formik.errors.advertisement_Pic}
-                        </div>
-                      ) : null}
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col ml="12">
-                      <label className="mb-2 mt-3">Payment Type </label>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col>
-                      <div className="custom-control custom-radio mb-3 ml-5">
-                        <input
-                          onChange={formik.handleChange}
-                          onBlur={formik.handleBlur}
-                          value={formik.cardtype}
-                          className="custom-control-input"
-                          id="cardtype"
-                          name="cardtype"
-                          type="radio"
-                        />
-                        {/* {formik.touched.cardtype && formik.errors.cardtype ? (
-                          <div style={{ color: "red" }}>
-                            {formik.errors.cardtype}
-                          </div>
-                        ) : null} */}
-                        <label
-                          className="custom-control-label"
-                          htmlFor="customRadio5"
-                        >
-                          Card Payment
-                        </label>
+              <Card style={{ width: "61.3rem" }}>
+                <CardImg
+                  style={{ padding: "3rem" }}
+                  alt="..."
+                  className="mt-5 ml-10 mr-10"
+                  src={require("assets/img/theme/kk.jpg").default}
+                  top
+                />
+                  <CardHeader style={{ fontSize: "2rem" }}>
+                    Advertisement Details
+                  </CardHeader>
+                <CardBody style={{ padding: "2rem" }}>
+
+                  {/* <CardText>Service Provider Name  :  {addsData.service_Provider_Name}</CardText> */}
+                  {/* <CardText>Customer Email :  {addsData.email_SP}</CardText>
+             <CardText>Contact Number  :{addsData.contact_Number_SP}</CardText>
+             <CardText>Service Type :{addsData.service_Type}</CardText>
+             <CardText>Available Duration : {addsData.advertisement_Duration}</CardText>
+             <CardText>Advertisement Description :{addsData.advertisement_Duration}</CardText>
+             <CardText>Upload Advertisement Picture :{addsData.advertisement_Des}</CardText>
+             <CardText>Payment Type :{addsData.advertisement_Pic}</CardText> */}
+                  <Card
+                    style={({ width: "28rem" }, { height: "2.5rem" })}
+                    className="mb-4"
+                  >
+                    <CardBody className="pt-1 pt-md-0">
+                      <div>
+                        <CardText>
+                          <Row>
+                            <Col xs="3">
+                              <span className="h5" style={{ font: "menu" }}>
+                                Service Provider Name
+                              </span>
+                            </Col>
+                            <Col xs="6">
+                              <span className="h5">
+                                : {addsData.service_Provider_Name}
+                              </span>
+                            </Col>
+                          </Row>
+                        </CardText>
                       </div>
-                    </Col>
-                    <Col>
-                      <div className="custom-control custom-radio mb-3">
-                        <input
-                          className="custom-control-input"
-                          defaultChecked
-                          id="onlinetransfering"
-                          name="onlinetransfering"
-                          type="radio"
-                        />
-                        <label
-                          className="custom-control-label"
-                          htmlFor="customRadio6"
-                        >
-                          Online Transfering
-                        </label>
+                    </CardBody>
+                  </Card>
+
+                  <Card
+                    style={({ width: "28rem" }, { height: "2.5rem" })}
+                    className="mb-4"
+                  >
+                    <CardBody className="pt-1 pt-md-0">
+                      <div>
+                        <CardText>
+                          <Row>
+                            <Col xs="3">
+                              <span className="h5" style={{ font: "menu" }}>
+                                Customer Email
+                              </span>
+                            </Col>
+                            <Col xs="6">
+                              <span className="h5">: {addsData.email_SP}</span>
+                            </Col>
+                          </Row>
+                        </CardText>
                       </div>
-                    </Col>
-                  </Row>
-                  <br></br>
-                  <br></br>
-                  <Row>
-                    <Col className="text-right" xs="4">
-                      <Button
-                        color="primary"
-                        type="submit"
-                        //  onClick={(e) => e.preventDefault()}
-                        size="lm"
-                      >
-                        Request Advertisement
-                      </Button>
-                    </Col>
-                    <Col className="text-right" xs="4">
-                      {/* <Button
-                        color="primary"
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
-                        size="lm"
-                      >
-                        Cancle
-                      </Button> */}
-                    </Col>
-                  </Row>
-                </Form>
+                    </CardBody>
+                  </Card>
+
+                  <Card
+                    style={({ width: "28rem" }, { height: "2.5rem" })}
+                    className="mb-4"
+                  >
+                    <CardBody className="pt-1 pt-md-0">
+                      <div>
+                        <CardText>
+                          <Row>
+                            <Col xs="3">
+                              <span className="h5" style={{ font: "menu" }}>
+                                Contact Number
+                              </span>
+                            </Col>
+                            <Col xs="6">
+                              <span className="h5">
+                                : {addsData.contact_Number_SP}
+                              </span>
+                            </Col>
+                          </Row>
+                        </CardText>
+                      </div>
+                    </CardBody>
+                  </Card>
+
+                  <Card
+                    style={({ width: "28rem" }, { height: "2.5rem" })}
+                    className="mb-4"
+                  >
+                    <CardBody className="pt-1 pt-md-0">
+                      <div>
+                        <CardText>
+                          <Row>
+                            <Col xs="3">
+                              <span className="h5" style={{ font: "menu" }}>
+                                Service Type
+                              </span>
+                            </Col>
+                            <Col xs="6">
+                              <span className="h5">
+                                : {addsData.service_Type}
+                              </span>
+                            </Col>
+                          </Row>
+                        </CardText>
+                      </div>
+                    </CardBody>
+                  </Card>
+
+                  <Card
+                    style={({ width: "28rem" }, { height: "2.5rem" })}
+                    className="mb-4"
+                  >
+                    <CardBody className="pt-1 pt-md-0">
+                      <div>
+                        <CardText>
+                          <Row>
+                            <Col xs="3">
+                              <span className="h5" style={{ font: "menu" }}>
+                                Advertisement Available Duration
+                              </span>
+                            </Col>
+                            <Col xs="6">
+                              <span className="h5">
+                                : {addsData.advertisement_Duration}
+                              </span>
+                            </Col>
+                          </Row>
+                        </CardText>
+                      </div>
+                    </CardBody>
+                  </Card>
+
+                  <Card
+                    style={({ width: "28rem" }, { height: "2.5rem" })}
+                    className="mb-4"
+                  >
+                    <CardBody className="pt-1 pt-md-0">
+                      <div>
+                        <CardText>
+                          <Row>
+                            <Col xs="3">
+                              <span className="h5" style={{ font: "menu" }}>
+                                Advertisement Title
+                              </span>
+                            </Col>
+                            <Col xs="6">
+                              <span className="h5">
+                                : {addsData.advertisement_title}
+                              </span>
+                            </Col>
+                          </Row>
+                        </CardText>
+                      </div>
+                    </CardBody>
+                  </Card>
+
+                  <Card
+                    style={({ width: "28rem" }, { height: "2.5rem" })}
+                    className="mb-4"
+                  >
+                    <CardBody className="pt-1 pt-md-0">
+                      <div>
+                        <CardText>
+                          <Row>
+                            <Col xs="3">
+                              <span className="h5" style={{ font: "menu" }}>
+                                Advertisement Description
+                              </span>
+                            </Col>
+                            <Col xs="6">
+                              <span className="h5">
+                                : {addsData.advertisement_Des}
+                              </span>
+                            </Col>
+                          </Row>
+                        </CardText>
+                      </div>
+                    </CardBody>
+                  </Card>
+
+                  <Card
+                    style={({ width: "28rem" }, { height: "2.5rem" })}
+                    className="mb-4"
+                  >
+                    <CardBody className="pt-1 pt-md-0">
+                      <div>
+                        <CardText>
+                          <Row>
+                            <Col xs="3">
+                              <span className="h5" style={{ font: "menu" }}>
+                                Advertisement Picture
+                              </span>
+                            </Col>
+                            <Col xs="6">
+                              <span className="h5">
+                                : {addsData.advertisement_Pic}
+                              </span>
+                            </Col>
+                          </Row>
+                        </CardText>
+                      </div>
+                    </CardBody>
+                  </Card>
+
+                  {/* <Card
+             style={({ width: "28rem" }, { height: "2.5rem" })}
+              className="mb-4">
+            <CardBody className="pt-1 pt-md-0">
+                <div>
+                  <CardText>
+                    <Row>
+                      <Col xs="3">
+                        <span className="h5" style={{ font: "menu" }}>
+                        Payment Type
+                        </span>
+                      </Col>
+                      <Col xs="6">
+                        <span className="h5">:  {addsData.cardtype}</span>
+                      </Col>
+                    </Row>
+                  </CardText>
+                </div>
               </CardBody>
+            </Card>  */}
+            <div>
+                  <Col style={{paddingLeft:'29rem'}}>
+                    <Link to={`/admin/updateadvertisement/${addsData._id}`}>
+                    <Button
+                      className="ml-16 mr-8"
+                      color="primary"
+                     
+                    >
+                      Request to Update the Details
+                    </Button>
+                    </Link>
+                  </Col>
+                  </div>
+                </CardBody>
+              </Card>
             </Card>
           </Col>
         </Row>

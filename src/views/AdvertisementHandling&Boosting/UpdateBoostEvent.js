@@ -16,7 +16,7 @@ import {
 } from "reactstrap";
 import * as Yup from "yup";
 // core components
-import BoostHeader from "components/Headers/BoostHeader";
+import BoostHeader from "components/Headers/AdvertisementHandling&BoostingHeaders/BoostHeader";
 
 import { useFormik } from "formik";
 
@@ -61,7 +61,7 @@ const UpdateBoostEvent = () => {
               <CardHeader className="bg-white border-0">
                 <Row className="align-items-center">
                   <Col xs="8">
-                    <h2 className="mb-0">Event Boosting Information</h2>
+                    <h2 className="mb-0">Update Event Boosting Information</h2>
                   </Col>
                   <Col className="text-right" xs="4"></Col>
                 </Row>

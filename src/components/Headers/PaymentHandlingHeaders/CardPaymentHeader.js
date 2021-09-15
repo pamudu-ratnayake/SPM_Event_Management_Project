@@ -9,7 +9,7 @@ const CardPaymentHeader = () => {
         style={{
           minHeight: "200px",
           backgroundImage:
-            "url(" + require("../../assets/img/theme/ok.jpg").default + ")",
+            "url(" + require("../../../assets/img/theme/ok.jpg").default + ")",
           backgroundSize: "cover",
           backgroundPosition: "center top",
         }}

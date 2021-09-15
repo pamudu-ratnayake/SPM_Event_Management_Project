@@ -17,7 +17,7 @@ import axios from "axios";
 import { useHistory } from "react-router";
 
 // core components
-import AdvertisementHeader from "components/Headers/AdvertisementHeader";
+import AdvertisementHeader from "components/Headers/AdvertisementHandling&BoostingHeaders/AdvertisementHeader";
 
 import { useFormik } from "formik";
 

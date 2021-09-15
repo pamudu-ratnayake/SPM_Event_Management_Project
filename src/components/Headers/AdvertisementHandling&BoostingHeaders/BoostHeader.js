@@ -2,7 +2,8 @@
 // reactstrap components
 import { Button, Container, Row, Col } from "reactstrap";
 
-const AdvertisementHeader = () => {
+
+const BoostHeader = () => {
   return (
     <>
       <div
@@ -11,7 +12,7 @@ const AdvertisementHeader = () => {
           minHeight: "200px",
           backgroundImage:
             "url(" +
-            require("../../assets/img/theme/kk.jpg").default +
+            require("../../../assets/img/theme/hj.jpg").default +
             ")",
           backgroundSize: "cover",
           backgroundPosition: "center top",
@@ -23,7 +24,7 @@ const AdvertisementHeader = () => {
         <Container className="d-flex align-items-center" fluid>
           <Row>
             <Col lg="7" md="10">
-              <h1 className="display-2 text-white">Publish Your Advertisement</h1>
+              <h1 className="display-2 text-white">Boost Your Event</h1>
               <p className="text-white mt-0 mb-3">
                 This is your profile page. You can see the progress you've made
                 with your work and manage your projects or assigned tasks
@@ -36,4 +37,4 @@ const AdvertisementHeader = () => {
   );
 };
 
-export default AdvertisementHeader;
+export default BoostHeader;

@@ -15,7 +15,7 @@ import {
 } from "reactstrap";
 import * as Yup from "yup";
 // core components
-import BoostAddHeader from "components/Headers/BoostAddHeader";
+import BoostAddHeader from "components/Headers/AdvertisementHandling&BoostingHeaders/BoostAddHeader";
 import axios from "axios";
 
 const ViewAdvertisement = (props) => {
@@ -286,11 +286,11 @@ const ViewAdvertisement = (props) => {
                   <Col style={{paddingLeft:'29rem'}}>
                     <Link to={`/admin/updateadvertisement/${addsData._id}`}>
                     <Button
-                      className="ml-8 mr-8"
+                      className="ml-16 mr-8"
                       color="primary"
                      
                     >
-                      Update Request
+                      Request to Update the Details
                     </Button>
                     </Link>
                   </Col>

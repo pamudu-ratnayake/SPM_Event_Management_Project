@@ -21,7 +21,7 @@ import {
 import * as Yup from "yup";
 import axios from "axios";
 // core components
-import AdvertisementHeader from "components/Headers/AdvertisementHeader";
+import AdvertisementHeader from "components/Headers/AdvertisementHandling&BoostingHeaders/AdvertisementHeader";
 
 import { useFormik } from "formik";
 

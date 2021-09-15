@@ -188,13 +188,7 @@ var routes = [
     component: UpdateBoostEvent,
     layout: "/admin",
   },
-  {
-    path: "/updateboostEvent",
-    name: "Update Boost Event",
-    icon: "ni ni-credit-card text-blue",
-    component: BoostEvent,
-    layout: "/admin",
-  },
+  
   {
     path: "/advertisement",
     name: "Advertisement Information",

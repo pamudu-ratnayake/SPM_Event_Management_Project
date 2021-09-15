@@ -20,7 +20,7 @@ import {
 } from "reactstrap";
 // import ReactDatetime from "react-datetime";
 // core components
-import DisplayedRequestHeader from "components/Headers/DisplayedRequestHeader";
+import DisplayedRequestHeader from "components/Headers/AdvertisementHandling&BoostingHeaders/DisplayedRequestHeader";
 import React from "react";
 import axios from "axios";
 

@@ -16,7 +16,7 @@ import {
 } from "reactstrap";
 import * as Yup from "yup";
 // core components
-import BoostAddHeader from "components/Headers/BoostAddHeader";
+import BoostAddHeader from "components/Headers/AdvertisementHandling&BoostingHeaders/BoostAddHeader";
 
 import { useFormik } from "formik";
 
@@ -33,6 +33,7 @@ const BoostAdvertisement = () => {
     advertisement_Pic: "",
   };
 
+  //Yup validations
   const validationSchema = Yup.object({
     service_Provider_Name: Yup.string().required("Required"),
     contact_Number_SP: Yup.string().required("Required"),
@@ -43,8 +44,6 @@ const BoostAdvertisement = () => {
     advertisement_Pic: Yup.string().required("Required"),
     cardtype: Yup.string().required("Required"),
   });
-
-  //use formik
   const formik = useFormik({
     initialValues,
     validationSchema,
@@ -70,31 +69,40 @@ const BoostAdvertisement = () => {
                   <Row>
                   <Col md="6">
                       <FormGroup>
-                        <label>Customer ID  </label>
+                        <label>Customer Name  </label>
                         <Input
-                          id="Customer_ID "
-                          name="Customer_ID_Name"
-                          disabled
-                          type="text"
+                         onChange={formik.handleChange}
+                         onBlur={formik.handleBlur}
+                         value={formik.values.Customer_Name}
+                          id="Customer_Name "
+                          name="Customer_Name"
+                          placeholder="Enter your Name"
+                           type="text"
                         />
+                        {formik.touched.Customer_Name &&
+                        formik.errors.Customer_Name? (
+                          <div style={{ color: "red" }}>
+                            {formik.errors.Customer_Name}
+                          </div>
+                        ) : null}
                       </FormGroup>
                     </Col>
                     <Col md="6">
                       <FormGroup>
-                        <label>Advertisement ID  </label>
+                        <label>NIC Number </label>
                         <Input
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        value={formik.values.Event_ID}
-                          id="Event_ID"
-                          name="Event_ID"
-                           placeholder="Enter your Advertisement ID"
+                        value={formik.values.nic_no}
+                          id="NIC"
+                          name="nic_no"
+                          placeholder="Enter your NIC Number"
                           type="text"
                         />
-                        {formik.touched.Event_ID &&
-                        formik.errors.Event_ID? (
+                        {formik.touched.nic_no &&
+                        formik.errors.nic_no? (
                           <div style={{ color: "red" }}>
-                            {formik.errors.Event_ID}
+                            {formik.errors.nic_no}
                           </div>
                         ) : null}
                       </FormGroup>
@@ -150,8 +158,8 @@ const BoostAdvertisement = () => {
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         value={formik.advertisement_Des}
-                        id="Advertisement_Des"
-                        name="advertisement_Des"
+                        id="Boost_Purpose"
+                        name="Boost_Purpose"
                         placeholder="Enter your Boost Description here ...................."
                         rows="6"
                         type="textarea"
@@ -168,17 +176,17 @@ const BoostAdvertisement = () => {
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
                           value={formik.service_Type}
-                          id="Service_Type"
+                          id="service_Type"
                           name="service_Type"
                           type="select"
                         >
                           <option>Choose...</option>
-                          <option>1 day -  LKR. 500</option>
-                          <option>3 day -  LKR. 700</option>
-                          <option>5 day -  LKR. 1000</option>
-                          <option>10 day -LKR. 1500</option>
-                          <option>20 day -LKR. 2500</option>
-                          <option>30 day -LKR. 3500</option>
+                          <option>1 day - LKR. 500</option>
+                          <option>3 day - LKR. 700</option>
+                          <option>5 day - LKR. 1000</option>
+                          <option>10 day - LKR. 1500</option>
+                          <option>20 day - LKR. 2500</option>
+                          <option>30 day - LKR. 3500</option>
                         </Input>
                         {formik.touched.service_Type &&
                         formik.errors.service_Type ? (
@@ -200,7 +208,7 @@ const BoostAdvertisement = () => {
                         onClick={(e) => e.preventDefault()}
                         size="lm"
                       >
-                        Boost My Event
+                        Boost My Advertisement
                       </Button>
                     </Col>
                     <Col className="text-right" xs="4">

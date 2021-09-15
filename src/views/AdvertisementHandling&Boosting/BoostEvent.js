@@ -16,7 +16,7 @@ import {
 } from "reactstrap";
 import * as Yup from "yup";
 // core components
-import BoostHeader from "components/Headers/BoostHeader";
+import BoostHeader from "components/Headers/AdvertisementHandling&BoostingHeaders/BoostHeader";
 
 import { useFormik } from "formik";
 
@@ -50,7 +50,7 @@ const BoostEvent = () => {
   });
   return (
     <>
-      <BoostHeader />
+      {/* <BoostHeader /> */}
       {/* Page content */}
       <Container className="mt--7">
         <Row>
