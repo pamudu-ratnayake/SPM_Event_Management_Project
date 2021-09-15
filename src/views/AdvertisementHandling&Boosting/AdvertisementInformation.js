@@ -1,5 +1,6 @@
 // reactstrap components
-import React, { useState } from "react";
+import React, { useState , useMemo } from "react";
+import {useDropzone} from 'react-dropzone'
 
 import {
   Button,
@@ -34,6 +35,54 @@ const AdvertisementInformation = (props) => {
   function toggleModal() {
     setmodalDemo(!defaultModal);
   }
+
+  const baseStyle = {
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    padding: '90px',
+    borderWidth: 2,
+    borderRadius: 2,
+    borderColor: '#eeeeee',
+    borderStyle: 'dashed',
+    backgroundColor: '#ffffff',
+    color: '#bdbdbd',
+    outline: 'none',
+    transition: 'border .24s ease-in-out'
+  };
+  const activeStyle = {
+    borderColor: '#2196f3'
+  };
+  const acceptStyle = {
+    borderColor: '#00e676'
+  };
+  const rejectStyle = {
+    borderColor: '#ff1744'
+  };
+
+  const {acceptedFiles, getRootProps, getInputProps, isDragActive,
+    isDragAccept,
+    isDragReject} = useDropzone()
+
+  const style = useMemo(() => ({
+    ...baseStyle,
+    ...(isDragActive ? activeStyle : {}),
+    ...(isDragAccept ? acceptStyle : {}),
+    ...(isDragReject ? rejectStyle : {})
+  }), [
+    isDragActive,
+    isDragReject,
+    isDragAccept
+  ]);
+
+
+  const files = acceptedFiles.map(file => (
+      <li key={file.name}>
+        {file.name} - {file.size} bytes
+      </li>
+  ));
+
 
   const initialValues = {
     enableReinitialize: true,
@@ -276,7 +325,8 @@ const AdvertisementInformation = (props) => {
                   <Row>
                     <Col md="12">
                       <label>Upload Advertisement Picture </label>
-                      <Input
+                    
+                      {/* <Input
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         value={formik.advertisement_Pic}
@@ -285,7 +335,17 @@ const AdvertisementInformation = (props) => {
                         placeholder="Enter your Advertisement Picture here ..................."
                         rows="6"
                         type="textarea"
-                      />
+                      /> */}
+                        <div {...getRootProps({style})}>
+                    <input {...getInputProps()} />
+                    <p>Drag 'n' drop your image file here, or click to select files</p>
+                  </div>
+
+                  <h4>File Details</h4>
+                  <ul>
+                    {files}
+                  </ul>
+
                       {formik.touched.advertisement_Pic &&
                       formik.errors.advertisement_Pic ? (
                         <div style={{ color: "red" }}>

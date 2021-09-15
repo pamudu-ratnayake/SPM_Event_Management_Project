@@ -13,15 +13,17 @@ import UpdateEvent from "views/examples/UpdateEvent";
 import ServiceProviders from "views/service-provider/ServiceProviders";
 
 // After pull dev 10/09/2021
-import AdvertisementInformation from "views/examples/AdvertisementInformation";
-import CardPayment from "views/examples/CardPayment";
-import DisplayedRequest from "views/examples/DisplayedRequest";
-import CardPaymentMethod from "views/examples/CardPaymentMethod";
-import BoostEvent from "views/examples/BoostEvent";
-import BoostAdvertisement from "views/examples/BoostAdvertisement";
-import UpdateAdvertisementInformation from "views/examples/UpdateAdvertisementInformation";
-import AdvertisementDetails from "views/examples/AdvertisementDetails";
-import ViewAdvertisement from "views/examples/ViewAdvertisement";
+import AdvertisementInformation from "views/AdvertisementHandling&Boosting/AdvertisementInformation";
+import CardPayment from "views/PaymentHandling/CardPayment";
+import DisplayedRequest from "views/AdvertisementHandling&Boosting/DisplayedRequest";
+import CardPaymentMethod from "views/PaymentHandling/CardPaymentMethod";
+import BoostEvent from "views/AdvertisementHandling&Boosting/BoostEvent";
+import BoostAdvertisement from "views/AdvertisementHandling&Boosting/BoostAdvertisement";
+import UpdateAdvertisementInformation from "views/AdvertisementHandling&Boosting/UpdateAdvertisementInformation";
+import AdvertisementDetails from "views/AdvertisementHandling&Boosting/AdvertisementDetails";
+import ViewAdvertisement from "views/AdvertisementHandling&Boosting/ViewAdvertisement";
+import UpdateBoostEvent from "views/AdvertisementHandling&Boosting/UpdateBoostEvent";
+
 
 import Sponsorship_Request from "views/examples/Sponsorship_Request";
 import Add_Sponsor from "views/examples/Add_Sponsor";
@@ -183,6 +185,13 @@ var routes = [
     path: "/updateboostEvent",
     name: "Update Boost Event",
     icon: "ni ni-credit-card text-blue",
+    component: UpdateBoostEvent,
+    layout: "/admin",
+  },
+  {
+    path: "/updateboostEvent",
+    name: "Update Boost Event",
+    icon: "ni ni-credit-card text-blue",
     component: BoostEvent,
     layout: "/admin",
   },
@@ -220,7 +229,7 @@ var routes = [
     name: "Card Payment Method",
     icon: "ni ni-single-02 text-yellow",
     component: CardPaymentMethod,
-    layout: "/auth",
+    layout: "/authPayment",
   },
 
   {
