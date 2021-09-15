@@ -23,6 +23,8 @@ import * as Yup from "yup";
 import axios from "axios";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
+import {useDropzone} from 'react-dropzone';
+import { useMemo } from 'react';
 
 const phoneRegExp =
   /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
@@ -37,7 +39,7 @@ const validationSchema = Yup.object({
     .min(10, "Too short")
     .max(10, "Too long"),
   sponsorEmail: Yup.string().email("Invalid Email!").required("Required!"),
-  sponsorAddress: Yup.string().required("Required")
+  sponsorAddress: Yup.string().required("Required"),
 });
 
 const Add_Sponsor = () => {
@@ -52,8 +54,57 @@ const Add_Sponsor = () => {
     SponsorPhoneNo: "",
     sponsorEmail: "",
     sponsorAddress: "",
+    logo: "",
   };
 
+  
+  const baseStyle = {
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    padding: '90px',
+    borderWidth: 2,
+    borderRadius: 2,
+    borderColor: '#A9A9B0',
+    borderStyle: 'dashed',
+    marginBottom: '20px',
+    backgroundColor: '#ffffff',
+    color: 'default',
+    outline: 'none',
+    transition: 'border .24s ease-in-out'
+  };
+  const activeStyle = {
+    borderColor: '#2196f3'
+  };
+  const acceptStyle = {
+    borderColor: '#00e676'
+  };
+  const rejectStyle = {
+    borderColor: '#ff1744'
+  };
+
+  const {acceptedFiles, getRootProps, getInputProps, isDragActive,
+    isDragAccept,
+    isDragReject} = useDropzone()
+
+  const style = useMemo(() => ({
+    ...baseStyle,
+    ...(isDragActive ? activeStyle : {}),
+    ...(isDragAccept ? acceptStyle : {}),
+    ...(isDragReject ? rejectStyle : {})
+  }), [
+    isDragActive,
+    isDragReject,
+    isDragAccept
+  ]);
+
+
+  const files = acceptedFiles.map(file => (
+      <li key={file.name}>
+        {file.name} - {file.size} bytes
+      </li>
+  ));
   const onSubmit = (values) => {
     console.log("form data", values);
 
@@ -63,8 +114,8 @@ const Add_Sponsor = () => {
       .post("http://localhost:8080/sponsor/addSponsors", values)
       .then((res) => {
         console.log(res);
-        console.log('Data', values);
-        
+        console.log("Data", values);
+
         // history.push({
         //   pathname:`/admin/SponsorList`
         // })
@@ -73,8 +124,7 @@ const Add_Sponsor = () => {
         console.log(error);
       });
 
-      window.location.reload(false);
-
+    window.location.reload(false);
   };
 
   const formik = useFormik({
@@ -106,7 +156,7 @@ const Add_Sponsor = () => {
                       <FormGroup>
                         <label>Company Registration Number</label>
                         <Input
-                        className="h5"
+                          className="h5"
                           id="exampleFormControlInput1"
                           placeholder="reg000123456"
                           type="text"
@@ -126,7 +176,7 @@ const Add_Sponsor = () => {
                       <FormGroup>
                         <label>Company Name</label>
                         <Input
-                        className="h5"
+                          className="h5"
                           placeholder="ABC (pvt).Ltd"
                           type="text"
                           name="companyName"
@@ -148,7 +198,7 @@ const Add_Sponsor = () => {
                       <FormGroup>
                         <label>Sponsor Type</label>
                         <Input
-                        className="h5"
+                          className="h5"
                           id="exampleFormControlInput1"
                           type="select"
                           name="sponsorType"
@@ -189,7 +239,7 @@ const Add_Sponsor = () => {
                       <FormGroup>
                         <label>Phone Number</label>
                         <Input
-                        className="h5"
+                          className="h5"
                           placeholder="+94768945678"
                           type="text"
                           name="SponsorPhoneNo"
@@ -209,7 +259,7 @@ const Add_Sponsor = () => {
                       <FormGroup>
                         <label>Email</label>
                         <Input
-                        className="h5"
+                          className="h5"
                           id="exampleFormControlInput1"
                           placeholder="name@example.com"
                           type="email"
@@ -229,10 +279,10 @@ const Add_Sponsor = () => {
                   </Row>
                   <Row>
                     <Col>
-                  <FormGroup>
+                      <FormGroup>
                         <label>Address</label>
                         <Input
-                        className="h5-black"
+                          className="h5-black"
                           id="exampleFormControlInput1"
                           placeholder="142, Palm Avenue, Colombo 10 "
                           type="text"
@@ -248,31 +298,42 @@ const Add_Sponsor = () => {
                           </div>
                         ) : null}
                       </FormGroup>
-                      </Col>
+                    </Col>
                   </Row>
+                  <Row>
+                    <Col>
+                    <label>Upload Logo</label>
+                  <div {...getRootProps({style})}>
+                    <input
+                    {...getInputProps()} />
+                    <p>Drag 'n' drop your image file here, or click to select files</p>
+                  </div>
+
+                  <h4>File Details</h4>
+                  <ul>
+                    {files}
+                  </ul>
+                  </Col>
+                  </Row>
+                  
                   <Row className="d-flex justify-content-between">
                     <Col className="text-center">
-                    <Button
-                      id="POST"
-                      type="submit"
-                      color="primary"
-                      size="sm"
-                      name=""
-                    >
-                      Add
-                    </Button>
+                      <Button
+                        id="POST"
+                        type="submit"
+                        color="primary"
+                        size="sm"
+                        name=""
+                      >
+                        Add
+                      </Button>
                     </Col>
                     <Col className="text-center">
-                    <Link to={"/admin/SponsorList"}>
-                    <Button
-                      color="primary"
-                      size="sm"
-                      name=""
-                      type="reset"
-                    >
-                      Cancle
-                    </Button>
-                    </Link>
+                      <Link to={"/admin/SponsorList"}>
+                        <Button color="primary" size="sm" name="" type="reset">
+                          Cancle
+                        </Button>
+                      </Link>
                     </Col>
                   </Row>
                 </Form>

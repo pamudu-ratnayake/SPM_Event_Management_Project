@@ -21,6 +21,8 @@ import {
   CardTitle,
   Label,
 } from "reactstrap";
+import { useState, useEffect } from "react";
+import axios from "axios";
 // core components
 import UserHeaderSpnDocumentation from "components/Headers/UserHeaderSpnDocumentation.js";
 import { Formik, useFormik } from "formik";
@@ -40,7 +42,10 @@ const validationSchema = Yup.object({
   amount: Yup.string().required("Required!"),
 });
 
-const Sponsorship_Documentation = () => {
+const Sponsorship_Documentation = (props) => {
+
+  const [event, setEvent] = useState(0);
+
   const initialValues = {
     enableReinitialize: true,
     validateOnMount: true,
@@ -48,7 +53,31 @@ const Sponsorship_Documentation = () => {
     oContactNo: "",
     package: "",
     amount: "",
+    event_name: event.event_name,
+    org_name: event.org_name,
+    event_time: event.event_time,
+    date_of_the_event: event.date_of_the_event,
+    location: event.location,
+    days_occurs: event.days_occurs,
+    event_type: event.event_type,
+    organizer_name: event.organizer_name,
+    org_nic: event.org_nic,
+    cus_email: event.cus_email,
+    cus_con_number: event.cus_con_number,
+    description: event.description,
   };
+
+  // useEffect(() => {
+  //   axios
+  //     .get(`http://localhost:8080/eventAdd/getOneEvent/${props.match.params._id}`)
+  //     .then((res) => {
+  //       console.log(res);
+  //       setEvent(res.data);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }, []);
 
   const formik = useFormik({
     initialValues,
@@ -80,7 +109,7 @@ const Sponsorship_Documentation = () => {
                         <div>
                           <CardText className="h5">
                             <Row>
-                              <Col xs="5">Event Name</Col>
+                              <Col xs="5">{event.event_name}</Col>
                               <Col xs="6">
                                 Annual Get Together of NIBM Students
                               </Col>
