@@ -17,6 +17,7 @@ import {
   Modal,
   Button,
   Container,
+  Input,
 } from "reactstrap";
 // import ReactDatetime from "react-datetime";
 // core components
@@ -74,6 +75,8 @@ const AdvertisementList = (props) => {
                   <th scope="col">Service Provider Name </th>
                   <th scope="col">Advertisement Duration </th>
                   <th scope="col">Service Type </th>
+                  <th scope="col">Advertisement Status 
+                  </th>
                   <th scope="col" />
                 </tr>
               </thead>
@@ -89,6 +92,16 @@ const AdvertisementList = (props) => {
                     <td>
                       <div className="avatar-group">
                         {addslist.service_Type}
+                      </div>
+                    </td>
+                    <td>
+                      <div className="avatar-group">
+                        <Input>
+                        <option>Set Status</option>
+                          <option>Displayed </option>
+                          <option>Now Showing</option>
+                          <option>Requested</option> 
+                        </Input>
                       </div>
                     </td>
                     <Modal

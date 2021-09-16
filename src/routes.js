@@ -23,7 +23,7 @@ import UpdateAdvertisementInformation from "views/AdvertisementHandling&Boosting
 import AdvertisementDetails from "views/AdvertisementHandling&Boosting/AdvertisementDetails";
 import ViewAdvertisement from "views/AdvertisementHandling&Boosting/ViewAdvertisement";
 import UpdateBoostEvent from "views/AdvertisementHandling&Boosting/UpdateBoostEvent";
-
+import UpdateBoostAdvertisement from "views/AdvertisementHandling&Boosting/UpdateBoostAdvertisement";
 
 
 import Sponsorship_Request from "views/examples/Sponsorship_Request";
@@ -188,6 +188,13 @@ var routes = [
     name: "Update Boost Event",
     icon: "ni ni-credit-card text-blue",
     component: UpdateBoostEvent,
+    layout: "/admin",
+  },
+  {
+    path: "/updateboostadvertisement",
+    name: "Update Boost Advertisement",
+    icon: "ni ni-credit-card text-blue",
+    component: UpdateBoostAdvertisement,
     layout: "/admin",
   },
   

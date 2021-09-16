@@ -16,11 +16,11 @@ import {
 } from "reactstrap";
 import * as Yup from "yup";
 // core components
-import BoostHeader from "components/Headers/AdvertisementHandling&BoostingHeaders/BoostHeader";
+import BoostAddHeader from "components/Headers/AdvertisementHandling&BoostingHeaders/BoostAddHeader";
 
 import { useFormik } from "formik";
 
-const BoostEvent = () => {
+const UpdateBoostAdvertisement = () => {
   const initialValues = {
     enableReinitialize: true,
     validateOnMount: true,
@@ -50,7 +50,7 @@ const BoostEvent = () => {
   });
   return (
     <>
-      <BoostHeader />
+      <BoostAddHeader />
       {/* Page content */}
       <Container className="mt--7">
         <Row>
@@ -59,7 +59,7 @@ const BoostEvent = () => {
               <CardHeader className="bg-white border-0">
                 <Row className="align-items-center">
                   <Col xs="8">
-                    <h2 className="mb-0">Event Boosting Information</h2>
+                    <h2 className="mb-0">Advertisement Boosting Information</h2>
                   </Col>
                   <Col className="text-right" xs="4"></Col>
                 </Row>
@@ -208,7 +208,7 @@ const BoostEvent = () => {
                         onClick={(e) => e.preventDefault()}
                         size="lm"
                       >
-                        Boost My Event
+                        Boost My Advertisement
                       </Button>
                     </Col>
                     <Col className="text-right" xs="4">
@@ -232,4 +232,4 @@ const BoostEvent = () => {
   );
 };
 
-export default BoostEvent;
+export default UpdateBoostAdvertisement;
