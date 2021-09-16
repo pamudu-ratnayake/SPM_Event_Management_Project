@@ -12,12 +12,9 @@ import {
   Container,
   Row,
   Col,
-  InputGroupAddon,
-  InputGroupText,
-  InputGroup,
   CardText,
-  CardTitle,
-  CardFooter,
+  UncontrolledTooltip,
+  Alert,
 } from "reactstrap";
 // core components
 import UserHeaderMyIssue from "components/Headers/UserHeaderMyIssue.js";
@@ -146,6 +143,7 @@ const My_Issue = (props) => {
                   <Col xs="6">{posts.description}</Col>
                 </Row>
               </CardText>
+
               <Row>
                 <Form onSubmit={formik.handleSubmit}>
                   <Col style={{ paddingTop: "2rem" }}>
@@ -171,12 +169,24 @@ const My_Issue = (props) => {
                       ) : null}
                     </FormGroup>
                   </Col>
-                  <Col className="mb-2">
-                    {/* <Link to={"/admin/Event_Support"}> */}
-                    <Button color="primary" id="POST" size="sm" type="submit">
+                  <Col className="mb-2 mt-4" style={{ paddingTop: "2rem" }}>
+                    <Button
+                      color="primary"
+                      id="POST"
+                      size="sm"
+                      type="submit"
+                      data-placement="top"
+                      id="tooltip611234743"
+                    >
                       Publish
                     </Button>
-                    {/* </Link> */}
+                    <UncontrolledTooltip
+                      delay={0}
+                      placement="top"
+                      target="tooltip611234743"
+                    >
+                      Question will publish for answering
+                    </UncontrolledTooltip>
                   </Col>
                 </Form>
               </Row>
