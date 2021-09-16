@@ -26,6 +26,7 @@ import UpdateBoostEvent from "views/AdvertisementHandling&Boosting/UpdateBoostEv
 import UpdateBoostAdvertisement from "views/AdvertisementHandling&Boosting/UpdateBoostAdvertisement";
 import BoostAdvertisementList from "views/AdvertisementHandling&Boosting/BoostAdvertisementList";
 import BoostEventList from "views/AdvertisementHandling&Boosting/BoostEventList";
+import PaidList from "views/PaymentHandling/PaidList";
 
 
 import Sponsorship_Request from "views/examples/Sponsorship_Request";
@@ -192,6 +193,14 @@ var routes = [
     component: BoostEventList,
     layout: "/admin",
   },
+  {
+    path: "/paidlist",
+    name: "Paid List",
+    icon: "ni ni-credit-card text-blue",
+    component: PaidList,
+    layout: "/admin",
+  },
+
   {
     path: "/updateboostEvent",
     name: "Update Boost Event",
