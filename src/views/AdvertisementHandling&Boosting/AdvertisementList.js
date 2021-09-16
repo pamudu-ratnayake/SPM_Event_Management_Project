@@ -20,11 +20,11 @@ import {
 } from "reactstrap";
 // import ReactDatetime from "react-datetime";
 // core components
-import DisplayedAdvertisementHeader from "components/Headers/AdvertisementHandling&BoostingHeaders/DisplayedAdvertisementHeader";
+import AdvertisementListHeader from "components/Headers/AdvertisementHandling&BoostingHeaders/AdvertisementListHeader";
 import React from "react";
 import axios from "axios";
 
-const DisplayedAdvertisement = (props) => {
+const AdvertisementList = (props) => {
   const [defaultModal, setmodalDemo] = useState(false);
 
   function toggleModal() {
@@ -62,7 +62,7 @@ const DisplayedAdvertisement = (props) => {
 
   return (
     <>
-      <DisplayedAdvertisementHeader />
+      <AdvertisementListHeader />
       {/* Page content */}
       <Container className="mt--7" fluid>
         <Card>
@@ -180,4 +180,4 @@ const DisplayedAdvertisement = (props) => {
   );
 };
 
-export default DisplayedAdvertisement;
+export default AdvertisementList;

@@ -15,7 +15,7 @@ import ServiceProviders from "views/service-provider/ServiceProviders";
 // After pull dev 10/09/2021
 import AdvertisementInformation from "views/AdvertisementHandling&Boosting/AdvertisementInformation";
 import CardPayment from "views/PaymentHandling/CardPayment";
-import DisplayedAdvertisement from "views/AdvertisementHandling&Boosting/DisplayedAdvertisement";
+import AdvertisementList from "views/AdvertisementHandling&Boosting/AdvertisementList";
 import CardPaymentMethod from "views/PaymentHandling/CardPaymentMethod";
 import BoostEvent from "views/AdvertisementHandling&Boosting/BoostEvent";
 import BoostAdvertisement from "views/AdvertisementHandling&Boosting/BoostAdvertisement";
@@ -23,7 +23,7 @@ import UpdateAdvertisementInformation from "views/AdvertisementHandling&Boosting
 import AdvertisementDetails from "views/AdvertisementHandling&Boosting/AdvertisementDetails";
 import ViewAdvertisement from "views/AdvertisementHandling&Boosting/ViewAdvertisement";
 import UpdateBoostEvent from "views/AdvertisementHandling&Boosting/UpdateBoostEvent";
-import RequestedAdvertisement from "views/AdvertisementHandling&Boosting/RequestedAdvertisement";
+
 
 
 import Sponsorship_Request from "views/examples/Sponsorship_Request";
@@ -155,19 +155,13 @@ var routes = [
   },
 
   {
-    path: "/displayedadverisement",
-    name: "Displayed Advertisementt",
+    path: "/adverisementlist",
+    name: "Advertisement List",
     icon: "ni ni-credit-card text-blue",
-    component: DisplayedAdvertisement,
+    component: AdvertisementList,
     layout: "/admin",
   },
-  {
-    path: "/requestedadverisement",
-    name: "Requested Advertisementt",
-    icon: "ni ni-credit-card text-blue",
-    component: RequestedAdvertisement,
-    layout: "/admin",
-  },
+ 
   {
     path: "/advertisementdetails",
     name: "Advertisement Details ",

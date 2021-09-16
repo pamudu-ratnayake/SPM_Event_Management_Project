@@ -2,7 +2,7 @@
 // reactstrap components
 import { Button, Container, Row, Col } from "reactstrap";
 
-const DisplayedAdvertisementHeader = () => {
+const AdvertisementListHeader = () => {
   return (
     <>
       <div
@@ -36,4 +36,4 @@ const DisplayedAdvertisementHeader = () => {
   );
 };
 
-export default DisplayedAdvertisementHeader;
+export default AdvertisementListHeader;
