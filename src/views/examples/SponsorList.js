@@ -4,20 +4,15 @@ import {
   Badge,
   Card,
   CardHeader,
-  CardFooter,
   DropdownMenu,
   DropdownItem,
   UncontrolledDropdown,
   DropdownToggle,
   Media,
-  Pagination,
-  PaginationItem,
-  PaginationLink,
-  Progress,
   Table,
   Container,
   Row,
-  UncontrolledTooltip,
+  Col,
   Modal,
   Button,
 } from "reactstrap";
@@ -60,7 +55,7 @@ const SponsorList = (props) => {
         console.log(error);
       });
 
-      window.location.reload(false);
+    window.location.reload(false);
   };
 
   return (
@@ -74,21 +69,17 @@ const SponsorList = (props) => {
             <Card className="shadow">
               <CardHeader className="border-0">
                 <Row>
-                  <div className="border-0">
-                <h3 className="mb-0">Sponsor List</h3>
-                </div>
-                <div className="col text-right">
-                <Link to={"/admin/Add_Sponsor"}>
-                    <Button
-                      color="primary"
-                      size="sm"
-                      name=""
-                    >
-                      Add Sponsor
-                    </Button>
+                  <Col className="border-0" xl="9">
+                    <h3 className="mb-0">Sponsor List</h3>
+                  </Col>
+                  <Col className="col text-right" xl="3">
+                    <Link to={"/admin/Add_Sponsor"}>
+                      <Button color="primary" size="sm" name="">
+                        Add Sponsor
+                      </Button>
                     </Link>
-                    </div>
-                    </Row>
+                  </Col>
+                </Row>
               </CardHeader>
               <Table className="align-items-center table-flush" responsive>
                 <thead className="thead-light">
@@ -206,7 +197,9 @@ const SponsorList = (props) => {
                                   <span aria-hidden={true}>×</span>
                                 </button>
                               </div>
-                              <div className="modal-body">Do you want to remove Sponsor?</div>
+                              <div className="modal-body">
+                                Do you want to remove Sponsor?
+                              </div>
                               <div className="modal-footer">
                                 <Button
                                   color="secondary"

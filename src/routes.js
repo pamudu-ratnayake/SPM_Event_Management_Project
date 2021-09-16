@@ -252,7 +252,7 @@ var routes = [
     layout: "/admin",
   },
   {
-    path: "/My_Issue",
+    path: "/My_Issue/:_id",
     name: "* Take Help",
     icon: "ni ni-ungroup text-pink",
     component: My_Issue,

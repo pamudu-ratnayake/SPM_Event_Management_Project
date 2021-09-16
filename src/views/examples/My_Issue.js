@@ -24,55 +24,37 @@ import UserHeaderMyIssue from "components/Headers/UserHeaderMyIssue.js";
 import { Formik, useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
+import { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
 
-const phoneRegExp =
-  /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
-
 const validationSchema = Yup.object({
-  regNo: Yup.string().required("Required!"),
-  companyName: Yup.string().required("Required!"),
-  sponsorType: Yup.string().required("Required!"),
-  SponsorPhoneNo: Yup.string()
-    .matches(phoneRegExp, "Phone Number is not Valid!")
-    .required("Required!")
-    .min(10, "Too short")
-    .max(10, "Too long"),
-  sponsorEmail: Yup.string().email("Invalid Email!").required("Required!"),
+  issue: Yup.string().required("Required!"),
 });
 
-const My_Issue = () => {
-  let history = useHistory();
+const My_Issue = (props) => {
+  const [posts, setPosts] = useState([]);
 
-  const initialValues = {
-    enableReinitialize: true,
-    validateOnMount: true,
-    regNo: "",
-    companyName: "",
-    sponsorType: "",
-    SponsorPhoneNo: "",
-    sponsorEmail: "",
-  };
-
-  const onSubmit = (values) => {
-    console.log("form data", values);
-
-    // values.id = ID;
-
+  useEffect(() => {
     axios
-      .post("http://localhost:8080/sponsor/addSponsors", values)
+      .get(
+        `http://localhost:8080/eventAdd/getOneEvent/${props.match.params._id}`
+      )
       .then((res) => {
         console.log(res);
-        console.log("Data", values);
-
-        // history.push({
-        //   pathname:`/admin/SponsorList`
-        // })
+        setPosts(res.data);
       })
       .catch((error) => {
         console.log(error);
       });
+  }, []);
+
+  const onSubmit = (values) => {};
+
+  const initialValues = {
+    enableReinitialize: true,
+    validateOnMount: true,
+    issue: "",
   };
 
   const formik = useFormik({
@@ -86,85 +68,121 @@ const My_Issue = () => {
       <UserHeaderMyIssue />
       {/* Page content */}
       <Container className="mt--7" fluid>
-        <Card className="bg-secondary shadow">
-          <CardHeader className="bg-white border-0">
-            <h2 className="mb-0">What exactly would you like to know?</h2>
-          </CardHeader>
-          <CardBody>
-            <Card
-              style={({ width: "28rem" }, { height: "2.5rem" })}
-              className="mb-1"
-            >
-              <CardBody className="pt-1 pt-md-0">
-                <div>
-                  <CardText>
-                    <Row>
-                      <Col xs="3">
-                        <span
-                          className="h5"
-                          style={{ font: "menu" }}
-                          className="mb-1"
-                        >
-                          Event Name
-                        </span>
-                      </Col>
-                      <Col xs="6">
-                        <span className="h5">
-                          Annual Get Together of NIBM Students
-                        </span>
-                      </Col>
-                    </Row>
-                  </CardText>
-                </div>
-              </CardBody>
-            </Card>
-            <Card
-              style={({ width: "28rem" }, { height: "2.5rem" })}
-              className="mb-4"
-            >
-              <CardBody className="pt-1 pt-md-0">
-                <div>
-                  <CardText>
-                    <Row>
-                      <Col xs="3">
-                        <span className="h5" style={{ font: "menu" }}>
-                          Event Description
-                        </span>
-                      </Col>
-                      <Col xs="6">
-                        <span className="h5">
-                          Have many activities. 250+ Crowd. 2 days event.
-                        </span>
-                      </Col>
-                    </Row>
-                  </CardText>
-                </div>
-              </CardBody>
-            </Card>
-            <div>
-              <Form>
-                <Card className="card-stats mb-1">
-                  <CardBody>
-                    <label>What is your Issue?</label>
-                    <Input
-                      id="exampleFormControlTextarea1"
-                      placeholder="Write a large text here ..."
-                      rows="3"
-                      type="textarea"
-                    />
-                  </CardBody>
-                  <Col className="mb-2">
-                    <Link to={"/admin/Event_Support"}>
-                      <Button color="primary" size="sm" type="button">
-                        Publish
-                      </Button>
-                    </Link>
+        <div className="col">
+          <Card
+            className="bg-secondary shadow"
+            style={({ width: "28rem" }, { height: "50rem" })}
+          >
+            <CardHeader className="border-0">
+              <Row>
+                <Col className="border-0" xl="9">
+                  <h3 className="mb-0">HI! We are here to help now ...</h3>
+                </Col>
+                <Col className="col text-right" xl="3">
+                  <Link to={"/admin/Event_Support"}>
+                    <Button color="primary" size="sm">
+                      Search for Solution
+                    </Button>
+                  </Link>
+                </Col>
+              </Row>
+            </CardHeader>
+
+            <CardBody>
+              <CardText className="h5" style={{ paddingTop: "0.5rem" }}>
+                <Row>
+                  <Col xs="3">Event Name</Col>
+                  <Col xs="1">:</Col>
+                  <Col xs="6">{posts.event_name}</Col>
+                </Row>
+              </CardText>
+
+              <CardText className="h5" style={{ paddingTop: "0.5rem" }}>
+                <Row>
+                  <Col xs="3">Event Date</Col>
+                  <Col xs="1">:</Col>
+                  <Col xs="6">{posts.date_of_the_event}</Col>
+                </Row>
+              </CardText>
+
+              <CardText className="h5" style={{ paddingTop: "0.5rem" }}>
+                <Row>
+                  <Col xs="3">Event Time</Col>
+                  <Col xs="1">:</Col>
+                  <Col xs="6">{posts.event_time}</Col>
+                </Row>
+              </CardText>
+
+              <CardText className="h5" style={{ paddingTop: "0.5rem" }}>
+                <Row>
+                  <Col xs="3">Location</Col>
+                  <Col xs="1">:</Col>
+                  <Col xs="6">{posts.location}</Col>
+                </Row>
+              </CardText>
+
+              <CardText className="h5" style={{ paddingTop: "0.5rem" }}>
+                <Row>
+                  <Col xs="3">Days Occurs</Col>
+                  <Col xs="1">:</Col>
+                  <Col xs="6">{posts.days_occurs}</Col>
+                </Row>
+              </CardText>
+
+              <CardText className="h5" style={{ paddingTop: "0.5rem" }}>
+                <Row>
+                  <Col xs="3">Event Type</Col>
+                  <Col xs="1">:</Col>
+                  <Col xs="6">
+                    <span>{posts.event_type}</span>
                   </Col>
-                </Card>
-              </Form>
-            </div>
-          </CardBody>
-        </Card>
+                </Row>
+              </CardText>
+
+              <CardText className="h5" style={{ paddingTop: "0.5rem" }}>
+                <Row>
+                  <Col xs="3">Event Description</Col>
+                  <Col xs="1">:</Col>
+                  <Col xs="6">{posts.description}</Col>
+                </Row>
+              </CardText>
+              <Row>
+                <Form onSubmit={formik.handleSubmit}>
+                  <Col style={{ paddingTop: "2rem" }}>
+                    <FormGroup>
+                      <label>
+                        What is your Question? (Above details will display with
+                        the question)
+                      </label>
+                      <Input
+                        id="exampleFormControlTextarea1"
+                        placeholder="Write a large text here ..."
+                        rows="3"
+                        type="textarea"
+                        name="issue"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={formik.values.issue}
+                      />
+                      {formik.touched.issue && formik.errors.issue ? (
+                        <div style={{ color: "red" }}>
+                          {formik.errors.issue}
+                        </div>
+                      ) : null}
+                    </FormGroup>
+                  </Col>
+                  <Col className="mb-2">
+                    {/* <Link to={"/admin/Event_Support"}> */}
+                    <Button color="primary" id="POST" size="sm" type="submit">
+                      Publish
+                    </Button>
+                    {/* </Link> */}
+                  </Col>
+                </Form>
+              </Row>
+            </CardBody>
+          </Card>
+        </div>
       </Container>
     </>
   );

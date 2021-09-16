@@ -194,6 +194,13 @@ const EventDisplay = (props) => {
                     </Button>
                     </Link>
                   </Col>
+                  <Col className="text-right" xs="4">
+                  <Link to={`/admin/My_Issue/${event._id}`}>
+                    <Button color="primary" href="#pablo">
+                      Take Support
+                    </Button>
+                    </Link>
+                  </Col>
                   </Row>
                 </Form>
               </CardBody>
