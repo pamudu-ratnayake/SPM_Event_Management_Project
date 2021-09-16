@@ -2,7 +2,7 @@
 // reactstrap components
 import { Button, Container, Row, Col } from "reactstrap";
 
-const DisplayedRequestHeader = () => {
+const DisplayedAdvertisementHeader = () => {
   return (
     <>
       <div
@@ -36,4 +36,4 @@ const DisplayedRequestHeader = () => {
   );
 };
 
-export default DisplayedRequestHeader;
+export default DisplayedAdvertisementHeader;
