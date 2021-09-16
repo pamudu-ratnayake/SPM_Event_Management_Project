@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
+
 // reactstrap components
 import {
   Card,
@@ -24,6 +25,9 @@ import {
 
 import React from "react";
 import axios from "axios";
+
+import PaidListHeader from "components/Headers/PaymentHandlingHeaders/PaidListHeader";
+
 
 const PaidList = (props) => {
   const [defaultModal, setmodalDemo] = useState(false);
