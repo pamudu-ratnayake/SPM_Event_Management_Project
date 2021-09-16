@@ -1,27 +1,102 @@
 import { useFormik } from "formik";
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
+import { useDropzone } from "react-dropzone";
+import axios from "axios";
+
 // reactstrap components
 import { Button, Card, CardHeader, CardBody, FormGroup, Form, Input, Container, Row, Col, Modal } from "reactstrap";
 // core components
 import CustomerProfileHeader from "components/Headers/CustomerProfileHeader.js";
 
 const CustomerProfile = () => {
+  const baseStyle = {
+    flex: 1,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    padding: "90px",
+    borderWidth: 2,
+    borderRadius: 2,
+    borderColor: "#eeeeee",
+    borderStyle: "dashed",
+    backgroundColor: "#bab8b8",
+    color: "#bdbdbd",
+    outline: "none",
+    transition: "border .24s ease-in-out",
+  };
+  const activeStyle = {
+    borderColor: "#2196f3",
+  };
+  const acceptStyle = {
+    borderColor: "#00e676",
+  };
+  const rejectStyle = {
+    borderColor: "#ff1744",
+  };
+
+  const { acceptedFiles, getRootProps, getInputProps, isDragActive, isDragAccept, isDragReject } = useDropzone();
+
+  const style = useMemo(
+    () => ({
+      ...baseStyle,
+      ...(isDragActive ? activeStyle : {}),
+      ...(isDragAccept ? acceptStyle : {}),
+      ...(isDragReject ? rejectStyle : {}),
+    }),
+    [isDragActive, isDragReject, isDragAccept]
+  );
+
+  const files = acceptedFiles.map((file) => (
+    <li key={file.name}>
+      {file.name} - {file.size} bytes
+    </li>
+  ));
+
   const initialValues = {
     enableReinitialize: true,
     validateOnMount: true,
-    user_name: "",
-    user_id: "",
-    f_name: "",
-    l_name: "",
-    user_email: "",
-    user_conNumber: "",
-    user_address: "",
-    user_des: "",
+    cus_userName: "",
+    //user_id: "",
+    cus_FName: "",
+    cus_LName: "",
+    cus_email: "",
+    cus_contact_no: "",
+    cus_address: "",
+    cus_nic: "",
+    cus_description: "",
+  };
+
+  const onSubmit = (values) => {
+    console.log("Form Date", values);
+    //  values.date_of_the_event = event_date; //watch
+    let formdata = new FormData();
+    formdata.append("cus_userName", values.cus_userName);
+    formdata.append("cus_FName", values.cus_Fname);
+    formdata.append("cus_LName", values.cus_Lname);
+    formdata.append("cus_email", values.cus_email);
+    formdata.append("cus_contact_no", values.cus_contact_no);
+    formdata.append("cus_address", values.cus_address);
+    formdata.append("cus_description", values.cus_description);
+    formdata.append("cus_nic", values.cus_nic);
+    formdata.append("file", acceptedFiles[0]);
+
+    // console.log("data",formdata);
+
+    axios
+      .post("http://localhost:8080/customerdetails/addcustomer", formdata)
+      .then((res) => {
+        console.log(res);
+        console.log("Data", formdata);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   //use formik here
   const formik = useFormik({
     initialValues,
+    onSubmit,
   });
 
   const [defaultModal, setmodalDemo] = useState(false);
@@ -113,7 +188,7 @@ const CustomerProfile = () => {
                 </Row>
               </CardHeader>
               <CardBody>
-                <Form onSubmit={formik.handleSubmit}>
+                <Form onSubmit={formik.handleSubmit} encType="multipart/form-data" >
                   <h6 className="heading-small text-muted mb-4">User information</h6>
                   <div className="pl-lg-4">
                     <Row>
@@ -128,27 +203,28 @@ const CustomerProfile = () => {
                             id="customername"
                             placeholder="Username"
                             type="text"
-                            name="user_name"
+                            name="cus_userName"
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
-                            value={formik.values.user_name}
+                            value={formik.values.cus_userName}
                           />
                         </FormGroup>
                       </Col>
                       <Col lg="6">
                         <FormGroup>
-                          <label className="form-control-label" htmlFor="customerId">
-                            User ID
+                          <label className="form-control-label" htmlFor="customerEmail">
+                            Email
                           </label>
                           <Input
                             className="form-control-alternative"
-                            id="customerId"
-                            placeholder="jesse@example.com"
+                            defaultValue="Lucky"
+                            id="customerEmail"
+                            placeholder="Email"
                             type="text"
-                            name="user_id"
+                            name="cus_email"
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
-                            value={formik.values.user_id}
+                            value={formik.values.cus_email}
                           />
                         </FormGroup>
                       </Col>
@@ -165,10 +241,10 @@ const CustomerProfile = () => {
                             id="customerFirstName"
                             placeholder="First Name"
                             type="text"
-                            name="f_name"
+                            name="cus_FName"
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
-                            value={formik.values.f_name}
+                            value={formik.values.cus_Fname}
                           />
                         </FormGroup>
                       </Col>
@@ -183,10 +259,10 @@ const CustomerProfile = () => {
                             id="customerLastName"
                             placeholder="Last Name"
                             type="text"
-                            name="l_name"
+                            name="cus_LName"
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
-                            value={formik.values.l_name}
+                            value={formik.values.cus_Lname}
                           />
                         </FormGroup>
                       </Col>
@@ -194,61 +270,41 @@ const CustomerProfile = () => {
                     <Row>
                       <Col lg="6">
                         <FormGroup>
-                          <label className="form-control-label" htmlFor="customerFirstName">
-                            Email
-                          </label>
-                          <Input
-                            className="form-control-alternative"
-                            defaultValue="Lucky"
-                            id="customerFirstName"
-                            placeholder="First Name"
-                            type="text"
-                            name="user_email"
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            value={formik.values.user_email}
-                          />
-                        </FormGroup>
-                      </Col>
-                      <Col lg="6">
-                        <FormGroup>
-                          <label className="form-control-label" htmlFor="customerLastName">
+                          <label className="form-control-label" htmlFor="customerConNo">
                             Contact Number
                           </label>
                           <Input
                             className="form-control-alternative"
                             defaultValue="Jesse"
-                            id="customerLastName"
-                            placeholder="Last Name"
+                            id="customerConNo"
+                            placeholder="Contact Number"
                             type="text"
-                            name="user_conNumber"
+                            name="cus_contact_no"
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
-                            value={formik.values.user_conNumber}
+                            value={formik.values.cus_contact_no}
                           />
                         </FormGroup>
                       </Col>
-                    </Row>
-                    <Row>
                       <Col md="6">
                         <FormGroup>
-                          <label className="form-control-label" htmlFor="input-address">
+                          <label className="form-control-label" htmlFor="customerNic">
                             NIC Number
                           </label>
                           <Input
                             className="form-control-alternative"
-                            id="input-address"
+                            id="customerNic"
                             placeholder="NIC Number"
                             type="text"
-                            namw="user_nic"
+                            name="cus_nic"
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
-                            value={formik.values.user_nic}
+                            value={formik.values.cus_nic}
                           />
                         </FormGroup>
                       </Col>
                     </Row>
-                    <label className="form-control-label" htmlFor="customerLastName">
+                    <label className="form-control-label" htmlFor="customerGender">
                       Gender
                     </label>
                     <div className="ml-5">
@@ -275,24 +331,33 @@ const CustomerProfile = () => {
                     <Row>
                       <Col md="12">
                         <FormGroup>
-                          <label className="form-control-label" htmlFor="input-address">
+                          <label className="form-control-label" htmlFor="customerAddress">
                             Address
                           </label>
                           <Input
                             className="form-control-alternative"
                             defaultValue="Bld Mi"
-                            id="input-address"
+                            id="customerAddress"
                             placeholder="Home Address"
                             type="text"
-                            name="user_address"
+                            name="cus_address"
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
-                            value={formik.values.user_address}
+                            value={formik.values.cus_address}
                           />
                         </FormGroup>
                       </Col>
                     </Row>
                   </div>
+
+                  <div {...getRootProps({ style })}>
+                    <input {...getInputProps()} />
+                    <p>Drag 'n' drop your image file here, or click to select files</p>
+                  </div>
+
+                  <h4>File Details</h4>
+                  <ul>{files}</ul>
+
                   <hr className="my-4" />
                   {/* Description */}
                   <h6 className="heading-small text-muted mb-4">About me</h6>
@@ -306,12 +371,17 @@ const CustomerProfile = () => {
                         defaultValue="A beautiful Dashboard for Bootstrap 4. It is Free and
                         Open Source."
                         type="textarea"
-                        name="user_des"
+                        name="cus_description"
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        value={formik.values.user_des}
+                        value={formik.values.cus_description}
                       />
                     </FormGroup>
+                  </div>
+                  <div className="text-center">
+                    <Button className="mt-4" color="primary" type="submit">
+                      Add My Details
+                    </Button>
                   </div>
                 </Form>
               </CardBody>

@@ -132,7 +132,7 @@ const EventDisplay = (props) => {
 
                     {/* ---------------------------------------------------------- */}
 
-                  <Col>
+                  {/* <Col>
                     <label className="ml-5"> </label>
                   </Col>
                   <Col>
@@ -146,7 +146,7 @@ const EventDisplay = (props) => {
                   </Col>
                   <Col>
                     <label className="ml-5">Dancers</label>
-                  </Col>
+                  </Col> */}
 
                   <h2 className="mt-5 mb-4">Contact Information</h2>
                   <Row>
