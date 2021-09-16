@@ -21,11 +21,11 @@ import {
 } from "reactstrap";
 // import ReactDatetime from "react-datetime";
 // core components
-import BoostAdvertisementListHeader from "components/Headers/AdvertisementHandling&BoostingHeaders/BoostAdvertisementListHeader";
+import BoostEventListHeader from "components/Headers/AdvertisementHandling&BoostingHeaders/BoostEventListHeader";
 import React from "react";
 import axios from "axios";
 
-const BoostAdvertisementList = (props) => {
+const BoostEventList = (props) => {
   const [defaultModal, setmodalDemo] = useState(false);
 
   function toggleModal() {
@@ -63,7 +63,7 @@ const BoostAdvertisementList = (props) => {
 
   return (
     <>
-      <BoostAdvertisementListHeader />
+      <BoostEventListHeader />
       {/* Page content */}
       <Container className="mt--7" fluid>
         <Card>
@@ -189,4 +189,4 @@ const BoostAdvertisementList = (props) => {
   );
 };
 
-export default BoostAdvertisementList;
+export default BoostEventList;
