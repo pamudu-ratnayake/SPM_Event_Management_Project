@@ -21,27 +21,56 @@ import UserHeaderSpnDocumentation from "components/Headers/UserHeaderSpnDocument
 import { Formik, useFormik } from "formik";
 import * as Yup from "yup";
 
-const phoneRegExp =
-  /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+// const phoneRegExp =
+//   /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
-const validationSchema = Yup.object({
-  package: Yup.string().required("Required!"),
-  amount: Yup.string().required("Required!"),
-});
+// const validationSchema = Yup.object({
+//   package: Yup.string().required("Required!"),
+//   amount: Yup.string().required("Required!"),
+// });
 
 const Sponsorship_Documentation = (props) => {
-  const initialValues = {
-    enableReinitialize: true,
-    validateOnMount: true,
-    package: "",
-    amount: "",
-  };
+  // const initialValues = {
+  //   enableReinitialize: true,
+  //   validateOnMount: true,
+  //   package: "",
+  //   amount: "",
+  // };
 
   const [posts, setPosts] = useState([]);
+  const [pkg, setPackage] = useState([]);
+
+
+  // const onAddPackage = onAddPackage = (e) => {
+  //   console.log("test");
+  //   e.preventDefault();
+  //   const newPkg = newPkg.value;
+
+  //   setPackage({
+  //       // nameInput: '',
+  //       pk: [...pkg, newPkg]
+  //   })
+  // }
+
+  const add = (event) =>{
+    event.preventDefault();
+    // console.log(event.target.pkg_name.value);
+    
+    const formData = event.target;
+    const newPkg= {
+      pkg_name: formData.pkg_name.value,
+      amount: formData.amount.value
+    }
+    // console.log(newPkg);
+    setPackage([...pkg, newPkg]);
+    // console.log(pkg);
+  }
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/eventAdd/getOneEvent/${props.match.params._id}`)
+      .get(
+        `http://localhost:8080/eventAdd/getOneEvent/${props.match.params._id}`
+      )
       .then((res) => {
         console.log(res);
         setPosts(res.data);
@@ -51,22 +80,25 @@ const Sponsorship_Documentation = (props) => {
       });
   }, []);
 
-  const formik = useFormik({
-    initialValues,
-    validationSchema,
-  });
+  // const formik = useFormik({
+  //   initialValues,
+  //   validationSchema,
+  // });
 
   return (
     <>
       <UserHeaderSpnDocumentation />
       {/* Page content */}
       <Container className="mt--7" fluid>
-        <Card className="card-stats mb-4 mb-lg-0">
+        <Card className="card-stats bg-white mb-4 mb-lg-0">
           <CardBody>
             {/* <Col> */}
             <Row>
-              <Col className="order-xl-2 mb-5 mb-xl-1" xl="6" >
-                <Card className="bg-secondary shadow" style={({ width: "28rem" }, { height: "40rem" })}>
+              <Col className="order-xl-2 mb-5 mb-xl-1" xl="6">
+                <Card
+                  className="bg-secondary shadow"
+                  style={({ width: "28rem" }, { height: "40rem" })}
+                >
                   <CardHeader className="bg-white border-0">
                     <Row className="align-items-center">
                       <Col xs="8">
@@ -75,159 +107,104 @@ const Sponsorship_Documentation = (props) => {
                     </Row>
                   </CardHeader>
                   <CardBody>
-                    {/* <Card style={({ width: "30rem" }, { height: "3rem" }, {paddingTop: '1rem'})}>
-                      <CardBody className="pt-1 pt-md-0"> */}
-                        {/* <div> */}
-                          <CardText className="h5" style={({paddingTop: '0.5rem'})}>
-                            <Row>
-                              <Col xs="5">Event Name</Col>
-                              <Col xs="1">:</Col>
-                              <Col xs="6">{posts.event_name}</Col>
-                            </Row>
-                          </CardText>
-                        {/* </div> */}
-                      {/* </CardBody>
-                    </Card>
-                    <Card style={({ width: "28rem" }, { height: "2.5rem" })}>
-                      <CardBody className="pt-1 pt-md-0"> */}
-                        {/* <div> */}
-                          <CardText className="h5" style={({paddingTop: '0.5rem'})}>
-                            <Row>
-                              <Col xs="5">Organization Name</Col>
-                              <Col xs="1">:</Col>
-                              <Col xs="6">
-                                {posts.org_name}
-                              </Col>
-                            </Row>
-                          </CardText>
-                        {/* </div>
-                      </CardBody>
-                    </Card>
-                    <Card style={({ width: "28rem" }, { height: "2.5rem" })}>
-                      <CardBody className="pt-1 pt-md-0">
-                        <div> */}
-                          <CardText className="h5" style={({paddingTop: '0.5rem'})}>
-                            <Row>
-                              <Col xs="5">Event Date</Col>
-                              <Col xs="1">:</Col>
-                              <Col xs="6">{posts.date_of_the_event}</Col>
-                            </Row>
-                          </CardText>
-                        {/* </div>
-                      </CardBody>
-                    </Card>
-                    <Card style={({ width: "28rem" }, { height: "2.5rem" })}>
-                      <CardBody className="pt-1 pt-md-0">
-                        <div> */}
-                          <CardText className="h5" style={({paddingTop: '0.5rem'})}>
-                            <Row>
-                              <Col xs="5">Event Time</Col>
-                              <Col xs="1">:</Col>
-                              <Col xs="6">{posts.event_time}</Col>
-                            </Row>
-                          </CardText>
-                        {/* </div>
-                      </CardBody>
-                    </Card>
-                    <Card style={({ width: "28rem" }, { height: "2.5rem" })}>
-                      <CardBody className="pt-1 pt-md-0">
-                        <div> */}
-                          <CardText className="h5" style={({paddingTop: '0.5rem'})}>
-                            <Row>
-                              <Col xs="5">Location</Col>
-                              <Col xs="1">:</Col>
-                              <Col xs="6">{posts.location}</Col>
-                            </Row>
-                          </CardText>
-                        {/* </div>
-                      </CardBody>
-                    </Card>
-                    <Card style={({ width: "28rem" }, { height: "2.5rem" })}>
-                      <CardBody className="pt-1 pt-md-0">
-                        <div> */}
-                          <CardText className="h5" style={({paddingTop: '0.5rem'})}>
-                            <Row>
-                              <Col xs="5">Days Occurs</Col>
-                              <Col xs="1">:</Col>
-                              <Col xs="6">{posts.days_occurs}</Col>
-                            </Row>
-                          </CardText>
-                        {/* </div>
-                      </CardBody>
-                    </Card>
-                    <Card style={({ width: "28rem" }, { height: "2.5rem" })}>
-                      <CardBody className="pt-1 pt-md-0">
-                        <div> */}
-                          <CardText className="h5" style={({paddingTop: '0.5rem'})}>
-                            <Row>
-                              <Col xs="5">Event Type</Col>
-                              <Col xs="1">:</Col>
-                              <Col xs="6">
-                                <span>{posts.event_type}</span>
-                              </Col>
-                            </Row>
-                          </CardText>
-                        {/* </div>
-                      </CardBody>
-                    </Card>
-                    <Card style={({ width: "28rem" }, { height: "2.5rem" })}>
-                      <CardBody className="pt-1 pt-md-0">
-                        <div> */}
-                          <CardText className="h5" style={({paddingTop: '0.5rem'})}>
-                            <Row>
-                              <Col xs="5">Organizer Name</Col>
-                              <Col xs="1">:</Col>
-                              <Col xs="6">{posts.organizer_name}</Col>
-                            </Row>
-                          </CardText>
-                        {/* </div>
-                      </CardBody>
-                    </Card>
-                    <Card style={({ width: "28rem" }, { height: "2.5rem" })}>
-                      <CardBody className="pt-1 pt-md-0">
-                        <div> */}
-                          <CardText className="h5" style={({paddingTop: '0.5rem'})}>
-                            <Row>
-                              <Col xs="5">Organizer Email</Col>
-                              <Col xs="1">:</Col>
-                              <Col xs="6">{posts.cus_email}</Col>
-                            </Row>
-                          </CardText>
-                        {/* </div>
-                      </CardBody>
-                    </Card>
-                    <Card style={({ width: "28rem" }, { height: "2.5rem" })}>
-                      <CardBody className="pt-1 pt-md-0">
-                        <div> */}
-                          <CardText className="h5" style={({paddingTop: '0.5rem'})}>
-                            <Row>
-                              <Col xs="5">Organizer Contact No</Col>
-                              <Col xs="1">:</Col>
-                              <Col xs="6">{posts.cus_con_number}</Col>
-                            </Row>
-                          </CardText>
-                        {/* </div>
-                      </CardBody>
-                    </Card>
-                    <Card style={({ width: "28rem" }, { height: "2.5rem" })}>
-                      <CardBody className="pt-1 pt-md-0">
-                        <div> */}
-                          <CardText className="h5" style={({paddingTop: '0.5rem'})}>
-                            <Row>
-                              <Col xs="5">Event Description</Col>
-                              <Col xs="1">:</Col>
-                              <Col xs="6">{posts.description}</Col>
-                            </Row>
-                          </CardText>
-                        {/* </div> */}
-                      {/* </CardBody>
-                    </Card> */}
+                    <CardText className="h5" style={{ paddingTop: "0.5rem" }}>
+                      <Row>
+                        <Col xs="5">Event Name</Col>
+                        <Col xs="1">:</Col>
+                        <Col xs="6">{posts.event_name}</Col>
+                      </Row>
+                    </CardText>
+
+                    <CardText className="h5" style={{ paddingTop: "0.5rem" }}>
+                      <Row>
+                        <Col xs="5">Organization Name</Col>
+                        <Col xs="1">:</Col>
+                        <Col xs="6">{posts.org_name}</Col>
+                      </Row>
+                    </CardText>
+
+                    <CardText className="h5" style={{ paddingTop: "0.5rem" }}>
+                      <Row>
+                        <Col xs="5">Event Date</Col>
+                        <Col xs="1">:</Col>
+                        <Col xs="6">{posts.date_of_the_event}</Col>
+                      </Row>
+                    </CardText>
+
+                    <CardText className="h5" style={{ paddingTop: "0.5rem" }}>
+                      <Row>
+                        <Col xs="5">Event Time</Col>
+                        <Col xs="1">:</Col>
+                        <Col xs="6">{posts.event_time}</Col>
+                      </Row>
+                    </CardText>
+
+                    <CardText className="h5" style={{ paddingTop: "0.5rem" }}>
+                      <Row>
+                        <Col xs="5">Location</Col>
+                        <Col xs="1">:</Col>
+                        <Col xs="6">{posts.location}</Col>
+                      </Row>
+                    </CardText>
+
+                    <CardText className="h5" style={{ paddingTop: "0.5rem" }}>
+                      <Row>
+                        <Col xs="5">Days Occurs</Col>
+                        <Col xs="1">:</Col>
+                        <Col xs="6">{posts.days_occurs}</Col>
+                      </Row>
+                    </CardText>
+
+                    <CardText className="h5" style={{ paddingTop: "0.5rem" }}>
+                      <Row>
+                        <Col xs="5">Event Type</Col>
+                        <Col xs="1">:</Col>
+                        <Col xs="6">
+                          <span>{posts.event_type}</span>
+                        </Col>
+                      </Row>
+                    </CardText>
+
+                    <CardText className="h5" style={{ paddingTop: "0.5rem" }}>
+                      <Row>
+                        <Col xs="5">Organizer Name</Col>
+                        <Col xs="1">:</Col>
+                        <Col xs="6">{posts.organizer_name}</Col>
+                      </Row>
+                    </CardText>
+
+                    <CardText className="h5" style={{ paddingTop: "0.5rem" }}>
+                      <Row>
+                        <Col xs="5">Organizer Email</Col>
+                        <Col xs="1">:</Col>
+                        <Col xs="6">{posts.cus_email}</Col>
+                      </Row>
+                    </CardText>
+
+                    <CardText className="h5" style={{ paddingTop: "0.5rem" }}>
+                      <Row>
+                        <Col xs="5">Organizer Contact No</Col>
+                        <Col xs="1">:</Col>
+                        <Col xs="6">{posts.cus_con_number}</Col>
+                      </Row>
+                    </CardText>
+
+                    <CardText className="h5" style={{ paddingTop: "0.5rem" }}>
+                      <Row>
+                        <Col xs="5">Event Description</Col>
+                        <Col xs="1">:</Col>
+                        <Col xs="6">{posts.description}</Col>
+                      </Row>
+                    </CardText>
                   </CardBody>
                 </Card>
               </Col>
 
               <Col className="order-xl-1" xl="6">
-                <Card className="bg-secondary shadow" style={({ width: "28rem" }, { height: "40rem" })}>
+                <Card
+                  className="bg-secondary shadow"
+                  style={({ width: "28rem" }, { height: "40rem" })}
+                >
                   <CardHeader className="bg-white border-0">
                     <Row className="align-items-center">
                       <Col xs="8">
@@ -236,29 +213,21 @@ const Sponsorship_Documentation = (props) => {
                     </Row>
                   </CardHeader>
                   <CardBody>
-                    <Form>
-                      
+                    <Form onSubmit={add}>
                       <Row>
                         <Col>
                           <FormGroup>
-                            <label style={{paddingTop: '0.5rem'}}>Add Sponsorship Criteria</label>
+                            <label style={{ paddingTop: "0.5rem" }}>
+                              Add Sponsorship Criteria
+                            </label>
                             <Row xs="">
                               <Col xs="5">
                                 <Input
                                   id="exampleFormControlInput1"
                                   placeholder="Package Name"
                                   type="text"
-                                  name="package"
-                                  onChange={formik.handleChange}
-                                  onBlur={formik.handleBlur}
-                                  value={formik.values.package}
+                                  name="pkg_name"
                                 />
-                                {formik.touched.package &&
-                                formik.errors.package ? (
-                                  <div style={{ color: "red" }}>
-                                    {formik.errors.package}
-                                  </div>
-                                ) : null}
                               </Col>
                               <Col xs="5">
                                 <Input
@@ -266,23 +235,16 @@ const Sponsorship_Documentation = (props) => {
                                   placeholder="Amount in Rupees"
                                   type="text"
                                   name="amount"
-                                  onChange={formik.handleChange}
-                                  onBlur={formik.handleBlur}
-                                  value={formik.values.amount}
                                 />
-                                {formik.touched.amount &&
-                                formik.errors.amount ? (
-                                  <div style={{ color: "red" }}>
-                                    {formik.errors.amount}
-                                  </div>
-                                ) : null}
                               </Col>
+
+                              {/* Add Button */}
                               <Col lg={{ size: "auto" }} className="pt-2">
                                 <Button
                                   className="btn-icon btn-3"
                                   color="primary"
                                   size="sm"
-                                  type="button"
+                                  type="submit"
                                 >
                                   <span className="btn-inner--icon">
                                     <i className="ni ni-fat-add" />
@@ -291,17 +253,20 @@ const Sponsorship_Documentation = (props) => {
                               </Col>
                             </Row>
                           </FormGroup>
-                          <Row style={{ paddingTop:'1rem' }}>
-                          <span>Packages</span>
+                          <Row style={{ paddingTop: "1rem" }}>
+                            <span>Packages</span>
                           </Row>
-                          <Row xs="">
+                          {
+                          pkg.map((item, index) => {
+                            return(
+                          <Row xs="" key={index}>
                             <Col xs="">
                               <span className="h5" style={{ font: "menu" }}>
-                                Package Description
+                                {item.pkg_name}
                               </span>
                             </Col>
                             <Col xs="">
-                              <span className="h5">.col-6</span>
+                              <span className="h5">{item.amount}</span>
                             </Col>
                             <Col lg={{ size: "auto" }} className="pt-2">
                               <Button
@@ -316,32 +281,13 @@ const Sponsorship_Documentation = (props) => {
                               </Button>
                             </Col>
                           </Row>
-                          <Row xs="">
-                            <Col xs="">
-                              <span className="h5" style={{ font: "menu" }}>
-                                Package Description
-                              </span>
-                            </Col>
-                            <Col xs="">
-                              <span className="h5">.col-6</span>
-                            </Col>
-                            <Col lg={{ size: "auto" }} className="pt-2">
-                              <Button
-                                className="btn-icon btn-2"
-                                color="primary"
-                                size="sm"
-                                type="button"
-                              >
-                                <span className="btn-inner--icon">
-                                  <i className="ni ni-fat-delete" />
-                                </span>
-                              </Button>
-                            </Col>
-                          </Row>
+                          )})
+                          }
                         </Col>
                       </Row>
+                          
                       <Row>
-                        <Col style={{ paddingTop:'1rem' }}>
+                        <Col style={{ paddingTop: "1rem" }}>
                           <FormGroup>
                             <label>Sponsorship Description</label>
                             <Row>
@@ -351,17 +297,7 @@ const Sponsorship_Documentation = (props) => {
                                   placeholder="Write a large text here ..."
                                   rows="3"
                                   type="textarea"
-                                  name="description"
-                                  onChange={formik.handleChange}
-                                  onBlur={formik.handleBlur}
-                                  value={formik.values.description}
                                 />
-                                {formik.touched.description &&
-                                formik.errors.description ? (
-                                  <div style={{ color: "red" }}>
-                                    {formik.errors.description}
-                                  </div>
-                                ) : null}
                               </Col>
                             </Row>
                           </FormGroup>
