@@ -232,7 +232,10 @@ const AdvertisementInformation = (props) => {
                           <option>Choose...</option>
                           <option>Photographer</option>
                           <option>Decorater</option>
+                          <option>Dancers</option>
+                          <option>Catering</option>
                           <option>Cake Designer</option>
+                          <option>Costume Designer</option>
                           <option>Event Planner</option>
                           <option>Sound Provider</option>
                           <option>florist</option>

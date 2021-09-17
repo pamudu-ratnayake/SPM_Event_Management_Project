@@ -72,9 +72,9 @@ const BoostEventList = (props) => {
               <thead className="thead-light">
                 <tr>
                   <th scope="col">Event ID</th>
-                  <th scope="col">Customer Name </th>
+                  <th scope="col">Organizer Name </th>
                   <th scope="col">NIC </th>
-                  <th scope="col">Service Type </th>
+                  <th scope="col">Date Of The Event  </th>
                   <th scope="col" />
                 </tr>
               </thead>

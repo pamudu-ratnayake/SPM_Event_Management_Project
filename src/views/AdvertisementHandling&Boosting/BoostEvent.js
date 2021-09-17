@@ -15,6 +15,7 @@ import {
   InputGroup,
 } from "reactstrap";
 import * as Yup from "yup";
+import ReactDatetime from "react-datetime";
 // core components
 import BoostHeader from "components/Headers/AdvertisementHandling&BoostingHeaders/BoostHeader";
 
@@ -171,7 +172,49 @@ const BoostEvent = () => {
                   <Row>
                   <Col md="6">
                       <FormGroup>
-                        <label>Date Of The Event </label>
+                        <label>Date of The Event</label>
+                        <InputGroup className="input-group-alternative">
+                          <InputGroupAddon addonType="prepend">
+                            <InputGroupText>
+                              <i className="ni ni-calendar-grid-58" />
+                            </InputGroupText>
+                            {formik.touched.date_of_the_event && formik.errors.date_of_the_event ? <div style={{ color: "red" }}>{formik.errors.date_of_the_event}</div> : null}
+                          </InputGroupAddon>
+                          <ReactDatetime
+                            inputProps={{
+                              placeholder: "MM/DD/YY",
+                            }}
+                            dateFormat="DD/MM/YYYY"
+                            timeFormat={false}
+                            onChange={(value) =>
+                              formik.handleChange({
+                                target: {
+                                  name: "date_of_the_event",
+                                  value,
+                                },
+                              })
+                            }
+                            onBlur={formik.handleBlur}
+                            value={formik.values.date_of_the_event}
+                          />
+                        </InputGroup>
+                      </FormGroup>
+                    </Col>
+                   
+                    <Col md="6">
+                      <FormGroup>
+                        <label>Choose Boosting Package </label>
+                       
+                      <Button
+                        className="ml-4"
+                        color="primary"
+                        href="#pablo"
+                        onClick={(e) => e.preventDefault()}
+                        size="sm"
+                      >
+                        Boosting Package Informations
+                      </Button>
+                   
                         <Input
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
@@ -196,6 +239,7 @@ const BoostEvent = () => {
                         ) : null}
                       </FormGroup>
                     </Col>
+                    
                     
                   </Row>
                   <br></br>

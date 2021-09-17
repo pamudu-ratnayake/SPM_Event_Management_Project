@@ -171,7 +171,49 @@ const BoostAdvertisement = () => {
                   <Row>
                   <Col md="6">
                       <FormGroup>
-                        <label>Service Type : </label>
+                        <label>Service Type </label>
+                        <Input
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          value={formik.service_Type}
+                          id="service_Type"
+                          name="service_Type"
+                          type="select"
+                        >
+                          <option>Choose...</option>
+                          <option>Photographer</option>
+                          <option>Decorater</option>
+                          <option>Dancers</option>
+                          <option>Catering</option>
+                          <option>Cake Designer</option>
+                          <option>Costume Designer</option>
+                          <option>Event Planner</option>
+                          <option>Sound Provider</option>
+                          <option>florist</option>
+                        </Input>
+                        {formik.touched.service_Type &&
+                        formik.errors.service_Type ? (
+                          <div style={{ color: "red" }}>
+                            {formik.errors.service_Type}
+                          </div>
+                        ) : null}
+                      </FormGroup>
+                    </Col>
+
+                    <Col md="6">
+                      <FormGroup>
+                        <label>Choose Boosting Package </label>
+                       
+                      <Button
+                        className="ml-4"
+                        color="primary"
+                        href="#pablo"
+                        onClick={(e) => e.preventDefault()}
+                        size="sm"
+                      >
+                        Boosting Package Informations
+                      </Button>
+                   
                         <Input
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
