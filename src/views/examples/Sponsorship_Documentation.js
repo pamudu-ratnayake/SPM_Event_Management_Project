@@ -40,7 +40,6 @@ const Sponsorship_Documentation = (props) => {
   const [posts, setPosts] = useState([]);
   const [pkg, setPackage] = useState([]);
 
-
   // const onAddPackage = onAddPackage = (e) => {
   //   console.log("test");
   //   e.preventDefault();
@@ -52,19 +51,26 @@ const Sponsorship_Documentation = (props) => {
   //   })
   // }
 
-  const add = (event) =>{
+  const add = (event) => {
     event.preventDefault();
     // console.log(event.target.pkg_name.value);
-    
+
     const formData = event.target;
-    const newPkg= {
+    const newPkg = {
       pkg_name: formData.pkg_name.value,
-      amount: formData.amount.value
-    }
+      amount: formData.amount.value,
+    };
     // console.log(newPkg);
     setPackage([...pkg, newPkg]);
     // console.log(pkg);
-  }
+  };
+
+  const deletePkg = itemIndex => {
+    console.log(itemIndex);
+
+    const filtered = [...pkg].filter(c => c.index !== itemIndex);
+    setPackage(filtered);
+  };
 
   useEffect(() => {
     axios
@@ -256,36 +262,36 @@ const Sponsorship_Documentation = (props) => {
                           <Row style={{ paddingTop: "1rem" }}>
                             <span>Packages</span>
                           </Row>
-                          {
-                          pkg.map((item, index) => {
-                            return(
-                          <Row xs="" key={index}>
-                            <Col xs="">
-                              <span className="h5" style={{ font: "menu" }}>
-                                {item.pkg_name}
-                              </span>
-                            </Col>
-                            <Col xs="">
-                              <span className="h5">{item.amount}</span>
-                            </Col>
-                            <Col lg={{ size: "auto" }} className="pt-2">
-                              <Button
-                                className="btn-icon btn-2"
-                                color="primary"
-                                size="sm"
-                                type="button"
-                              >
-                                <span className="btn-inner--icon">
-                                  <i className="ni ni-fat-delete" />
-                                </span>
-                              </Button>
-                            </Col>
-                          </Row>
-                          )})
-                          }
+                          {pkg.map((item, index) => {
+                            return (
+                              <Row xs="" key={index}>
+                                <Col xs="">
+                                  <span className="h5">
+                                    {item.pkg_name}
+                                  </span>
+                                </Col>
+                                <Col xs="">
+                                  <span className="h5">LKR. {item.amount}</span>
+                                </Col>
+                                <Col lg={{ size: "auto" }} className="pt-2">
+                                  <Button
+                                    className="btn-icon btn-2"
+                                    color="primary"
+                                    size="sm"
+                                    type="button"
+                                    onClick={() => deletePkg(item.index)}
+                                  >
+                                    <span className="btn-inner--icon">
+                                      <i className="ni ni-fat-delete" />
+                                    </span>
+                                  </Button>
+                                </Col>
+                              </Row>
+                            );
+                          })}
                         </Col>
                       </Row>
-                          
+
                       <Row>
                         <Col style={{ paddingTop: "1rem" }}>
                           <FormGroup>
@@ -305,7 +311,7 @@ const Sponsorship_Documentation = (props) => {
                       </Row>
                       <div>
                         <Button color="primary" size="sm" type="button">
-                          Creat Document
+                          Create Document
                         </Button>
                       </div>
                     </Form>

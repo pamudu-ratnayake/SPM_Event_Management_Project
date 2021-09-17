@@ -29,8 +29,9 @@ const validationSchema = Yup.object({
   issue: Yup.string().required("Required!"),
 });
 
+
 const My_Issue = (props) => {
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState(0);
 
   useEffect(() => {
     axios
@@ -46,12 +47,32 @@ const My_Issue = (props) => {
       });
   }, []);
 
-  const onSubmit = (values) => {};
+  let history = useHistory();
+
+  const onSubmit = (values) => {
+    console.log("Form Date", values);
+    //  values.date_of_the_event = event_date; //watch
+    axios
+      .post("http://localhost:8080/consulting/addIssue", values)
+      .then((res) => {
+        console.log(res);
+        console.log("Data", values);
+        console.log(posts._id);
+        // initialValues.eventID = posts._id;
+        history.push({
+          pathname: `/admin/Event_Support`,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   const initialValues = {
     enableReinitialize: true,
     validateOnMount: true,
     issue: "",
+    eventID: props.match.params._id,
   };
 
   const formik = useFormik({
@@ -169,7 +190,7 @@ const My_Issue = (props) => {
                       ) : null}
                     </FormGroup>
                   </Col>
-                  <Col className="mb-2 mt-4" style={{ paddingTop: "2rem" }}>
+                  <Col className="mb-4 mt-4">
                     <Button
                       color="primary"
                       id="POST"
