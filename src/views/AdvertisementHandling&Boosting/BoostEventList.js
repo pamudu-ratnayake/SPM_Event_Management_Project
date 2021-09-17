@@ -71,11 +71,10 @@ const BoostEventList = (props) => {
             <Table className="align-items-center" responsive>
               <thead className="thead-light">
                 <tr>
-                  <th scope="col">Service Provider ID</th>
-                  <th scope="col">Service Provider Name </th>
+                  <th scope="col">Event ID</th>
+                  <th scope="col">Customer Name </th>
+                  <th scope="col">NIC </th>
                   <th scope="col">Service Type </th>
-                  <th scope="col">Advertisement Status 
-                  </th>
                   <th scope="col" />
                 </tr>
               </thead>

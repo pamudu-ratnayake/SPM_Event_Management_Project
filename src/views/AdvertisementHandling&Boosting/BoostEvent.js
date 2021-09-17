@@ -69,7 +69,7 @@ const BoostEvent = () => {
                   <Row>
                   <Col md="6">
                       <FormGroup>
-                        <label>Customer Name  </label>
+                        <label>Organizer Name  </label>
                         <Input
                          onChange={formik.handleChange}
                          onBlur={formik.handleBlur}
@@ -111,7 +111,7 @@ const BoostEvent = () => {
                   <Row>
                     <Col md="6">
                       <FormGroup>
-                        <label>Customer Email </label>
+                        <label>Organizer Email </label>
                         <Input
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
@@ -153,7 +153,7 @@ const BoostEvent = () => {
                   
                   <Row>
                     <Col md="12">
-                      <label>Boost Purpose </label>
+                      <label>Boosting Purpose </label>
                       <Input
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
@@ -171,7 +171,7 @@ const BoostEvent = () => {
                   <Row>
                   <Col md="6">
                       <FormGroup>
-                        <label>Service Type : </label>
+                        <label>Date Of The Event </label>
                         <Input
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}

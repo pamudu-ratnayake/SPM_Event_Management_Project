@@ -73,8 +73,8 @@ const BoostAdvertisementList = (props) => {
                 <tr>
                   <th scope="col">Service Provider ID</th>
                   <th scope="col">Service Provider Name </th>
-                  <th scope="col">Service Type </th>
-                  <th scope="col">Advertisement Status 
+                  <th scope="col">NIC </th>
+                  <th scope="col">Service Type
                   </th>
                   <th scope="col" />
                 </tr>

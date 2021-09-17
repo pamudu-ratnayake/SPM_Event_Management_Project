@@ -69,7 +69,7 @@ const BoostAdvertisement = () => {
                   <Row>
                   <Col md="6">
                       <FormGroup>
-                        <label>Customer Name  </label>
+                        <label>Service Provider Name  </label>
                         <Input
                          onChange={formik.handleChange}
                          onBlur={formik.handleBlur}
@@ -111,7 +111,7 @@ const BoostAdvertisement = () => {
                   <Row>
                     <Col md="6">
                       <FormGroup>
-                        <label>Customer Email </label>
+                        <label>Service Provider Email </label>
                         <Input
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
@@ -153,7 +153,7 @@ const BoostAdvertisement = () => {
                   
                   <Row>
                     <Col md="12">
-                      <label>Boost Purpose </label>
+                      <label>Boosting Purpose </label>
                       <Input
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
