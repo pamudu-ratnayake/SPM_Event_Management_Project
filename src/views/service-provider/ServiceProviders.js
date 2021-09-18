@@ -10,7 +10,6 @@ import {
 	Table,
 } from "reactstrap";
 // core components
-import ServiceProviderHeader from "components/Headers/service-provider-header/ServiceProviderHeader";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import HeaderAllServiceProviders from "components/Headers/service-provider-header/HeaderAllServiceProviders";
