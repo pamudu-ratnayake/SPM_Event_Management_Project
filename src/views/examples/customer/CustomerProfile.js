@@ -118,7 +118,7 @@ const CustomerProfile = () => {
                 <Col className="order-lg-2" lg="3">
                   <div className="card-profile-image">
                     <a href="#pablo" onClick={(e) => e.preventDefault()}>
-                      <img alt="..." className="rounded-circle" src={require("../../assets/img/theme/team-4-800x800.jpg").default} />
+                      <img alt="..." className="rounded-circle" src={require("../../../assets/img/theme/team-4-800x800.jpg").default} />
                     </a>
                   </div>
                 </Col>

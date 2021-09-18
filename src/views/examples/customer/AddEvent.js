@@ -2,7 +2,7 @@ import ReactDatetime from "react-datetime";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
-import FormikControl from "./FormikControl";
+import FormikControl from "../FormikControl";
 //import { moment } from "moment";
 import DatePicker from "react-datepicker";
 import { useHistory } from "react-router-dom";
@@ -112,7 +112,7 @@ const AddEvent = (props) => {
       {/* Page content */}
       <Container className="mt--9" fluid>
         <Row>
-          <Col className="order-xl-1" xl="12">
+          <Col className="order-xl-1" >
             <Card className="bg-secondary shadow">
               <CardHeader className="bg-white border-0">
                 <Row className="align-items-center">
