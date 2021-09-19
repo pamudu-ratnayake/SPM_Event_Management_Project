@@ -12,7 +12,7 @@ const BoostAddHeader = () => {
           minHeight: "20px",
           backgroundImage:
             "url(" +
-            require("../../../assets/img/theme/y1.png").default +
+            require("../../../assets/img/theme/65.jpg").default +
             ")",
           backgroundSize: "cover",
           backgroundPosition: "center top",
@@ -25,10 +25,10 @@ const BoostAddHeader = () => {
           <Row>
             <Col lg="7" md="10">
               <h1 className="display-2 text-white">Boost Your Advertisement</h1>
-              <p className="text-white mt-0 mb-3">
+              {/* <p className="text-white mt-0 mb-3">
                 This is your profile page. You can see the progress you've made
                 with your work and manage your projects or assigned tasks
-              </p>
+              </p> */}
             </Col>
           </Row>
         </Container>

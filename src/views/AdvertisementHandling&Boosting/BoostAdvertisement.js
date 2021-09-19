@@ -60,7 +60,7 @@ const BoostAdvertisement = () => {
     <>
       <BoostAddHeader />
       {/* Page content */}
-      <Container className="mt--9" fluid>
+      <Container className="mt--7">
         <Row>
           <Col className="order-xl-1" xl="12">
             <Card className="bg-secondary shadow">
@@ -80,14 +80,14 @@ const BoostAdvertisement = () => {
                       </Col>
                       
                       <Modal
-              className="modal-dialog-centered modal-danger"
-              contentClassName="bg-gradient-danger"
+              className="modal-dialog-centered modal-primary"
+              contentClassName="bg-gradient-primary"
               isOpen={notificationModal}
               toggle={() => toggleModal("notificationModal")}
             >
               <div className="modal-header">
                 <h6 className="modal-title" id="modal-title-notification">
-                  Your attention is required
+                  Advertisement Boosting 
                 </h6>
                 <button
                   aria-label="Close"
@@ -134,8 +134,8 @@ const BoostAdvertisement = () => {
                 <Form onSubmit={formik.handleSubmit}>
                   <Row>
                   <Col md="8">
-                      <FormGroup>
-                        <label>Choose Boosting Package </label>
+                      <FormGroup  className = "text-right">
+                        <label>Select Boosting Package </label>
                        
                       <Button
                         className="ml-9 "
@@ -273,89 +273,7 @@ const BoostAdvertisement = () => {
                       </FormGroup>
                     </Col>
                   </Row>
-                  <Row>
-                  <Col md="12">
-                  <FormGroup>
-                      <label>Advertisement Title </label>
-                      <Input
-                        mb="3"
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        value={formik.advertisement_title}
-                        id="Advertisement_title"
-                        name="advertisement_title"
-                        placeholder="Enter your Advertisement Title here ...................."
-                        rows="2"
-                        type="textarea"
-                      />
-                      {formik.touched.advertisement_title &&
-                      formik.errors.advertisement_title ? (
-                        <div style={{ color: "red" }}>
-                          {formik.errors.advertisement_title}
-                        </div>
-                      ) : null}
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col md="12" mt="3">
-                      <FormGroup>
-                      <label>Advertisement Description </label>
-                      <Input
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        value={formik.advertisement_Des}
-                        id="Advertisement_Des"
-                        name="advertisement_Des"
-                        placeholder="Enter your Advertisement Description here ...................."
-                        rows="6"
-                        type="textarea"
-                      />
-                      {formik.touched.advertisement_Des &&
-                      formik.errors.advertisement_Des ? (
-                        <div style={{ color: "red" }}>
-                          {formik.errors.advertisement_Des}
-                        </div>
-                      ) : null}
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col md="12">
-                      <label>Upload Advertisement Picture </label>
-                      <Input
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        value={formik.advertisement_Des}
-                        id="Advertisement_Des"
-                        name="advertisement_Des"
-                        placeholder="Enter your Advertisement Description here ...................."
-                        rows="6"
-                        type="textarea"
-                      />
-                    
-                      {/* <Input
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        value={formik.advertisement_Pic}
-                        id="Advertisement_Pic"
-                        name="advertisement_Pic"
-                        placeholder="Enter your Advertisement Picture here ..................."
-                        rows="6"
-                        type="textarea"
-                      /> */}
-                     
-
                   
-
-                      {formik.touched.advertisement_Pic &&
-                      formik.errors.advertisement_Pic ? (
-                        <div style={{ color: "red" }}>
-                          {formik.errors.advertisement_Pic}
-                        </div>
-                      ) : null}
-                    </Col>
-                  </Row>
                   <br></br>
                   <br></br>
                   <br></br>
