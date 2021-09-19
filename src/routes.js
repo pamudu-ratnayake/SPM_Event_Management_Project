@@ -259,7 +259,7 @@ var routes = [
     layout: "/admin",
   },
   {
-    path: "/Event_Support",
+    path: "/Event_Support/:_id",
     name: "* Event Consulting",
     icon: "ni ni-support-16 text-red",
     component: Event_Support,

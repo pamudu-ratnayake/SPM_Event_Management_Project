@@ -127,6 +127,7 @@ const Update_Sponsor = (props) => {
         console.log(error);
       });
   };
+
   useEffect(() => {
     axios
       .get(`http://localhost:8080/sponsor/getSponsor/${props.match.params._id}`)
@@ -146,6 +147,7 @@ const Update_Sponsor = (props) => {
     onSubmit,
     validationSchema,
   });
+
   return (
     <>
       <UserHeaderSponsorUpdate />

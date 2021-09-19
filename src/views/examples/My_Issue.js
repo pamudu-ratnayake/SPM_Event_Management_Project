@@ -71,6 +71,7 @@ const My_Issue = (props) => {
     enableReinitialize: true,
     validateOnMount: true,
     issue: "",
+    // answers:[],
     eventObj: {
       _id: details._id,
       event_name: details.event_name,
@@ -107,7 +108,7 @@ const My_Issue = (props) => {
                   <h3 className="mb-0">Hi! We are here to help now ...</h3>
                 </Col>
                 <Col className="col text-right" xl="3">
-                  <Link to={"/admin/Event_Support"}>
+                  <Link to={`/admin/Event_Support/${props.match.params._id}`}>
                     <Button color="primary" size="sm">
                       Search for Solution
                     </Button>
