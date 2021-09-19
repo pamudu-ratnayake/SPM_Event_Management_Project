@@ -11,11 +11,11 @@ import { Link } from "react-router-dom";
 const MyEvents = (props) => {
   const [posts, setPosts] = useState([]);
 
-  
+    const user = JSON.parse(localStorage.getItem('profile'));
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/eventAdd/getevents`)
+      .get(`http://localhost:8080/eventAdd/getevents/${user?.result?._id}`)
       .then((res) => {
         setPosts(res.data);
         console.log(res.data);
