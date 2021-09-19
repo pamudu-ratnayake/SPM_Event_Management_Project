@@ -155,9 +155,7 @@ const BoostAdvertisement = (props) => {
                 </Button>
               </div>
             </Modal>
-          
-
-                  <Col className="text-right" xs="4"></Col>
+            <Col className="text-right" xs="4"></Col>
                   
                 </Row>
               </CardHeader>
@@ -168,17 +166,20 @@ const BoostAdvertisement = (props) => {
                       <FormGroup className = "text-center" >
                         <label>Select Boosting Package </label>
                         <Input
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={formik.boosting_Pack}
                           id="boosting_Pack"
                           name="boosting_Pack"
                           type="select"
                         >
                           <option>Choose...</option>
-                          <option>1 day - LKR. 500</option>
-                          <option>3 day - LKR. 700</option>
-                          <option>5 day - LKR. 1000</option>
-                          <option>10 day - LKR. 1500</option>
-                          <option>20 day - LKR. 2500</option>
-                          <option>30 day - LKR. 3500</option>
+                          <option>1 day </option>
+                          <option>3 day </option>
+                          <option>5 day </option>
+                          <option>10 day</option>
+                          <option>20 day</option>
+                          <option>30 day</option>
                         </Input>
                         {formik.touched.boosting_Pack &&
                         formik.errors.boosting_Pack ? (
@@ -240,8 +241,7 @@ const BoostAdvertisement = (props) => {
                     <Col className="text-right mr-4" xs="4">
                       <Button
                         color="primary"
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
+                        onClick={() => {onSubmit(formik.values)}}
                         size="lm"
                       >
                         Boost My Advertisement

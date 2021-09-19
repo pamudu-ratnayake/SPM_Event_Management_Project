@@ -480,17 +480,7 @@ const AdvertisementInformation = (props) => {
                         </Button>
                       </div>
                     </Modal>
-                    <Col className="text-center" xs="3" >
-                      <Button
-                        block
-                        className="mb-4 ml-9"
-                        color="primary"
-                        type="button"
-                        // onClick={() => )}
-                      >
-                        Cancle
-                      </Button>
-                    </Col>
+                   
                     <Col className="text-center ml-9" xs="4">
                       <Button
                         className="mr-2 ml-9"
