@@ -1,32 +1,32 @@
-
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+// import decode from "jwt-decode"
+
 // reactstrap components
-import {
-  DropdownMenu,
-  DropdownItem,
-  UncontrolledDropdown,
-  DropdownToggle,
-  Form,
-  FormGroup,
-  InputGroupAddon,
-  InputGroupText,
-  Input,
-  InputGroup,
-  Navbar,
-  Nav,
-  Container,
-  Media,
-} from "reactstrap";
+import { DropdownMenu, DropdownItem, UncontrolledDropdown, DropdownToggle, Form, FormGroup, InputGroupAddon, InputGroupText, Input, InputGroup, Navbar, Nav, Container, Media } from "reactstrap";
 
 const AdminNavbar = (props) => {
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
+
+  console.log(user);
+
+  useEffect(() => {
+    const token = user?.token;
+
+    // if (token) {
+    //   const decodedToken = decode(token);
+
+    //   if (decodedToken.exp * 1000 < new Date().getTime()) logout();
+    // }
+
+    setUser(JSON.parse(localStorage.getItem("profile")));
+  }, []);
+
   return (
     <>
       <Navbar className="navbar-top navbar-dark" expand="md" id="navbar-main">
         <Container fluid>
-          <Link
-            className="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block"
-            to="/"
-          >
+          <Link className="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" to="/">
             {props.brandText}
           </Link>
           <Form className="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
@@ -46,18 +46,10 @@ const AdminNavbar = (props) => {
               <DropdownToggle className="pr-0" nav>
                 <Media className="align-items-center">
                   <span className="avatar avatar-sm rounded-circle">
-                    <img
-                      alt="..."
-                      src={
-                        require("../../assets/img/theme/team-4-800x800.jpg")
-                          .default
-                      }
-                    />
+                    <img alt="..." src={require("../../assets/img/theme/team-4-800x800.jpg").default} />
                   </span>
                   <Media className="ml-2 d-none d-lg-block">
-                    <span className="mb-0 text-sm font-weight-bold">
-                      Jessica Jones
-                    </span>
+                    <span className="mb-0 text-sm font-weight-bold">{user?.result.firstName}</span>
                   </Media>
                 </Media>
               </DropdownToggle>
@@ -73,7 +65,7 @@ const AdminNavbar = (props) => {
                   <i className="ni ni-settings-gear-65" />
                   <span>Settings</span>
                 </DropdownItem>
-                
+
                 <DropdownItem divider />
                 <DropdownItem href="#pablo" onClick={(e) => e.preventDefault()}>
                   <i className="ni ni-user-run" />

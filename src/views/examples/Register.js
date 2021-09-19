@@ -1,22 +1,43 @@
-
+import { useFormik } from "formik";
+import axios from "axios";
+import { useHistory } from "react-router";
 
 // reactstrap components
-import {
-  Button,
-  Card,
-  CardHeader,
-  CardBody,
-  FormGroup,
-  Form,
-  Input,
-  InputGroupAddon,
-  InputGroupText,
-  InputGroup,
-  Row,
-  Col,
-} from "reactstrap";
+import { Button, Card, CardHeader, CardBody, FormGroup, Form, Input, InputGroupAddon, InputGroupText, InputGroup, Row, Col } from "reactstrap";
 
 const Register = () => {
+  const initialValues = {
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    conPassword: "",
+  };
+
+  let history = useHistory();
+
+  const onSubmit = (values) => {
+    console.log("Form Date", values);
+    axios
+      .post("http://localhost:8080/auth-user/signup",values)
+      .then((res) => {
+        console.log(res);
+        console.log("Data", values);
+        localStorage.setItem('profile',JSON.stringify(res.data));
+        history.push({
+          pathname: `/admin`,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const formik = useFormik({
+    initialValues,
+    onSubmit,
+  });
+
   return (
     <>
       <Col lg="6" md="8">
@@ -26,37 +47,15 @@ const Register = () => {
               <small>Sign up with</small>
             </div>
             <div className="text-center">
-              <Button
-                className="btn-neutral btn-icon mr-4"
-                color="default"
-                href="#pablo"
-                onClick={(e) => e.preventDefault()}
-              >
+              <Button className="btn-neutral btn-icon mr-4" color="default" href="#pablo" onClick={(e) => e.preventDefault()}>
                 <span className="btn-inner--icon">
-                  <img
-                    alt="..."
-                    src={
-                      require("../../assets/img/icons/common/facebook2.svg")
-                        .default
-                    }
-                  />
+                  <img alt="..." src={require("../../assets/img/icons/common/facebook2.svg").default} />
                 </span>
                 <span className="btn-inner--text">Facebook</span>
               </Button>
-              <Button
-                className="btn-neutral btn-icon"
-                color="default"
-                href="#pablo"
-                onClick={(e) => e.preventDefault()}
-              >
+              <Button className="btn-neutral btn-icon" color="default" href="#pablo" onClick={(e) => e.preventDefault()}>
                 <span className="btn-inner--icon">
-                  <img
-                    alt="..."
-                    src={
-                      require("../../assets/img/icons/common/google.svg")
-                        .default
-                    }
-                  />
+                  <img alt="..." src={require("../../assets/img/icons/common/google.svg").default} />
                 </span>
                 <span className="btn-inner--text">Google</span>
               </Button>
@@ -66,17 +65,33 @@ const Register = () => {
             <div className="text-center text-muted mb-4">
               <small>Or sign up with credentials</small>
             </div>
-            <Form role="form">
-              <FormGroup>
-                <InputGroup className="input-group-alternative mb-3">
-                  <InputGroupAddon addonType="prepend">
-                    <InputGroupText>
-                      <i className="ni ni-hat-3" />
-                    </InputGroupText>
-                  </InputGroupAddon>
-                  <Input placeholder="Name" type="text" />
-                </InputGroup>
-              </FormGroup>
+            <Form onSubmit={formik.handleSubmit}>
+              <Row>
+                <Col>
+                  <FormGroup>
+                    <InputGroup className="input-group-alternative mb-3">
+                      <InputGroupAddon addonType="prepend">
+                        <InputGroupText>
+                          <i className="ni ni-hat-3" />
+                        </InputGroupText>
+                      </InputGroupAddon>
+                      <Input name="firstName" placeholder="First Name" type="text" onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.firstName} />
+                    </InputGroup>
+                  </FormGroup>
+                </Col>
+                <Col>
+                  <FormGroup>
+                    <InputGroup className="input-group-alternative mb-3">
+                      <InputGroupAddon addonType="prepend">
+                        <InputGroupText>
+                          <i className="ni ni-hat-3" />
+                        </InputGroupText>
+                      </InputGroupAddon>
+                      <Input name="lastName" placeholder="Last Name" type="text" onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.lastName} />
+                    </InputGroup>
+                  </FormGroup>
+                </Col>
+              </Row>
               <FormGroup>
                 <InputGroup className="input-group-alternative mb-3">
                   <InputGroupAddon addonType="prepend">
@@ -84,11 +99,17 @@ const Register = () => {
                       <i className="ni ni-email-83" />
                     </InputGroupText>
                   </InputGroupAddon>
-                  <Input
-                    placeholder="Email"
-                    type="email"
-                    autoComplete="new-email"
-                  />
+                  <Input name="email" placeholder="Email" type="email" autoComplete="new-email" onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.email} />
+                </InputGroup>
+              </FormGroup>
+              <FormGroup>
+                <InputGroup className="input-group-alternative">
+                  <InputGroupAddon addonType="prepend">
+                    <InputGroupText>
+                      <i className="ni ni-lock-circle-open" />
+                    </InputGroupText>
+                  </InputGroupAddon>
+                  <Input name="password" placeholder="Password" type="password" autoComplete="new-password" onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.password} />
                 </InputGroup>
               </FormGroup>
               <FormGroup>
@@ -99,44 +120,26 @@ const Register = () => {
                     </InputGroupText>
                   </InputGroupAddon>
                   <Input
-                    placeholder="Password"
-                    type="password"
-                    autoComplete="new-password"
-                  />
-                </InputGroup>
-              </FormGroup>
-              <FormGroup>
-                <InputGroup className="input-group-alternative">
-                  <InputGroupAddon addonType="prepend">
-                    <InputGroupText>
-                      <i className="ni ni-lock-circle-open" />
-                    </InputGroupText>
-                  </InputGroupAddon>
-                  <Input
+                    name="conPassword"
                     placeholder="Confirm Password"
                     type="password"
                     autoComplete="new-password"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.conPassword}
                   />
                 </InputGroup>
               </FormGroup>
               <div className="text-muted font-italic">
                 <small>
-                  password strength:{" "}
-                  <span className="text-success font-weight-700">strong</span>
+                  password strength: <span className="text-success font-weight-700">strong</span>
                 </small>
               </div>
               <Row className="my-4">
                 <Col xs="12">
                   <div className="custom-control custom-control-alternative custom-checkbox">
-                    <input
-                      className="custom-control-input"
-                      id="customCheckRegister"
-                      type="checkbox"
-                    />
-                    <label
-                      className="custom-control-label"
-                      htmlFor="customCheckRegister"
-                    >
+                    <input className="custom-control-input" id="customCheckRegister" type="checkbox" />
+                    <label className="custom-control-label" htmlFor="customCheckRegister">
                       <span className="text-muted">
                         I agree with the{" "}
                         <a href="#pablo" onClick={(e) => e.preventDefault()}>
@@ -148,7 +151,7 @@ const Register = () => {
                 </Col>
               </Row>
               <div className="text-center">
-                <Button className="mt-4" color="primary" type="button">
+                <Button className="mt-4" color="primary" type="submit">
                   Create account
                 </Button>
               </div>

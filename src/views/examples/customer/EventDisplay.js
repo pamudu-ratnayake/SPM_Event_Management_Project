@@ -1,5 +1,6 @@
 import ReactDatetime from "react-datetime";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 // reactstrap components
 import { Button, Card, CardHeader, CardBody, FormGroup, Form, Input, Container, Row, Col, InputGroupAddon, InputGroupText, InputGroup } from "reactstrap";
@@ -39,9 +40,11 @@ const EventDisplay = (props) => {
                     <h1 className="mb-0">Details of The Event</h1>
                   </Col>
                   <Col className="text-right" xs="4">
-                    <Button color="primary" href="#pablo" onClick={(e) => e.preventDefault()} size="sm">
+                    <Link to={`/admin/selectservice-proivider`}>
+                    <Button color="primary"  size="sm">
                       Service Providers
                     </Button>
+                    </Link>
                   </Col>
                 </Row>
               </CardHeader>

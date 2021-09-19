@@ -39,9 +39,12 @@ const AddEvent = (props) => {
   //   { key: "Option 03", value: "cOption3" },
   // ];
 
+  const user = JSON.parse(localStorage.getItem('profile'));
+
 	const initialValues = {
 		enableReinitialize: true,
 		validateOnMount: true,
+    user_id:user?.result?._id,
 		event_name: "",
 		org_name: "",
 		event_time: "",
