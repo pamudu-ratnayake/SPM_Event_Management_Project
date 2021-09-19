@@ -65,7 +65,7 @@ const BoostAdvertisement = (props) => {
   const onSubmit = (values) => {
     console.log("form data", values);
     axios
-      .post("http://localhost:8080/advertisement/addadvertisement", values)
+      .post("http://localhost:8080/advertisement/boostAdvertisement", values)
       .then((res) => {
         console.log(res);
         console.log("Data", values);

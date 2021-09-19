@@ -120,7 +120,7 @@ const AdvertisementList = (props) => {
                     type="button"
                     onClick={() => toggleModal("defaultModal")}
                   >
-                    <span aria-hidden={true}>×</span>
+                    <span aria-hidden={true}> </span>
                   </button>
                 </div>
                 <div className="modal-body">
