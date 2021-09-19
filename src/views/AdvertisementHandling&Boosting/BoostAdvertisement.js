@@ -24,6 +24,7 @@ import BoostAddHeader from "components/Headers/AdvertisementHandling&BoostingHea
 
 import { useFormik } from "formik";
 
+
 const BoostAdvertisement = (props) => {
   const initialValues = {
     enableReinitialize: true,
@@ -46,8 +47,9 @@ const BoostAdvertisement = (props) => {
 
   });
   const formik = useFormik({
+    onSubmit,
     initialValues,
-    validationSchema,
+    validationSchema
   });
 
   useEffect(() => {
@@ -65,16 +67,19 @@ const BoostAdvertisement = (props) => {
   const onSubmit = (values) => {
     console.log("form data", values);
     axios
-      .post("http://localhost:8080/advertisement/boostAdvertisement", values)
+      .put(
+        `http://localhost:8080/advertisement/boostadvertisement/${props.match.params._id}`, values)
       .then((res) => {
         console.log(res);
-        console.log("Data", values);
+        // history.push({
+        //   pathname: `/admin`,
+        // });
         // history.pushState({
         //   pathname: ''
         // })
       })
       .catch((error) => {
-        console.log(error);
+        console(error);
       });
   };
 

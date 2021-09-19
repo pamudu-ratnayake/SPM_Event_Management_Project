@@ -350,14 +350,14 @@ const UpdateAdvertisementInformation = (props) => {
                       </Button>
                     </Col>
                     <Col className="text-right" xs="4">
-                      {/* <Button
+                      <Button
                         color="primary"
                         href="#pablo"
-                        onClick={(e) => e.preventDefault()}
+                        // onClick={(e) => e.preventDefault()}
                         size="lm"
                       >
                         Cancle
-                      </Button> */}
+                      </Button>
                     </Col>
                   </Row>
                 </Form>

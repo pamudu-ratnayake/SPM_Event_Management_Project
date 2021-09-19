@@ -95,6 +95,7 @@ const AdvertisementInformation = (props) => {
     advertisement_title:"",
     advertisement_Des: "",
     advertisement_Pic: "",
+    boosting_Pack:""
   };
 
   const validationSchema = Yup.object({
@@ -109,6 +110,7 @@ const AdvertisementInformation = (props) => {
     advertisement_title:Yup.string().required("Required !"),
     advertisement_Des: Yup.string().required("Required !"),
     advertisement_Pic: Yup.string().required("Required !"),
+    
     // cardtype: Yup.string().required("Required"),
   });
 
@@ -478,6 +480,17 @@ const AdvertisementInformation = (props) => {
                         </Button>
                       </div>
                     </Modal>
+                    <Col className="text-center" xs="3" >
+                      <Button
+                        block
+                        className="mb-4 ml-9"
+                        color="primary"
+                        type="button"
+                        // onClick={() => )}
+                      >
+                        Cancle
+                      </Button>
+                    </Col>
                     <Col className="text-center ml-9" xs="4">
                       <Button
                         className="mr-2 ml-9"
