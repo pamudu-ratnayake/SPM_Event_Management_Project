@@ -21,7 +21,7 @@ import axios from "axios";
 const ViewAdvertisement = (props) => {
   console.log("Id is: ", props.match.params._id);
 
-  const [addsData,boostadd, setAdd] = useState(0);
+  const [addsData,setAdd] = useState(0);
 
   useEffect(() => {
     axios
@@ -253,7 +253,7 @@ const ViewAdvertisement = (props) => {
             <div className = "mt-5">
               <Row>
             <Col>
-                    <Link to={`/admin/boostAdd/${boostadd._id}`}>
+            <Link to={`/admin/boostAdd/${addsData._id}`}>
                     <Button
                       className="ml-16 mr-8"
                       color="primary">

@@ -26,14 +26,16 @@ import { useFormik } from "formik";
 
 
 const BoostAdvertisement = (props) => {
+  console.log("Id is: ", props.match.params._id);
+
   const initialValues = {
     enableReinitialize: true,
     validateOnMount: true,
     boosting_Pack:""
   };
-  console.log("Id is: ", props.match.params._id);
+  
 
-  const [boostadd, setAdd] = useState(0);
+  const [addsData, setAdd] = useState(0);
 
   const [notificationModal, setmodalDemo] = useState(false);
 
@@ -46,24 +48,6 @@ const BoostAdvertisement = (props) => {
     boosting_Pack: Yup.string().required("Required"),
 
   });
-  const formik = useFormik({
-    onSubmit,
-    initialValues,
-    validationSchema
-  });
-
-  useEffect(() => {
-    axios
-      .get(`http://localhost:8080/advertisement/get/${props.match.params._id}`)
-      .then((res) => {
-        console.log(res);
-        setAdd(res.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
-
   const onSubmit = (values) => {
     console.log("form data", values);
     axios
@@ -83,7 +67,26 @@ const BoostAdvertisement = (props) => {
       });
   };
 
+  
+ useEffect(() => {
+    axios
+      .get(`http://localhost:8080/advertisement/get/${props.match.params._id}`)
+      .then((res) => {
+        console.log(res);
+        setAdd(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
+
+ 
+  const formik = useFormik({
+    onSubmit,
+    initialValues,
+    validationSchema
+  });
   return (
     <>
       <BoostAddHeader />
@@ -191,7 +194,7 @@ const BoostAdvertisement = (props) => {
                 <Row>
                   <Col xs="4">Service Provider Name</Col>
                   <Col xs="1">:</Col>
-                  <Col xs="6">{boostadd.service_Provider_Name}</Col>
+                  <Col xs="6">{addsData.service_Provider_Name}</Col>
                 </Row>
               </CardText>
  
@@ -199,7 +202,7 @@ const BoostAdvertisement = (props) => {
                 <Row>
                   <Col xs="4">Service Provider Email</Col>
                   <Col xs="1">:</Col>
-                  <Col xs="6">{boostadd.email_SP}</Col>
+                  <Col xs="6">{addsData.email_SP}</Col>
                 </Row>
               </CardText>
  
@@ -207,7 +210,7 @@ const BoostAdvertisement = (props) => {
                 <Row>
                   <Col xs="4">Service Provider Contact Number</Col>
                   <Col xs="1">:</Col>
-                  <Col xs="6">{boostadd.contact_Number_SP}</Col>
+                  <Col xs="6">{addsData.contact_Number_SP}</Col>
                 </Row>
               </CardText>
  
@@ -215,19 +218,19 @@ const BoostAdvertisement = (props) => {
                 <Row>
                   <Col xs="4">Service Type</Col>
                   <Col xs="1">:</Col>
-                  <Col xs="6">{boostadd.service_Type}</Col>
+                  <Col xs="6">{addsData.service_Type}</Col>
                 </Row>
               </CardText>
               <br></br>
                   <br></br>
 
-                  <CardText className="h5" style={{ fontSize:"18px" , paddingTop: "0.5rem" }}>
+                  {/* <CardText className="h5" style={{ fontSize:"18px" , paddingTop: "0.5rem" }}>
                 <Row>
                   <Col xs="4">Your Total</Col>
                   <Col xs="1">:</Col>
-                  <Col xs="6">{boostadd.boosting_Pack}</Col>
+                  <Col xs="6">{addsData.boosting_Pack}</Col>
                 </Row>
-              </CardText>    
+              </CardText>     */}
 
 </CardBody>
                   <br></br>

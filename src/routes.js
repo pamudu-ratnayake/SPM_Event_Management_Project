@@ -252,7 +252,7 @@ var routes = [
     layout: "/admin",
   },
   {
-    path: "/boostAdd",
+    path: "/boostAdd/:_id",
     name: "Boost Advertisement",
     icon: "ni ni-tv-2 text-pink",
     component: BoostAdvertisement,
