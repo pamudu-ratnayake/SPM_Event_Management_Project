@@ -1,4 +1,5 @@
 // reactstrap components
+import React, { useState } from "react";
 import {
   Button,
   Card,
@@ -9,6 +10,7 @@ import {
   Input,
   Container,
   Row,
+  Modal,
   Col,
   InputGroupAddon,
   InputGroupText,
@@ -33,6 +35,12 @@ const BoostAdvertisement = () => {
     advertisement_Pic: "",
   };
 
+  const [notificationModal, setmodalDemo] = useState(false);
+
+  function toggleModal() {
+    setmodalDemo(!notificationModal);
+  }
+
   //Yup validations
   const validationSchema = Yup.object({
     service_Provider_Name: Yup.string().required("Required"),
@@ -52,160 +60,85 @@ const BoostAdvertisement = () => {
     <>
       <BoostAddHeader />
       {/* Page content */}
-      <Container className="mt--7">
+      <Container className="mt--9" fluid>
         <Row>
           <Col className="order-xl-1" xl="12">
             <Card className="bg-secondary shadow">
               <CardHeader className="bg-white border-0">
                 <Row className="align-items-center">
-                  <Col xs="8">
+                  <Col xs="6">
                     <h2 className="mb-0">Advertisement Boosting Information</h2>
-                  </Col>
+                    </Col>
+                    <Col className="col text-right" xs="6">
+                    <Button 
+                   
+                    color="primary" 
+                    size="lm"
+                    onClick={() => toggleModal("notificationModal")}>
+                        What's Boosting
+                      </Button>
+                      </Col>
+                      
+                      <Modal
+              className="modal-dialog-centered modal-danger"
+              contentClassName="bg-gradient-danger"
+              isOpen={notificationModal}
+              toggle={() => toggleModal("notificationModal")}
+            >
+              <div className="modal-header">
+                <h6 className="modal-title" id="modal-title-notification">
+                  Your attention is required
+                </h6>
+                <button
+                  aria-label="Close"
+                  className="close"
+                  data-dismiss="modal"
+                  type="button"
+                  onClick={() => toggleModal("notificationModal")}
+                >
+                  <span aria-hidden={true}>×</span>
+                </button>
+              </div>
+              <div className="modal-body">
+                <div className="py-3 text-center">
+                  <i className="ni ni-bell-55 ni-3x" />
+                  <h4 className="heading mt-4">You should read this!</h4>
+                  <p>
+                    A small river named Duden flows by their place and
+                    supplies it with the necessary regelialia.
+                  </p>
+                </div>
+              </div>
+              <div className="modal-footer">
+                <Button className="btn-white" color="default" type="button">
+                  Ok, Got it
+                </Button>
+                <Button
+                  className="text-white ml-auto"
+                  color="link"
+                  data-dismiss="modal"
+                  type="button"
+                  onClick={() => toggleModal("notificationModal")}
+                >
+                  Close
+                </Button>
+              </div>
+            </Modal>
+          
+
                   <Col className="text-right" xs="4"></Col>
+                  
                 </Row>
               </CardHeader>
               <CardBody>
                 <Form onSubmit={formik.handleSubmit}>
                   <Row>
-                  <Col md="6">
-                      <FormGroup>
-                        <label>Service Provider Name  </label>
-                        <Input
-                         onChange={formik.handleChange}
-                         onBlur={formik.handleBlur}
-                         value={formik.values.Customer_Name}
-                          id="Customer_Name "
-                          name="Customer_Name"
-                          placeholder="Enter your Name"
-                           type="text"
-                        />
-                        {formik.touched.Customer_Name &&
-                        formik.errors.Customer_Name? (
-                          <div style={{ color: "red" }}>
-                            {formik.errors.Customer_Name}
-                          </div>
-                        ) : null}
-                      </FormGroup>
-                    </Col>
-                    <Col md="6">
-                      <FormGroup>
-                        <label>NIC Number </label>
-                        <Input
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        value={formik.values.nic_no}
-                          id="NIC"
-                          name="nic_no"
-                          placeholder="Enter your NIC Number"
-                          type="text"
-                        />
-                        {formik.touched.nic_no &&
-                        formik.errors.nic_no? (
-                          <div style={{ color: "red" }}>
-                            {formik.errors.nic_no}
-                          </div>
-                        ) : null}
-                      </FormGroup>
-                       </Col>
-                    </Row>
-                  <Row>
-                    <Col md="6">
-                      <FormGroup>
-                        <label>Service Provider Email </label>
-                        <Input
-                          onChange={formik.handleChange}
-                          onBlur={formik.handleBlur}
-                          value={formik.email_SP}
-                          id="Email_E"
-                          name="email_E"
-                          placeholder="Enter Your Email"
-                          type="text"
-                        />
-                        {formik.touched.email_E &&
-                         formik.errors.email_E ? (
-                          <div style={{ color: "red" }}>
-                            {formik.errors.email_E}
-                          </div>
-                        ) : null}
-                      </FormGroup>
-                    </Col>
-                    <Col md="6">
-                      <FormGroup>
-                        <label>Contact Number  </label>
-                        <Input
-                          onChange={formik.handleChange}
-                          onBlur={formik.handleBlur}
-                          value={formik.values.contact_Number_E}
-                          id="Contact_Number_E"
-                          name="contact_Number_E"
-                          placeholder="Enter Your Contact Number"
-                          type="text"
-                        />
-                        {formik.touched.contact_Number_E &&
-                        formik.errors.contact_Number_E ? (
-                          <div style={{ color: "red" }}>
-                            {formik.errors.contact_Number_E}
-                          </div>
-                        ) : null}
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                  
-                  <Row>
-                    <Col md="12">
-                      <label>Boosting Purpose </label>
-                      <Input
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        value={formik.advertisement_Des}
-                        id="Boost_Purpose"
-                        name="Boost_Purpose"
-                        placeholder="Enter your Boost Description here ...................."
-                        rows="6"
-                        type="textarea"
-                      />
-                    </Col>
-                  </Row>
-                  <br></br>
-                  
-                  <Row>
-                  <Col md="6">
-                      <FormGroup>
-                        <label>Service Type </label>
-                        <Input
-                          onChange={formik.handleChange}
-                          onBlur={formik.handleBlur}
-                          value={formik.service_Type}
-                          id="service_Type"
-                          name="service_Type"
-                          type="select"
-                        >
-                          <option>Choose...</option>
-                          <option>Photographer</option>
-                          <option>Decorater</option>
-                          <option>Dancers</option>
-                          <option>Catering</option>
-                          <option>Cake Designer</option>
-                          <option>Costume Designer</option>
-                          <option>Event Planner</option>
-                          <option>Sound Provider</option>
-                          <option>florist</option>
-                        </Input>
-                        {formik.touched.service_Type &&
-                        formik.errors.service_Type ? (
-                          <div style={{ color: "red" }}>
-                            {formik.errors.service_Type}
-                          </div>
-                        ) : null}
-                      </FormGroup>
-                    </Col>
-
-                    <Col md="6">
+                  <Col md="8">
                       <FormGroup>
                         <label>Choose Boosting Package </label>
                        
                       <Button
-                        className="ml-4"
+                        className="ml-9 "
                         color="primary"
                         href="#pablo"
                         onClick={(e) => e.preventDefault()}
@@ -238,12 +171,196 @@ const BoostAdvertisement = () => {
                         ) : null}
                       </FormGroup>
                     </Col>
+                    </Row>
+                  <Row>
+                  <Col md="6">
+                      <FormGroup>
+                        <label>Service Provider Name  </label>
+                        <Input
+                         disabled
+                         onChange={formik.handleChange}
+                         onBlur={formik.handleBlur}
+                         value={formik.values.Customer_Name}
+                          id="Customer_Name "
+                          name="Customer_Name"
+                          // placeholder="Enter your Name"
+                           type="text"
+                        />
+                        {formik.touched.Customer_Name &&
+                        formik.errors.Customer_Name? (
+                          <div style={{ color: "red" }}>
+                            {formik.errors.Customer_Name}
+                          </div>
+                        ) : null}
+                      </FormGroup>
+                    </Col>
+                    <Col md="6">
+                      <FormGroup>
+                        <label>Service Provider Email </label>
+                        <Input
+                          disabled
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          value={formik.email_SP}
+                          id="Email_E"
+                          name="email_E"
+                          // placeholder="Enter Your Email"
+                          type="text"
+                        />
+                        {formik.touched.email_E &&
+                         formik.errors.email_E ? (
+                          <div style={{ color: "red" }}>
+                            {formik.errors.email_E}
+                          </div>
+                        ) : null}
+                      </FormGroup>
+                    </Col>
+                    </Row>
+
+                  <Row>
                     
+                    <Col md="6">
+                      <FormGroup>
+                        <label>Contact Number  </label>
+                        <Input
+                          disabled
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          value={formik.values.contact_Number_E}
+                          id="Contact_Number_E"
+                          name="contact_Number_E"
+                          // placeholder="Enter Your Contact Number"
+                          type="text"
+                        />
+                        {formik.touched.contact_Number_E &&
+                        formik.errors.contact_Number_E ? (
+                          <div style={{ color: "red" }}>
+                            {formik.errors.contact_Number_E}
+                          </div>
+                        ) : null}
+                      </FormGroup>
+                    </Col>
+
+                    <Col md="6">
+                      <FormGroup>
+                        <label>Service Type </label>
+                        <Input
+                          disabled
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          value={formik.service_Type}
+                          id="service_Type"
+                          name="service_Type"
+                          type="select"
+                        >
+                          <option>Choose...</option>
+                          <option>Photographer</option>
+                          <option>Decorater</option>
+                          <option>Dancers</option>
+                          <option>Catering</option>
+                          <option>Cake Designer</option>
+                          <option>Costume Designer</option>
+                          <option>Event Planner</option>
+                          <option>Sound Provider</option>
+                          <option>florist</option>
+                        </Input>
+                        {formik.touched.service_Type &&
+                        formik.errors.service_Type ? (
+                          <div style={{ color: "red" }}>
+                            {formik.errors.service_Type}
+                          </div>
+                        ) : null}
+                      </FormGroup>
+                    </Col>
+                  </Row>
+                  <Row>
+                  <Col md="12">
+                  <FormGroup>
+                      <label>Advertisement Title </label>
+                      <Input
+                        mb="3"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={formik.advertisement_title}
+                        id="Advertisement_title"
+                        name="advertisement_title"
+                        placeholder="Enter your Advertisement Title here ...................."
+                        rows="2"
+                        type="textarea"
+                      />
+                      {formik.touched.advertisement_title &&
+                      formik.errors.advertisement_title ? (
+                        <div style={{ color: "red" }}>
+                          {formik.errors.advertisement_title}
+                        </div>
+                      ) : null}
+                      </FormGroup>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col md="12" mt="3">
+                      <FormGroup>
+                      <label>Advertisement Description </label>
+                      <Input
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={formik.advertisement_Des}
+                        id="Advertisement_Des"
+                        name="advertisement_Des"
+                        placeholder="Enter your Advertisement Description here ...................."
+                        rows="6"
+                        type="textarea"
+                      />
+                      {formik.touched.advertisement_Des &&
+                      formik.errors.advertisement_Des ? (
+                        <div style={{ color: "red" }}>
+                          {formik.errors.advertisement_Des}
+                        </div>
+                      ) : null}
+                      </FormGroup>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col md="12">
+                      <label>Upload Advertisement Picture </label>
+                      <Input
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={formik.advertisement_Des}
+                        id="Advertisement_Des"
+                        name="advertisement_Des"
+                        placeholder="Enter your Advertisement Description here ...................."
+                        rows="6"
+                        type="textarea"
+                      />
+                    
+                      {/* <Input
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={formik.advertisement_Pic}
+                        id="Advertisement_Pic"
+                        name="advertisement_Pic"
+                        placeholder="Enter your Advertisement Picture here ..................."
+                        rows="6"
+                        type="textarea"
+                      /> */}
+                     
+
+                  
+
+                      {formik.touched.advertisement_Pic &&
+                      formik.errors.advertisement_Pic ? (
+                        <div style={{ color: "red" }}>
+                          {formik.errors.advertisement_Pic}
+                        </div>
+                      ) : null}
+                    </Col>
                   </Row>
                   <br></br>
                   <br></br>
+                  <br></br>
                   <Row>
-                    <Col className="text-right" xs="4">
+                    <Col className="text-right mr-4" xs="4">
                       <Button
                         color="primary"
                         href="#pablo"
@@ -253,14 +370,14 @@ const BoostAdvertisement = () => {
                         Boost My Advertisement
                       </Button>
                     </Col>
-                    <Col className="text-right" xs="4">
+                    <Col className="col text-right ml-6" xs="6">
                       <Button
                         color="primary"
                         href="#pablo"
                         onClick={(e) => e.preventDefault()}
                         size="lm"
                       >
-                        Cancle
+                        Request to Update Advertisement Details 
                       </Button>
                     </Col>
                   </Row>
