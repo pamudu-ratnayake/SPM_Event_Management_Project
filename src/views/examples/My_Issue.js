@@ -24,14 +24,14 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
+import SponsorList from "./SponsorList";
 
 const validationSchema = Yup.object({
   issue: Yup.string().required("Required!"),
 });
 
-
 const My_Issue = (props) => {
-  const [posts, setPosts] = useState(0);
+  const [details, setDetails] = useState(0);
 
   useEffect(() => {
     axios
@@ -40,7 +40,7 @@ const My_Issue = (props) => {
       )
       .then((res) => {
         console.log(res);
-        setPosts(res.data);
+        setDetails(res.data);
       })
       .catch((error) => {
         console.log(error);
@@ -57,8 +57,7 @@ const My_Issue = (props) => {
       .then((res) => {
         console.log(res);
         console.log("Data", values);
-        console.log(posts._id);
-        // initialValues.eventID = posts._id;
+        console.log(details._id);
         history.push({
           pathname: `/admin/Event_Support`,
         });
@@ -72,10 +71,21 @@ const My_Issue = (props) => {
     enableReinitialize: true,
     validateOnMount: true,
     issue: "",
-    eventID: props.match.params._id,
+    eventObj: {
+      _id: details._id,
+      event_name: details.event_name,
+      date_of_the_event: details.date_of_the_event,
+      event_time: details.event_time,
+      location: details.location,
+      days_occurs: details.days_occurs,
+      event_type: details.event_type,
+      description: details.description,
+    },
   };
 
   const formik = useFormik({
+    enableReinitialize: true,
+    validateOnMount: true,
     initialValues,
     onSubmit,
     validationSchema,
@@ -94,7 +104,7 @@ const My_Issue = (props) => {
             <CardHeader className="border-0">
               <Row>
                 <Col className="border-0" xl="9">
-                  <h3 className="mb-0">HI! We are here to help now ...</h3>
+                  <h3 className="mb-0">Hi! We are here to help now ...</h3>
                 </Col>
                 <Col className="col text-right" xl="3">
                   <Link to={"/admin/Event_Support"}>
@@ -111,7 +121,7 @@ const My_Issue = (props) => {
                 <Row>
                   <Col xs="3">Event Name</Col>
                   <Col xs="1">:</Col>
-                  <Col xs="6">{posts.event_name}</Col>
+                  <Col xs="6">{details.event_name}</Col>
                 </Row>
               </CardText>
 
@@ -119,7 +129,7 @@ const My_Issue = (props) => {
                 <Row>
                   <Col xs="3">Event Date</Col>
                   <Col xs="1">:</Col>
-                  <Col xs="6">{posts.date_of_the_event}</Col>
+                  <Col xs="6">{details.date_of_the_event}</Col>
                 </Row>
               </CardText>
 
@@ -127,7 +137,7 @@ const My_Issue = (props) => {
                 <Row>
                   <Col xs="3">Event Time</Col>
                   <Col xs="1">:</Col>
-                  <Col xs="6">{posts.event_time}</Col>
+                  <Col xs="6">{details.event_time}</Col>
                 </Row>
               </CardText>
 
@@ -135,7 +145,7 @@ const My_Issue = (props) => {
                 <Row>
                   <Col xs="3">Location</Col>
                   <Col xs="1">:</Col>
-                  <Col xs="6">{posts.location}</Col>
+                  <Col xs="6">{details.location}</Col>
                 </Row>
               </CardText>
 
@@ -143,7 +153,7 @@ const My_Issue = (props) => {
                 <Row>
                   <Col xs="3">Days Occurs</Col>
                   <Col xs="1">:</Col>
-                  <Col xs="6">{posts.days_occurs}</Col>
+                  <Col xs="6">{details.days_occurs}</Col>
                 </Row>
               </CardText>
 
@@ -152,7 +162,7 @@ const My_Issue = (props) => {
                   <Col xs="3">Event Type</Col>
                   <Col xs="1">:</Col>
                   <Col xs="6">
-                    <span>{posts.event_type}</span>
+                    <span>{details.event_type}</span>
                   </Col>
                 </Row>
               </CardText>
@@ -161,7 +171,7 @@ const My_Issue = (props) => {
                 <Row>
                   <Col xs="3">Event Description</Col>
                   <Col xs="1">:</Col>
-                  <Col xs="6">{posts.description}</Col>
+                  <Col xs="6">{details.description}</Col>
                 </Row>
               </CardText>
 
