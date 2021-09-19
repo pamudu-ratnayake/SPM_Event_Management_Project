@@ -15,7 +15,7 @@ import {
 } from "reactstrap";
 import * as Yup from "yup";
 // core components
-import BoostAddHeader from "components/Headers/AdvertisementHandling&BoostingHeaders/BoostAddHeader";
+
 import axios from "axios";
 
 const AdvertisementDetails = (props) => {
@@ -37,7 +37,7 @@ const AdvertisementDetails = (props) => {
 
   return (
     <>
-      <BoostAddHeader />
+      {/* <BoostAddHeader /> */}
       {/* Page content */}
       <Container className="mt--7">
         <Row>
@@ -72,6 +72,29 @@ const AdvertisementDetails = (props) => {
              <CardText>Advertisement Description :{addsData.advertisement_Duration}</CardText>
              <CardText>Upload Advertisement Picture :{addsData.advertisement_Des}</CardText>
              <CardText>Payment Type :{addsData.advertisement_Pic}</CardText> */}
+                  
+                  
+                  <Card
+                    style={({ width: "28rem" }, { height: "2.5rem" })}
+                    className="mb-4"
+                  >
+                    <CardBody className="pt-1 pt-md-0">
+                      <div>
+                        <CardText>
+                          <Row>
+                            <Col xs="3">
+                              <span className="h5" style={{ font: "menu" }}>
+                              Service Provider ID  
+                              </span>
+                            </Col>
+                            <Col xs="6">
+                              <span className="h5">: {addsData.email_SP}</span>
+                            </Col>
+                          </Row>
+                        </CardText>
+                      </div>
+                    </CardBody>
+                  </Card>
                   <Card
                     style={({ width: "28rem" }, { height: "2.5rem" })}
                     className="mb-4"
@@ -106,7 +129,7 @@ const AdvertisementDetails = (props) => {
                           <Row>
                             <Col xs="3">
                               <span className="h5" style={{ font: "menu" }}>
-                                Customer Email
+                              Service Provider Email
                               </span>
                             </Col>
                             <Col xs="6">
@@ -128,7 +151,7 @@ const AdvertisementDetails = (props) => {
                           <Row>
                             <Col xs="3">
                               <span className="h5" style={{ font: "menu" }}>
-                                Contact Number
+                              Service Provider Contact Number
                               </span>
                             </Col>
                             <Col xs="6">
@@ -290,7 +313,7 @@ const AdvertisementDetails = (props) => {
                       color="primary"
                      
                     >
-                      Request to Update the Details
+                       Update the Details
                     </Button>
                     </Link>
                   </Col>

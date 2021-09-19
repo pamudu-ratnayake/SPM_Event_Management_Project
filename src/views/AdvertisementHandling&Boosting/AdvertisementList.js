@@ -75,8 +75,8 @@ const AdvertisementList = (props) => {
                   <th scope="col">Service Provider Name </th>
                   <th scope="col">Advertisement Duration </th>
                   <th scope="col">Service Type </th>
-                  <th scope="col">Advertisement Status 
-                  </th>
+                  {/* <th scope="col">Advertisement Status 
+                  </th> */}
                   <th scope="col" />
                 </tr>
               </thead>
@@ -94,7 +94,7 @@ const AdvertisementList = (props) => {
                         {addslist.service_Type}
                       </div>
                     </td>
-                    <td>
+                    {/* <td>
                       <div className="avatar-group">
                         <Input>
                         <option>Set Status</option>
@@ -103,7 +103,7 @@ const AdvertisementList = (props) => {
                           <option>Requested</option> 
                         </Input>
                       </div>
-                    </td>
+                    </td> */}
                     <Modal
                 className="modal-dialog-centered"
                 isOpen={defaultModal}

@@ -27,6 +27,7 @@ import UpdateBoostAdvertisement from "views/AdvertisementHandling&Boosting/Updat
 import BoostAdvertisementList from "views/AdvertisementHandling&Boosting/BoostAdvertisementList";
 import BoostEventList from "views/AdvertisementHandling&Boosting/BoostEventList";
 import PaidList from "views/PaymentHandling/PaidList";
+import ReportGeneration from "views/PaymentHandling/ReportGeneration";
 
 
 import Sponsorship_Request from "views/examples/Sponsorship_Request";
@@ -200,7 +201,13 @@ var routes = [
     component: PaidList,
     layout: "/admin",
   },
-
+  {
+    path: "/reportgeneration",
+    name: "Report Generation ",
+    icon: "ni ni-credit-card text-blue",
+    component: ReportGeneration,
+    layout: "/admin",
+  },
   {
     path: "/updateboostEvent",
     name: "Update Boost Event",
