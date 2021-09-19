@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 // import decode from "jwt-decode"
 
 // reactstrap components
@@ -10,14 +10,24 @@ const AdminNavbar = (props) => {
 
   console.log(user);
 
+  const history = useHistory();
+  const location= useLocation();
+
+  const logout = () => {
+
+    history.push('/auth');
+    localStorage.clear();
+    setUser(null);
+  };
+
   useEffect(() => {
     const token = user?.token;
 
-    // if (token) {
-    //   const decodedToken = decode(token);
+    if (token) {
+      // const decodedToken = decode(token);
 
-    //   if (decodedToken.exp * 1000 < new Date().getTime()) logout();
-    // }
+      // if (decodedToken.exp * 1000 < new Date().getTime()) logout();
+    }
 
     setUser(JSON.parse(localStorage.getItem("profile")));
   }, []);
@@ -69,7 +79,7 @@ const AdminNavbar = (props) => {
                 <DropdownItem divider />
                 <DropdownItem href="#pablo" onClick={(e) => e.preventDefault()}>
                   <i className="ni ni-user-run" />
-                  <span>Logout</span>
+                  <span onClick={()=>{logout()}}>Logout</span>
                 </DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>

@@ -1,14 +1,15 @@
 import { useFormik } from "formik";
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
 import axios from "axios";
+import FileBase from 'react-file-base64';
 
 // reactstrap components
 import { Button, Card, CardHeader, CardBody, FormGroup, Form, Input, Container, Row, Col, Modal } from "reactstrap";
 // core components
 import CustomerProfileHeader from "components/Headers/CustomerProfileHeader.js";
 
-const CustomerProfile = () => {
+const CustomerProfile = (props) => {
   const baseStyle = {
     flex: 1,
     display: "flex",
@@ -52,11 +53,38 @@ const CustomerProfile = () => {
     </li>
   ));
 
+  // const base64 = await convertBase64(files);
+
+  // const convertBase64 = (file) => {
+  //   return new Promise((resolve, reject) => {
+  //     const fileReader = new FileReader();
+  //     fileReader.readAsDataURL(file);
+
+  //     fileReader.onload = () => {
+  //       resolve(fileReader.result);
+  //     };
+
+  //     fileReader.onerror = (error) => {
+  //       reject(error);
+  //     };
+  //   });
+  // };
+
+
+  // const files = acceptedFiles.map((file) => (
+  //   <li key={file.name}>
+  //     <FileBase />
+  //     {file.name} - {file.size} bytes
+  //   </li>
+  // ));
+
+  const user = JSON.parse(localStorage.getItem('profile'));
+
   const initialValues = {
     enableReinitialize: true,
     validateOnMount: true,
     cus_userName: "",
-    //user_id: "",
+    user_id:user?.result?._id,
     cus_FName: "",
     cus_LName: "",
     cus_email: "",
@@ -68,6 +96,7 @@ const CustomerProfile = () => {
 
   const onSubmit = (values) => {
     console.log("Form Date", values);
+    console.log('files', acceptedFiles);
     //  values.date_of_the_event = event_date; //watch
     let formdata = new FormData();
     formdata.append("cus_userName", values.cus_userName);
@@ -79,6 +108,7 @@ const CustomerProfile = () => {
     formdata.append("cus_description", values.cus_description);
     formdata.append("cus_nic", values.cus_nic);
     formdata.append("file", acceptedFiles[0]);
+    formdata.append("user_id", values.user_id);
 
     // console.log("data",formdata);
 
@@ -91,7 +121,23 @@ const CustomerProfile = () => {
       .catch((error) => {
         console.log(error);
       });
+      window.location.reload(false);
   };
+
+  const [customer, setCustomer] = useState(0);
+
+  //useEffect
+  useEffect(() => {
+    axios
+      .get(`http://localhost:8080/customerdetails/getOneCustomer/${user?.result?._id}`)
+      .then((res) => {
+        console.log(res);
+        setCustomer(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   //use formik here
   const formik = useFormik({
@@ -118,7 +164,7 @@ const CustomerProfile = () => {
                 <Col className="order-lg-2" lg="3">
                   <div className="card-profile-image">
                     <a href="#pablo" onClick={(e) => e.preventDefault()}>
-                      <img alt="..." className="rounded-circle" src={require("../../../assets/img/theme/team-4-800x800.jpg").default} />
+                      <img alt="..." className="rounded-circle" src={customer.prof_img || require("../../../assets/img/theme/team-4-800x800.jpg") } />
                     </a>
                   </div>
                 </Col>
