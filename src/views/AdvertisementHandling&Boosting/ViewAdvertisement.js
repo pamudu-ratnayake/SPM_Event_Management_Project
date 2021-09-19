@@ -282,8 +282,19 @@ const ViewAdvertisement = (props) => {
                 </div>
               </CardBody>
             </Card>  */}
-            <div>
-                  <Col style={{paddingLeft:'29rem'}}>
+            
+            <div className = "mt-5">
+              <Row>
+            <Col>
+                    <Link to={`/admin/updateadvertisement/${addsData._id}`}>
+                    <Button
+                      className="ml-16 mr-8"
+                      color="primary">
+                      Boost My Advertisement
+                    </Button>
+                    </Link>
+                  </Col>
+                  <Col>
                     <Link to={`/admin/updateadvertisement/${addsData._id}`}>
                     <Button
                       className="ml-16 mr-8"
@@ -294,6 +305,7 @@ const ViewAdvertisement = (props) => {
                     </Button>
                     </Link>
                   </Col>
+                  </Row>
                   </div>
                 </CardBody>
               </Card>

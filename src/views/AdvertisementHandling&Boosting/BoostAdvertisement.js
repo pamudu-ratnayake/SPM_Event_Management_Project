@@ -1,5 +1,5 @@
 // reactstrap components
-import React, { useState } from "react";
+import React, { useState,useEffect} from "react";
 import {
   Button,
   Card,
@@ -10,6 +10,7 @@ import {
   Input,
   Container,
   Row,
+  CardText,
   Modal,
   Col,
   InputGroupAddon,
@@ -17,23 +18,21 @@ import {
   InputGroup,
 } from "reactstrap";
 import * as Yup from "yup";
+import axios from "axios";
 // core components
 import BoostAddHeader from "components/Headers/AdvertisementHandling&BoostingHeaders/BoostAddHeader";
 
 import { useFormik } from "formik";
 
-const BoostAdvertisement = () => {
+const BoostAdvertisement = (props) => {
   const initialValues = {
     enableReinitialize: true,
     validateOnMount: true,
-    service_Provider_Name: "",
-    service_Provider_ID: "",
-    contact_Number_SP: "",
-    email_SP: "",
-    advertisement_Duration: "",
-    advertisement_Des: "",
-    advertisement_Pic: "",
+    boosting_Pack:""
   };
+  console.log("Id is: ", props.match.params._id);
+
+  const [boostadd, setAdd] = useState(0);
 
   const [notificationModal, setmodalDemo] = useState(false);
 
@@ -43,19 +42,43 @@ const BoostAdvertisement = () => {
 
   //Yup validations
   const validationSchema = Yup.object({
-    service_Provider_Name: Yup.string().required("Required"),
-    contact_Number_SP: Yup.string().required("Required"),
-    email_SP: Yup.string().required("Required"),
-    service_Type: Yup.string().required("Required"),
-    advertisement_Duration: Yup.string().required("Required"),
-    advertisement_Des: Yup.string().required("Required"),
-    advertisement_Pic: Yup.string().required("Required"),
-    cardtype: Yup.string().required("Required"),
+    boosting_Pack: Yup.string().required("Required"),
+
   });
   const formik = useFormik({
     initialValues,
     validationSchema,
   });
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:8080/advertisement/get/${props.match.params._id}`)
+      .then((res) => {
+        console.log(res);
+        setAdd(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  const onSubmit = (values) => {
+    console.log("form data", values);
+    axios
+      .post("http://localhost:8080/advertisement/addadvertisement", values)
+      .then((res) => {
+        console.log(res);
+        console.log("Data", values);
+        // history.pushState({
+        //   pathname: ''
+        // })
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+
   return (
     <>
       <BoostAddHeader />
@@ -133,26 +156,12 @@ const BoostAdvertisement = () => {
               <CardBody>
                 <Form onSubmit={formik.handleSubmit}>
                   <Row>
-                  <Col md="8">
-                      <FormGroup  className = "text-right">
+                  <Col md="12" >
+                      <FormGroup className = "text-center" >
                         <label>Select Boosting Package </label>
-                       
-                      <Button
-                        className="ml-9 "
-                        color="primary"
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
-                        size="sm"
-                      >
-                        Boosting Package Informations
-                      </Button>
-                   
                         <Input
-                          onChange={formik.handleChange}
-                          onBlur={formik.handleBlur}
-                          value={formik.service_Type}
-                          id="service_Type"
-                          name="service_Type"
+                          id="boosting_Pack"
+                          name="boosting_Pack"
                           type="select"
                         >
                           <option>Choose...</option>
@@ -163,117 +172,59 @@ const BoostAdvertisement = () => {
                           <option>20 day - LKR. 2500</option>
                           <option>30 day - LKR. 3500</option>
                         </Input>
-                        {formik.touched.service_Type &&
-                        formik.errors.service_Type ? (
+                        {formik.touched.boosting_Pack &&
+                        formik.errors.boosting_Pack ? (
                           <div style={{ color: "red" }}>
-                            {formik.errors.service_Type}
+                            {formik.errors.boosting_Pack}
                           </div>
                         ) : null}
                       </FormGroup>
                     </Col>
                     </Row>
-                  <Row>
-                  <Col md="6">
-                      <FormGroup>
-                        <label>Service Provider Name  </label>
-                        <Input
-                         disabled
-                         onChange={formik.handleChange}
-                         onBlur={formik.handleBlur}
-                         value={formik.values.Customer_Name}
-                          id="Customer_Name "
-                          name="Customer_Name"
-                          // placeholder="Enter your Name"
-                           type="text"
-                        />
-                        {formik.touched.Customer_Name &&
-                        formik.errors.Customer_Name? (
-                          <div style={{ color: "red" }}>
-                            {formik.errors.Customer_Name}
-                          </div>
-                        ) : null}
-                      </FormGroup>
-                    </Col>
-                    <Col md="6">
-                      <FormGroup>
-                        <label>Service Provider Email </label>
-                        <Input
-                          disabled
-                          onChange={formik.handleChange}
-                          onBlur={formik.handleBlur}
-                          value={formik.email_SP}
-                          id="Email_E"
-                          name="email_E"
-                          // placeholder="Enter Your Email"
-                          type="text"
-                        />
-                        {formik.touched.email_E &&
-                         formik.errors.email_E ? (
-                          <div style={{ color: "red" }}>
-                            {formik.errors.email_E}
-                          </div>
-                        ) : null}
-                      </FormGroup>
-                    </Col>
-                    </Row>
+                    <CardBody>
+              <CardText className="h5" style={{ paddingTop: "0.5rem" }}>
+                <Row>
+                  <Col xs="4">Service Provider Name</Col>
+                  <Col xs="1">:</Col>
+                  <Col xs="6">{boostadd.service_Provider_Name}</Col>
+                </Row>
+              </CardText>
+ 
+              <CardText className="h5" style={{ paddingTop: "0.5rem" }}>
+                <Row>
+                  <Col xs="4">Service Provider Email</Col>
+                  <Col xs="1">:</Col>
+                  <Col xs="6">{boostadd.email_SP}</Col>
+                </Row>
+              </CardText>
+ 
+              <CardText className="h5" style={{ paddingTop: "0.5rem" }}>
+                <Row>
+                  <Col xs="4">Service Provider Contact Number</Col>
+                  <Col xs="1">:</Col>
+                  <Col xs="6">{boostadd.contact_Number_SP}</Col>
+                </Row>
+              </CardText>
+ 
+              <CardText className="h5" style={{ paddingTop: "0.5rem" }}>
+                <Row>
+                  <Col xs="4">Service Type</Col>
+                  <Col xs="1">:</Col>
+                  <Col xs="6">{boostadd.service_Type}</Col>
+                </Row>
+              </CardText>
+              <br></br>
+                  <br></br>
 
-                  <Row>
-                    
-                    <Col md="6">
-                      <FormGroup>
-                        <label>Contact Number  </label>
-                        <Input
-                          disabled
-                          onChange={formik.handleChange}
-                          onBlur={formik.handleBlur}
-                          value={formik.values.contact_Number_E}
-                          id="Contact_Number_E"
-                          name="contact_Number_E"
-                          // placeholder="Enter Your Contact Number"
-                          type="text"
-                        />
-                        {formik.touched.contact_Number_E &&
-                        formik.errors.contact_Number_E ? (
-                          <div style={{ color: "red" }}>
-                            {formik.errors.contact_Number_E}
-                          </div>
-                        ) : null}
-                      </FormGroup>
-                    </Col>
+                  <CardText className="h5" style={{ fontSize:"18px" , paddingTop: "0.5rem" }}>
+                <Row>
+                  <Col xs="4">Your Total</Col>
+                  <Col xs="1">:</Col>
+                  <Col xs="6">{boostadd.boosting_Pack}</Col>
+                </Row>
+              </CardText>    
 
-                    <Col md="6">
-                      <FormGroup>
-                        <label>Service Type </label>
-                        <Input
-                          disabled
-                          onChange={formik.handleChange}
-                          onBlur={formik.handleBlur}
-                          value={formik.service_Type}
-                          id="service_Type"
-                          name="service_Type"
-                          type="select"
-                        >
-                          <option>Choose...</option>
-                          <option>Photographer</option>
-                          <option>Decorater</option>
-                          <option>Dancers</option>
-                          <option>Catering</option>
-                          <option>Cake Designer</option>
-                          <option>Costume Designer</option>
-                          <option>Event Planner</option>
-                          <option>Sound Provider</option>
-                          <option>florist</option>
-                        </Input>
-                        {formik.touched.service_Type &&
-                        formik.errors.service_Type ? (
-                          <div style={{ color: "red" }}>
-                            {formik.errors.service_Type}
-                          </div>
-                        ) : null}
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                  
+</CardBody>
                   <br></br>
                   <br></br>
                   <br></br>
@@ -295,7 +246,7 @@ const BoostAdvertisement = () => {
                         onClick={(e) => e.preventDefault()}
                         size="lm"
                       >
-                        Request to Update Advertisement Details 
+                        Request to Update My Advertisement Details 
                       </Button>
                     </Col>
                   </Row>
