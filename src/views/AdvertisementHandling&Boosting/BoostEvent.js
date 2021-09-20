@@ -33,25 +33,22 @@ const BoostEvent = (props) => {
 
 
 
-  // const onSubmit = (values) => {
-  //   console.log("form data", values);
-  //   axios
-  //     .put(
-  //       `http://localhost:8080/advertisement/boostadvertisement/${props.match.params._id}`, values)
-  //     .then((res) => {
-  //       console.log(res);
-  //       // history.push({
-  //       //   pathname: `/admin`,
-  //       // });
-  //       // history.pushState({
-  //       //   pathname: ''
-  //       // })
-  //     })
-  //     .catch((error) => {
-  //       console(error);
-  //     });
-  // };
-
+  const onSubmit = (values) => {
+    console.log("Form Date", values);
+    //  values.date_of_the_event = event_date; //watch
+    axios
+      .put(`http://localhost:8080/eventAdd/boostevent/${props.match.params._id}`, values)
+      .then((res) => {
+        console.log(res);
+        console.log("Data", values);
+        // history.push({
+        //   pathname: `/admin/my-event`,
+        // });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   useEffect(() => {
     axios
       .get(`http://localhost:8080/eventAdd/getOneEvent/${props.match.params._id}`)
@@ -84,7 +81,7 @@ const BoostEvent = (props) => {
   });
   const formik = useFormik({
     initialValues,
-    // onSubmit,
+    onSubmit,
     validationSchema,
   });
   return (
@@ -190,6 +187,31 @@ const BoostEvent = (props) => {
                       </FormGroup>
                     </Col>
                     </Row>
+                   
+                  <Row>
+                  <Col md="12">
+                  <FormGroup>
+                      <label>Boosting Purpose </label>
+                      <Input
+                        mb="3"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={formik.boosting_Purpose}
+                        id="boosting_Purpose"
+                        name="boosting_Purpose"
+                        placeholder="Enter your Boosting Purpose here ...................."
+                        rows="2"
+                        type="textarea"
+                      />
+                      {formik.touched.boosting_Purpose &&
+                      formik.errors.boosting_Purpose ? (
+                        <div style={{ color: "red" }}>
+                          {formik.errors.boosting_Purpose}
+                        </div>
+                      ) : null}
+                      </FormGroup>
+                    </Col>
+                  </Row>
                     <CardBody>
               <CardText className="h5" style={{ paddingTop: "0.5rem" }}>
                 <Row>
@@ -241,7 +263,7 @@ const BoostEvent = (props) => {
                     <Col className="text-right mr-4" xs="4">
                       <Button
                         color="primary"
-                        // onClick={() => {onSubmit(formik.values)}}
+                        onClick={() => {onSubmit(formik.values)}}
                         size="lm"
                       >
                         Boost My Event
