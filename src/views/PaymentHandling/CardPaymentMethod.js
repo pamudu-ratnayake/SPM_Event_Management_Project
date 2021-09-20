@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import * as Yup from "yup";
+import axios from "axios";
 // reactstrap components
 import {
   Button,
@@ -7,15 +9,20 @@ import {
   CardBody,
   FormGroup,
   Form,
+  CardText,
   Input,
+  CardTitle,
   InputGroupAddon,
   InputGroupText,
   InputGroup,
   Row,
+  Modal,
+  CardImg,
   Col,
 } from "reactstrap";
 
 import ReactDatetime from "react-datetime";
+import { useFormik } from "formik";
 
 const CardPaymentMethod = () => {
   const [defaultModal, setmodalDemo] = useState(false);
@@ -23,6 +30,47 @@ const CardPaymentMethod = () => {
   function toggleModal() {
     setmodalDemo(!defaultModal);
   }
+  const initialValues = {
+    enableReinitialize: true,
+    validateOnMount: true,
+    card_name:"",
+    card_number:"",
+    date_of_the_expire:"",
+    ccv:"",
+  };
+
+  const onSubmit = (values) => {
+    console.log("Form Date", values);
+    //  values.date_of_the_event = event_date; //watch
+    axios
+      .post("http://localhost:8080/eventAdd/addevent", values)
+      .then((res) => {
+        console.log(res);
+        console.log("Data", values);
+        // history.push({
+        //   pathname: `/admin/my-event`,
+        // });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+	const validationSchema = Yup.object({
+		card_name: Yup.string().required("*Required!"),
+		card_number: Yup.string().required("*Required!"),
+		date_of_the_expire: Yup.string().required("*Required!"),
+		ccv: Yup.string().required("*Required!"),
+		
+	});
+
+  const formik = useFormik({
+		initialValues,
+		onSubmit,
+		validationSchema,
+	});
+
+
 
   return (
     <>
@@ -37,7 +85,7 @@ const CardPaymentMethod = () => {
             </Row>
           </CardHeader>
           <CardBody>
-            <Form>
+            <Form onSubmit={formik.handleSubmit}>
               <Row>
                 <Col md="12">
                   <FormGroup>
@@ -173,6 +221,9 @@ const CardPaymentMethod = () => {
                   <FormGroup>
                     <label>Name On Card</label>
                     <Input
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.card_name}
                       id="card_name"
                       name="card_name"
                       placeholder="Enter your name"
@@ -186,6 +237,9 @@ const CardPaymentMethod = () => {
                   <FormGroup>
                     <label>Card Number</label>
                     <Input
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.card_number}
                       id="card_number"
                       name="card_number"
                       placeholder="Enter your card number"
@@ -195,31 +249,43 @@ const CardPaymentMethod = () => {
                 </Col>
               </Row>
               <Row>
-                <Col md="6">
-                  <FormGroup>
-                    <label>Expiray Date </label>
-                    <InputGroup
-                      className="input-group-alternative"
-                      name="card_EXdate"
-                    >
-                      <InputGroupAddon addonType="prepend">
-                        <InputGroupText>
-                          <i className="ni ni-calendar-grid-58" />
-                        </InputGroupText>
-                      </InputGroupAddon>
-                      <ReactDatetime
-                        inputProps={{
-                          placeholder: "Date Picker Here",
-                        }}
-                        timeFormat={false}
-                      />
-                    </InputGroup>
-                  </FormGroup>
-                </Col>
+              <Col md="6">
+                      <FormGroup>
+                        <label>Expire Date</label>
+                        <InputGroup className="input-group-alternative">
+                          <InputGroupAddon addonType="prepend">
+                            <InputGroupText>
+                              <i className="ni ni-calendar-grid-58" />
+                            </InputGroupText>
+                            {formik.touched.date_of_the_expire && formik.errors.date_of_the_expire ? <div style={{ color: "red" }}>{formik.errors.date_of_the_expire}</div> : null}
+                          </InputGroupAddon>
+                          <ReactDatetime
+                            inputProps={{
+                              placeholder: "MM/DD/YY",
+                            }}
+                            dateFormat="DD/MM/YYYY"
+                            timeFormat={false}
+                            onChange={(value) =>
+                              formik.handleChange({
+                                target: {
+                                  name: "date_of_the_expire",
+                                  value,
+                                },
+                              })
+                            }
+                            onBlur={formik.handleBlur}
+                            value={formik.values.date_of_the_expire}
+                          />
+                        </InputGroup>
+                      </FormGroup>
+                    </Col>
                 <Col md="6">
                   <FormGroup>
                     <label>CCV</label>
                     <Input
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.ccv}
                       id="ccv"
                       name="ccv"
                       placeholder="Enter your ccv"
@@ -240,6 +306,65 @@ const CardPaymentMethod = () => {
                     View Payment details
                   </Button>
                 </Col>
+                <Modal
+                      className="modal-dialog-centered"
+                      isOpen={defaultModal}
+                      toggle={() => toggleModal("defaultModal")}
+                    >
+                      <div className="modal-header">
+                        <h6 className="modal-title" id="modal-title-default">
+                          Advertisement Preview
+                        </h6>
+                        <button
+                          aria-label="Close"
+                          className="close"
+                          data-dismiss="modal"
+                          type="button"
+                          onClick={() => toggleModal("defaultModal")}
+                        >
+                          <span aria-hidden={true}>×</span>
+                        </button>
+                      </div>
+                      <div className="modal-body">
+                        <Card
+                          className="bg-secondary shadow"
+                          style={{ width: "28rem" }}
+                        >
+                          <Card style={{ width: "28rem" }}>
+                            <CardImg
+                              alt="..."
+                              src={require("assets/img/theme/ui.jpg").default}
+                              top
+                            />
+                            <CardBody>
+                              <CardTitle>{formik.values.advertisement_title}</CardTitle>
+                              <CardText>
+                              {formik.values.advertisement_Des}
+                              </CardText>
+                            </CardBody>
+                          </Card>
+                        </Card>
+                      </div>
+                      <div className="modal-footer">
+                        <Button
+                          color="primary"
+                          type="submit"
+                          onClick={() => {onSubmit(formik.values)}}
+                        >
+                          Confirm Your Request
+                        </Button>
+                        <Button
+                          className="ml-auto"
+                          color="link"
+                          data-dismiss="modal"
+                          type="button"
+                          onClick={() => toggleModal("defaultModal")}
+                        >
+                          Close
+                        </Button>
+                      </div>
+                    </Modal>
+
                 <Col>
                   <Button
                     className="mr-8 ml-2"
@@ -255,26 +380,7 @@ const CardPaymentMethod = () => {
             </Form>
           </CardBody>
         </Card>
-        <Row className="mt-3">
-          <Col xs="6">
-            <a
-              className="text-light"
-              href="#pablo"
-              onClick={(e) => e.preventDefault()}
-            >
-              <small>Forgot password?</small>
-            </a>
-          </Col>
-          <Col className="text-right" xs="6">
-            <a
-              className="text-light"
-              href="#pablo"
-              onClick={(e) => e.preventDefault()}
-            >
-              <small>Create new account</small>
-            </a>
-          </Col>
-        </Row>
+       
       </Col>
     </>
   );
