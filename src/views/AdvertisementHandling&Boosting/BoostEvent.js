@@ -277,7 +277,7 @@ const BoostEvent = (props) => {
                         color="primary"
                         size="lm"
                       >
-                         Update My Event  
+                         Cancle 
                       </Button>
                       {/* </Link> */}
                     </Col>

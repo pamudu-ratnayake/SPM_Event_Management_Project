@@ -252,7 +252,7 @@ const BoostAdvertisement = (props) => {
                         color="primary"
                         size="lm"
                       >
-                        Request to Update My Advertisement  
+                        Cancle  
                       </Button>
                     </Col>
                   </Row>
