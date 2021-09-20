@@ -268,7 +268,7 @@ const ViewAdvertisement = (props) => {
                       color="primary"
                      
                     >
-                      Request to Update the Details
+                      Request to Update My Advertisement
                     </Button>
                     </Link>
                   </Col>

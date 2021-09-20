@@ -254,7 +254,7 @@ const BoostAdvertisement = (props) => {
                         onClick={(e) => e.preventDefault()}
                         size="lm"
                       >
-                        Request to Update My Advertisement Details 
+                        Request to Update My Advertisement  
                       </Button>
                     </Col>
                   </Row>

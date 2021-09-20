@@ -6,6 +6,7 @@ import {
   CardHeader,
   CardBody,
   FormGroup,
+  CardText,
   Form,
   Input,
   Container,
@@ -17,14 +18,50 @@ import {
   InputGroup,
 } from "reactstrap";
 import * as Yup from "yup";
-import ReactDatetime from "react-datetime";
+import axios from "axios";
+
 // core components
 import BoostHeader from "components/Headers/AdvertisementHandling&BoostingHeaders/BoostHeader";
 
 import { useFormik } from "formik";
 
 const BoostEvent = (props) => {
-  console.log("Id is: ", props.match.params._id);
+  console.log("ID is : ", props.match.params._id);
+
+  const [event, setEvent] = useState(0);
+
+
+
+  // const onSubmit = (values) => {
+  //   console.log("form data", values);
+  //   axios
+  //     .put(
+  //       `http://localhost:8080/advertisement/boostadvertisement/${props.match.params._id}`, values)
+  //     .then((res) => {
+  //       console.log(res);
+  //       // history.push({
+  //       //   pathname: `/admin`,
+  //       // });
+  //       // history.pushState({
+  //       //   pathname: ''
+  //       // })
+  //     })
+  //     .catch((error) => {
+  //       console(error);
+  //     });
+  // };
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:8080/eventAdd/getOneEvent/${props.match.params._id}`)
+      .then((res) => {
+        console.log(res);
+        setEvent(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   const initialValues = {
     enableReinitialize: true,
@@ -46,6 +83,7 @@ const BoostEvent = (props) => {
   });
   const formik = useFormik({
     initialValues,
+    // onSubmit,
     validationSchema,
   });
   return (
@@ -122,7 +160,7 @@ const BoostEvent = (props) => {
               </CardHeader>
               <CardBody>
                 <Form onSubmit={formik.handleSubmit}>
-                <Row>
+                  <Row>
                   <Col md="12" >
                       <FormGroup className = "text-center" >
                         <label>Select Boosting Package </label>
@@ -151,161 +189,71 @@ const BoostEvent = (props) => {
                       </FormGroup>
                     </Col>
                     </Row>
-                
-                  <Row>
-                    <Col md="6">
-                      <FormGroup>
-                        <label>Organizer Email </label>
-                        <Input
-                          onChange={formik.handleChange}
-                          onBlur={formik.handleBlur}
-                          value={formik.email_SP}
-                          id="Email_E"
-                          name="email_E"
-                          placeholder="Enter Your Email"
-                          type="text"
-                        />
-                        {formik.touched.email_E &&
-                         formik.errors.email_E ? (
-                          <div style={{ color: "red" }}>
-                            {formik.errors.email_E}
-                          </div>
-                        ) : null}
-                      </FormGroup>
-                    </Col>
-                    <Col md="6">
-                      <FormGroup>
-                        <label>Contact Number  </label>
-                        <Input
-                          onChange={formik.handleChange}
-                          onBlur={formik.handleBlur}
-                          value={formik.values.contact_Number_E}
-                          id="Contact_Number_E"
-                          name="contact_Number_E"
-                          placeholder="Enter Your Contact Number"
-                          type="text"
-                        />
-                        {formik.touched.contact_Number_E &&
-                        formik.errors.contact_Number_E ? (
-                          <div style={{ color: "red" }}>
-                            {formik.errors.contact_Number_E}
-                          </div>
-                        ) : null}
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                  
-                  <Row>
-                    <Col md="12">
-                      <label>Boosting Purpose </label>
-                      <Input
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        value={formik.advertisement_Des}
-                        id="Boost_Purpose"
-                        name="Boost_Purpose"
-                        placeholder="Enter your Boost Description here ...................."
-                        rows="6"
-                        type="textarea"
-                      />
-                    </Col>
-                  </Row>
+                    <CardBody>
+              <CardText className="h5" style={{ paddingTop: "0.5rem" }}>
+                <Row>
+                  <Col xs="4">Service Provider Name</Col>
+                  <Col xs="1">:</Col>
+                  <Col xs="6">{event.service_Provider_Name}</Col>
+                </Row>
+              </CardText>
+ 
+              <CardText className="h5" style={{ paddingTop: "0.5rem" }}>
+                <Row>
+                  <Col xs="4">Service Provider Email</Col>
+                  <Col xs="1">:</Col>
+                  <Col xs="6">{event.email_SP}</Col>
+                </Row>
+              </CardText>
+ 
+              <CardText className="h5" style={{ paddingTop: "0.5rem" }}>
+                <Row>
+                  <Col xs="4">Service Provider Contact Number</Col>
+                  <Col xs="1">:</Col>
+                  <Col xs="6">{event.contact_Number_SP}</Col>
+                </Row>
+              </CardText>
+ 
+              <CardText className="h5" style={{ paddingTop: "0.5rem" }}>
+                <Row>
+                  <Col xs="4">Service Type</Col>
+                  <Col xs="1">:</Col>
+                  <Col xs="6">{event.service_Type}</Col>
+                </Row>
+              </CardText>
+              <br></br>
                   <br></br>
-                  
+
+                  {/* <CardText className="h5" style={{ fontSize:"18px" , paddingTop: "0.5rem" }}>
+                <Row>
+                  <Col xs="4">Your Total</Col>
+                  <Col xs="1">:</Col>
+                  <Col xs="6">{addsData.boosting_Pack}</Col>
+                </Row>
+              </CardText>     */}
+
+</CardBody>
+                  <br></br>
+                  <br></br>
+                  <br></br>
                   <Row>
-                  <Col md="6">
-                      <FormGroup>
-                        <label>Date of The Event</label>
-                        <InputGroup className="input-group-alternative">
-                          <InputGroupAddon addonType="prepend">
-                            <InputGroupText>
-                              <i className="ni ni-calendar-grid-58" />
-                            </InputGroupText>
-                            {formik.touched.date_of_the_event && formik.errors.date_of_the_event ? <div style={{ color: "red" }}>{formik.errors.date_of_the_event}</div> : null}
-                          </InputGroupAddon>
-                          <ReactDatetime
-                            inputProps={{
-                              placeholder: "MM/DD/YY",
-                            }}
-                            dateFormat="DD/MM/YYYY"
-                            timeFormat={false}
-                            onChange={(value) =>
-                              formik.handleChange({
-                                target: {
-                                  name: "date_of_the_event",
-                                  value,
-                                },
-                              })
-                            }
-                            onBlur={formik.handleBlur}
-                            value={formik.values.date_of_the_event}
-                          />
-                        </InputGroup>
-                      </FormGroup>
-                    </Col>
-                   
-                    <Col md="6">
-                      <FormGroup>
-                        <label>Choose Boosting Package </label>
-                       
+                    <Col className="text-right mr-4" xs="4">
                       <Button
-                        className="ml-4"
                         color="primary"
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
-                        size="sm"
+                        // onClick={() => {onSubmit(formik.values)}}
+                        size="lm"
                       >
-                        Boosting Package Informations
+                        Boost My Advertisement
                       </Button>
-                   
-                        <Input
-                          onChange={formik.handleChange}
-                          onBlur={formik.handleBlur}
-                          value={formik.service_Type}
-                          id="service_Type"
-                          name="service_Type"
-                          type="select"
-                        >
-                          <option>Choose...</option>
-                          <option>1 day</option>
-                          <option>3 day</option>
-                          <option>5 day</option>
-                          <option>10 day</option>
-                          <option>20 day</option>
-                          <option>30 day</option>
-                        </Input>
-                        {formik.touched.service_Type &&
-                        formik.errors.service_Type ? (
-                          <div style={{ color: "red" }}>
-                            {formik.errors.service_Type}
-                          </div>
-                        ) : null}
-                      </FormGroup>
                     </Col>
-                    
-                    
-                  </Row>
-                  <br></br>
-                  <br></br>
-                  <Row>
-                    <Col className="text-right" xs="4">
+                    <Col className="col text-right ml-6" xs="6">
                       <Button
                         color="primary"
                         href="#pablo"
                         onClick={(e) => e.preventDefault()}
                         size="lm"
                       >
-                        Boost My Event
-                      </Button>
-                    </Col>
-                    <Col className="text-right" xs="4">
-                      <Button
-                        color="primary"
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
-                        size="lm"
-                      >
-                        Cancle
+                        Request to Update My Advertisement  
                       </Button>
                     </Col>
                   </Row>

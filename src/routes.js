@@ -181,7 +181,7 @@ var routes = [
     layout: "/admin",
   },
   {
-    path: "/boostEvent",
+    path: "/boostEvent/:_id",
     name: "Boost Event",
     icon: "ni ni-credit-card text-blue",
     component: BoostEvent,
