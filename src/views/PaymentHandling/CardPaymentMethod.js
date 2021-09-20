@@ -58,7 +58,9 @@ const CardPaymentMethod = () => {
 
 	const validationSchema = Yup.object({
 		card_name: Yup.string().required("*Required!"),
-		card_number: Yup.string().required("*Required!"),
+    card_number: Yup.string().matches(
+      "Credit Card Number is not Valid !"
+    ).min(16, "Too short").max(16,"Too Long"),
 		date_of_the_expire: Yup.string().required("*Required!"),
 		ccv: Yup.string().required("*Required!"),
 		

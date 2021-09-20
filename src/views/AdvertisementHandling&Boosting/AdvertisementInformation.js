@@ -131,7 +131,7 @@ const AdvertisementInformation = (props) => {
   };
   const formik = useFormik({
     initialValues,
-   // onSubmit,
+    onSubmit,
     validationSchema,
   });
 
