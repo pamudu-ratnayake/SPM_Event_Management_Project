@@ -313,7 +313,7 @@ const CardPaymentMethod = () => {
                     >
                       <div className="modal-header">
                         <h6 className="modal-title" id="modal-title-default">
-                          Advertisement Preview
+                         Payment Information
                         </h6>
                         <button
                           aria-label="Close"
@@ -331,17 +331,51 @@ const CardPaymentMethod = () => {
                           style={{ width: "28rem" }}
                         >
                           <Card style={{ width: "28rem" }}>
-                            <CardImg
-                              alt="..."
-                              src={require("assets/img/theme/ui.jpg").default}
-                              top
-                            />
+                          
                             <CardBody>
-                              <CardTitle>{formik.values.advertisement_title}</CardTitle>
-                              <CardText>
-                              {formik.values.advertisement_Des}
-                              </CardText>
-                            </CardBody>
+              <CardText className="h5" style={{ paddingTop: "0.5rem" }}>
+                <Row>
+                  <Col xs="4">Name On Card</Col>
+                  <Col xs="1">:</Col>
+                  <Col xs="6">{formik.values.card_name}</Col>
+                </Row>
+              </CardText>
+ 
+              <CardText className="h5" style={{ paddingTop: "0.5rem" }}>
+                <Row>
+                  <Col xs="4">Card Number</Col>
+                  <Col xs="1">:</Col>
+                  <Col xs="6">{formik.values.card_number}</Col>
+                </Row>
+              </CardText>
+ 
+              <CardText className="h5" style={{ paddingTop: "0.5rem" }}>
+                <Row>
+                  <Col xs="4">Expire Date</Col>
+                  <Col xs="1">:</Col>
+                  <Col xs="6">{formik.values.date_of_the_expire}</Col>
+                </Row>
+              </CardText>
+ 
+              <CardText className="h5" style={{ paddingTop: "0.5rem" }}>
+                <Row>
+                  <Col xs="4">CCV</Col>
+                  <Col xs="1">:</Col>
+                  <Col xs="6">{formik.values.ccv}</Col>
+                </Row>
+              </CardText>
+              <br></br>
+                  <br></br>
+                  <CardText className="h5" style={{ paddingTop: "0.5rem" }}>
+                <Row>
+                  <Col xs="4">Total Payment</Col>
+                  <Col xs="1">:</Col>
+                  <Col xs="6"></Col>
+                </Row>
+              </CardText>
+               
+
+</CardBody>
                           </Card>
                         </Card>
                       </div>

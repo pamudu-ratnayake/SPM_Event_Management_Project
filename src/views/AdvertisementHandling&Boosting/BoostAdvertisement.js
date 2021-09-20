@@ -224,14 +224,14 @@ const BoostAdvertisement = (props) => {
               </CardText>
               <br></br>
                   <br></br>
-
-                  {/* <CardText className="h5" style={{ fontSize:"18px" , paddingTop: "0.5rem" }}>
+                  <CardText className="h5" style={{ paddingTop: "0.5rem" }}>
                 <Row>
-                  <Col xs="4">Your Total</Col>
+                  <Col xs="4">Total Payment</Col>
                   <Col xs="1">:</Col>
-                  <Col xs="6">{addsData.boosting_Pack}</Col>
+                  <Col xs="6"></Col>
                 </Row>
-              </CardText>     */}
+              </CardText>
+               
 
 </CardBody>
                   <br></br>
