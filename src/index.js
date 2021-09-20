@@ -9,6 +9,7 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import "assets/scss/argon-dashboard-react.scss";
 import AdminLayout from "layouts/Admin.js";
 import AuthLayout from "layouts/Auth.js";
+import AuthPayment from "layouts/AuthPayment";
 import AuthServiceProvider from "layouts/AuthServiceProvider.js";
 
 ReactDOM.render(
@@ -16,6 +17,7 @@ ReactDOM.render(
 		<Switch>
 			<Route path="/admin" render={(props) => <AdminLayout {...props} />} />
 			<Route path="/auth" render={(props) => <AuthLayout {...props} />} />
+			<Route path="/authPayment" render={(props) => <AuthPayment {...props} />} />
 			<Route
 				path="/authServiceProvider"
 				render={(props) => <AuthServiceProvider {...props} />}

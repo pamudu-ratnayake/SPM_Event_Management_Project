@@ -9,7 +9,7 @@ import AuthFooter from "components/Footers/AuthFooter.js";
 
 import routes from "routes.js";
 
-const Auth = (props) => {
+const AuthPayment = (props) => {
 	const mainContent = React.useRef(null);
 	const location = useLocation();
 
@@ -45,7 +45,7 @@ const Auth = (props) => {
 		<>
 			<div className="main-content" ref={mainContent}>
 				<AuthNavbar />
-				{/* <div className="header bg-gradient-info py-7 py-lg-8">
+				<div className="header bg-gradient-info py-7 py-lg-8">
 					<Container>
 						<div className="header-body text-center mb-7">
 							<Row className="justify-content-center">
@@ -70,7 +70,7 @@ const Auth = (props) => {
 							/>
 						</svg>
 					</div>
-				</div> */}
+				</div>
 				{/* Page content */}
 				<Container className="mt--8 pb-5">
 					<Row className="justify-content-center">
@@ -86,4 +86,4 @@ const Auth = (props) => {
 	);
 };
 
-export default Auth;
+export default AuthPayment;

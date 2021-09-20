@@ -261,6 +261,7 @@ const BoostEvent = (props) => {
                   <br></br>
                   <Row>
                     <Col className="text-right mr-4" xs="4">
+                      <Link to = {`/authPayment/payment-method/`}>
                       <Button
                         color="primary"
                         onClick={() => {onSubmit(formik.values)}}
@@ -268,6 +269,7 @@ const BoostEvent = (props) => {
                       >
                         Boost My Event
                       </Button>
+                      </Link>
                     </Col>
                     <Col className="col text-right ml-6" xs="6">
                     {/* <Link to={`/admin/event-update/${posts._id}`}> */}

@@ -22,10 +22,6 @@ import BoostAdvertisement from "views/AdvertisementHandling&Boosting/BoostAdvert
 import UpdateAdvertisementInformation from "views/AdvertisementHandling&Boosting/UpdateAdvertisementInformation";
 import AdvertisementDetails from "views/AdvertisementHandling&Boosting/AdvertisementDetails";
 import ViewAdvertisement from "views/AdvertisementHandling&Boosting/ViewAdvertisement";
-import UpdateBoostEvent from "views/AdvertisementHandling&Boosting/UpdateBoostEvent";
-import UpdateBoostAdvertisement from "views/AdvertisementHandling&Boosting/UpdateBoostAdvertisement";
-import BoostAdvertisementList from "views/AdvertisementHandling&Boosting/BoostAdvertisementList";
-import BoostEventList from "views/AdvertisementHandling&Boosting/BoostEventList";
 import PaidList from "views/PaymentHandling/PaidList";
 import ReportGeneration from "views/PaymentHandling/ReportGeneration";
 
