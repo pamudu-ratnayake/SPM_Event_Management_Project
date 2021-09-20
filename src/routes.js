@@ -27,6 +27,7 @@ import Sponsorship_Request from "views/examples/Sponsorship_Request";
 import Add_Sponsor from "views/examples/Add_Sponsor";
 import Update_Sponsor from "views/examples/Update_Sponsor";
 import SponsorList from "views/examples/SponsorList";
+import Requested_Sponsors from "views/examples/Requested_Sponsors";
 import Sponsorship_Documentation from "views/examples/Sponsorship_Documentation";
 import My_Issue from "views/examples/My_Issue";
 import Event_Support from "views/examples/Event_Support";
@@ -263,6 +264,13 @@ var routes = [
     name: "* Event Consulting",
     icon: "ni ni-support-16 text-red",
     component: Event_Support,
+    layout: "/admin",
+  },
+  {
+    path: "/Requested_Sponsors",
+    name: "* Requested Sponsors",
+    icon: "ni ni-support-16 text-red",
+    component: Requested_Sponsors,
     layout: "/admin",
   },
   {

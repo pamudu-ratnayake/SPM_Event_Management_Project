@@ -107,14 +107,22 @@ const Add_Sponsor = () => {
   ));
   const onSubmit = (values) => {
     console.log("form data", values);
+    console.log('files', acceptedFiles);
 
-    // values.id = ID;
+    let formdata = new FormData();
+    formdata.append("regNo", values.regNo);
+    formdata.append("companyName", values.companyName);
+    formdata.append("sponsorType", values.sponsorType);
+    formdata.append("SponsorPhoneNo", values.SponsorPhoneNo);
+    formdata.append("sponsorEmail", values.sponsorEmail);
+    formdata.append("sponsorAddress", values.sponsorAddress);
+    formdata.append("file", acceptedFiles[0]);
 
     axios
-      .post("http://localhost:8080/sponsor/addSponsors", values)
+      .post("http://localhost:8080/sponsor/addSponsors", formdata)
       .then((res) => {
         console.log(res);
-        console.log("Data", values);
+        console.log("Data", formdata);
 
         // history.push({
         //   pathname:`/admin/SponsorList`
