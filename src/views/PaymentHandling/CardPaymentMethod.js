@@ -49,9 +49,9 @@ const CardPaymentMethod = () => {
 
               <Row>
                 <Col>
-                  <div className="mb-6 ml-6 ">
+                  <div className="mb-6 ml-6 mt-3 ">
                     <FormGroup>
-                      <div style={{ width: "2rem" }}>
+                      <div style={{ width: "1rem" }}>
                         <Card className="card-stats mb-4 mb-lg-0">
                           <CardBody>
                             <Row>
@@ -62,6 +62,7 @@ const CardPaymentMethod = () => {
                                     onClick={(e) => e.preventDefault()}
                                   >
                                     <img
+                                      style={{width:250}, {height:120}}
                                       alt="..."
                                       src={
                                         require("../../assets/img/theme/master.png")
@@ -79,7 +80,7 @@ const CardPaymentMethod = () => {
                   </div>
                 </Col>
                 <Col>
-                  <div className="mb-6 ml-6">
+                  <div className="mb-6 ml-6  mt-3">
                     <div style={{ width: "2rem" }}>
                       <Card className="card-stats mb-4 mb-lg-0">
                         <CardBody>
@@ -91,6 +92,7 @@ const CardPaymentMethod = () => {
                                   onClick={(e) => e.preventDefault()}
                                 >
                                   <img
+                                    style={{width:250}, {height:120}}
                                     alt="..."
                                     src={
                                       require("../../assets/img/theme/visa.png")
@@ -106,19 +108,20 @@ const CardPaymentMethod = () => {
                     </div>
                   </div>
                 </Col>
-                <div className="mb-6 ml-6">
-                  <Col>
-                    <div style={{ width: "2rem" }}>
+                <Col>
+                  <div className="mb-6 ml-6  mt-3">
+                    <div style={{ width: "0.5rem" }}>
                       <Card className="card-stats mb-4 mb-lg-0">
                         <CardBody>
                           <Row>
                             <Col className="col-auto">
-                              <div className="card-profile-image" size="2rem">
+                              <div className="card-profile-image">
                                 <a
-                                  href="#pablo"
+                                  
                                   onClick={(e) => e.preventDefault()}
                                 >
                                   <img
+                                    style={{width:250}, {height:120}}
                                     alt="..."
                                     src={
                                       require("../../assets/img/theme/amaricanExpress.png")
@@ -132,21 +135,22 @@ const CardPaymentMethod = () => {
                         </CardBody>
                       </Card>
                     </div>
-                  </Col>
-                </div>
-                <div className="mb-6 ml-6">
-                  <Col>
+                  </div>
+                </Col>
+                <Col>
+                  <div className="mb-6 ml-6  mt-3">
                     <div style={{ width: "2rem" }}>
                       <Card className="card-stats mb-4 mb-lg-0">
                         <CardBody>
                           <Row>
                             <Col className="col-auto">
-                              <div className="card-profile-image" size="2rem">
+                              <div className="card-profile-image">
                                 <a
                                   href="#pablo"
                                   onClick={(e) => e.preventDefault()}
                                 >
                                   <img
+                                    style={{width:250}, {height:120}}
                                     alt="..."
                                     src={
                                       require("../../assets/img/theme/DinerClub.png")
@@ -160,12 +164,12 @@ const CardPaymentMethod = () => {
                         </CardBody>
                       </Card>
                     </div>
-                  </Col>
-                </div>
+                  </div>
+                </Col>
               </Row>
 
-              <Row>
-                <Col md="12">
+              <Row className = "mt-5">
+                <Col md="12" >
                   <FormGroup>
                     <label>Name On Card</label>
                     <Input

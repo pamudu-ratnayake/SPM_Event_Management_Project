@@ -4,7 +4,7 @@ import { useLocation, Route, Switch, Redirect } from "react-router-dom";
 import { Container, Row, Col } from "reactstrap";
 
 // core components
-import AuthNavbar from "components/Navbars/AuthNavbar.js";
+import PaymentNavbar from "components/Navbars/PaymentNavbar";
 import AuthFooter from "components/Footers/AuthFooter.js";
 
 import routes from "routes.js";
@@ -44,13 +44,13 @@ const AuthPayment = (props) => {
 	return (
 		<>
 			<div className="main-content" ref={mainContent}>
-				<AuthNavbar />
+				<PaymentNavbar />
 				<div className="header bg-gradient-info py-7 py-lg-8">
 					<Container>
 						<div className="header-body text-center mb-7">
 							<Row className="justify-content-center">
 								<Col lg="5" md="6">
-									<h1 className="text-white">Welcome To The BLISS!</h1>
+									<h1 className="text-white">Make Your Payments!</h1>
 								</Col>
 							</Row>
 						</div>
@@ -81,7 +81,7 @@ const AuthPayment = (props) => {
 					</Row>
 				</Container>
 			</div>
-			<AuthFooter />
+			{/* <AuthFooter /> */}
 		</>
 	);
 };
