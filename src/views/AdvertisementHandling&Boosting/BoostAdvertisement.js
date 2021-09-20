@@ -250,8 +250,6 @@ const BoostAdvertisement = (props) => {
                     <Col className="col text-right ml-6" xs="6">
                       <Button
                         color="primary"
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
                         size="lm"
                       >
                         Request to Update My Advertisement  

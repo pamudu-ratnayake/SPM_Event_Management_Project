@@ -1,5 +1,6 @@
 // reactstrap components
 import React, { useState,useEffect} from "react";
+import { Link } from "react-router-dom";
 import {
   Button,
   Card,
@@ -167,7 +168,7 @@ const BoostEvent = (props) => {
                         <Input
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        value={formik.boosting_Pack}
+                        value={formik.boosting_event}
                           id="boosting_Pack"
                           name="boosting_Pack"
                           type="select"
@@ -180,10 +181,10 @@ const BoostEvent = (props) => {
                           <option>20 day</option>
                           <option>30 day</option>
                         </Input>
-                        {formik.touched.boosting_Pack &&
-                        formik.errors.boosting_Pack ? (
+                        {formik.touched.boosting_event &&
+                        formik.errors.boosting_event ? (
                           <div style={{ color: "red" }}>
-                            {formik.errors.boosting_Pack}
+                            {formik.errors.boosting_event}
                           </div>
                         ) : null}
                       </FormGroup>
@@ -192,33 +193,33 @@ const BoostEvent = (props) => {
                     <CardBody>
               <CardText className="h5" style={{ paddingTop: "0.5rem" }}>
                 <Row>
-                  <Col xs="4">Service Provider Name</Col>
+                  <Col xs="4">Event Name</Col>
                   <Col xs="1">:</Col>
-                  <Col xs="6">{event.service_Provider_Name}</Col>
+                  <Col xs="6">{event.event_name}</Col>
                 </Row>
               </CardText>
  
               <CardText className="h5" style={{ paddingTop: "0.5rem" }}>
                 <Row>
-                  <Col xs="4">Service Provider Email</Col>
+                  <Col xs="4">Date of The Event</Col>
                   <Col xs="1">:</Col>
-                  <Col xs="6">{event.email_SP}</Col>
+                  <Col xs="6">{event.date_of_the_event}</Col>
                 </Row>
               </CardText>
  
               <CardText className="h5" style={{ paddingTop: "0.5rem" }}>
                 <Row>
-                  <Col xs="4">Service Provider Contact Number</Col>
+                  <Col xs="4">Organizer's Email</Col>
                   <Col xs="1">:</Col>
-                  <Col xs="6">{event.contact_Number_SP}</Col>
+                  <Col xs="6">{event.cus_email}</Col>
                 </Row>
               </CardText>
  
               <CardText className="h5" style={{ paddingTop: "0.5rem" }}>
                 <Row>
-                  <Col xs="4">Service Type</Col>
+                  <Col xs="4">Organizer's NIC</Col>
                   <Col xs="1">:</Col>
-                  <Col xs="6">{event.service_Type}</Col>
+                  <Col xs="6">{event.org_nic}</Col>
                 </Row>
               </CardText>
               <br></br>
@@ -243,18 +244,18 @@ const BoostEvent = (props) => {
                         // onClick={() => {onSubmit(formik.values)}}
                         size="lm"
                       >
-                        Boost My Advertisement
+                        Boost My Event
                       </Button>
                     </Col>
                     <Col className="col text-right ml-6" xs="6">
+                    {/* <Link to={`/admin/event-update/${posts._id}`}> */}
                       <Button
                         color="primary"
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
                         size="lm"
                       >
-                        Request to Update My Advertisement  
+                         Update My Event  
                       </Button>
+                      {/* </Link> */}
                     </Col>
                   </Row>
                 </Form>
