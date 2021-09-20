@@ -351,7 +351,7 @@ const CardPaymentMethod = () => {
                           type="submit"
                           onClick={() => {onSubmit(formik.values)}}
                         >
-                          Confirm Your Request
+                          Confirm Payment
                         </Button>
                         <Button
                           className="ml-auto"
