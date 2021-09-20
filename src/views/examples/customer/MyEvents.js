@@ -1,5 +1,5 @@
 import ReactDatetime from "react-datetime";
-
+import API from "variables/tokenURL";
 // reactstrap components
 import { Button, Modal, Card, CardHeader, CardBody, FormGroup, Form, Input, Container, Row, Col, DropdownMenu, DropdownItem, UncontrolledDropdown, DropdownToggle, Table } from "reactstrap";
 // core components
@@ -11,11 +11,11 @@ import { Link } from "react-router-dom";
 const MyEvents = (props) => {
   const [posts, setPosts] = useState([]);
 
-    const user = JSON.parse(localStorage.getItem('profile'));
+  const user = JSON.parse(localStorage.getItem("profile"));
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:8080/eventAdd/getevents/${user?.result?._id}`)
+    
+    API.get(`/eventAdd/getevents`)
       .then((res) => {
         setPosts(res.data);
         console.log(res.data);
@@ -43,7 +43,7 @@ const MyEvents = (props) => {
         console.log(error);
       });
 
-      //refreshing
+    //refreshing
     window.location.reload(false);
   };
 

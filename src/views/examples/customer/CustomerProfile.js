@@ -1,5 +1,5 @@
 import { useFormik } from "formik";
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo, useEffect, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import axios from "axios";
 import FileBase from 'react-file-base64';
@@ -53,30 +53,6 @@ const CustomerProfile = (props) => {
     </li>
   ));
 
-  // const base64 = await convertBase64(files);
-
-  // const convertBase64 = (file) => {
-  //   return new Promise((resolve, reject) => {
-  //     const fileReader = new FileReader();
-  //     fileReader.readAsDataURL(file);
-
-  //     fileReader.onload = () => {
-  //       resolve(fileReader.result);
-  //     };
-
-  //     fileReader.onerror = (error) => {
-  //       reject(error);
-  //     };
-  //   });
-  // };
-
-
-  // const files = acceptedFiles.map((file) => (
-  //   <li key={file.name}>
-  //     <FileBase />
-  //     {file.name} - {file.size} bytes
-  //   </li>
-  // ));
 
   const user = JSON.parse(localStorage.getItem('profile'));
 
@@ -121,12 +97,24 @@ const CustomerProfile = (props) => {
       .catch((error) => {
         console.log(error);
       });
-      window.location.reload(false);
+      // window.location.reload(false);
   };
 
   const [customer, setCustomer] = useState(0);
 
-  //useEffect
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:8080/customerdetails/getOneCustomer/${user?.result?._id}`)
+      .then((res) => {
+        console.log(res);
+        setCustomer(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
   useEffect(() => {
     axios
       .get(`http://localhost:8080/customerdetails/getOneCustomer/${user?.result?._id}`)
@@ -144,6 +132,8 @@ const CustomerProfile = (props) => {
     initialValues,
     onSubmit,
   });
+
+
 
   const [defaultModal, setmodalDemo] = useState(false);
 
@@ -164,7 +154,7 @@ const CustomerProfile = (props) => {
                 <Col className="order-lg-2" lg="3">
                   <div className="card-profile-image">
                     <a href="#pablo" onClick={(e) => e.preventDefault()}>
-                      <img alt="..." className="rounded-circle" src={customer.prof_img || require("../../../assets/img/theme/team-4-800x800.jpg") } />
+                      <img alt="..." className="rounded-circle" src={require("../../../assets/img/theme/team-4-800x800.jpg") } />
                     </a>
                   </div>
                 </Col>
@@ -398,6 +388,7 @@ const CustomerProfile = (props) => {
 
                   <div {...getRootProps({ style })}>
                     <input {...getInputProps()} />
+                    {/* <FileBase><input {...getInputProps()} /></FileBase> */}
                     <p>Drag 'n' drop your image file here, or click to select files</p>
                   </div>
 
@@ -424,6 +415,8 @@ const CustomerProfile = (props) => {
                       />
                     </FormGroup>
                   </div>
+                  <img  className="rounded-circle" src={`uploads/${customer.prof_img}`} />
+                  {/* {customer.prof_img} */}
                   <div className="text-center">
                     <Button className="mt-4" color="primary" type="submit">
                       Add My Details
