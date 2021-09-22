@@ -56,9 +56,13 @@ const CardPaymentMethod = () => {
       });
   };
 
+  const RegExp =
+  /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+
 	const validationSchema = Yup.object({
 		card_name: Yup.string().required("*Required!"),
     card_number: Yup.string().matches(
+      RegExp,
       "Credit Card Number is not Valid !"
     ).min(16, "Too short").max(16,"Too Long"),
 		date_of_the_expire: Yup.string().required("*Required!"),

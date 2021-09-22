@@ -79,53 +79,54 @@ const BoostAdvertisement = (props) => {
         console.log(error);
       });
   }, []);
-
-  // const boosting_Package = ['1 day','3 day','5 day','10 day','20 day','30 day']
+var boosting_Package = ['1 day','3 day','5 day','10 day','20 day','30 day']
+const [newPackage, setnewPackage] = useState(null);
 
 function handleChange(event) {
      
-     console.log(event.target.value);
-    
-     let vary = "";
      
-     switch(event.target.value)
-     {
-       case ('1 day'):
-          vary = 'LKR. 500.00';
-          // return vary;
-         
-    
-        case ('2 day'):
-          vary = 'LKR. 750.00';
-          // return vary;
+
+     for (var i = 0; i < boosting_Package .length; i++){
+       
+      if(event.target.value == boosting_Package [i]);{
+
+        switch(event.target.value)
+       {
+         case '1 day':
+            setnewPackage('LKR. 500.00');
+
+            break;
+           
+          case '3 day':
+            setnewPackage('LKR. 750.00');
+           
+            break;
           
-         
-        case ('3 day'):
-          vary = 'LKR. 1000.00';
-          return vary;
-          
-
-        case ('10 day'):
-          vary = 'LKR. 1500.00';
-          // return vary;
-         
-
-        case ('20 day'):
-          vary = 'LKR. 3000.00';
-          // return vary;
-          
-
-        case ('30 day'):
-          vary = 'LKR. 5000.00';
-          // return vary;
-          
-
-        default:
-                break;
-                // return null;
-
-     }
-     return vary;
+          case '5 day':
+            setnewPackage('LKR. 1000.00');
+            
+            break;
+           
+          case '10 day':
+            setnewPackage('LKR. 1500.00');
+            break;
+            
+          case '20 day':
+            setnewPackage('LKR. 3000.00');
+            break;
+           
+          case '30 day':
+            setnewPackage('LKR. 5000.00');
+            break;
+           
+          default:
+            setnewPackage('LKR. 00.00');
+                  break;
+       }
+  
+      }
+      break;
+  }
 }
  const formik = useFormik({
     onSubmit,
@@ -274,7 +275,7 @@ function handleChange(event) {
                 <Row>
                   <Col xs="4">Total Payment</Col>
                   <Col xs="1">:</Col>
-                  <Col xs="6">{handleChange}</Col>
+                  <Col xs="6">{newPackage}</Col>
                 </Row>
               </CardText>
                
