@@ -214,7 +214,7 @@ function handleChange(event) {
                         <Input
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        onChange = {formik.handleChange}
+                        onChange = {handleChange}
                         value={formik.values.boosting_Pack}
                           id="boosting_Pack"
                           name="boosting_Pack"

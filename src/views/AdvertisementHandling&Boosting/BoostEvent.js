@@ -212,11 +212,11 @@ const BoostEvent = (props) => {
                         <label>Select Boosting Package </label>
                         <Input
                         onChange={formik.handleChange}
-                        onChange = {handleChange}
+                        onChange = {formik.handleChange}
                         onBlur={formik.handleBlur}
-                        value={formik.boosting_event}
-                          id="boosting_Pack"
-                          name="boosting_Pack"
+                        value={formik.values.boosting_event}
+                          id="boosting_event"
+                          name="boosting_event"
                           type="select"
                         >
                           <option>Choose...</option>
