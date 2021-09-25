@@ -238,6 +238,11 @@ function handleChange(event) {
                     </Col>
                     </Row>
                     <CardBody>
+
+                    <script type="text/javascript" src="https://www.payhere.lk/lib/payhere.js"></script>
+<button type="submit" id="payhere-payment" >PayHere Pay</button>
+
+
               <CardText className="h5" style={{ paddingTop: "0.5rem" }}>
                 <Row>
                   <Col xs="4">Service Provider Name</Col>
