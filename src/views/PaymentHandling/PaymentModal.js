@@ -1,5 +1,5 @@
 import React from 'react';
-import './payment_modal.css'
+// import './payment_modal.css'
 
 const PaymentModal = ({ orderId, name, amount }) => {
     

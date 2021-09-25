@@ -281,6 +281,14 @@ function handleChange(event) {
                   <Col xs="4">Total Payment</Col>
                   <Col xs="1">:</Col>
                   <Col xs="6">{newPackage}</Col>
+                  <Button
+                        color="primary"
+                        onClick={() => {onSubmit(formik.values)}}
+                        size="lm"
+                      >
+                        Boost My Advertisement
+                      </Button>
+
                 </Row>
               </CardText>
                

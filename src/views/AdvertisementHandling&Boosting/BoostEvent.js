@@ -212,7 +212,7 @@ const BoostEvent = (props) => {
                         <label>Select Boosting Package </label>
                         <Input
                         onChange={formik.handleChange}
-                        onChange = {formik.handleChange}
+                        onChange = {handleChange}
                         onBlur={formik.handleBlur}
                         value={formik.values.boosting_event}
                           id="boosting_event"
@@ -299,7 +299,17 @@ const BoostEvent = (props) => {
                 <Row>
                   <Col xs="4">Total Payment</Col>
                   <Col xs="1">:</Col>
-                  <Col xs="6">{newPackage}</Col>
+                  <Col xs="4">{newPackage}</Col>
+                  <Col xs="3">
+                  <Button
+                        color="primary"
+                        onClick={() => {onSubmit(formik.values)}}
+                        size="lm"
+                      >
+                        Pay Now
+                      </Button>
+                      </Col>
+
                 </Row>
               </CardText>
        </CardBody>

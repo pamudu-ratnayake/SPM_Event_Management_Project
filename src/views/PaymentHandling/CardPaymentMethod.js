@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import * as Yup from "yup";
+import PaymentModal from "./PaymentModal";
 import axios from "axios";
 // reactstrap components
 import {
@@ -100,6 +101,13 @@ const CardPaymentMethod = () => {
                   </FormGroup>
                 </Col>
               </Row>
+
+              <PaymentModal
+	// Use a unique value for the orderId
+	orderId={45896588}
+	name="Just For You Mom Ribbon Cake"
+	amount="4500"
+      />
 
               <Row>
                 <Col>
