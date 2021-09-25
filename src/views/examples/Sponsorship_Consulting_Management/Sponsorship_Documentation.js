@@ -21,7 +21,7 @@ import UserHeaderSpnDocumentation from "components/Headers/UserHeaderSpnDocument
 import { Formik, useFormik } from "formik";
 import * as Yup from "yup";
 import jsPDF from 'jspdf'
-import logo from '../../assets/img/logo/logo.png'
+import logo from '../../../assets/img/logo/logo.png'
 
 
 // const phoneRegExp =

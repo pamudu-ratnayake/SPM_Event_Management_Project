@@ -23,14 +23,15 @@ import UpdateAdvertisementInformation from "views/examples/UpdateAdvertisementIn
 import AdvertisementDetails from "views/examples/AdvertisementDetails";
 import ViewAdvertisement from "views/examples/ViewAdvertisement";
 
-import Sponsorship_Request from "views/examples/Sponsorship_Request";
-import Add_Sponsor from "views/examples/Add_Sponsor";
-import Update_Sponsor from "views/examples/Update_Sponsor";
-import SponsorList from "views/examples/SponsorList";
-import Requested_Sponsors from "views/examples/Requested_Sponsors";
-import Sponsorship_Documentation from "views/examples/Sponsorship_Documentation";
-import My_Issue from "views/examples/My_Issue";
-import Event_Support from "views/examples/Event_Support";
+import Sponsorship_Request from "views/examples/Sponsorship_Consulting_Management/Sponsorship_Request";
+import Add_Sponsor from "views/examples/Sponsorship_Consulting_Management/Add_Sponsor";
+import Update_Sponsor from "views/examples/Sponsorship_Consulting_Management/Update_Sponsor";
+import SponsorList from "views/examples/Sponsorship_Consulting_Management/SponsorList";
+import Requested_Sponsors from "views/examples/Sponsorship_Consulting_Management/Requested_Sponsors";
+import Sponsorship_Documentation from "views/examples/Sponsorship_Consulting_Management/Sponsorship_Documentation";
+import My_Issue from "views/examples/Sponsorship_Consulting_Management/My_Issue";
+import Event_Support from "views/examples/Sponsorship_Consulting_Management/Event_Support";
+import Send_Request from "views/examples/Sponsorship_Consulting_Management/Send_Request"
 
 var routes = [
   {
@@ -271,6 +272,13 @@ var routes = [
     name: "* Requested Sponsors",
     icon: "ni ni-support-16 text-red",
     component: Requested_Sponsors,
+    layout: "/admin",
+  },
+  {
+    path: "/Send_Request/:_id",
+    name: "* Send Request",
+    icon: "ni ni-support-16 text-red",
+    component: Send_Request,
     layout: "/admin",
   },
   {
