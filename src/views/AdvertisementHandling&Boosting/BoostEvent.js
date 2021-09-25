@@ -31,7 +31,55 @@ const BoostEvent = (props) => {
 
   const [event, setEvent] = useState(0);
 
+  var boosting_Package = ['1 day','3 day','5 day','10 day','20 day','30 day']
+  const [newPackage, setnewPackage] = useState(null);
 
+  function handleChange(event) {
+     
+     
+
+    for (var i = 0; i < boosting_Package .length; i++){
+      
+     if(event.target.value == boosting_Package [i]);{
+
+       switch(event.target.value)
+      {
+        case '1 day':
+           setnewPackage('LKR. 500.00');
+
+           break;
+          
+         case '3 day':
+           setnewPackage('LKR. 750.00');
+          
+           break;
+         
+         case '5 day':
+           setnewPackage('LKR. 1000.00');
+           
+           break;
+          
+         case '10 day':
+           setnewPackage('LKR. 1500.00');
+           break;
+           
+         case '20 day':
+           setnewPackage('LKR. 3000.00');
+           break;
+          
+         case '30 day':
+           setnewPackage('LKR. 5000.00');
+           break;
+          
+         default:
+           setnewPackage('LKR. 00.00');
+                 break;
+      }
+ 
+     }
+     break;
+ }
+}
 
   const onSubmit = (values) => {
     console.log("Form Date", values);
@@ -164,6 +212,7 @@ const BoostEvent = (props) => {
                         <label>Select Boosting Package </label>
                         <Input
                         onChange={formik.handleChange}
+                        onChange = {handleChange}
                         onBlur={formik.handleBlur}
                         value={formik.boosting_event}
                           id="boosting_Pack"
@@ -250,12 +299,10 @@ const BoostEvent = (props) => {
                 <Row>
                   <Col xs="4">Total Payment</Col>
                   <Col xs="1">:</Col>
-                  <Col xs="6"></Col>
+                  <Col xs="6">{newPackage}</Col>
                 </Row>
               </CardText>
-               
-
-</CardBody>
+       </CardBody>
                   <br></br>
                   <br></br>
                   <br></br>

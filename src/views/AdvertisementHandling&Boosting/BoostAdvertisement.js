@@ -214,13 +214,13 @@ function handleChange(event) {
                         <Input
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        onChange = {handleChange}
-                        value={formik.boosting_Pack}
+                        onChange = {formik.handleChange}
+                        value={formik.values.boosting_Pack}
                           id="boosting_Pack"
                           name="boosting_Pack"
                           type="select"
                         >
-                          <option>Choose...</option>
+                          <option>Select Boosting Package</option>
                           <option>1 day </option>
                           <option>3 day </option>
                           <option>5 day </option>
