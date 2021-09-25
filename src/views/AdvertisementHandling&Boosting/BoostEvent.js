@@ -1,6 +1,7 @@
 // reactstrap components
 import React, { useState,useEffect} from "react";
 import { Link } from "react-router-dom";
+import PaymentModal from "views/PaymentHandling/PaymentModal";
 import {
   Button,
   Card,
@@ -301,13 +302,12 @@ const BoostEvent = (props) => {
                   <Col xs="1">:</Col>
                   <Col xs="4">{newPackage}</Col>
                   <Col xs="3">
-                  <Button
-                        color="primary"
-                        onClick={() => {onSubmit(formik.values)}}
-                        size="lm"
-                      >
-                        Pay Now
-                      </Button>
+                  <PaymentModal
+	// Use a unique value for the orderId
+	orderId={45896588}
+	name="Just For You Mom Ribbon Cake"
+	amount="4500"
+      />
                       </Col>
 
                 </Row>
