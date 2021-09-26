@@ -46,7 +46,7 @@ const Event_Support = (props) => {
     //   description: issue.description,
     // },
     // answers: [issue.answers],
-    answers:[],
+    answers: issue.answers,
   };
 
   useEffect(() => {
@@ -69,8 +69,8 @@ const Event_Support = (props) => {
 
     axios
       .put(
-        `http://localhost:8080/consulting/updateIssue/${_id}`,
-        values
+        `http://localhost:8080/consulting/updateIssue/${_id}`, values
+         
       )
       .then((res) => {
         console.log(res.data);

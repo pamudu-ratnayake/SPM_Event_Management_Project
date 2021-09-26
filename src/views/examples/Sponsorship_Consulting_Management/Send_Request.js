@@ -15,6 +15,7 @@ import {
   InputGroupAddon,
   InputGroupText,
   InputGroup,
+  Alert,
 } from "reactstrap";
 // core components
 import UserHeaderAddSponsor from "components/Headers/UserHeaderAddSponsor.js";
@@ -59,6 +60,11 @@ const Send_Request = (props) => {
       )
       .then((res) => {
         console.log(res);
+        history.push({
+          pathname: "/admin/Sponsorship_Request",
+        });
+        // {<Alert>Email Sent</Alert>}
+        alert('Email Sent', 'dismissible');
       })
       .catch((err) => console.log(err));
   };
@@ -103,6 +109,29 @@ const Send_Request = (props) => {
               </CardHeader>
               <CardBody>
                 <Form onSubmit={(formik.handleSubmit, sendEmail)}>
+                <Row>
+                    <Col md="6">
+                      <FormGroup>
+                        <label>Sponsor Name</label>
+                        <Input
+                          className="h5"
+                          id="exampleFormControlInput1"
+                          placeholder="reg000123456"
+                          type="text"
+                          name="companyName"
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          value={formik.values.companyName}
+                        />
+                        {formik.touched.companyName &&
+                        formik.errors.companyName ? (
+                          <div style={{ color: "red" }}>
+                            {formik.errors.companyName}
+                          </div>
+                        ) : null}
+                      </FormGroup>
+                    </Col>
+                  </Row>
                   <Row>
                     <Col md="6">
                       <FormGroup>
@@ -173,7 +202,7 @@ const Send_Request = (props) => {
                       </FormGroup>
                     </Col>
                   </Row>
-
+                  
                   <Row>
                     <Col>
                       <FormGroup>
