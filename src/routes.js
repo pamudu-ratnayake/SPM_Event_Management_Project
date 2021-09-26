@@ -31,6 +31,7 @@ import Sponsorship_Documentation from "views/examples/Sponsorship_Documentation"
 import My_Issue from "views/examples/My_Issue";
 import Event_Support from "views/examples/Event_Support";
 import CreateQuotation from "views/service-provider/CreateQuotation";
+import Events from "views/events/events";
 
 var routes = [
 	{
@@ -70,13 +71,13 @@ var routes = [
 		component: CreateQuotation,
 		layout: "/admin",
 	},
-	// {
-	//   path: "/maps",
-	//   name: "Maps",
-	//   icon: "ni ni-pin-3 text-orange",
-	//   component: Maps,
-	//   layout: "/admin",
-	// },
+	{
+		path: "/events",
+		name: "Events",
+		icon: "ni ni-pin-3 text-orange",
+		component: Events,
+		layout: "/admin",
+	},
 	// {
 	//   path: "/user-profile",
 	//   name: "User Profile",

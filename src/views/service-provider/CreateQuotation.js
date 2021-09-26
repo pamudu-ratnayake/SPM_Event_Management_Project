@@ -153,46 +153,6 @@ const CreateQuotation = (props) => {
 								<CardHeader className="bg-secondary border-0">
 									<Row className="align-items-center">
 										<Row className="d-flex flex-row-reverse bd-highlight">
-											<div class="col-1 text-right">
-												<Button
-													color="primary"
-													href="#pablo"
-													onClick={(e) => {
-														document.getElementById(
-															"input-service-provider"
-														).disabled = true;
-														document.getElementById(
-															"input-nic-no"
-														).disabled = false;
-														document.getElementById(
-															"input-username"
-														).disabled = false;
-														document.getElementById(
-															"input-first-name"
-														).disabled = false;
-														document.getElementById(
-															"input-last-name"
-														).disabled = false;
-														document.getElementById(
-															"input-email"
-														).disabled = false;
-														document.getElementById(
-															"input-telephone"
-														).disabled = false;
-														document.getElementById(
-															"input-mobile"
-														).disabled = false;
-														document.getElementById(
-															"input-address"
-														).disabled = false;
-														document.getElementById("btn-save").style.display =
-															"block";
-													}}
-													size="sm"
-												>
-													Edit
-												</Button>
-											</div>
 											<div className="col-2 text-right">
 												<Button size="sm"> Download Pdf</Button>
 											</div>
