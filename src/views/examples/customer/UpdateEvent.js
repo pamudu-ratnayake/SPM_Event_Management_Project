@@ -2,7 +2,7 @@ import ReactDatetime from "react-datetime";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
-import FormikControl from "./FormikControl";
+import FormikControl from "../FormikControl";
 //import { moment } from "moment";
 import DatePicker from "react-datepicker";
 

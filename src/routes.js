@@ -5,13 +5,17 @@ import Tables from "views/examples/Tables.js";
 import Icons from "views/examples/Icons.js";
 import ServiceProviderProfile from "views/service-provider/ServiceProviderProfile";
 import RegisterServiceProvider from "views/service-provider/RegisterServiceProvider";
-import AddEvent from "views/examples/AddEvent.js";
-import EventDisplay from "views/examples/EventDisplay.js";
-import CustomerProfile from "views/examples/CustomerProfile";
-import MyEvents from "views/examples/MyEvents";
-import UpdateEvent from "views/examples/UpdateEvent";
-import ServiceProviders from "views/service-provider/ServiceProviders";
 
+//----------customer & Event---------------------------
+import AddEvent from "views/examples/customer/AddEvent.js";
+import EventDisplay from "views/examples/customer/EventDisplay.js";
+import CustomerProfile from "views/examples/customer/CustomerProfile";
+import MyEvents from "views/examples/customer/MyEvents";
+import UpdateEvent from "views/examples/customer/UpdateEvent";
+import SelectServiceProvider from "views/examples/customer/SelectServiceProvider";
+//------------------------------------------------------
+
+import ServiceProviders from "views/service-provider/ServiceProviders";
 // After pull dev 10/09/2021
 import AdvertisementInformation from "views/examples/AdvertisementInformation";
 import CardPayment from "views/examples/CardPayment";
@@ -42,6 +46,7 @@ var routes = [
     layout: "/admin",
   },
 
+ //--------customer & Events -------------------  
   {
     path: "/add-event",
     name: "Publish An Event",
@@ -62,6 +67,13 @@ var routes = [
     name: "My Events",
     icon: "ni ni-book-bookmark text-purple",
     component: MyEvents,
+    layout: "/admin",
+  },
+  {
+    path: "/selectservice-proivider",
+    name: "Select Service Provider",
+    icon: "ni ni-book-bookmark text-purple",
+    component: SelectServiceProvider,
     layout: "/admin",
   },
   // {

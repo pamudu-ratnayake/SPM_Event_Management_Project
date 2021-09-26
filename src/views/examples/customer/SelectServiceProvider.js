@@ -1,19 +1,20 @@
 import ReactDatetime from "react-datetime";
 
 // reactstrap components
-import { Button, Modal, Card, CardHeader, CardBody, Container, Row, Col, DropdownMenu, DropdownItem, UncontrolledDropdown, DropdownToggle, Table } from "reactstrap";
+import { Button, Modal, Card, CardHeader, CardBody, FormGroup, Form, Input, Container, Row, Col, DropdownMenu, DropdownItem, UncontrolledDropdown, DropdownToggle, Table, Label } from "reactstrap";
 // core components
 import EventListHeader from "components/Headers/EventListHeader";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import API from "variables/tokenURL";
 
-const MyEvents = (props) => {
+const SelectServiceProvider = (props) => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:8080/eventAdd/getevents`)
+    
+      API.get(`/eventAdd/getevents`)
       .then((res) => {
         setPosts(res.data);
         console.log(res.data);
@@ -30,20 +31,6 @@ const MyEvents = (props) => {
     setmodalDemo(!exampleModal);
   }
 
-  const deleteEvent = (_id) => {
-    axios
-      .delete(`http://localhost:8080/eventAdd/deleteevent/${_id}`)
-      .then((response) => {
-        console.log(response);
-        // props.history.push('/admin');
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
-      //refreshing
-    window.location.reload(false);
-  };
 
   return (
     <>
@@ -56,14 +43,14 @@ const MyEvents = (props) => {
               <CardHeader className="bg-white border-0">
                 <Row className="align-items-center">
                   <Col xs="8">
-                    <h1 className="mb-0">Published Events</h1>
+                    <h1 className="mb-0">Select Service Providers</h1>
                   </Col>
                   <Col className="text-right" xs="4">
-                    <Link to={"/admin/add-event"}>
+                <Label>Sort by: </Label>
                       <Button color="primary" size="sm">
                         Publish An Event
                       </Button>
-                    </Link>
+
                   </Col>
                 </Row>
               </CardHeader>
@@ -71,10 +58,11 @@ const MyEvents = (props) => {
                 <Table className="align-items-center" responsive>
                   <thead className="thead-light">
                     <tr>
-                      <th scope="col">Event Name</th>
-                      <th scope="col">Date</th>
-                      <th scope="col">Location</th>
-                      <th scope="col">Event Type</th>
+                      <th scope="col">Service Provider</th>
+                      <th scope="col">Service Type</th>
+                      <th scope="col">Email</th>
+                      <th scope="col">Contact Number</th>
+                      <th scope="col">Total</th>
                       <th scope="col" />
                     </tr>
                   </thead>
@@ -110,7 +98,7 @@ const MyEvents = (props) => {
                                 </div>
                                 <div className="modal-body">Do you want to delete this event?</div>
                                 <div className="modal-footer">
-                                  <Button color="primary" type="button" onClick={deleteEvent.bind(props.this, posts._id)}>
+                                  <Button color="primary" type="button" >
                                     Confirm Delete
                                   </Button>
                                   <Button color="secondary" data-dismiss="modal" type="button" onClick={() => toggleModal("exampleModal")}>
@@ -134,4 +122,4 @@ const MyEvents = (props) => {
   );
 };
 
-export default MyEvents;
+export default SelectServiceProvider;

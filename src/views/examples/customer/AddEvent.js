@@ -2,7 +2,7 @@ import ReactDatetime from "react-datetime";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
-import FormikControl from "./FormikControl";
+import FormikControl from "../FormikControl";
 //import { moment } from "moment";
 import DatePicker from "react-datepicker";
 import { useHistory } from "react-router-dom";
@@ -17,21 +17,20 @@ import { useState, useEffect } from "react";
 //phone number definition
 const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
-
 const AddEvent = (props) => {
-	// function AddEvent(props) {
+  // function AddEvent(props) {
 
-	// let date = '';
-	// const [event_date, setDate] = useState(date);
+  // let date = '';
+  // const [event_date, setDate] = useState(date);
 
-	// const makeDate = () => {
-	//   date = values.date_event.format('DD-MM-YYYY');
-	//   setDate(date);
-	// }
+  // const makeDate = () => {
+  //   date = values.date_event.format('DD-MM-YYYY');
+  //   setDate(date);
+  // }
 
-	// useEffect(() => {
-	//   makeDate();
-	// },[]);
+  // useEffect(() => {
+  //   makeDate();
+  // },[]);
 
   // const checkboxOptions = [
   //   { key: "Option 01", value: "cOption1" },
@@ -39,46 +38,42 @@ const AddEvent = (props) => {
   //   { key: "Option 03", value: "cOption3" },
   // ];
 
-	const initialValues = {
-		enableReinitialize: true,
-		validateOnMount: true,
-		event_name: "",
-		org_name: "",
-		event_time: "",
-		date_of_the_event: "",
-		location: "",
-		days_occurs: "",
-		event_type: "",
-		organizer_name: "",
-		org_nic: "",
-		cus_email: "",
-		cus_con_number: "",
-		description: "",
-		checkboxOption: [],
-	};
+  const user = JSON.parse(localStorage.getItem("profile"));
 
-	const validationSchema = Yup.object({
-		event_name: Yup.string().required("*Required!"),
-		org_name: Yup.string().required("*Required!"),
-		event_time: Yup.string().required("*Required!"),
-		location: Yup.string().required("*Required!"),
-		days_occurs: Yup.number()
-			.required("*Required!")
-			.max(20, "Limit exceed")
-			.min(0, "Invalid number"),
-		event_type: Yup.string().required("*Required!"),
-		organizer_name: Yup.string().required("*Required!"),
-		org_nic: Yup.string().required("*Required!"),
-		cus_email: Yup.string().email("*Invalid email!").required("*Required!"),
-		cus_con_number: Yup.string()
-			.matches(phoneRegExp, "Phone number is not valid")
-			.required("*Required!")
-			.min(10, "Too short")
-			.max(10, "Too long"),
-		description: Yup.string().required("*Required!"),
-		date_of_the_event: Yup.string().required("*Required!"),
-		checkboxOption: Yup.array().required("Required"),
-	});
+  const initialValues = {
+    enableReinitialize: true,
+    validateOnMount: true,
+    user_id: user?.result?._id,
+    event_name: "",
+    org_name: "",
+    event_time: "",
+    date_of_the_event: "",
+    location: "",
+    days_occurs: "",
+    event_type: "",
+    organizer_name: "",
+    org_nic: "",
+    cus_email: "",
+    cus_con_number: "",
+    description: "",
+    checkboxOption: [],
+  };
+
+  const validationSchema = Yup.object({
+    event_name: Yup.string().required("*Required!"),
+    org_name: Yup.string().required("*Required!"),
+    event_time: Yup.string().required("*Required!"),
+    location: Yup.string().required("*Required!"),
+    days_occurs: Yup.number().required("*Required!").max(20, "Limit exceed").min(0, "Invalid number"),
+    event_type: Yup.string().required("*Required!"),
+    organizer_name: Yup.string().required("*Required!"),
+    org_nic: Yup.string().required("*Required!"),
+    cus_email: Yup.string().email("*Invalid email!").required("*Required!"),
+    cus_con_number: Yup.string().matches(phoneRegExp, "Phone number is not valid").required("*Required!").min(10, "Too short").max(10, "Too long"),
+    description: Yup.string().required("*Required!"),
+    date_of_the_event: Yup.string().required("*Required!"),
+    checkboxOption: Yup.array().required("Required"),
+  });
 
   //using history
   let history = useHistory();
@@ -100,11 +95,11 @@ const AddEvent = (props) => {
       });
   };
 
-	const formik = useFormik({
-		initialValues,
-		onSubmit,
-		validationSchema,
-	});
+  const formik = useFormik({
+    initialValues,
+    onSubmit,
+    validationSchema,
+  });
 
   return (
     <>
@@ -112,7 +107,7 @@ const AddEvent = (props) => {
       {/* Page content */}
       <Container className="mt--9" fluid>
         <Row>
-          <Col className="order-xl-1" xl="12">
+          <Col className="order-xl-1">
             <Card className="bg-secondary shadow">
               <CardHeader className="bg-white border-0">
                 <Row className="align-items-center">
@@ -261,12 +256,52 @@ const AddEvent = (props) => {
                         {formik.touched.days_occurs && formik.errors.days_occurs ? <div style={{ color: "red" }}>{formik.errors.days_occurs}</div> : null}
                       </FormGroup>
                     </Col>
+
+                    <Col md="6">
+                      <FormGroup>
+                        <label>Event End Date</label>
+                        <InputGroup className="input-group-alternative">
+                          <InputGroupAddon addonType="prepend">
+                            <InputGroupText>
+                              <i className="ni ni-calendar-grid-58" />
+                            </InputGroupText>
+                            {formik.touched.date_of_the_event_end && formik.errors.date_of_the_event_end ? <div style={{ color: "red" }}>{formik.errors.date_of_the_event_end}</div> : null}
+                          </InputGroupAddon>
+                          <ReactDatetime
+                            inputProps={{
+                              placeholder: "MM/DD/YY",
+                            }}
+                            dateFormat="DD/MM/YYYY"
+                            timeFormat={false}
+                            onChange={(value) =>
+                              formik.handleChange({
+                                target: {
+                                  name: "date_of_the_event_end",
+                                  value,
+                                },
+                              })
+                            }
+                            onBlur={formik.handleBlur}
+                            value={formik.values.date_of_the_event_end}
+                          />
+                        </InputGroup>
+                      </FormGroup>
+                    </Col>
                   </Row>
                   <label className="mb-3">Required Services</label>
                   <Row>
                     <Col md="2">
                       <div className="custom-control custom-checkbox mb-3">
-                        <input className="custom-control-input" id="customCheck1" onChange={formik.handleChange}  onBlur={formik.handleBlur} value="Photography" name="checkboxOption" type="checkbox" as={Checkbox} />
+                        <input
+                          className="custom-control-input"
+                          id="customCheck1"
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          value="Photography"
+                          name="checkboxOption"
+                          type="checkbox"
+                          as={Checkbox}
+                        />
                         <label className="custom-control-label" htmlFor="customCheck1">
                           Photography
                         </label>
@@ -274,56 +309,136 @@ const AddEvent = (props) => {
                     </Col>
                     <Col md="2">
                       <div className="custom-control custom-checkbox mb-3">
-                      <input className="custom-control-input" id="customCheck2" onChange={formik.handleChange}  onBlur={formik.handleBlur}  value="Sound Provider" name="checkboxOption" type="checkbox" as={Checkbox} />                        <label className="custom-control-label" htmlFor="customCheck2">
+                        <input
+                          className="custom-control-input"
+                          id="customCheck2"
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          value="Sound Provider"
+                          name="checkboxOption"
+                          type="checkbox"
+                          as={Checkbox}
+                        />{" "}
+                        <label className="custom-control-label" htmlFor="customCheck2">
                           Sound Provider
                         </label>
                       </div>
                     </Col>
                     <Col md="2">
                       <div className="custom-control custom-checkbox mb-3">
-                      <input className="custom-control-input" id="customCheck3" onChange={formik.handleChange}  onBlur={formik.handleBlur} value="Florist" name="checkboxOption" type="checkbox" as={Checkbox} />                        <label className="custom-control-label" htmlFor="customCheck3">
+                        <input
+                          className="custom-control-input"
+                          id="customCheck3"
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          value="Florist"
+                          name="checkboxOption"
+                          type="checkbox"
+                          as={Checkbox}
+                        />{" "}
+                        <label className="custom-control-label" htmlFor="customCheck3">
                           Florist
                         </label>
                       </div>
                     </Col>
                     <Col md="2">
                       <div className="custom-control custom-checkbox mb-3">
-                      <input className="custom-control-input" id="customCheck4" onChange={formik.handleChange}  onBlur={formik.handleBlur} value="Catering" name="checkboxOption" type="checkbox" as={Checkbox} />                        <label className="custom-control-label" htmlFor="customCheck4">
+                        <input
+                          className="custom-control-input"
+                          id="customCheck4"
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          value="Catering"
+                          name="checkboxOption"
+                          type="checkbox"
+                          as={Checkbox}
+                        />{" "}
+                        <label className="custom-control-label" htmlFor="customCheck4">
                           Catering
                         </label>
                       </div>
                     </Col>
                     <Col md="2">
                       <div className="custom-control custom-checkbox mb-3">
-                      <input className="custom-control-input" id="customCheck5" onChange={formik.handleChange}  onBlur={formik.handleBlur} value="Cake Designer" name="checkboxOption" type="checkbox" as={Checkbox} />                        <label className="custom-control-label" htmlFor="customCheck5">
+                        <input
+                          className="custom-control-input"
+                          id="customCheck5"
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          value="Cake Designer"
+                          name="checkboxOption"
+                          type="checkbox"
+                          as={Checkbox}
+                        />{" "}
+                        <label className="custom-control-label" htmlFor="customCheck5">
                           Cake Designer
                         </label>
                       </div>
                     </Col>
                     <Col md="2">
                       <div className="custom-control custom-checkbox mb-3">
-                      <input className="custom-control-input" id="customCheck6" onChange={formik.handleChange}  onBlur={formik.handleBlur} value="Costume Designer" name="checkboxOption" type="checkbox" as={Checkbox} />                        <label className="custom-control-label" htmlFor="customCheck6">
+                        <input
+                          className="custom-control-input"
+                          id="customCheck6"
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          value="Costume Designer"
+                          name="checkboxOption"
+                          type="checkbox"
+                          as={Checkbox}
+                        />{" "}
+                        <label className="custom-control-label" htmlFor="customCheck6">
                           Costume Designer
                         </label>
                       </div>
                     </Col>
                     <Col md="2">
                       <div className="custom-control custom-checkbox mb-3">
-                      <input className="custom-control-input" id="customCheck7" onChange={formik.handleChange}  onBlur={formik.handleBlur} value="Event Planner" name="checkboxOption" type="checkbox" as={Checkbox} />                        <label className="custom-control-label" htmlFor="customCheck7">
+                        <input
+                          className="custom-control-input"
+                          id="customCheck7"
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          value="Event Planner"
+                          name="checkboxOption"
+                          type="checkbox"
+                          as={Checkbox}
+                        />{" "}
+                        <label className="custom-control-label" htmlFor="customCheck7">
                           Event Planner
                         </label>
                       </div>
                     </Col>
                     <Col md="2">
                       <div className="custom-control custom-checkbox mb-3">
-                      <input className="custom-control-input" id="customCheck8" onChange={formik.handleChange}  onBlur={formik.handleBlur} value="Decorators" name="checkboxOption" type="checkbox" as={Checkbox} />                        <label className="custom-control-label" htmlFor="customCheck8">
+                        <input
+                          className="custom-control-input"
+                          id="customCheck8"
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          value="Decorators"
+                          name="checkboxOption"
+                          type="checkbox"
+                          as={Checkbox}
+                        />{" "}
+                        <label className="custom-control-label" htmlFor="customCheck8">
                           Decorators
                         </label>
                       </div>
                     </Col>
                     <Col md="2">
                       <div className="custom-control custom-checkbox mb-3">
-                      <input className="custom-control-input" id="customCheck9" onChange={formik.handleChange}  onBlur={formik.handleBlur} value="Unchecked" name="checkboxOption" type="checkbox" as={Checkbox} />                        <label className="custom-control-label" htmlFor="customCheck9">
+                        <input
+                          className="custom-control-input"
+                          id="customCheck9"
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                          value="Unchecked"
+                          name="checkboxOption"
+                          type="checkbox"
+                          as={Checkbox}
+                        />{" "}
+                        <label className="custom-control-label" htmlFor="customCheck9">
                           Dancers
                         </label>
                       </div>
