@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from "reactstrap";
 // import './payment_modal.css'
 
 const PaymentModal = ({ orderId, name, amount }) => {
@@ -50,7 +51,14 @@ const PaymentModal = ({ orderId, name, amount }) => {
     window.payhere.startPayment(payment);
   }
 
-  return <button onClick={pay}>Pay with Payhere</button>;
+  return <Button
+  className="mr-1 ml-1"
+  color="info"
+  href="#pablo"
+  size="lm"
+  onClick={pay}>
+     Pay Now
+     </Button>;
 };
 
 export default PaymentModal;

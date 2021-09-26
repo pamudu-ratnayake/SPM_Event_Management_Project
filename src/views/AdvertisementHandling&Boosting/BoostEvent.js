@@ -37,8 +37,6 @@ const BoostEvent = (props) => {
 
   function handleChange(event) {
      
-     
-
     for (var i = 0; i < boosting_Package .length; i++){
       
      if(event.target.value == boosting_Package [i]);{
