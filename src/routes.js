@@ -114,8 +114,6 @@ var routes = [
 	},
 	{
 		path: "/createQuotation/:_id",
-		name: "Create Quotation",
-		icon: "ni ni-planet text-blue",
 		component: CreateQuotation,
 		layout: "/admin",
 	},
@@ -126,13 +124,7 @@ var routes = [
 		component: EventDisplay,
 		layout: "/admin",
 	},
-	{
-		path: "/event-display-sp/:_id",
-		// name: "Display Event",
-		// icon: "ni ni-notification-70 text-orange",
-		component: EventDisplaySP,
-		layout: "/admin",
-	},
+
 	{
 		path: "/event-update/:_id",
 		// name: "Update Event",
@@ -148,7 +140,7 @@ var routes = [
 		component: Icons,
 		layout: "/admin",
 	},
-
+	// ============== Service Provider Routes ==================
 	{
 		path: "/serviceProviders",
 		name: "Service Providers",
@@ -172,6 +164,14 @@ var routes = [
 		component: RegisterServiceProvider,
 		layout: "/authServiceProvider",
 	},
+
+	{
+		path: "/event-display-sp/:_id",
+		component: EventDisplaySP,
+		layout: "/admin",
+	},
+
+	// ======================================
 
 	{
 		path: "/displayedrequest",

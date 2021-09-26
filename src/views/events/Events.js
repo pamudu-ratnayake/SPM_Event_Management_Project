@@ -58,8 +58,7 @@ const Events = (props) => {
 	}
 
 	const deleteEvent = (_id) => {
-		axios
-			.delete(`http://localhost:8080/eventAdd/deleteevent/${_id}`)
+		API.delete(`/eventAdd/deleteevent/${_id}`)
 			.then((response) => {
 				console.log(response);
 				// props.history.push('/admin');

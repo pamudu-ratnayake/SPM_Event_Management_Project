@@ -30,10 +30,12 @@ const ServiceProviderProfile = (props) => {
 	const [posts, setPosts] = useState("");
 	const [profile, setprofile] = useState(0);
 
+	const user = JSON.parse(localStorage.getItem("profile"));
+	console.log("user ", user);
+
 	useEffect(() => {
 		console.log("res.dat ");
-		API
-			.get(`/company/`)
+		API.get(`/company/`)
 			.then((res) => {
 				setPosts(res.data[0]);
 				console.log(res.data[0]);
@@ -42,12 +44,11 @@ const ServiceProviderProfile = (props) => {
 				console.log(error);
 			});
 
-		API
-			.get(`/serviceProvider/getOne`)
+		API.get(`/serviceProvider/get/${user.result._id}`)
 			.then((res) => {
-				setprofile(res.data[0]);
-				console.log(res.data[0]);
-				console.log(res.data[0].servic_provider_Id);
+				setprofile(res.data);
+				console.log("SP : ", res.data);
+				// console.log(res.data.servic_provider_Id);
 			})
 			.catch((error) => {
 				console.log(error);
@@ -56,8 +57,7 @@ const ServiceProviderProfile = (props) => {
 
 	const deleteCompany = () => {
 		if (window.confirm("Are you sure you wish to delete this item?")) {
-			API
-				.delete(`/company/delete/${posts._id}`)
+			API.delete(`/company/delete/${posts._id}`)
 				.then((res) => {
 					// setPosts(res.data);
 					console.log(res.data);
@@ -71,7 +71,7 @@ const ServiceProviderProfile = (props) => {
 	};
 
 	const initialValues = {
-		servic_provider_Id: profile.servic_provider_Id,
+		servic_provider_Id: "profile.servic_provider_Id",
 		nic_no: profile.nic_no,
 		first_name: profile.first_name,
 		last_name: profile.last_name,
@@ -83,7 +83,7 @@ const ServiceProviderProfile = (props) => {
 	};
 
 	const validationSchema = Yup.object({
-		servic_provider_Id: Yup.string().required("*Required!"),
+		servic_provider_Id: Yup.string(),
 		nic_no: Yup.string().required("*Required!"),
 		user_name: Yup.string().required("*Required!"),
 		first_name: Yup.string().required("*Required!"),
@@ -105,11 +105,7 @@ const ServiceProviderProfile = (props) => {
 	const onSubmit = (values) => {
 		console.log("Form Date", values);
 		//  values.date_of_the_event = event_date; //watch
-		API
-			.put(
-				`/serviceProvider/update/${profile._id}`,
-				values
-			)
+		API.put(`/serviceProvider/update/${profile._id}`, values)
 			.then((res) => {
 				console.log(res);
 				console.log("Data", values);
@@ -128,7 +124,6 @@ const ServiceProviderProfile = (props) => {
 	});
 
 	function disableInputs() {
-		document.getElementById("input-service-provider").disabled = true;
 		document.getElementById("input-nic-no").disabled = true;
 		document.getElementById("input-username").disabled = true;
 		document.getElementById("input-first-name").disabled = true;
@@ -235,9 +230,6 @@ const ServiceProviderProfile = (props) => {
 											href="#pablo"
 											onClick={(e) => {
 												document.getElementById(
-													"input-service-provider"
-												).disabled = true;
-												document.getElementById(
 													"input-nic-no"
 												).disabled = false;
 												document.getElementById(
@@ -285,9 +277,10 @@ const ServiceProviderProfile = (props) => {
 														Service Provider ID
 													</label>
 													<Input
-														className="form-control-alternative"
+														className="form-control-alternative bg-secondary text-black"
 														id="input-service-provider"
 														placeholder="SPS00001"
+														disabled
 														type="text"
 														name="servic_provider_Id"
 														onChange={formik.handleChange}
