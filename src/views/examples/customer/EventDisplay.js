@@ -29,6 +29,7 @@ const EventDisplay = (props) => {
   //   setRating({ rating: nextValue });
   // }
    console.log('rating', rating);
+   
 
   const initialValues = {};
 
