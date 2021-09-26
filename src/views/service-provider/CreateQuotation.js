@@ -21,86 +21,118 @@ import * as Yup from "yup";
 import axios from "axios";
 import CreateQuotionHeader from "components/Headers/service-provider-header/CreateQuotionHeader";
 
-const phoneRegExp =
-	/^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
-
 const CreateQuotation = (props) => {
-	const [posts, setPosts] = useState([]);
-	const [profile, setprofile] = useState(0);
+	// Form Inputs Varibales
+	const [item_details, setItem_details] = useState([]);
+	const [date_from, setDate_from] = useState("");
+	const [date_to, setDate_to] = useState("");
+	const [terms, setTerms] = useState("");
+	const [itemNameTemp, setItemNameTemp] = useState("");
+	const [quantityTemp, setQuantityTemp] = useState(0);
+	const [unitPriceTemp, setUnitPriceTemp] = useState(0);
+	const [totalPriceTemp, setTotalPriceTemp] = useState(0);
+	const [cost, setCost] = useState(0);
 
-	useEffect(() => {
-		console.log("res.dat ");
-		axios
-			.get(`http://localhost:8080/serviceProvider/`)
-			.then((res) => {
-				setPosts(res.data);
-				console.log(res.data);
-			})
-			.catch((error) => {
-				console.log(error);
-			});
+	const [event_id, setEvent_id] = useState("");
+	const [profile, setprofile] = useState("");
+	const [company, setCompany] = useState("");
+	const [event, setEvent] = useState("");
 
-		axios
-			.get(`http://localhost:8080/serviceProvider/getOne`)
-			.then((res) => {
-				setprofile(res.data[0]);
-				console.log(res.data[0]);
-				console.log(res.data[0].servic_provider_Id);
-			})
-			.catch((error) => {
-				console.log(error);
-			});
-	}, []);
+	// Operation Varibales
+	let total = 0;
+	let today = new Date().toISOString().split("T")[0];
 
 	const initialValues = {
-		servic_provider_Id: profile.servic_provider_Id,
-		nic_no: profile.nic_no,
-		first_name: profile.first_name,
-		last_name: profile.last_name,
-		user_name: profile.user_name,
-		email: profile.email,
-		mobile: profile.mobile,
-		telephone: profile.telephone,
-		address: profile.address,
+		date_from: "",
+		date_to: "",
+		terms: "",
 	};
 
 	const validationSchema = Yup.object({
-		servic_provider_Id: Yup.string().required("*Required!"),
-		nic_no: Yup.string().required("*Required!"),
-		user_name: Yup.string().required("*Required!"),
-		first_name: Yup.string().required("*Required!"),
-		last_name: Yup.string().required("*Required!"),
-		email: Yup.string().email("*Invalid email!").required("*Required!"),
-		mobile: Yup.string()
-			.matches(phoneRegExp, "Phone number is not valid")
+		date_from: Yup.string().required("*Required!"),
+		date_to: Yup.string()
 			.required("*Required!")
-			.min(10, "Too short")
-			.max(10, "Too long"),
-		telephone: Yup.string()
-			.matches(phoneRegExp, "Phone number is not valid")
-			.required("*Required!")
-			.min(10, "Too short")
-			.max(10, "Too long"),
-		address: Yup.string().required("*Required!"),
+			.min(date_from, `Cannot accept befor ${date_from}`),
+		terms: Yup.string(),
 	});
+
+	useEffect(() => {
+		if (total <= 0) {
+			axios
+				.get(
+					`http://localhost:8080/eventAdd/getOneEvent/614f3b36814aae43d07f35d2`
+				)
+				.then((res) => {
+					console.log("E : ", res.data);
+					setEvent(res.data);
+				})
+				.catch((error) => {
+					console.log(error);
+				});
+
+			setEvent_id("614f3b36814aae43d07f35d2");
+			axios
+				.get(`http://localhost:8080/company/`)
+				.then((res) => {
+					setCompany(res.data[0]);
+					console.log("C : ", res.data[0]);
+				})
+				.catch((error) => {
+					console.log(error);
+				});
+
+			axios
+				.get(`http://localhost:8080/serviceProvider/getOne`)
+				.then((res) => {
+					setprofile(res.data[0]);
+					console.log("SP : ", res.data[0]);
+					console.log(res.data[0].servic_provider_Id);
+				})
+				.catch((error) => {
+					console.log(error);
+				});
+		}
+		item_details.forEach((aItem) => {
+			total += aItem.total_price;
+		});
+		if (total > 0) {
+			setCost(total);
+		}
+	}, [item_details]);
 
 	const onSubmit = (values) => {
 		console.log("Form Date", values);
-		//  values.date_of_the_event = event_date; //watch
-		axios
-			.put(
-				`http://localhost:8080/serviceProvider/update/${profile._id}`,
-				values
-			)
-			.then((res) => {
-				console.log(res);
-				console.log("Data", values);
-				alert("Updated Successfully !!");
-				disableInputs();
-			})
-			.catch((error) => {
-				console.log(error);
-			});
+		console.log("Form date_from", date_from);
+		console.log("Form date_to", date_to);
+		console.log("Form item_details", item_details);
+		console.log("Form terms", terms);
+
+		if (item_details && item_details.length > 0) {
+			// 	if (date_to) {
+			let newQuotation = {
+				event_id: event._id,
+				provider_id: profile._id,
+				date_from: values.date_from,
+				date_to: values.date_to,
+				quotation_details: item_details,
+				terms: values.terms,
+				approve: false,
+			};
+			console.log("Sub : ", newQuotation);
+			console.log("Sub D F : ", newQuotation.date_from);
+			axios
+				.post(`http://localhost:8080/quotation/create`, newQuotation)
+				.then((res) => {
+					console.log("res : ", res);
+					alert("Created Successfully !!");
+				})
+				.catch((error) => {
+					alert("Fail to Create !!");
+					console.log(error);
+				});
+		} else {
+			alert("You should add minimum 1 item");
+		}
 	};
 
 	const formik = useFormik({
@@ -108,19 +140,6 @@ const CreateQuotation = (props) => {
 		onSubmit,
 		validationSchema,
 	});
-
-	function disableInputs() {
-		document.getElementById("input-service-provider").disabled = true;
-		document.getElementById("input-nic-no").disabled = true;
-		document.getElementById("input-username").disabled = true;
-		document.getElementById("input-first-name").disabled = true;
-		document.getElementById("input-last-name").disabled = true;
-		document.getElementById("input-email").disabled = true;
-		document.getElementById("input-telephone").disabled = true;
-		document.getElementById("input-mobile").disabled = true;
-		document.getElementById("input-address").disabled = true;
-		document.getElementById("btn-save").style.display = "none";
-	}
 
 	return (
 		<>
@@ -130,116 +149,158 @@ const CreateQuotation = (props) => {
 				<Row>
 					<Col className="order-xl-1" xl="12">
 						<Card className="bg-secondary shadow">
-							<CardHeader className="bg-secondary border-0">
-								<Row className="align-items-center">
-									<Row className="d-flex flex-row-reverse bd-highlight">
-										<div class="col-1 text-right">
-											<Button
-												color="primary"
-												href="#pablo"
-												onClick={(e) => {
-													document.getElementById(
-														"input-service-provider"
-													).disabled = true;
-													document.getElementById(
-														"input-nic-no"
-													).disabled = false;
-													document.getElementById(
-														"input-username"
-													).disabled = false;
-													document.getElementById(
-														"input-first-name"
-													).disabled = false;
-													document.getElementById(
-														"input-last-name"
-													).disabled = false;
-													document.getElementById(
-														"input-email"
-													).disabled = false;
-													document.getElementById(
-														"input-telephone"
-													).disabled = false;
-													document.getElementById(
-														"input-mobile"
-													).disabled = false;
-													document.getElementById(
-														"input-address"
-													).disabled = false;
-													document.getElementById("btn-save").style.display =
-														"block";
-												}}
-												size="sm"
-											>
-												Edit
-											</Button>
-										</div>
-										<div className="col-2 text-right">
-											<Button size="sm"> Download Pdf</Button>
-										</div>
-									</Row>
-									<Row className="mt-3">
-										<Col xs="10">
-											<h3 className="mb-0 text-success display-4">
-												Company Name
-											</h3>
-										</Col>
-										<Col className="text-right" xs="2">
-											<h3 className="mb-0 text-success display-4">Quotaion</h3>
-										</Col>
-									</Row>
+							<Form onSubmit={formik.handleSubmit}>
+								<CardHeader className="bg-secondary border-0">
+									<Row className="align-items-center">
+										<Row className="d-flex flex-row-reverse bd-highlight">
+											<div class="col-1 text-right">
+												<Button
+													color="primary"
+													href="#pablo"
+													onClick={(e) => {
+														document.getElementById(
+															"input-service-provider"
+														).disabled = true;
+														document.getElementById(
+															"input-nic-no"
+														).disabled = false;
+														document.getElementById(
+															"input-username"
+														).disabled = false;
+														document.getElementById(
+															"input-first-name"
+														).disabled = false;
+														document.getElementById(
+															"input-last-name"
+														).disabled = false;
+														document.getElementById(
+															"input-email"
+														).disabled = false;
+														document.getElementById(
+															"input-telephone"
+														).disabled = false;
+														document.getElementById(
+															"input-mobile"
+														).disabled = false;
+														document.getElementById(
+															"input-address"
+														).disabled = false;
+														document.getElementById("btn-save").style.display =
+															"block";
+													}}
+													size="sm"
+												>
+													Edit
+												</Button>
+											</div>
+											<div className="col-2 text-right">
+												<Button size="sm"> Download Pdf</Button>
+											</div>
+										</Row>
+										<Row className="mt-3">
+											<Col xs="10">
+												<h3 className="mb-0 text-success display-4">
+													{company.company_name}
+												</h3>
+											</Col>
+											<Col className="text-right" xs="2">
+												<h3 className="mb-0 text-success display-4">
+													Quotaion
+												</h3>
+											</Col>
+										</Row>
+										<Row>
+											<Col xs="8">
+												{profile.first_name} {profile.last_name}{" "}
+											</Col>
+											<Col className="text-right" xs="4"></Col>
+										</Row>
+										<Row className="">
+											<Col xs="8">Ph : {profile.mobile} </Col>
+										</Row>
+										<Row className="mt-3">
+											<Col xs="9">
+												<h3 className="mb-0 text-success h2 ">Quotaion to :</h3>
+											</Col>
+											<Col className="text-right" xs="3">
+												<h3 className="mb-0 text-success h2 ">
+													Quotaion Details :
+												</h3>
+											</Col>
+										</Row>
+										<Row className="mt-3">
+											<Col xs="8">
+												<h3> {event.org_name} </h3>
+											</Col>
 
-									<Row className="mt-3">
-										<Col xs="9">
-											<h3 className="mb-0 text-success h2 ">Quotaion to :</h3>
-										</Col>
-										<Col className="text-right" xs="3">
-											<h3 className="mb-0 text-success h2 ">
-												Quotaion Details :
-											</h3>
-										</Col>
+											<Col className="text-right" xs="4">
+												<Row>
+													<Col xs="6">
+														<h4> VALID DATE FROM : </h4>
+													</Col>
+													<Col xs="6">
+														<FormGroup>
+															<Input
+																size="sm"
+																className="form-control-alternative "
+																id="input-date-from"
+																name="date_from"
+																min={today}
+																type="date"
+																onChange={formik.handleChange}
+																onBlur={formik.handleBlur}
+															></Input>
+															{formik.touched.date_from &&
+															formik.errors.date_from ? (
+																<div style={{ color: "red" }}>
+																	{formik.errors.date_from}
+																</div>
+															) : null}
+														</FormGroup>
+													</Col>
+												</Row>
+											</Col>
+										</Row>
+										<Row className="mt--2">
+											<Col xs="8 ">{event.location}</Col>
+											<Col className="text-right" xs="4">
+												<Row>
+													<Col xs="6">
+														<h4>TO : </h4>
+													</Col>
+													<Col xs="6">
+														<FormGroup>
+															<Input
+																size="sm"
+																className="form-control-alternative mt--1"
+																id="input-date-to"
+																name="date_to"
+																type="date"
+																min={initialValues.date_from || today}
+																onChange={formik.handleChange}
+																onBlur={formik.handleBlur}
+															></Input>
+															{formik.touched.date_to &&
+															formik.errors.date_to ? (
+																<div style={{ color: "red" }}>
+																	{formik.errors.date_to}
+																</div>
+															) : null}
+														</FormGroup>
+													</Col>
+												</Row>
+											</Col>
+										</Row>
+										<Row className="mt--4">
+											<Col xs="8">{event.cus_email}</Col>
+											<Col className="text-right" xs="4"></Col>
+										</Row>
+										<Row className="">
+											<Col xs="8">Ph : {event.cus_con_number} </Col>
+										</Row>
 									</Row>
-									<Row className="mt-3">
-										<Col xs="8">
-											<h3> Company Name</h3>
-										</Col>
-										<Col className="text-right" xs="4">
-											<Row>
-												<Col xs="6">
-													<h4> VALID DATE FROM : </h4>
-												</Col>
-												<Col xs="6">11/09/2021</Col>
-											</Row>
-										</Col>
-									</Row>
-									<Row className="">
-										<Col xs="8 ">445/2, Kandy Road, Kadawatha.</Col>
-										<Col className="text-right" xs="4">
-											<Row>
-												<Col xs="6">
-													<h4>TO : </h4>{" "}
-												</Col>
-												<Col xs="6">11/10/2021</Col>
-											</Row>
-										</Col>
-									</Row>
-									<Row className="">
-										<Col xs="8">malith@gmail.com</Col>
-										<Col className="text-right" xs="4">
-											<Row>
-												<Col xs="6">
-													<h4>QUOTE NO : </h4>
-												</Col>
-												<Col xs="6"> #QT00125 </Col>
-											</Row>
-										</Col>
-									</Row>
-									<Row className="">
-										<Col xs="8">Ph : 0112901271</Col>
-									</Row>
-								</Row>
-							</CardHeader>
-							<CardBody>
-								<Form onSubmit={formik.handleSubmit}>
+								</CardHeader>
+								<CardBody className="mb-5">
 									<Table className="align-items-center" responsive>
 										<thead className="thead-light">
 											<tr>
@@ -247,7 +308,7 @@ const CreateQuotation = (props) => {
 													<h5>Item Description</h5>
 												</th>
 												<th scope="col-1">
-													<h5>Quantity</h5>{" "}
+													<h5>Quantity</h5>
 												</th>
 												<th className="col-2 text-center">
 													<h5>Unit Price</h5>
@@ -256,135 +317,170 @@ const CreateQuotation = (props) => {
 													<h5>Total</h5>
 												</th>
 												<th scope="col-1">
-													<h5 className="ms-4"> Action</h5>{" "}
+													<h5 className=""> Action</h5>
 												</th>
 											</tr>
 										</thead>
 										<tbody>
-											{posts.map((posts) => (
-												<tr key={posts._id}>
-													<td>
+											<tr className="bg-gradient-green">
+												<td className="pb-0" className="pb-0">
+													<FormGroup>
+														<Input
+															className="form-control-alternative"
+															id="input-item-name-i"
+															type="text"
+															value={itemNameTemp}
+															onChange={(e) => setItemNameTemp(e.target.value)}
+														></Input>
+													</FormGroup>
+												</td>
+												<td className="pb-0">
+													<FormGroup>
+														<Input
+															className="form-control-alternative"
+															id="input-nic-no"
+															type="number"
+															name="quantity"
+															value={quantityTemp}
+															onChange={(e) => {
+																setQuantityTemp(e.target.value);
+															}}
+														></Input>
+													</FormGroup>
+												</td>
+												<td className="pb-0">
+													<FormGroup>
+														<Input
+															className="form-control-alternative"
+															id="input-nic-no"
+															placeholder="jesse@example.com"
+															type="number"
+															name="unit_price"
+															value={unitPriceTemp}
+															onChange={(e) => {
+																setUnitPriceTemp(e.target.value);
+															}}
+														></Input>
+													</FormGroup>
+												</td>
+												<td className="pb-0">
+													<FormGroup>
+														<Input
+															className="form-control-alternative bg-secondary text-success fs-5"
+															id="input-nic-no"
+															type="text"
+															value={quantityTemp * unitPriceTemp}
+															disabled
+														></Input>
+													</FormGroup>
+												</td>
+												<td className="pb-0" className="pt-0">
+													<Button
+														className=""
+														color="primary"
+														type="button"
+														href="#pablo"
+														size="sm"
+														onClick={() => {
+															if (
+																itemNameTemp &&
+																quantityTemp &&
+																unitPriceTemp
+															) {
+																let item = {
+																	item_name: itemNameTemp,
+																	quantity: quantityTemp,
+																	unit_price: unitPriceTemp,
+																	total_price: quantityTemp * unitPriceTemp,
+																};
+																console.log("item_details F : ", item_details);
+																setItem_details([...item_details, item]);
+
+																console.log("item : ", item);
+																console.log("item_details : ", item_details);
+
+																setItemNameTemp("");
+																setQuantityTemp(0);
+																setUnitPriceTemp(0);
+															} else {
+																document.getElementById(
+																	"input-item-name-i"
+																).style.border = "2px solid red";
+															}
+														}}
+													>
+														ADD
+													</Button>
+												</td>
+											</tr>
+											{item_details.map((aItem, key) => (
+												<tr key={key}>
+													<td className="pb-0">
 														<FormGroup>
 															<Input
-																className="form-control-alternative"
+																className="form-control-alternative bg-secondary text-black"
+																id="input-item-name"
+																type="text"
+																value={aItem.item_name}
+																disabled
+															></Input>
+														</FormGroup>
+													</td>
+													<td className="pb-0">
+														<FormGroup>
+															<Input
+																className="form-control-alternative bg-secondary text-black"
+																id="input-nic-no"
+																type="number"
+																name="quantity"
+																value={aItem.quantity}
+																disabled
+															></Input>
+														</FormGroup>
+													</td>
+													<td className="pb-0">
+														<FormGroup>
+															<Input
+																className="form-control-alternative bg-secondary text-black"
 																id="input-nic-no"
 																placeholder="jesse@example.com"
+																type="number"
+																name="unit_price"
+																value={aItem.unit_price}
+																disabled
+															></Input>
+														</FormGroup>
+													</td>
+													<td className="pb-0">
+														<FormGroup>
+															<Input
+																className="form-control-alternative bg-secondary text-success fs-5"
+																id="input-nic-no"
 																type="text"
-																name="nic_no"
-																onChange={formik.handleChange}
-																onBlur={formik.handleBlur}
-																defaultValue={profile.nic_no}
-															>
-																{profile.nic_no}
-															</Input>
-															{formik.touched.nic_no && formik.errors.nic_no ? (
-																<div style={{ color: "red" }}>
-																	{formik.errors.nic_no}
-																</div>
-															) : null}
+																value={aItem.total_price}
+																disabled
+															></Input>
 														</FormGroup>
 													</td>
 													<td>
-														<FormGroup>
-															<Input
-																className="form-control-alternative"
-																id="input-nic-no"
-																placeholder="jesse@example.com"
-																type="text"
-																name="nic_no"
-																onChange={formik.handleChange}
-																onBlur={formik.handleBlur}
-																defaultValue={profile.nic_no}
-															>
-																{profile.nic_no}
-															</Input>
-															{formik.touched.nic_no && formik.errors.nic_no ? (
-																<div style={{ color: "red" }}>
-																	{formik.errors.nic_no}
-																</div>
-															) : null}
-														</FormGroup>
-													</td>
-													<td>
-														<FormGroup>
-															<Input
-																className="form-control-alternative"
-																id="input-nic-no"
-																placeholder="jesse@example.com"
-																type="text"
-																name="nic_no"
-																onChange={formik.handleChange}
-																onBlur={formik.handleBlur}
-																defaultValue={profile.nic_no}
-															>
-																{profile.nic_no}
-															</Input>
-															{formik.touched.nic_no && formik.errors.nic_no ? (
-																<div style={{ color: "red" }}>
-																	{formik.errors.nic_no}
-																</div>
-															) : null}
-														</FormGroup>
-													</td>
-													<td>
-														<FormGroup>
-															<Input
-																className="form-control-alternative"
-																id="input-nic-no"
-																placeholder="jesse@example.com"
-																type="text"
-																name="nic_no"
-																onChange={formik.handleChange}
-																onBlur={formik.handleBlur}
-																defaultValue={profile.nic_no}
-															>
-																{profile.nic_no}
-															</Input>
-															{formik.touched.nic_no && formik.errors.nic_no ? (
-																<div style={{ color: "red" }}>
-																	{formik.errors.nic_no}
-																</div>
-															) : null}
-														</FormGroup>
-													</td>
-													<td className="pt-0">
 														<Button
-															className=""
 															color="secondary"
 															href="#pablo"
 															onClick={() => {
 																if (
 																	window.confirm(
-																		"Are you sure you wish to delete this item?"
+																		"Are you sure you wish to delete this item? " +
+																			key
 																	)
 																) {
-																	axios
-																		.delete(
-																			`http://localhost:8080/serviceProvider/delete/${posts._id}`
-																		)
-																		.then((res) => {
-																			// setPosts(res.data);
-																			console.log(res.data);
-																			window.location.reload(false);
-																		})
-																		.catch((error) => {
-																			console.log(error);
-																		});
+																	// let itemsToDelet = item_details;
+																	item_details.splice(key, 1);
+																	setItem_details([...item_details]);
 																}
 															}}
 															size="sm"
 														>
 															<i class="ni ni-scissors text-danger"></i>
-														</Button>
-														<Button
-															className=""
-															color="primary"
-															type="button"
-															href="#pablo"
-															size="sm"
-															onClick={() => alert(posts._id)}
-														>
-															<i class="bx bx-plus-medical "></i>
 														</Button>
 													</td>
 												</tr>
@@ -394,7 +490,7 @@ const CreateQuotation = (props) => {
 
 									<div className="pl-lg-4">
 										<Row className="mt-3">
-											<Col className="text-right col-8 mt-2">
+											<Col className="text-right col-8 mt-3">
 												<label
 													className="form-control-label text-success fs-4"
 													htmlFor="input-service-provider"
@@ -405,22 +501,12 @@ const CreateQuotation = (props) => {
 											<Col lg="3" className="">
 												<FormGroup>
 													<Input
-														className="form-control-alternative fs-5"
+														className="form-control-alternative fs-4  bg-secondary text-success"
 														id="input-nic-no"
-														placeholder="jesse@example.com"
 														type="text"
-														name="nic_no"
-														onChange={formik.handleChange}
-														onBlur={formik.handleBlur}
-														defaultValue={profile.nic_no}
-													>
-														{profile.nic_no}
-													</Input>
-													{formik.touched.nic_no && formik.errors.nic_no ? (
-														<div style={{ color: "red" }}>
-															{formik.errors.nic_no}
-														</div>
-													) : null}
+														value={cost}
+														disabled
+													></Input>
 												</FormGroup>
 											</Col>
 										</Row>
@@ -435,20 +521,16 @@ const CreateQuotation = (props) => {
 													</label>
 													<Input
 														className="form-control"
-														id="input-email"
-														placeholder="Enter email address"
+														id="input-terms"
+														placeholder="Enter Terms & Condition"
 														type="textarea"
-														row="6"
-														name="email"
+														name="terms"
 														onChange={formik.handleChange}
 														onBlur={formik.handleBlur}
-														defaultValue={profile.email}
-													>
-														{profile.email}
-													</Input>
-													{formik.touched.email && formik.errors.email ? (
+													></Input>
+													{formik.touched.terms && formik.errors.terms ? (
 														<div style={{ color: "red" }}>
-															{formik.errors.email}
+															{formik.errors.terms}
 														</div>
 													) : null}
 												</FormGroup>
@@ -463,8 +545,8 @@ const CreateQuotation = (props) => {
 									>
 										Submite
 									</Button>
-								</Form>
-							</CardBody>
+								</CardBody>
+							</Form>
 						</Card>
 					</Col>
 				</Row>
