@@ -25,6 +25,7 @@ import CardPaymentHeader from "components/Headers/CardPaymentHeader";
 const CardPayment = () => {
   const [defaultModal, setmodalDemo] = useState(false);
 
+  //toggle modal
   function toggleModal() {
     setmodalDemo(!defaultModal);
   }
