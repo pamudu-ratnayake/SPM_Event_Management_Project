@@ -18,6 +18,7 @@ import {
   InputGroup,
 } from "reactstrap";
 import * as Yup from "yup";
+import PaymentModal from "views/PaymentHandling/PaymentModal";
 import axios from "axios";
 // core components
 import BoostAddHeader from "components/Headers/AdvertisementHandling&BoostingHeaders/BoostAddHeader";
@@ -280,15 +281,15 @@ function handleChange(event) {
                 <Row>
                   <Col xs="4">Total Payment</Col>
                   <Col xs="1">:</Col>
-                  <Col xs="6">{newPackage}</Col>
-                  <Button
-                        color="primary"
-                        onClick={() => {onSubmit(formik.values)}}
-                        size="lm"
-                      >
-                        Boost My Advertisement
-                      </Button>
-
+                  <Col xs="4">{newPackage}</Col>
+                  <Col xs="3">
+                  <PaymentModal
+	// Use a unique value for the orderId
+	orderId={45896588}
+	name="Just For You Mom Ribbon Cake"
+	amount="4500"
+      />
+                  </Col>
                 </Row>
               </CardText>
                
