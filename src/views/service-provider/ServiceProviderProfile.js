@@ -30,8 +30,8 @@ const ServiceProviderProfile = (props) => {
 	const [posts, setPosts] = useState("");
 	const [profile, setprofile] = useState(0);
 
+	// Taking Current User
 	const user = JSON.parse(localStorage.getItem("profile"));
-	console.log("user ", user);
 
 	useEffect(() => {
 		console.log("res.dat ");
