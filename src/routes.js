@@ -1,18 +1,26 @@
 import Index from "views/Index.js";
 import Register from "views/examples/Register.js";
 import Login from "views/examples/Login.js";
-import Tables from "views/examples/Tables.js";
 import Icons from "views/examples/Icons.js";
+
+//-------------Servive Providers Routes-------------------------------
 import ServiceProviderProfile from "views/service-provider/ServiceProviderProfile";
 import RegisterServiceProvider from "views/service-provider/RegisterServiceProvider";
-import AddEvent from "views/examples/AddEvent.js";
-import EventDisplay from "views/examples/EventDisplay.js";
-import CustomerProfile from "views/examples/CustomerProfile";
-import MyEvents from "views/examples/MyEvents";
-import UpdateEvent from "views/examples/UpdateEvent";
 import ServiceProviders from "views/service-provider/ServiceProviders";
+import CreateQuotation from "views/service-provider/CreateQuotation";
+import Events from "views/events/Events";
+//-------------------------------------------------------------------
 
-// After pull dev 10/09/2021
+//----------customer & Event---------------------------
+import AddEvent from "views/examples/customer/AddEvent.js";
+import EventDisplay from "views/examples/customer/EventDisplay.js";
+import CustomerProfile from "views/examples/customer/CustomerProfile";
+import MyEvents from "views/examples/customer/MyEvents";
+import UpdateEvent from "views/examples/customer/UpdateEvent";
+import SelectServiceProvider from "views/examples/customer/SelectServiceProvider";
+//------------------------------------------------------
+
+// --------After pull dev 10/09/2021
 import AdvertisementInformation from "views/examples/AdvertisementInformation";
 import CardPayment from "views/examples/CardPayment";
 import DisplayedRequest from "views/examples/DisplayedRequest";
@@ -30,8 +38,6 @@ import SponsorList from "views/examples/SponsorList";
 import Sponsorship_Documentation from "views/examples/Sponsorship_Documentation";
 import My_Issue from "views/examples/My_Issue";
 import Event_Support from "views/examples/Event_Support";
-import CreateQuotation from "views/service-provider/CreateQuotation";
-import Events from "views/events/events";
 
 var routes = [
 	{
@@ -42,6 +48,39 @@ var routes = [
 		layout: "/admin",
 	},
 
+	{
+		path: "/createQuotation",
+		name: "Create Quotation",
+		icon: "ni ni-planet text-blue",
+		component: CreateQuotation,
+		layout: "/admin",
+	},
+	{
+		path: "/events",
+		name: "Events",
+		icon: "ni ni-pin-3 text-orange",
+		component: Events,
+		layout: "/admin",
+	},
+
+	{
+		path: "/login",
+		name: "Login",
+		icon: "ni ni-key-25 text-info",
+		component: Login,
+		layout: "/auth",
+	},
+
+	{
+		path: "/event-update/:_id",
+		// name: "Update Event",
+		//icon: "ni ni-notification-70 text-orange",
+		component: UpdateEvent,
+		layout: "/admin",
+		invisible: true,
+	},
+
+	//--------customer & Events -------------------
 	{
 		path: "/add-event",
 		name: "Publish An Event",
@@ -65,40 +104,13 @@ var routes = [
 		layout: "/admin",
 	},
 	{
-		path: "/createQuotation",
-		name: "Create Quotation",
-		icon: "ni ni-planet text-blue",
-		component: CreateQuotation,
+		path: "/selectservice-proivider",
+		name: "Select Service Provider",
+		icon: "ni ni-book-bookmark text-purple",
+		component: SelectServiceProvider,
 		layout: "/admin",
 	},
-	{
-		path: "/events",
-		name: "Events",
-		icon: "ni ni-pin-3 text-orange",
-		component: Events,
-		layout: "/admin",
-	},
-	// {
-	//   path: "/user-profile",
-	//   name: "User Profile",
-	//   icon: "ni ni-single-02 text-yellow",
-	//   component: Profile,
-	//   layout: "/admin",
-	// },
-	// {
-	//   path: "/tables",
-	//   name: "Tables",
-	//   icon: "ni ni-bullet-list-67 text-red",
-	//   component: Tables,
-	//   layout: "/admin",
-	// },
-	{
-		path: "/login",
-		name: "Login",
-		icon: "ni ni-key-25 text-info",
-		component: Login,
-		layout: "/auth",
-	},
+
 	{
 		path: "/register",
 		name: "Register",

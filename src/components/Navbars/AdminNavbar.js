@@ -1,4 +1,7 @@
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useHistory, useLocation } from "react-router-dom";
+// import decode from "jwt-decode"
+
 // reactstrap components
 import {
 	DropdownMenu,
@@ -18,6 +21,30 @@ import {
 } from "reactstrap";
 
 const AdminNavbar = (props) => {
+	const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
+
+	console.log(user);
+
+	const history = useHistory();
+	const location = useLocation();
+
+	const logout = () => {
+		history.push("/auth");
+		localStorage.clear();
+		setUser(null);
+	};
+
+	useEffect(() => {
+		const token = user?.token;
+
+		if (token) {
+			// const decodedToken = decode(token);
+			// if (decodedToken.exp * 1000 < new Date().getTime()) logout();
+		}
+
+		setUser(JSON.parse(localStorage.getItem("profile")));
+	}, []);
+
 	return (
 		<>
 			<Navbar className="navbar-top navbar-dark" expand="md" id="navbar-main">
@@ -54,7 +81,9 @@ const AdminNavbar = (props) => {
 										/>
 									</span>
 									<Media className="ml-2 d-none d-lg-block">
-										<span className="mb-0 text-sm font-weight-bold"></span>
+										<span className="mb-0 text-sm font-weight-bold">
+											{user?.result.firstName}
+										</span>
 									</Media>
 								</Media>
 							</DropdownToggle>
@@ -74,7 +103,13 @@ const AdminNavbar = (props) => {
 								<DropdownItem divider />
 								<DropdownItem href="#pablo" onClick={(e) => e.preventDefault()}>
 									<i className="ni ni-user-run" />
-									<span>Logout</span>
+									<span
+										onClick={() => {
+											logout();
+										}}
+									>
+										Logout
+									</span>
 								</DropdownItem>
 							</DropdownMenu>
 						</UncontrolledDropdown>

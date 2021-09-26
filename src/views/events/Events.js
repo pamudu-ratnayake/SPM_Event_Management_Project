@@ -1,4 +1,5 @@
 import ReactDatetime from "react-datetime";
+import API from "variables/tokenURL";
 
 // reactstrap components
 import {
@@ -29,8 +30,7 @@ const Events = (props) => {
 	const [posts, setPosts] = useState([]);
 
 	useEffect(() => {
-		axios
-			.get(`http://localhost:8080/eventAdd/getevents`)
+		API.get(`/eventAdd/getevents`)
 			.then((res) => {
 				const events = res.data;
 				const filterEvents = [];
