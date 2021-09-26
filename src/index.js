@@ -1,5 +1,3 @@
-
-
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
@@ -22,7 +20,7 @@ ReactDOM.render(
 				path="/authServiceProvider"
 				render={(props) => <AuthServiceProvider {...props} />}
 			/>
-			<Redirect from="/" to="/admin/index" />
+			<Redirect from="/" to="/auth/login" />
 		</Switch>
 	</BrowserRouter>,
 	document.getElementById("root")

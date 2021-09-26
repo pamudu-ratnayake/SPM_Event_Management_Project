@@ -1,4 +1,7 @@
+import { useFormik } from "formik";
+import axios from "axios";
 // reactstrap components
+import { useHistory } from "react-router";
 import {
   Button,
   Card,
@@ -15,6 +18,36 @@ import {
 } from "reactstrap";
 
 const Login = () => {
+
+  const initialValues = {
+    email: "",
+    password: "",
+  };
+
+  let history = useHistory();
+
+  const onSubmit = (values) => {
+    console.log("Form Date", values);
+    axios
+      .post("http://localhost:8080/auth-user/login",values)
+      .then((res) => {
+        console.log(res);
+        console.log("Data", values);
+        localStorage.setItem('profile',JSON.stringify(res.data));
+        history.push({
+          pathname: `/admin`,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const formik = useFormik({
+    initialValues,
+    onSubmit,
+  });
+
   return (
     <>
       <Col lg="5" md="7">
@@ -64,7 +97,7 @@ const Login = () => {
             <div className="text-center text-muted mb-4">
               <small>Or sign in with credentials</small>
             </div>
-            <Form role="form">
+            <Form onSubmit={formik.handleSubmit}>
               <FormGroup className="mb-3">
                 <InputGroup className="input-group-alternative">
                   <InputGroupAddon addonType="prepend">
@@ -75,7 +108,9 @@ const Login = () => {
                   <Input
                     placeholder="Email"
                     type="email"
+                    name="email"
                     autoComplete="new-email"
+                    onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.email}
                   />
                 </InputGroup>
               </FormGroup>
@@ -89,7 +124,9 @@ const Login = () => {
                   <Input
                     placeholder="Password"
                     type="password"
+                    name="password"
                     autoComplete="new-password"
+                    onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.password}
                   />
                 </InputGroup>
               </FormGroup>
@@ -107,7 +144,7 @@ const Login = () => {
                 </label>
               </div>
               <div className="text-center">
-                <Button className="my-4" color="primary" type="button">
+                <Button className="my-4" color="primary" type="submit">
                   Sign in
                 </Button>
               </div>

@@ -1,11 +1,6 @@
-import ReactDatetime from "react-datetime";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
-import FormikControl from "./FormikControl";
-//import { moment } from "moment";
-import DatePicker from "react-datepicker";
-import { useState, useEffect } from "react";
 
 // reactstrap components
 import {
@@ -27,6 +22,7 @@ const phoneRegExp =
 	/^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
 const RegisterServiceProvider = () => {
+	// Initial Values
 	const initialValues = {
 		servic_provider_Id: "SPS00006",
 		nic_no: "",
@@ -38,6 +34,7 @@ const RegisterServiceProvider = () => {
 		re_password: "",
 	};
 
+	//  Validation Schema
 	const validationSchema = Yup.object({
 		servic_provider_Id: Yup.string(),
 		nic_no: Yup.string().required("*Required!"),
@@ -53,6 +50,7 @@ const RegisterServiceProvider = () => {
 		re_password: Yup.string().required("*Required!"),
 	});
 
+	//  Submit Method
 	const onSubmit = (values) => {
 		console.log("Form Date", values);
 		//  values.date_of_the_event = event_date; //watch
@@ -69,6 +67,7 @@ const RegisterServiceProvider = () => {
 			});
 	};
 
+	// Formik Options
 	const formik = useFormik({
 		initialValues,
 		onSubmit,
@@ -114,6 +113,7 @@ const RegisterServiceProvider = () => {
 									</FormGroup>
 								</Col>
 								<Col lg="6">
+									{/* Last Name */}
 									<FormGroup>
 										<label
 											className="form-control-label"
@@ -140,7 +140,7 @@ const RegisterServiceProvider = () => {
 									</FormGroup>
 								</Col>
 							</Row>
-
+							{/* Email */}
 							<FormGroup>
 								<label className="form-control-label" htmlFor="input-email">
 									Email
@@ -215,7 +215,7 @@ const RegisterServiceProvider = () => {
 									</FormGroup>
 								</Col>
 							</Row>
-
+							{/* Password */}
 							<FormGroup>
 								<label className="form-control-label" htmlFor="input-password">
 									Password

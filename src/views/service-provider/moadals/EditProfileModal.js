@@ -1,44 +1,22 @@
 import { React, useState } from "react";
 
 // reactstrap components
-import {
-	Button,
-	Card,
-	CardHeader,
-	CardBody,
-	FormGroup,
-	Form,
-	Input,
-	InputGroupAddon,
-	InputGroupText,
-	InputGroup,
-	Modal,
-	Row,
-	Col,
-} from "reactstrap";
-import { ListFormat } from "typescript";
+import { Button, FormGroup, Form, Input, Modal, Row, Col } from "reactstrap";
 
 // core components
-import ReactDatetime from "react-datetime";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
-import FormikControl from "../FormikControl";
-//import { moment } from "moment";
-import DatePicker from "react-datepicker";
-
-const phoneRegExp =
-	/^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
 function EditProfileModal() {
 	const [showModal, setShowModal] = useState(false);
-	const [selectedFile, setSelectedFile] = useState(null);
 
 	const toggleModal = (state) => {
 		console.log("toggleModal");
 		setShowModal(state);
 	};
 
+	// initial Values
 	const initialValues = {
 		// company Variavles
 		company_Id: "SPC0005",
@@ -48,6 +26,7 @@ function EditProfileModal() {
 		file: "",
 	};
 
+	// Validation Schema
 	const validationSchema = Yup.object({
 		company_name: Yup.string().required("*Required!"),
 		service_provider_type: Yup.string().required("*Required!"),
@@ -55,6 +34,7 @@ function EditProfileModal() {
 		file: Yup.string().required("*Required!"),
 	});
 
+	// Submite Method
 	const onSubmit = (values) => {
 		console.log("Form Date", values);
 		//  values.date_of_the_event = event_date; //watch
