@@ -7,13 +7,14 @@ import EventListHeader from "components/Headers/EventListHeader";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import API from "variables/tokenURL";
 
 const SelectServiceProvider = (props) => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:8080/eventAdd/getevents`)
+    
+      API.get(`/eventAdd/getevents`)
       .then((res) => {
         setPosts(res.data);
         console.log(res.data);
@@ -58,9 +59,10 @@ const SelectServiceProvider = (props) => {
                   <thead className="thead-light">
                     <tr>
                       <th scope="col">Service Provider</th>
-                      <th scope="col">Name</th>
+                      <th scope="col">Service Type</th>
                       <th scope="col">Email</th>
                       <th scope="col">Contact Number</th>
+                      <th scope="col">Total</th>
                       <th scope="col" />
                     </tr>
                   </thead>

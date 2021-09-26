@@ -1,9 +1,12 @@
 import ReactDatetime from "react-datetime";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { useFormik } from "formik";
+import StarRatingComponent from "react-star-rating-component";
+import { FaStar } from "react-icons/fa";
 
 // reactstrap components
-import { Button, Card, CardHeader, CardBody, FormGroup, Form, Input, Container, Row, Col, InputGroupAddon, InputGroupText, InputGroup } from "reactstrap";
+import { Button, Card, CardHeader, CardBody, FormGroup, Form, Input, Container, Row, Col, InputGroupAddon, InputGroupText, InputGroup, Modal } from "reactstrap";
 // core components
 import ViewEventHeader from "components/Headers/ViewEventHeader";
 import { useEffect, useState } from "react";
@@ -12,6 +15,22 @@ const EventDisplay = (props) => {
   console.log("ID is : ", props.match.params._id);
 
   const [event, setEvent] = useState(0);
+
+  const [defaultModal, setState] = useState(false);
+  const [rating, setRating] = useState(null);
+  const [hover, setHover] = useState(null);
+
+  //toggle function
+  function toggleModal() {
+    setState(!defaultModal);
+  }
+
+  // function onStarClick(nextValue, prevValue, name) {
+  //   setRating({ rating: nextValue });
+  // }
+   console.log('rating', rating);
+
+  const initialValues = {};
 
   //useEffect
   useEffect(() => {
@@ -26,6 +45,10 @@ const EventDisplay = (props) => {
       });
   }, []);
 
+  const formik = useFormik({
+    initialValues,
+  });
+
   return (
     <>
       <ViewEventHeader />
@@ -36,15 +59,100 @@ const EventDisplay = (props) => {
             <Card className="bg-secondary shadow">
               <CardHeader className="bg-white border-0">
                 <Row className="align-items-center">
-                  <Col xs="8">
+                  <Col xs="7">
                     <h1 className="mb-0">Details of The Event</h1>
                   </Col>
-                  <Col className="text-right" xs="4">
+                  <Col className="text-right" xs="3">
                     <Link to={`/admin/selectservice-proivider`}>
-                    <Button color="primary"  size="sm">
-                      Service Providers
-                    </Button>
+                      <Button color="primary" size="sm">
+                        Service Providers
+                      </Button>
                     </Link>
+                  </Col>
+                  <Col className="text-right" xs="2">
+                    <Button color="primary" size="sm" onClick={() => toggleModal("defaultModal")}>
+                      Quotations
+                    </Button>
+
+                    <Modal className="modal-dialog-centered modal-danger" contentClassName="bg-gradient-danger" isOpen={defaultModal} toggle={() => toggleModal("defaultModal")}>
+                      <div className="modal-header">
+                        <h6 className="modal-title" id="modal-title-notification">
+                          Give your Rate & Review
+                        </h6>
+                        <button aria-label="Close" className="close" data-dismiss="modal" type="button" onClick={() => toggleModal("defaultModal")}>
+                          <span aria-hidden={true}>×</span>
+                        </button>
+                      </div>
+                      <div className="modal-body">
+                        <div className="py-3 text-center">
+                          <i className="ni ni-bell-55 ni-3x" />
+                          <h4 className="heading mt-4">You should read this!</h4>
+                          <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+                          {/* <span>
+                    <i className={
+                      formik.value >= 1
+                      ? "fas fa-star"
+                      : formik.value >= 0.5
+                      ? "fas fa-star-half-alt"
+                      : "fas fa-star"
+                    } 
+                    color="yellow" />
+                    </span> */}
+
+                          {/* <StarRatingComponent name="rate1" starCount={5} value={rating} onStarClick={onStarClick.bind(this)} /> */}
+
+                          <div>
+                            {[...Array(5)].map((star, i) => {
+                              const ratingValue = i + 1;
+
+                              return (
+                                <label>
+                                  <Input
+                                  style={{display: "none"}}
+                                    type="radio"
+                                    name="rating"
+                                    value={ratingValue}
+                                    onClick={() => setRating(ratingValue)}
+                                   
+                                  />
+                                  <FaStar 
+                                  className='star'
+                                  color={ratingValue <= (hover || rating) ? "#ffc107" : "#e4e5e9" }
+                                  size={50}
+                                  onMouseOver={() => setHover(ratingValue)}
+                                  onMouseOut={() => setHover(null)} />
+                                </label>
+                              );
+                            })}
+                          </div>
+
+                          <Col md="12">
+                            <FormGroup>
+                              <label>Review</label>
+                              <Input
+                                id="exampleFormControlTextarea1"
+                                placeholder="Enter Your Review..."
+                                rows="3"
+                                type="textarea"
+                                name="review"
+
+                                // onChange={formik.handleChange}
+                                // onBlur={formik.handleBlur}
+                                // value={formik.values.description}
+                              />
+                            </FormGroup>
+                          </Col>
+                        </div>
+                      </div>
+                      <div className="modal-footer">
+                        <Button className="btn-white" color="default" type="button">
+                          Ok, Got it
+                        </Button>
+                        <Button className="text-white ml-auto" color="link" data-dismiss="modal" type="button" onClick={() => toggleModal("defaultModal")}>
+                          Close
+                        </Button>
+                      </div>
+                    </Modal>
                   </Col>
                 </Row>
               </CardHeader>
@@ -124,7 +232,7 @@ const EventDisplay = (props) => {
 
                   {/* ----------- This one is correct---------------- */}
 
-                {/* {(arrayHelper) => (
+                  {/* {(arrayHelper) => (
                   <div>
                   {event.checkboxOption.map(boxValue => {
                       return <label className="ml-5" key={boxValue.checkboxOption}> {boxValue.checkboxOption[0]}  </label>
@@ -133,7 +241,7 @@ const EventDisplay = (props) => {
                     </div>            
                     )}      */}
 
-                    {/* ---------------------------------------------------------- */}
+                  {/* ---------------------------------------------------------- */}
 
                   {/* <Col>
                     <label className="ml-5"> </label>
@@ -188,7 +296,6 @@ const EventDisplay = (props) => {
                       </FormGroup>
                     </Col>
                   </Row>
-
                 </Form>
               </CardBody>
             </Card>

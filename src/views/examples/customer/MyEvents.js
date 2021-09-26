@@ -7,9 +7,13 @@ import EventListHeader from "components/Headers/EventListHeader";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { setConstantValue } from "typescript";
 
 const MyEvents = (props) => {
   const [posts, setPosts] = useState([]);
+  const today = new Date();
+  const currentDate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate() + today.getTime();
+  const [status, setStatus] = useState();
 
   const user = JSON.parse(localStorage.getItem("profile"));
 
@@ -47,6 +51,8 @@ const MyEvents = (props) => {
     window.location.reload(false);
   };
 
+  console.log('status', currentDate);
+
   return (
     <>
       <EventListHeader />
@@ -77,6 +83,7 @@ const MyEvents = (props) => {
                       <th scope="col">Date</th>
                       <th scope="col">Location</th>
                       <th scope="col">Event Type</th>
+                      <th scope="col">Event Status</th>
                       <th scope="col" />
                     </tr>
                   </thead>
@@ -87,6 +94,13 @@ const MyEvents = (props) => {
                         <td> {posts.date_of_the_event} </td>
                         <td> {posts.location} </td>
                         <td> {posts.event_type} </td>
+                        <td> {()=> {
+                          if(posts.date_of_the_event_end < currentDate )
+                            setStatus("Opend");
+                          else
+                            setStatus("Closed");   
+                            console.log('ssssssssssssssssss')                   
+                        }} {status} </td>
                         <td className="text-right">
                           <UncontrolledDropdown>
                             <DropdownToggle className="btn-icon-only text-light" href="#pablo" role="button" size="sm" color="" onClick={(e) => e.preventDefault()}>
