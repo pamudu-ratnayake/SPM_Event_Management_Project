@@ -38,6 +38,7 @@ import SponsorList from "views/examples/SponsorList";
 import Sponsorship_Documentation from "views/examples/Sponsorship_Documentation";
 import My_Issue from "views/examples/My_Issue";
 import Event_Support from "views/examples/Event_Support";
+import EventDisplaySP from "views/events/EventDisplaySP";
 
 var routes = [
 	{
@@ -48,13 +49,6 @@ var routes = [
 		layout: "/admin",
 	},
 
-	{
-		path: "/createQuotation",
-		name: "Create Quotation",
-		icon: "ni ni-planet text-blue",
-		component: CreateQuotation,
-		layout: "/admin",
-	},
 	{
 		path: "/events",
 		name: "Events",
@@ -119,10 +113,24 @@ var routes = [
 		layout: "/auth",
 	},
 	{
+		path: "/createQuotation/:_id",
+		name: "Create Quotation",
+		icon: "ni ni-planet text-blue",
+		component: CreateQuotation,
+		layout: "/admin",
+	},
+	{
 		path: "/event-display/:_id",
 		// name: "Display Event",
 		// icon: "ni ni-notification-70 text-orange",
 		component: EventDisplay,
+		layout: "/admin",
+	},
+	{
+		path: "/event-display-sp/:_id",
+		// name: "Display Event",
+		// icon: "ni ni-notification-70 text-orange",
+		component: EventDisplaySP,
 		layout: "/admin",
 	},
 	{

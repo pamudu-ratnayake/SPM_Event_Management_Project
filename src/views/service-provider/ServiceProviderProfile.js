@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import API from "variables/tokenURL";
 // Modals
 import EditProfileModal from "./moadals/EditProfileModal";
 import RatingModal from "./moadals/RatingModal";
@@ -31,8 +32,8 @@ const ServiceProviderProfile = (props) => {
 
 	useEffect(() => {
 		console.log("res.dat ");
-		axios
-			.get(`http://localhost:8080/company/`)
+		API
+			.get(`/company/`)
 			.then((res) => {
 				setPosts(res.data[0]);
 				console.log(res.data[0]);
@@ -41,8 +42,8 @@ const ServiceProviderProfile = (props) => {
 				console.log(error);
 			});
 
-		axios
-			.get(`http://localhost:8080/serviceProvider/getOne`)
+		API
+			.get(`/serviceProvider/getOne`)
 			.then((res) => {
 				setprofile(res.data[0]);
 				console.log(res.data[0]);
@@ -55,8 +56,8 @@ const ServiceProviderProfile = (props) => {
 
 	const deleteCompany = () => {
 		if (window.confirm("Are you sure you wish to delete this item?")) {
-			axios
-				.delete(`http://localhost:8080/company/delete/${posts._id}`)
+			API
+				.delete(`/company/delete/${posts._id}`)
 				.then((res) => {
 					// setPosts(res.data);
 					console.log(res.data);
@@ -104,9 +105,9 @@ const ServiceProviderProfile = (props) => {
 	const onSubmit = (values) => {
 		console.log("Form Date", values);
 		//  values.date_of_the_event = event_date; //watch
-		axios
+		API
 			.put(
-				`http://localhost:8080/serviceProvider/update/${profile._id}`,
+				`/serviceProvider/update/${profile._id}`,
 				values
 			)
 			.then((res) => {

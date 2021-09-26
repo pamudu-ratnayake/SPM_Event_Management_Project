@@ -9,6 +9,7 @@ import {
 	Col,
 	Table,
 } from "reactstrap";
+import API from "variables/tokenURL";
 // core components
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -18,8 +19,7 @@ const ServiceProviders = (props) => {
 	const [posts, setPosts] = useState([]);
 
 	useEffect(() => {
-		axios
-			.get(`http://localhost:8080/serviceProvider/`)
+		API.get(`/serviceProvider/`)
 			.then((res) => {
 				setPosts(res.data);
 				console.log(res.data);
@@ -97,10 +97,9 @@ const ServiceProviders = (props) => {
 																	"Are you sure you wish to delete this item?"
 																)
 															) {
-																axios
-																	.delete(
-																		`http://localhost:8080/serviceProvider/delete/${posts._id}`
-																	)
+																API.delete(
+																	`/serviceProvider/delete/${posts._id}`
+																)
 																	.then((res) => {
 																		// setPosts(res.data);
 																		console.log(res.data);

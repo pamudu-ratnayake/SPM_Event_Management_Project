@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "boxicons";
+import API from "variables/tokenURL";
 
 // Form Element
 import {
@@ -22,6 +23,7 @@ import axios from "axios";
 import CreateQuotionHeader from "components/Headers/service-provider-header/CreateQuotionHeader";
 
 const CreateQuotation = (props) => {
+	console.log("CQ ID is : ", props.match.params._id);
 	// Form Inputs Varibales
 	const [item_details, setItem_details] = useState([]);
 	const [date_from, setDate_from] = useState("");
@@ -43,13 +45,11 @@ const CreateQuotation = (props) => {
 	let today = new Date().toISOString().split("T")[0];
 
 	const initialValues = {
-		date_from: "",
 		date_to: "",
 		terms: "",
 	};
 
 	const validationSchema = Yup.object({
-		date_from: Yup.string().required("*Required!"),
 		date_to: Yup.string()
 			.required("*Required!")
 			.min(date_from, `Cannot accept befor ${date_from}`),
@@ -58,10 +58,7 @@ const CreateQuotation = (props) => {
 
 	useEffect(() => {
 		if (total <= 0) {
-			axios
-				.get(
-					`http://localhost:8080/eventAdd/getOneEvent/614f3b36814aae43d07f35d2`
-				)
+			API.get(`/eventAdd/getOneEvent/${props.match.params._id}`)
 				.then((res) => {
 					console.log("E : ", res.data);
 					setEvent(res.data);
@@ -70,9 +67,8 @@ const CreateQuotation = (props) => {
 					console.log(error);
 				});
 
-			setEvent_id("614f3b36814aae43d07f35d2");
-			axios
-				.get(`http://localhost:8080/company/`)
+			setEvent_id(props.match.params._id);
+			API.get(`/company/`)
 				.then((res) => {
 					setCompany(res.data[0]);
 					console.log("C : ", res.data[0]);
@@ -81,8 +77,7 @@ const CreateQuotation = (props) => {
 					console.log(error);
 				});
 
-			axios
-				.get(`http://localhost:8080/serviceProvider/getOne`)
+			API.get(`/serviceProvider/getOne`)
 				.then((res) => {
 					setprofile(res.data[0]);
 					console.log("SP : ", res.data[0]);
@@ -102,7 +97,7 @@ const CreateQuotation = (props) => {
 
 	const onSubmit = (values) => {
 		console.log("Form Date", values);
-		console.log("Form date_from", date_from);
+		console.log("Form date_from", today);
 		console.log("Form date_to", date_to);
 		console.log("Form item_details", item_details);
 		console.log("Form terms", terms);
@@ -112,7 +107,7 @@ const CreateQuotation = (props) => {
 			let newQuotation = {
 				event_id: event._id,
 				provider_id: profile._id,
-				date_from: values.date_from,
+				date_from: today,
 				date_to: values.date_to,
 				quotation_details: item_details,
 				terms: values.terms,
@@ -120,8 +115,7 @@ const CreateQuotation = (props) => {
 			};
 			console.log("Sub : ", newQuotation);
 			console.log("Sub D F : ", newQuotation.date_from);
-			axios
-				.post(`http://localhost:8080/quotation/create`, newQuotation)
+			API.post(`/quotation/create`, newQuotation)
 				.then((res) => {
 					console.log("res : ", res);
 					alert("Created Successfully !!");
@@ -202,20 +196,12 @@ const CreateQuotation = (props) => {
 														<FormGroup>
 															<Input
 																size="sm"
-																className="form-control-alternative "
+																className="form-control-alternative bg-secondary mt--1"
 																id="input-date-from"
 																name="date_from"
-																min={today}
-																type="date"
-																onChange={formik.handleChange}
-																onBlur={formik.handleBlur}
+																value={today}
+																disabled
 															></Input>
-															{formik.touched.date_from &&
-															formik.errors.date_from ? (
-																<div style={{ color: "red" }}>
-																	{formik.errors.date_from}
-																</div>
-															) : null}
 														</FormGroup>
 													</Col>
 												</Row>
@@ -236,7 +222,7 @@ const CreateQuotation = (props) => {
 																id="input-date-to"
 																name="date_to"
 																type="date"
-																min={initialValues.date_from || today}
+																min={today}
 																onChange={formik.handleChange}
 																onBlur={formik.handleBlur}
 															></Input>

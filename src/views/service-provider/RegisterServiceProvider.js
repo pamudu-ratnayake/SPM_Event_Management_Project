@@ -1,6 +1,7 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
+import API from "variables/tokenURL";
 
 // reactstrap components
 import {
@@ -54,8 +55,7 @@ const RegisterServiceProvider = () => {
 	const onSubmit = (values) => {
 		console.log("Form Date", values);
 		//  values.date_of_the_event = event_date; //watch
-		axios
-			.post(`http://localhost:8080/serviceProvider/create`, values)
+		API.post(`/serviceProvider/create`, values)
 			.then((res) => {
 				console.log(res);
 				console.log("Data", values);
