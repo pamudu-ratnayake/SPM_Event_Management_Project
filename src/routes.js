@@ -68,7 +68,7 @@ var routes = [
     layout: "/admin",
   },
   {
-    path: "/selectservice-proivider",
+    path: "/selectservice-proivider/:_id",
     name: "Select Service Provider",
     icon: "ni ni-book-bookmark text-purple",
     component: SelectServiceProvider,

@@ -2,23 +2,9 @@ import { useFormik } from "formik";
 import axios from "axios";
 // reactstrap components
 import { useHistory } from "react-router";
-import {
-  Button,
-  Card,
-  CardHeader,
-  CardBody,
-  FormGroup,
-  Form,
-  Input,
-  InputGroupAddon,
-  InputGroupText,
-  InputGroup,
-  Row,
-  Col,
-} from "reactstrap";
+import { Button, Card, CardHeader, CardBody, FormGroup, Form, Input, InputGroupAddon, InputGroupText, InputGroup, Row, Col } from "reactstrap";
 
 const Login = () => {
-
   const initialValues = {
     email: "",
     password: "",
@@ -27,13 +13,11 @@ const Login = () => {
   let history = useHistory();
 
   const onSubmit = (values) => {
-    console.log("Form Date", values);
     axios
-      .post("http://localhost:8080/auth-user/login",values)
+      .post("http://localhost:8080/auth-user/login", values)
       .then((res) => {
         console.log(res);
-        console.log("Data", values);
-        localStorage.setItem('profile',JSON.stringify(res.data));
+        localStorage.setItem("profile", JSON.stringify(res.data));
         history.push({
           pathname: `/admin`,
         });
@@ -57,37 +41,15 @@ const Login = () => {
               <small>Sign in with</small>
             </div>
             <div className="btn-wrapper text-center">
-              <Button
-                className="btn-neutral btn-icon"
-                color="default"
-                href="#pablo"
-                onClick={(e) => e.preventDefault()}
-              >
+              <Button className="btn-neutral btn-icon" color="default" href="#pablo" onClick={(e) => e.preventDefault()}>
                 <span className="btn-inner--icon">
-                  <img
-                    alt="..."
-                    src={
-                      require("../../assets/img/icons/common/facebook2.svg")
-                        .default
-                    }
-                  />
+                  <img alt="..." src={require("../../assets/img/icons/common/facebook2.svg").default} />
                 </span>
                 <span className="btn-inner--text">Facebook</span>
               </Button>
-              <Button
-                className="btn-neutral btn-icon"
-                color="default"
-                href="#pablo"
-                onClick={(e) => e.preventDefault()}
-              >
+              <Button className="btn-neutral btn-icon" color="default" href="#pablo" onClick={(e) => e.preventDefault()}>
                 <span className="btn-inner--icon">
-                  <img
-                    alt="..."
-                    src={
-                      require("../../assets/img/icons/common/google.svg")
-                        .default
-                    }
-                  />
+                  <img alt="..." src={require("../../assets/img/icons/common/google.svg").default} />
                 </span>
                 <span className="btn-inner--text">Google</span>
               </Button>
@@ -105,13 +67,7 @@ const Login = () => {
                       <i className="ni ni-email-83" />
                     </InputGroupText>
                   </InputGroupAddon>
-                  <Input
-                    placeholder="Email"
-                    type="email"
-                    name="email"
-                    autoComplete="new-email"
-                    onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.email}
-                  />
+                  <Input placeholder="Email" type="email" name="email" autoComplete="new-email" onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.email} />
                 </InputGroup>
               </FormGroup>
               <FormGroup>
@@ -121,25 +77,12 @@ const Login = () => {
                       <i className="ni ni-lock-circle-open" />
                     </InputGroupText>
                   </InputGroupAddon>
-                  <Input
-                    placeholder="Password"
-                    type="password"
-                    name="password"
-                    autoComplete="new-password"
-                    onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.password}
-                  />
+                  <Input placeholder="Password" type="password" name="password" autoComplete="new-password" onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.password} />
                 </InputGroup>
               </FormGroup>
               <div className="custom-control custom-control-alternative custom-checkbox">
-                <input
-                  className="custom-control-input"
-                  id=" customCheckLogin"
-                  type="checkbox"
-                />
-                <label
-                  className="custom-control-label"
-                  htmlFor=" customCheckLogin"
-                >
+                <input className="custom-control-input" id=" customCheckLogin" type="checkbox" />
+                <label className="custom-control-label" htmlFor=" customCheckLogin">
                   <span className="text-muted">Remember me</span>
                 </label>
               </div>
@@ -153,20 +96,12 @@ const Login = () => {
         </Card>
         <Row className="mt-3">
           <Col xs="6">
-            <a
-              className="text-light"
-              href="#pablo"
-              onClick={(e) => e.preventDefault()}
-            >
+            <a className="text-light" href="#pablo" onClick={(e) => e.preventDefault()}>
               <small>Forgot password?</small>
             </a>
           </Col>
           <Col className="text-right" xs="6">
-            <a
-              className="text-light"
-              href="#pablo"
-              onClick={(e) => e.preventDefault()}
-            >
+            <a className="text-light" href="#pablo" onClick={(e) => e.preventDefault()}>
               <small>Create new account</small>
             </a>
           </Col>
