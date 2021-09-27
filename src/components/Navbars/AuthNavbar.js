@@ -60,7 +60,7 @@ const AdminNavbar = () => {
 							<NavItem>
 								<NavLink
 									className="nav-link-icon"
-									to="/auth/register"
+									to="/auth/register-all"
 									tag={Link}
 								>
 									<i className="ni ni-circle-08" />

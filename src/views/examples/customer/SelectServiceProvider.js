@@ -26,19 +26,29 @@ const SelectServiceProvider = (props) => {
       });
   }, []);
 
+  const getServiceProvider = (provider_id) => {
+    console.log("ser id:", provider_id);
+      API.get(`/serviceProvider/get/${provider_id}`)
+        .then((res) => {
+          setServiceProvider(res.data);
+          console.log(res.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
 
-
- const getServiceProvider = (provider_id) => {
-  console.log("ser id:", provider_id);
-    API.get(`/serviceProvider/get/${provider_id}`)
-      .then((res) => {
-        setServiceProvider(res.data);
-        console.log(res.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+  // const getServiceProvider = async (provider_id) => {
+  //   console.log("ser id:", provider_id);
+  //   await API.get(`/serviceProvider/get/${provider_id}`)
+  //     .then((res) => {
+  //       setServiceProvider(res.data);
+  //       console.log(res.data);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // };
 
   const [exampleModal, setmodalDemo] = useState(false);
 
@@ -85,7 +95,7 @@ const SelectServiceProvider = (props) => {
                     {posts.map((posts) => (
                       <tr key={posts._id}>
                         {getServiceProvider(posts.provider_id)}
-                      {console.log("ffffff")}
+
                         <td> {serviceProvider.first_name} </td>
                         <td> {serviceProvider.nic_no} </td>
                         <td> {serviceProvider.email} </td>
@@ -102,47 +112,13 @@ const SelectServiceProvider = (props) => {
                               <i className="ni ni-atom" />
                             </span>
                           </Button>
-                          <Button className="btn-icon btn-2 " size="sm" color="primary" type="button">
-                            <span className="btn-inner--icon-center">
-                              <i className="ni ni-glasses-2" />
-                            </span>
-                          </Button>
-                        </td>
-                        <td className="text-right">
-                          <UncontrolledDropdown>
-                            <DropdownToggle className="btn-icon-only text-light" href="#pablo" role="button" size="sm" color="" onClick={(e) => e.preventDefault()}>
-                              <i className="fas fa-ellipsis-v" />
-                            </DropdownToggle>
-                            <DropdownMenu className="dropdown-menu-arrow" right>
-                              <Link to={`/admin/event-display/${posts._id}`}>
-                                <DropdownItem>View Event</DropdownItem>
-                              </Link>
-                              <Link to={`/admin/event-update/${posts._id}`}>
-                                <DropdownItem>Update Event</DropdownItem>
-                              </Link>
-                              <DropdownItem onClick={() => toggleModal("exampleModal")}> Delete Event</DropdownItem>
-
-                              <Modal className="modal-dialog-centered" isOpen={exampleModal} toggle={() => toggleModal("exampleModal")}>
-                                <div className="modal-header">
-                                  <h5 className="modal-title" id="exampleModalLabel">
-                                    Confirm to delete this event
-                                  </h5>
-                                  <button aria-label="Close" className="close" data-dismiss="modal" type="button" onClick={() => toggleModal("exampleModal")}>
-                                    <span aria-hidden={true}>×</span>
-                                  </button>
-                                </div>
-                                <div className="modal-body">Do you want to delete this event?</div>
-                                <div className="modal-footer">
-                                  <Button color="primary" type="button">
-                                    Confirm Delete
-                                  </Button>
-                                  <Button color="secondary" data-dismiss="modal" type="button" onClick={() => toggleModal("exampleModal")}>
-                                    Close
-                                  </Button>
-                                </div>
-                              </Modal>
-                            </DropdownMenu>
-                          </UncontrolledDropdown>
+                          <Link to={`/admin/view-quotations/${posts._id}`}>
+                            <Button className="btn-icon btn-2 " size="sm" color="primary" type="button">
+                              <span className="btn-inner--icon-center">
+                                <i className="ni ni-glasses-2" />
+                              </span>
+                            </Button>
+                          </Link>
                         </td>
                       </tr>
                     ))}

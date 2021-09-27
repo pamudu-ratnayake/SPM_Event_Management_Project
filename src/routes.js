@@ -1,10 +1,11 @@
 import Index from "views/Index.js";
-import Register from "views/examples/Register.js";
-import Login from "views/examples/Login.js";
+import AllSignUps from "views/auth/AllSignUps";
+import Register from "views/auth/Register.js";
+import Login from "views/auth/Login.js";
 import Tables from "views/examples/Tables.js";
 import Icons from "views/examples/Icons.js";
 import ServiceProviderProfile from "views/service-provider/ServiceProviderProfile";
-import RegisterServiceProvider from "views/service-provider/RegisterServiceProvider";
+import RegisterServiceProvider from "views/auth/RegisterServiceProvider";
 
 //----------customer & Event---------------------------
 import AddEvent from "views/examples/customer/AddEvent.js";
@@ -13,6 +14,7 @@ import CustomerProfile from "views/examples/customer/CustomerProfile";
 import MyEvents from "views/examples/customer/MyEvents";
 import UpdateEvent from "views/examples/customer/UpdateEvent";
 import SelectServiceProvider from "views/examples/customer/SelectServiceProvider";
+import ViewQuotation from "views/examples/customer/ViewQuotation";
 //------------------------------------------------------
 
 import ServiceProviders from "views/service-provider/ServiceProviders";
@@ -74,34 +76,13 @@ var routes = [
     component: SelectServiceProvider,
     layout: "/admin",
   },
-  // {
-  //   path: "/icons",
-  //   name: "Icons",
-  //   icon: "ni ni-planet text-blue",
-  //   component: Icons,
-  //   layout: "/admin",
-  // },
-  // {
-  //   path: "/maps",
-  //   name: "Maps",
-  //   icon: "ni ni-pin-3 text-orange",
-  //   component: Maps,
-  //   layout: "/admin",
-  // },
-  // {
-  //   path: "/user-profile",
-  //   name: "User Profile",
-  //   icon: "ni ni-single-02 text-yellow",
-  //   component: Profile,
-  //   layout: "/admin",
-  // },
-  // {
-  //   path: "/tables",
-  //   name: "Tables",
-  //   icon: "ni ni-bullet-list-67 text-red",
-  //   component: Tables,
-  //   layout: "/admin",
-  // },
+  {
+    path: "/view-quotations/:_id",
+    name: "View Quotations",
+    icon: "ni ni-circle-08 text-pink",
+    component: ViewQuotation,
+    layout: "/admin",
+  },
   {
     path: "/login",
     name: "Login",
@@ -114,6 +95,13 @@ var routes = [
     name: "Register",
     icon: "ni ni-circle-08 text-pink",
     component: Register,
+    layout: "/auth",
+  },
+  {
+    path: "/register-all",
+    name: "All Register",
+    icon: "ni ni-circle-08 text-pink",
+    component: AllSignUps,
     layout: "/auth",
   },
   {
@@ -131,6 +119,9 @@ var routes = [
     layout: "/admin",
     invisible: true,
   },
+
+  //--------------------------------------------------------------
+
   {
     path: "/icons",
     // name: "Icons",
