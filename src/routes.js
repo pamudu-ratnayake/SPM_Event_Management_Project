@@ -175,7 +175,7 @@ var routes = [
   },
  
   {
-    path: "/advertisementdetails",
+    path: "/advertisementdetails/:_id",
     name: "Advertisement Details ",
     icon: "ni ni-credit-card text-blue",
     component: AdvertisementDetails,

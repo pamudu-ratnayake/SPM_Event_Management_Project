@@ -1,5 +1,8 @@
 import { useState, useEffect } from "react";
-import {Link} from "react-router-dom"
+import {Link} from "react-router-dom";
+import API from "variables/tokenURL"
+
+
 // reactstrap components
 import {
   Button,
@@ -26,7 +29,7 @@ const AdvertisementDetails = (props) => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/advertisement/get/${props.match.params._id}`)
+    .get(`http://localhost:8080/advertisement/get/${props.match.params._id}`)
       .then((res) => {
         console.log(res);
         setAdd(res.data);
@@ -96,6 +99,32 @@ const AdvertisementDetails = (props) => {
                       </div>
                     </CardBody>
                   </Card>
+
+                  <Card
+                    style={({ width: "28rem" }, { height: "2.5rem" })}
+                    className="mb-4"
+                  >
+                    <CardBody className="pt-1 pt-md-0">
+                      <div>
+                        <CardText>
+                          <Row>
+                            <Col xs="3">
+                              <span className="h5" style={{ font: "menu" }}>
+                             Advertisement ID
+                              </span>
+                            </Col>
+                            <Col xs="6">
+                              <span className="h5">
+                                : {addsData._id}
+                              </span>
+                            </Col>
+                          </Row>
+                        </CardText>
+                      </div>
+                    </CardBody>
+                  </Card>
+
+
                   <Card
                     style={({ width: "28rem" }, { height: "2.5rem" })}
                     className="mb-4"
