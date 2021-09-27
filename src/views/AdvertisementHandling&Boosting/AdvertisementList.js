@@ -166,7 +166,7 @@ const AdvertisementList = (props) => {
                           <i className="fas fa-ellipsis-v" />
                         </DropdownToggle>
                         <DropdownMenu className="dropdown-menu-arrow" right>
-                          <Link to={`/admin/viewadvertisement/${addslist._id}`}>
+                          <Link to={`/admin/AdvertisementDetails/${addslist._id}`}>
                             <DropdownItem>View Request</DropdownItem>
                           </Link>
                           <Link

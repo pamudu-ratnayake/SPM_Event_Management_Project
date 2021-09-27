@@ -92,7 +92,7 @@ const AdvertisementDetails = (props) => {
                               </span>
                             </Col>
                             <Col xs="6">
-                              <span className="h5">: {addsData.email_SP}</span>
+                              <span className="h5"></span>
                             </Col>
                           </Row>
                         </CardText>
@@ -291,7 +291,7 @@ const AdvertisementDetails = (props) => {
                     </CardBody>
                   </Card>
 
-                  <Card
+                  {/* <Card
                     style={({ width: "28rem" }, { height: "2.5rem" })}
                     className="mb-4"
                   >
@@ -313,7 +313,7 @@ const AdvertisementDetails = (props) => {
                         </CardText>
                       </div>
                     </CardBody>
-                  </Card>
+                  </Card> */}
 
                   {/* <Card
              style={({ width: "28rem" }, { height: "2.5rem" })}

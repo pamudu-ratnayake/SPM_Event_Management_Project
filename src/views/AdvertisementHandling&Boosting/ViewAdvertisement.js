@@ -15,7 +15,6 @@ import {
 } from "reactstrap";
 import * as Yup from "yup";
 // core components
-import BoostAddHeader from "components/Headers/AdvertisementHandling&BoostingHeaders/BoostAddHeader";
 import axios from "axios";
 
 const ViewAdvertisement = (props) => {
