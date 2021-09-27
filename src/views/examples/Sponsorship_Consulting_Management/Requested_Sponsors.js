@@ -18,12 +18,25 @@ import {
 } from "reactstrap";
 // core components
 import UserHeaderSponsorsList from "components/Headers/UserHeaderSponsorsList.js";
-import axios from "axios";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 
 const Requested_Sponsors = (props) => {
-  const [posts, setPosts] = useState([]);
+  const [sponsors, setSponsors] = useState([
+    // { companyName: "666", reqDate: "6666", rqst: "666666666" },
+  ]);
+
+  const addSponsor = () => {
+    setSponsors([
+      ...sponsors,
+      {
+        id: sponsors.length,
+        value: Math.floor(Math.random() * 10) + 1,
+        companyName: "",
+        reqDate: "",
+        rqst: "",
+      },
+    ]);
+  };
 
   return (
     <>
@@ -48,19 +61,23 @@ const Requested_Sponsors = (props) => {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td scope="row">
-                      {/* <Media> */}
-                      <span className="mb-0 text-sm">mmmmmmmm</span>
-                      {/* </Media> */}
-                    </td>
-                    <td scope="row">
-                      <span className="mb-0 text-sm">mmmmmmmm</span>
-                    </td>
-                    <td scope="row">
-                      <span className="mb-0 text-sm">mmmmmmmm</span>
-                    </td>
-                  </tr>
+                  {sponsors.map((sponsors) => (
+                    <tr>
+                      <td scope="row">
+                        {/* <Media> */}
+                        <span className="mb-0 text-sm">
+                          {sponsors.companyName}
+                        </span>
+                        {/* </Media> */}
+                      </td>
+                      <td scope="row">
+                        <span className="mb-0 text-sm">{sponsors.reqDate}</span>
+                      </td>
+                      <td scope="row">
+                        <span className="mb-0 text-sm">{sponsors.rqst}</span>
+                      </td>
+                    </tr>
+                  ))};
                 </tbody>
               </Table>
             </Card>

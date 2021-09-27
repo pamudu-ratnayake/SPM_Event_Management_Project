@@ -21,7 +21,7 @@ import UserHeaderSpnDocumentation from "components/Headers/UserHeaderSpnDocument
 import { Formik, useFormik } from "formik";
 import * as Yup from "yup";
 import jsPDF from 'jspdf'
-import logo from '../../../assets/img/logo/logo.png'
+// import logo from '../../../assets/img/logo/logo.png'
 
 
 // const phoneRegExp =
@@ -41,23 +41,48 @@ const Sponsorship_Documentation = (props) => {
   // };
 
   const [posts, setPosts] = useState([]);
-  const [pkg, setPackage] = useState([]);
 
-  const add = (event) => {
-    event.preventDefault();
-    // console.log(event.target.pkg_name.value);
+  let initialValue = [];
+  const [pkg, setPackage] = useState([]);
+  //   {
+  //   pkg_name: "",
+  //   amount: ""
+  // }
+
+  // const add = (event) => {
+  //   event.preventDefault();
+  //   console.log(event.target.pkg_name.value);
+
+  //   const formData = event.target;
+  //   const newPkg = {
+  //     pkg_name: formData.pkg_name.value,
+  //     amount: formData.amount.value,
+  //   };
+  //   // const newArray = newPkg.slice();
+  //   // newArray.push(newPkg);
+  //   // setPackage({newPkg:newArray});
+  //   console.log('wwww',newPkg);
+  //   // setPackage([...pkg,newPkg]);
+  //      setPackage(pkg => [...pkg, newPkg]);
+  //   console.log('hhh',pkg);
+  // };
+
+  const add = async(event) => {
+    await event.preventDefault();
+    console.log(event.target.pkg_name.value, event.target.amount.value);
 
     const formData = event.target;
     const newPkg = {
       pkg_name: formData.pkg_name.value,
-      amount: formData.amount.value,
-    };
+      amount: formData.amount.value
+    }
     // console.log(newPkg);
-    setPackage([...pkg, newPkg]);
-    // console.log(pkg);
+    setPackage([...pkg,newPkg]);
+    console.log(pkg);
   };
 
-  const deletePkg = itemIndex => {
+
+  const deletePkg = (itemIndex) => {
     console.log(itemIndex);
 
     const filtered = [...pkg].filter(c => c.index !== itemIndex);
@@ -88,14 +113,15 @@ const Sponsorship_Documentation = (props) => {
   const e_date = posts.date_of_the_event
   const e_time = posts.event_time
   const e_loct = posts.location
-  const e_days = (posts.days_occurs).toString()
+  // const e_days = posts.days_occurs
+  // .toString()
   const e_type = posts.event_type
   const orz_name = posts.organizer_name
   const orz_email = posts.cus_email
   const orz_cont = posts.cus_con_number
   const e_disc = posts.description
 
-  // const logo = require('../../assets/img/logo/logo.png')
+  // const logo = require('../../../assets/img/logo/logo.png')
   const pdfGenerater = () => {
     var doc = new jsPDF('landscape', 'px', 'a4', false);
     // doc.addImage(logo, 'PNG', 65, 20, 400, 400)
@@ -133,7 +159,7 @@ const Sponsorship_Documentation = (props) => {
     doc.text(300, 110, e_date)
     doc.text(300, 130, e_time)
     doc.text(300, 150, e_loct)
-    doc.text(300, 170, e_days)
+    // doc.text(300, 170, e_days)
     doc.text(300, 190, e_type)
     doc.text(300, 210, orz_name)
     doc.text(300, 230, orz_email)
@@ -302,6 +328,7 @@ const Sponsorship_Documentation = (props) => {
                                   color="primary"
                                   size="sm"
                                   type="submit"
+                                  // onClick={add}
                                 >
                                   <span className="btn-inner--icon">
                                     <i className="ni ni-fat-add" />
@@ -313,8 +340,10 @@ const Sponsorship_Documentation = (props) => {
                           <Row style={{ paddingTop: "1rem" }}>
                             <span>Packages</span>
                           </Row>
-                          {pkg.map((item, index) => {
-                            return (
+                          <div>
+                          {
+                            pkg.map((item,index) => {
+                              return(
                               <Row xs="" key={index}>
                                 <Col xs="">
                                   <span className="h5">
@@ -322,7 +351,9 @@ const Sponsorship_Documentation = (props) => {
                                   </span>
                                 </Col>
                                 <Col xs="">
-                                  <span className="h5">LKR. {item.amount}</span>
+                                  <span className="h5">LKR. 
+                                  {item.amount}
+                                  </span>
                                 </Col>
                                 <Col lg={{ size: "auto" }} className="pt-2">
                                   <Button
@@ -330,7 +361,7 @@ const Sponsorship_Documentation = (props) => {
                                     color="primary"
                                     size="sm"
                                     type="button"
-                                    onClick={() => deletePkg(item.index)}
+                                    // onClick={deletePkg(item.index)}
                                   >
                                     <span className="btn-inner--icon">
                                       <i className="ni ni-fat-delete" />
@@ -338,8 +369,10 @@ const Sponsorship_Documentation = (props) => {
                                   </Button>
                                 </Col>
                               </Row>
-                            );
-                          })}
+                              )
+                            })
+                          }
+                          </div>
                         </Col>
                       </Row>
 
@@ -361,7 +394,9 @@ const Sponsorship_Documentation = (props) => {
                         </Col>
                       </Row>
                       <div>
-                        <Button color="primary" size="sm" type="button" onClick={pdfGenerater}>
+                        <Button color="primary" size="sm" type="button" 
+                        onClick={pdfGenerater}
+                        >
                           Create Document
                         </Button>
                       </div>

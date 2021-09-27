@@ -10,7 +10,6 @@ import { Button, Card, CardHeader, CardBody, FormGroup, Form, Input, Container, 
 // core components
 import ViewEventHeader from "components/Headers/ViewEventHeader";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 
 const EventDisplay = (props) => {
   console.log("ID is : ", props.match.params._id);

@@ -26,6 +26,7 @@ import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
 import emailjs from "emailjs-com";
 import { useEffect, useState } from "react";
+import Requested_Sponsors from "./Requested_Sponsors";
 
 const validationSchema = Yup.object({
   sender_name: Yup.string().required("Required!"),
@@ -46,6 +47,7 @@ const Send_Request = (props) => {
     companyName: sDetails.companyName,
     rqst: "",
     cus_email: "",
+    reqDate: "",
   };
 
   const sendEmail = (e) => {
@@ -60,6 +62,7 @@ const Send_Request = (props) => {
       )
       .then((res) => {
         console.log(res);
+        
         history.push({
           pathname: "/admin/Sponsorship_Request",
         });
