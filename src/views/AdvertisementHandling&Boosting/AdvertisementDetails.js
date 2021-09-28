@@ -92,7 +92,7 @@ const AdvertisementDetails = (props) => {
                               </span>
                             </Col>
                             <Col xs="6">
-                              <span className="h5"></span>
+                              <span className="h5"> : {addsData.service_Provider_ID}</span>
                             </Col>
                           </Row>
                         </CardText>
