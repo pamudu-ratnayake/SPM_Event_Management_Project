@@ -1,5 +1,4 @@
 
-import DashboardHd from '../assets/img/theme/dashboard.png'
 import { useState } from "react";
 import Slider from 'components/Slider/Slider';
 // node.js library that concatenates classes (strings)
