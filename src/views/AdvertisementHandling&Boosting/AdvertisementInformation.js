@@ -1,6 +1,7 @@
 // reactstrap components
 import React, { useState , useMemo } from "react";
 import {useDropzone} from 'react-dropzone'
+import API from "variables/tokenURL";
 
 import {
   Button,
@@ -164,8 +165,8 @@ const AdvertisementInformation = (props) => {
 
   const onSubmit = (values) => {
     console.log("form data", values);
-    axios
-      .post("http://localhost:8080/advertisement/addadvertisement", values)
+    API
+      .post("/advertisement/addadvertisement", values)
       .then((res) => {
         console.log(res);
         console.log("Data", values);
