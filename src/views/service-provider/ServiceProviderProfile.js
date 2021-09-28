@@ -27,27 +27,23 @@ const phoneRegExp =
 	/^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
 const ServiceProviderProfile = (props) => {
+	const [provider, setProvider] = useState("");
 	const [posts, setPosts] = useState("");
-	const [profile, setprofile] = useState(0);
+	// const [profile, setProfile] = useState("");
 
 	// Taking Current User
 	const user = JSON.parse(localStorage.getItem("profile")).result;
-	console.log("user : ", user);
-	useEffect(() => {
-		API.get(`/company/`)
-			.then((res) => {
-				setPosts(res.data[0]);
-				console.log(res.data[0]);
-			})
-			.catch((error) => {
-				console.log(error);
-			});
 
-		API.get(`/serviceProvider/get/${user._id}`)
+	useEffect(() => {
+		API.get(`/serviceProvider/getByUser/${user._id}`)
 			.then((res) => {
-				setprofile(res.data);
-				console.log("SP : ", res.data);
-				// console.log(res.data.servic_provider_Id);
+				let data = res.data;
+				console.log("SP : ", data);
+				setProvider(data);
+				API.get(`/company/get/${data.company_id}`).then((res) => {
+					setPosts(res.data);
+					console.log(res.data);
+				});
 			})
 			.catch((error) => {
 				console.log(error);
@@ -70,16 +66,19 @@ const ServiceProviderProfile = (props) => {
 	};
 
 	const initialValues = {
-		servic_provider_Id: "profile.servic_provider_Id",
-		nic_no: profile.nic_no,
-		first_name: profile.first_name,
-		last_name: profile.last_name,
-		user_name: profile.user_name,
-		email: profile.email,
-		mobile: profile.mobile,
-		telephone: profile.telephone,
-		address: profile.address,
+		servic_provider_Id: provider.servic_provider_Id,
+		nic_no: provider.nic_no ? provider.nic_no : "",
+		first_name: provider.first_name,
+		last_name: provider.last_name,
+		user_name: provider.user_name,
+		email: provider.email,
+		mobile: provider.mobile ? provider.mobile : "",
+		telephone: provider.telephone ? provider.telephone : "",
+		address: provider.address,
+		company_id: provider.company_id,
 	};
+
+	console.log("initialValues : ", initialValues);
 
 	const validationSchema = Yup.object({
 		servic_provider_Id: Yup.string(),
@@ -103,8 +102,11 @@ const ServiceProviderProfile = (props) => {
 
 	const onSubmit = (values) => {
 		console.log("Form Date", values);
-		//  values.date_of_the_event = event_date; //watch
-		API.put(`/serviceProvider/update/${profile._id}`, values)
+		values.servic_provider_Id = provider.servic_provider_Id;
+		values.user_id = provider.user_id;
+
+		console.log("Form Date", values);
+		API.put(`/serviceProvider/update/${provider._id}`, values)
 			.then((res) => {
 				console.log(res);
 				console.log("Data", values);
@@ -190,12 +192,12 @@ const ServiceProviderProfile = (props) => {
 								</Row>
 								<div className="text-center">
 									<h3>
-										{profile.user_name}
+										{provider.user_name}
 										<span className="font-weight-light"></span>
 									</h3>
 									<div className="h5 font-weight-300">
 										<i className="ni location_pin mr-2" />
-										{profile.address}
+										{provider.address}
 									</div>
 									<div className="h5 mt-4">
 										<i className="ni business_briefcase-24 mr-2" />
@@ -204,7 +206,8 @@ const ServiceProviderProfile = (props) => {
 									</div>
 									<div>
 										<i className="ni education_hat mr-2" />
-										{posts.company_name} (pvt) Ltd
+										{posts.company_name}{" "}
+										{posts.company_name ? " (pvt) Ltd" : ""}
 									</div>
 									<hr className="my-4" />
 									<p>{posts.details}</p>
@@ -284,9 +287,9 @@ const ServiceProviderProfile = (props) => {
 														name="servic_provider_Id"
 														onChange={formik.handleChange}
 														onBlur={formik.handleBlur}
-														defaultValue={profile.servic_provider_Id}
+														defaultValue={provider.servic_provider_Id}
 													>
-														{profile.servic_provider_Id}
+														{provider.servic_provider_Id}
 													</Input>
 													{formik.touched.servic_provider_Id &&
 													formik.errors.servic_provider_Id ? (
@@ -312,9 +315,9 @@ const ServiceProviderProfile = (props) => {
 														name="nic_no"
 														onChange={formik.handleChange}
 														onBlur={formik.handleBlur}
-														defaultValue={profile.nic_no}
+														defaultValue={provider.nic_no}
 													>
-														{profile.nic_no}
+														{provider.nic_no}
 													</Input>
 													{formik.touched.nic_no && formik.errors.nic_no ? (
 														<div style={{ color: "red" }}>
@@ -342,10 +345,8 @@ const ServiceProviderProfile = (props) => {
 														name="user_name"
 														onChange={formik.handleChange}
 														onBlur={formik.handleBlur}
-														defaultValue={profile.user_name}
-													>
-														{profile.user_name}
-													</Input>
+														defaultValue={provider.user_name}
+													></Input>
 													{formik.touched.user_name &&
 													formik.errors.user_name ? (
 														<div style={{ color: "red" }}>
@@ -370,9 +371,9 @@ const ServiceProviderProfile = (props) => {
 														name="email"
 														onChange={formik.handleChange}
 														onBlur={formik.handleBlur}
-														defaultValue={profile.email}
+														defaultValue={provider.email}
 													>
-														{profile.email}
+														{provider.email}
 													</Input>
 													{formik.touched.email && formik.errors.email ? (
 														<div style={{ color: "red" }}>
@@ -399,9 +400,9 @@ const ServiceProviderProfile = (props) => {
 														name="first_name"
 														onChange={formik.handleChange}
 														onBlur={formik.handleBlur}
-														defaultValue={profile.first_name}
+														defaultValue={provider.first_name}
 													>
-														{profile.first_name}
+														{provider.first_name}
 													</Input>
 													{formik.touched.first_name &&
 													formik.errors.first_name ? (
@@ -427,9 +428,9 @@ const ServiceProviderProfile = (props) => {
 														name="last_name"
 														onChange={formik.handleChange}
 														onBlur={formik.handleBlur}
-														defaultValue={profile.last_name}
+														defaultValue={provider.last_name}
 													>
-														{profile.last_name}
+														{provider.last_name}
 													</Input>
 													{formik.touched.last_name &&
 													formik.errors.last_name ? (
@@ -463,9 +464,9 @@ const ServiceProviderProfile = (props) => {
 														name="telephone"
 														onChange={formik.handleChange}
 														onBlur={formik.handleBlur}
-														defaultValue={profile.telephone}
+														defaultValue={provider.telephone}
 													>
-														{profile.telephone}
+														{provider.telephone}
 													</Input>
 													{formik.touched.telephone &&
 													formik.errors.telephone ? (
@@ -491,9 +492,9 @@ const ServiceProviderProfile = (props) => {
 														name="mobile"
 														onChange={formik.handleChange}
 														onBlur={formik.handleBlur}
-														defaultValue={profile.mobile}
+														defaultValue={provider.mobile}
 													>
-														{profile.mobile}
+														{provider.mobile}
 													</Input>
 													{formik.touched.mobile && formik.errors.mobile ? (
 														<div style={{ color: "red" }}>
@@ -521,10 +522,8 @@ const ServiceProviderProfile = (props) => {
 														name="address"
 														onChange={formik.handleChange}
 														onBlur={formik.handleBlur}
-														defaultValue={profile.address}
-													>
-														{profile.address}
-													</Input>
+														defaultValue={provider.address}
+													></Input>
 													{formik.touched.address && formik.errors.address ? (
 														<div style={{ color: "red" }}>
 															{formik.errors.address}
@@ -544,70 +543,6 @@ const ServiceProviderProfile = (props) => {
 									</Button>
 								</Form>
 							</CardBody>
-						</Card>
-					</Col>
-				</Row>
-				<Row className="mt-4">
-					<Col className="w-50">
-						<Card style={{ width: "34rem" }}>
-							{/* <CardBody> */}
-							<div
-								className=""
-								style={{
-									width: "540px",
-									height: "360px",
-									backgroundImage:
-										"url(" +
-										require("../../assets/img/theme/musicEvent.jpg").default +
-										")",
-									backgroundSize: "cover",
-									backgroundPosition: "center top",
-								}}
-							>
-								<div className="float-end m-1">
-									<Button
-										className=""
-										color="transparent"
-										href="#pablo"
-										onClick={(e) => e.preventDefault()}
-										size="sm"
-									>
-										<i class="bx bxs-cog bx-spin fs-6 text-white"></i>
-									</Button>
-								</div>
-							</div>
-							{/* </CardBody> */}
-						</Card>
-					</Col>
-					<Col className="w-50">
-						<Card style={{ width: "34rem" }}>
-							{/* <CardBody> */}
-							<div
-								className=""
-								style={{
-									width: "540px",
-									height: "360px",
-									backgroundImage:
-										"url(" +
-										require("../../assets/img/theme/musicEvent2.jpg").default +
-										")",
-									backgroundSize: "cover",
-									backgroundPosition: "center top",
-								}}
-							>
-								<div className="float-end m-1">
-									<Button
-										className=""
-										color="transparent"
-										href="#pablo"
-										onClick={(e) => e.preventDefault()}
-										size="sm"
-									>
-										<i class="bx bxs-cog bx-spin fs-6 text-white"></i>
-									</Button>
-								</div>
-							</div>
-							{/* </CardBody> */}
 						</Card>
 					</Col>
 				</Row>

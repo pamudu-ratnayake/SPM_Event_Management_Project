@@ -6,7 +6,7 @@ import StarRatingComponent from "react-star-rating-component";
 import { FaStar } from "react-icons/fa";
 
 // reactstrap components
-import { Button, Card, CardHeader, CardBody, FormGroup, Form, Input, Container, Row, Col, InputGroupAddon, InputGroupText, InputGroup, Modal } from "reactstrap";
+import { Button, Card, CardHeader, CardBody, FormGroup, Form, Input, Container, Row, Col, InputGroupAddon, InputGroupText, InputGroup, Modal, Table, Label } from "reactstrap";
 // core components
 import ViewEventHeader from "components/Headers/ViewEventHeader";
 import { useEffect, useState } from "react";
@@ -17,6 +17,7 @@ const EventDisplay = (props) => {
   const [event, setEvent] = useState(0);
 
   const [defaultModal, setState] = useState(false);
+  const [notificationModal, setModal] = useState(false);
   const [rating, setRating] = useState(null);
   const [hover, setHover] = useState(null);
 
@@ -25,19 +26,23 @@ const EventDisplay = (props) => {
     setState(!defaultModal);
   }
 
+  function toggleModalNotification() {
+    setModal(!notificationModal);
+  }
+
   // function onStarClick(nextValue, prevValue, name) {
   //   setRating({ rating: nextValue });
   // }
-   console.log('rating', rating);
-   
+
+  console.log("rating", rating);
 
   const initialValues = {};
 
   //useEffect
-  useEffect(() => {
-    axios
+  useEffect(async () => {
+   await axios
       .get(`http://localhost:8080/eventAdd/getOneEvent/${props.match.params._id}`)
-      .then((res) => {
+      .then (async(res) => {
         console.log(res);
         setEvent(res.data);
       })
@@ -45,6 +50,8 @@ const EventDisplay = (props) => {
         console.log(error);
       });
   }, []);
+
+  console.log("jjj", event.checkboxOption);
 
   const formik = useFormik({
     initialValues,
@@ -64,16 +71,16 @@ const EventDisplay = (props) => {
                     <h1 className="mb-0">Details of The Event</h1>
                   </Col>
                   <Col className="text-right" xs="3">
-                    <Link to={`/admin/selectservice-proivider`}>
-                      <Button color="primary" size="sm">
-                        Service Providers
-                      </Button>
-                    </Link>
+                    <Button color="primary" size="sm" onClick={() => toggleModal("defaultModal")}>
+                      Service Providers
+                    </Button>
                   </Col>
                   <Col className="text-right" xs="2">
-                    <Button color="primary" size="sm" onClick={() => toggleModal("defaultModal")}>
-                      Quotations
-                    </Button>
+                    <Link to={`/customer/selectservice-proivider/${event._id}`}>
+                      <Button color="primary" size="sm">
+                        Quotations
+                      </Button>
+                    </Link>
 
                     <Modal className="modal-dialog-centered modal-danger" contentClassName="bg-gradient-danger" isOpen={defaultModal} toggle={() => toggleModal("defaultModal")}>
                       <div className="modal-header">
@@ -85,68 +92,38 @@ const EventDisplay = (props) => {
                         </button>
                       </div>
                       <div className="modal-body">
-                        <div className="py-3 text-center">
-                          <i className="ni ni-bell-55 ni-3x" />
-                          <h4 className="heading mt-4">You should read this!</h4>
-                          <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-                          {/* <span>
-                    <i className={
-                      formik.value >= 1
-                      ? "fas fa-star"
-                      : formik.value >= 0.5
-                      ? "fas fa-star-half-alt"
-                      : "fas fa-star"
-                    } 
-                    color="yellow" />
-                    </span> */}
-
-                          {/* <StarRatingComponent name="rate1" starCount={5} value={rating} onStarClick={onStarClick.bind(this)} /> */}
-
-                          <div>
-                            {[...Array(5)].map((star, i) => {
-                              const ratingValue = i + 1;
-
-                              return (
-                                <label>
-                                  <Input
-                                  style={{display: "none"}}
-                                    type="radio"
-                                    name="rating"
-                                    value={ratingValue}
-                                    onClick={() => setRating(ratingValue)}
-                                   
-                                  />
-                                  <FaStar 
-                                  className='star'
-                                  color={ratingValue <= (hover || rating) ? "#ffc107" : "#e4e5e9" }
-                                  size={50}
-                                  onMouseOver={() => setHover(ratingValue)}
-                                  onMouseOut={() => setHover(null)} />
-                                </label>
-                              );
-                            })}
-                          </div>
-
-                          <Col md="12">
-                            <FormGroup>
-                              <label>Review</label>
-                              <Input
-                                id="exampleFormControlTextarea1"
-                                placeholder="Enter Your Review..."
-                                rows="3"
-                                type="textarea"
-                                name="review"
-
-                                // onChange={formik.handleChange}
-                                // onBlur={formik.handleBlur}
-                                // value={formik.values.description}
-                              />
-                            </FormGroup>
-                          </Col>
-                        </div>
+                        <Col className="order-xl-1" xl="12">
+                          <Card className="bg-secondary shadow">
+                            <CardHeader className="bg-white border-0">
+                              <Row className="align-items-center">
+                                <Col xs="8">
+                                  <h1 className="mb-0">Service Providers</h1>
+                                </Col>
+                              </Row>
+                            </CardHeader>
+                            <CardBody>
+                              <Table className="align-items-center" responsive>
+                                <thead className="thead-light">
+                                  <tr>
+                                    <th scope="col">Event Name</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Location</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <td> {event.event_name} </td>
+                                    <td> {event.event_type} </td>
+                                    <td> {event.event_type}</td>
+                                  </tr>
+                                </tbody>
+                              </Table>
+                            </CardBody>
+                          </Card>
+                        </Col>
                       </div>
                       <div className="modal-footer">
-                        <Button className="btn-white" color="default" type="button">
+                        <Button className="btn-white" color="default" type="button" onClick={() => toggleModalNotification("notificationModal")}>
                           Ok, Got it
                         </Button>
                         <Button className="text-white ml-auto" color="link" data-dismiss="modal" type="button" onClick={() => toggleModal("defaultModal")}>
@@ -155,6 +132,68 @@ const EventDisplay = (props) => {
                       </div>
                     </Modal>
                   </Col>
+
+                  <Modal className="modal-dialog-centered modal-danger" contentClassName="bg-gradient-danger" isOpen={notificationModal} toggle={() => toggleModalNotification("notificationModal")}>
+                    <div className="modal-header">
+                      <h6 className="modal-title" id="modal-title-notification">
+                        Your attention is required
+                      </h6>
+                      <button aria-label="Close" className="close" data-dismiss="modal" type="button" onClick={() => toggleModalNotification("notificationModal")}>
+                        <span aria-hidden={true}>×</span>
+                      </button>
+                    </div>
+                    <div className="modal-body">
+                      <div className="py-3 text-center">
+                        <i className="ni ni-bell-55 ni-3x" />
+                        <h4 className="heading mt-4">You should read this!</h4>
+                        <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+
+                        <div>
+                          {[...Array(5)].map((star, i) => {
+                            const ratingValue = i + 1;
+
+                            return (
+                              <label>
+                                <Input style={{ display: "none" }} type="radio" name="rating" value={ratingValue} onClick={() => setRating(ratingValue)} />
+                                <FaStar
+                                  className="star"
+                                  color={ratingValue <= (hover || rating) ? "#ffc107" : "#e4e5e9"}
+                                  size={50}
+                                  onMouseOver={() => setHover(ratingValue)}
+                                  onMouseOut={() => setHover(null)}
+                                />
+                              </label>
+                            );
+                          })}
+                        </div>
+
+                        <Col md="12">
+                          <FormGroup>
+                            <label>Review</label>
+                            <Input
+                              id="exampleFormControlTextarea1"
+                              placeholder="Enter Your Review..."
+                              rows="3"
+                              type="textarea"
+                              name="review"
+
+                              // onChange={formik.handleChange}
+                              // onBlur={formik.handleBlur}
+                              // value={formik.values.description}
+                            />
+                          </FormGroup>
+                        </Col>
+                      </div>
+                    </div>
+                    <div className="modal-footer">
+                      <Button className="btn-white" color="default" type="button">
+                        Ok, Got it
+                      </Button>
+                      <Button className="text-white ml-auto" color="link" data-dismiss="modal" type="button" onClick={() => toggleModalNotification("notificationModal")}>
+                        Close
+                      </Button>
+                    </div>
+                  </Modal>
                 </Row>
               </CardHeader>
               <CardBody>
@@ -214,51 +253,21 @@ const EventDisplay = (props) => {
                       <label className="mb-2">Required Services : </label>
                     </Col>
                   </Row>
-                  {/* <Col>
+
+                  <Col>
                   {
-                    event.checkboxOption.map(function(checkbox, index){
-                      return <label className="ml-5" key={index}> {checkbox.title} </label>
-
-                    })
-                  }
-                  </Col> */}
-                  {/* {(arrayHelper) => (
-                    <Col>
-                      {event.checkboxOption.map((checkboxOption, index) => {
-                        // const boxValue = `event.chechboxOption.${index}`;
-                        return <label className="ml-5">{checkboxOption[index]}</label>
-                      })}
-                    </Col>
-                  )} */}
-
-                  {/* ----------- This one is correct---------------- */}
-
-                  {/* {(arrayHelper) => (
-                  <div>
-                  {event.checkboxOption.map(boxValue => {
-                      return <label className="ml-5" key={boxValue.checkboxOption}> {boxValue.checkboxOption[0]}  </label>
-                    }
-                    )} 
-                    </div>            
-                    )}      */}
-
-                  {/* ---------------------------------------------------------- */}
-
-                  {/* <Col>
-                    <label className="ml-5"> </label>
+                          event.checkboxOption && event.checkboxOption.map((checkbox, index) => {
+                            return (
+                              <div className="ml-5" key={index}>
+                                {" "}
+                               <Label> {checkbox}{" "}</Label>
+                              </div>
+                            );
+                          })
+                        }
+                          
                   </Col>
-                  <Col>
-                    <label className="ml-5"> Photography </label>
-                  </Col>
-                  <Col>
-                    <label className="ml-5"> Sound Provider</label>
-                  </Col>
-                  <Col>
-                    <label className="ml-5">Decorators</label>
-                  </Col>
-                  <Col>
-                    <label className="ml-5">Dancers</label>
-                  </Col> */}
+
 
                   <h2 className="mt-5 mb-4">Contact Information</h2>
                   <Row>

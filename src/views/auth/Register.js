@@ -12,6 +12,7 @@ const Register = () => {
     email: "",
     password: "",
     conPassword: "",
+    user_type: "customer"
   };
 
   let history = useHistory();

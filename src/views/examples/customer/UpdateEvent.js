@@ -86,7 +86,7 @@ const UpdateEvent = (props) => {
         console.log(res);
         console.log("Data", values);
         history.push({
-          pathname: `/admin/my-event`,
+          pathname: `/customer/my-event`,
         });
       })
       .catch((error) => {
