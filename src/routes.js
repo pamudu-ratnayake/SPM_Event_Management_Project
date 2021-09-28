@@ -8,6 +8,7 @@ import ServiceProviderProfile from "views/service-provider/ServiceProviderProfil
 import RegisterServiceProvider from "views/auth/RegisterServiceProvider";
 
 //----------customer & Event---------------------------
+import CustomerIndex from "views/customerIndex";
 import AddEvent from "views/examples/customer/AddEvent.js";
 import EventDisplay from "views/examples/customer/EventDisplay.js";
 import CustomerProfile from "views/examples/customer/CustomerProfile";
@@ -37,6 +38,8 @@ import Sponsorship_Documentation from "views/examples/Sponsorship_Documentation"
 import My_Issue from "views/examples/My_Issue";
 import Event_Support from "views/examples/Event_Support";
 
+
+
 var routes = [
   {
     path: "/index",
@@ -47,12 +50,19 @@ var routes = [
   },
 
  //--------customer & Events -------------------  
-  {
+ {
+  path: "/index",
+  name: "Dashboard",
+  icon: "ni ni-tv-2 text-primary",
+  component: CustomerIndex,
+  layout: "/customer",
+},
+ {
     path: "/add-event",
     name: "Publish An Event",
     icon: "ni ni-notification-70 text-orange",
     component: AddEvent,
-    layout: "/admin",
+    layout: "/customer",
   },
 
   {
@@ -60,28 +70,28 @@ var routes = [
     name: "My Profile",
     icon: "ni ni-single-02 text-orange",
     component: CustomerProfile,
-    layout: "/admin",
+    layout: "/customer",
   },
   {
     path: "/my-event",
     name: "My Events",
     icon: "ni ni-book-bookmark text-purple",
     component: MyEvents,
-    layout: "/admin",
+    layout: "/customer",
   },
   {
     path: "/selectservice-proivider/:_id",
     name: "Select Service Provider",
     icon: "ni ni-book-bookmark text-purple",
     component: SelectServiceProvider,
-    layout: "/admin",
+    layout: "/customer",
   },
   {
     path: "/view-quotations/:_id",
     name: "View Quotations",
     icon: "ni ni-circle-08 text-pink",
     component: ViewQuotation,
-    layout: "/admin",
+    layout: "/customer",
   },
   {
     path: "/login",
@@ -103,20 +113,21 @@ var routes = [
     icon: "ni ni-circle-08 text-pink",
     component: AllSignUps,
     layout: "/auth",
+    invisible: true,
   },
   {
     path: "/event-display/:_id",
     // name: "Display Event",
     // icon: "ni ni-notification-70 text-orange",
     component: EventDisplay,
-    layout: "/admin",
+    layout: "/customer",
   },
   {
     path: "/event-update/:_id",
     // name: "Update Event",
     //icon: "ni ni-notification-70 text-orange",
     component: UpdateEvent,
-    layout: "/admin",
+    layout: "/customer",
     invisible: true,
   },
 
@@ -128,6 +139,7 @@ var routes = [
     //icon: "ni ni-planet text-blue",
     component: Icons,
     layout: "/admin",
+    invisible:true,
   },
 
   {

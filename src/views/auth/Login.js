@@ -17,10 +17,20 @@ const Login = () => {
       .post("http://localhost:8080/auth-user/login", values)
       .then((res) => {
         console.log(res);
+
         localStorage.setItem("profile", JSON.stringify(res.data));
+        const user = JSON.parse(localStorage.getItem("profile"));
+        console.log(user?.result?.user_type)
+        if(user?.result?.user_type === "customer"){
+        history.push({
+          pathname: `/customer`,
+        });
+      }
+      if(user?.result?.user_type === "service provider"){
         history.push({
           pathname: `/admin`,
         });
+      }
       })
       .catch((error) => {
         console.log(error);

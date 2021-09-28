@@ -35,13 +35,13 @@ const ViewQuotation = (props) => {
   //   setRating({ rating: nextValue });
   // }
 
-  console.log("rating", quotation.provider_id);
+  // console.log("rating", quotation.provider_id);
 
   const initialValues = {};
 
   // -------useEffect------------
-  useEffect(() => {
-    API
+  useEffect(async() => {
+   await API
       .get(`/quotation/get/${props.match.params._id}`)
       .then((res) => {
         console.log(res);
@@ -52,20 +52,20 @@ const ViewQuotation = (props) => {
       });
   }, []);
 
-  useEffect(() => {
-    console.log('ll', quotation.event_id._id);
-    API
-      .get(`/eventAdd/getOneEvent/${quotation.event_id._id}`)
-      .then((res) => {
-        console.log(res);
-        setEvent(res.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+  // useEffect(() => {
+  //   // console.log('ll', quotation.event_id._id);
+  //   API
+  //     .get(`/eventAdd/getOneEvent/${quotation.event_id._id}`)
+  //     .then((res) => {
+  //       console.log(res);
+  //       setEvent(res.data);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }, []);
   
-   console.log('aa', event.org_name);
+  //  console.log('aa', event.org_name);
   // console.log('llqq', quotation.event_id.org_name);
 
   const formik = useFormik({
@@ -93,7 +93,7 @@ const ViewQuotation = (props) => {
                 <Row>
                     <Col md="6">
                       <FormGroup>
-                        <label>Event Name : {event.org_name} </label>
+                        <label>Event Name : {quotation.terms && quotation.event_id.event_name} </label>
                         <label className="ml-3"> </label>
                       </FormGroup>
                     </Col>

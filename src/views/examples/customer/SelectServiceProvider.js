@@ -28,7 +28,7 @@ const SelectServiceProvider = (props) => {
 
   const getServiceProvider = (provider_id) => {
     console.log("ser id:", provider_id);
-      API.get(`/serviceProvider/get/${provider_id}`)
+     API.get(`/serviceProvider/get/${provider_id}`)
         .then((res) => {
           setServiceProvider(res.data);
           console.log(res.data);
@@ -92,7 +92,8 @@ const SelectServiceProvider = (props) => {
                     </tr>
                   </thead>
                   <tbody>
-                    {posts.map((posts) => (
+                    {
+                    posts.map((posts) => (
                       <tr key={posts._id}>
                         {getServiceProvider(posts.provider_id)}
 
@@ -112,7 +113,7 @@ const SelectServiceProvider = (props) => {
                               <i className="ni ni-atom" />
                             </span>
                           </Button>
-                          <Link to={`/admin/view-quotations/${posts._id}`}>
+                          <Link to={`/customer/view-quotations/${posts._id}`}>
                             <Button className="btn-icon btn-2 " size="sm" color="primary" type="button">
                               <span className="btn-inner--icon-center">
                                 <i className="ni ni-glasses-2" />

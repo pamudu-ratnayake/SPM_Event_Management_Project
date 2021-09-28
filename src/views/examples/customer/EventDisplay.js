@@ -6,7 +6,7 @@ import StarRatingComponent from "react-star-rating-component";
 import { FaStar } from "react-icons/fa";
 
 // reactstrap components
-import { Button, Card, CardHeader, CardBody, FormGroup, Form, Input, Container, Row, Col, InputGroupAddon, InputGroupText, InputGroup, Modal, Table } from "reactstrap";
+import { Button, Card, CardHeader, CardBody, FormGroup, Form, Input, Container, Row, Col, InputGroupAddon, InputGroupText, InputGroup, Modal, Table, Label } from "reactstrap";
 // core components
 import ViewEventHeader from "components/Headers/ViewEventHeader";
 import { useEffect, useState } from "react";
@@ -39,10 +39,10 @@ const EventDisplay = (props) => {
   const initialValues = {};
 
   //useEffect
-  useEffect(() => {
-    axios
+  useEffect(async () => {
+   await axios
       .get(`http://localhost:8080/eventAdd/getOneEvent/${props.match.params._id}`)
-      .then((res) => {
+      .then (async(res) => {
         console.log(res);
         setEvent(res.data);
       })
@@ -50,6 +50,8 @@ const EventDisplay = (props) => {
         console.log(error);
       });
   }, []);
+
+  console.log("jjj", event.checkboxOption);
 
   const formik = useFormik({
     initialValues,
@@ -74,7 +76,7 @@ const EventDisplay = (props) => {
                     </Button>
                   </Col>
                   <Col className="text-right" xs="2">
-                    <Link to={`/admin/selectservice-proivider/${event._id}`}>
+                    <Link to={`/customer/selectservice-proivider/${event._id}`}>
                       <Button color="primary" size="sm">
                         Quotations
                       </Button>
@@ -251,51 +253,21 @@ const EventDisplay = (props) => {
                       <label className="mb-2">Required Services : </label>
                     </Col>
                   </Row>
-                  {/* <Col>
+
+                  <Col>
                   {
-                    event.checkboxOption.map(function(checkbox, index){
-                      return <label className="ml-5" key={index}> {checkbox.title} </label>
-
-                    })
-                  }
-                  </Col> */}
-                  {/* {(arrayHelper) => (
-                    <Col>
-                      {event.checkboxOption.map((checkboxOption, index) => {
-                        // const boxValue = `event.chechboxOption.${index}`;
-                        return <label className="ml-5">{checkboxOption[index]}</label>
-                      })}
-                    </Col>
-                  )} */}
-
-                  {/* ----------- This one is correct---------------- */}
-
-                  {/* {(arrayHelper) => (
-                  <div>
-                  {event.checkboxOption.map(boxValue => {
-                      return <label className="ml-5" key={boxValue.checkboxOption}> {boxValue.checkboxOption[0]}  </label>
-                    }
-                    )} 
-                    </div>            
-                    )}      */}
-
-                  {/* ---------------------------------------------------------- */}
-
-                  {/* <Col>
-                    <label className="ml-5"> </label>
+                          event.checkboxOption && event.checkboxOption.map((checkbox, index) => {
+                            return (
+                              <div className="ml-5" key={index}>
+                                {" "}
+                               <Label> {checkbox}{" "}</Label>
+                              </div>
+                            );
+                          })
+                        }
+                          
                   </Col>
-                  <Col>
-                    <label className="ml-5"> Photography </label>
-                  </Col>
-                  <Col>
-                    <label className="ml-5"> Sound Provider</label>
-                  </Col>
-                  <Col>
-                    <label className="ml-5">Decorators</label>
-                  </Col>
-                  <Col>
-                    <label className="ml-5">Dancers</label>
-                  </Col> */}
+
 
                   <h2 className="mt-5 mb-4">Contact Information</h2>
                   <Row>

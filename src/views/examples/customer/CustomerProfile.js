@@ -2,12 +2,15 @@ import { useFormik } from "formik";
 import React, { useState, useMemo, useEffect, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import axios from "axios";
-import FileBase from 'react-file-base64';
+import * as Yup from "yup";
+import FileBase from "react-file-base64";
 
 // reactstrap components
-import { Button, Card, CardHeader, CardBody, FormGroup, Form, Input, Container, Row, Col, Modal } from "reactstrap";
+import { Button, Card, CardImg, CardHeader, CardBody, FormGroup, Form, Input, Container, Row, Col, Modal } from "reactstrap";
 // core components
 import CustomerProfileHeader from "components/Headers/CustomerProfileHeader.js";
+import API from "variables/tokenURL";
+import { Radio, RadioGroup } from "@material-ui/core";
 
 const CustomerProfile = (props) => {
   const baseStyle = {
@@ -35,7 +38,19 @@ const CustomerProfile = (props) => {
     borderColor: "#ff1744",
   };
 
-  const { acceptedFiles, getRootProps, getInputProps, isDragActive, isDragAccept, isDragReject } = useDropzone();
+  const [files, setFiles] = useState([]);
+
+  const { acceptedFiles, getRootProps, getInputProps, isDragActive, isDragAccept, isDragReject, open } = useDropzone({
+    onDrop: (acceptedFiles) => {
+      setFiles(
+        acceptedFiles.map((file) =>
+          Object.assign(file, {
+            preview: URL.createObjectURL(file),
+          })
+        )
+      );
+    },
+  });
 
   const style = useMemo(
     () => ({
@@ -47,37 +62,51 @@ const CustomerProfile = (props) => {
     [isDragActive, isDragReject, isDragAccept]
   );
 
-  const files = acceptedFiles.map((file) => (
+  const filepath = acceptedFiles.map((file) => (
     <li key={file.name}>
       {file.name} - {file.size} bytes
     </li>
   ));
 
+  const user = JSON.parse(localStorage.getItem("profile"));
 
-  const user = JSON.parse(localStorage.getItem('profile'));
+  const [customer, setCustomer] = useState(0);
+  const [oneUser, setOneUser] = useState(0);
 
   const initialValues = {
     enableReinitialize: true,
     validateOnMount: true,
-    cus_userName: "",
-    user_id:user?.result?._id,
-    cus_FName: "",
-    cus_LName: "",
-    cus_email: "",
+    cus_userName: oneUser.firstName,
+    user_id: user?.result?._id,
+    cus_FName: oneUser.firstName,
+    cus_LName: oneUser.lastName,
+    cus_email: oneUser.email,
     cus_contact_no: "",
     cus_address: "",
     cus_nic: "",
     cus_description: "",
+    cus_gender: "",
   };
+
+  const validationSchema = Yup.object({
+    cus_userName: Yup.string().required("*Required!"),
+    cus_FName: Yup.string().required("*Required!"),
+    cus_LName: Yup.string().required("*Required!"),
+    cus_email: Yup.string().required("*Required!"),
+    cus_contact_no: Yup.string().required("*Required!"),
+    cus_address: Yup.string().required("*Required!"),
+    cus_nic: Yup.string().required("*Required!"),
+    cus_description: Yup.string().required("*Required!"),
+  });
 
   const onSubmit = (values) => {
     console.log("Form Date", values);
-    console.log('files', acceptedFiles);
+    console.log("files", acceptedFiles);
     //  values.date_of_the_event = event_date; //watch
     let formdata = new FormData();
     formdata.append("cus_userName", values.cus_userName);
-    formdata.append("cus_FName", values.cus_Fname);
-    formdata.append("cus_LName", values.cus_Lname);
+    formdata.append("cus_FName", values.cus_FName);
+    formdata.append("cus_LName", values.cus_LName);
     formdata.append("cus_email", values.cus_email);
     formdata.append("cus_contact_no", values.cus_contact_no);
     formdata.append("cus_address", values.cus_address);
@@ -85,6 +114,7 @@ const CustomerProfile = (props) => {
     formdata.append("cus_nic", values.cus_nic);
     formdata.append("file", acceptedFiles[0]);
     formdata.append("user_id", values.user_id);
+    formdata.append("cus_gender", values.cus_gender);
 
     // console.log("data",formdata);
 
@@ -97,15 +127,11 @@ const CustomerProfile = (props) => {
       .catch((error) => {
         console.log(error);
       });
-      // window.location.reload(false);
+    // window.location.reload(false);
   };
 
-  const [customer, setCustomer] = useState(0);
-
-
   useEffect(() => {
-    axios
-      .get(`http://localhost:8080/customerdetails/getOneCustomer/${user?.result?._id}`)
+    API.get(`/customerdetails/getOneCustomer/${user?.result?._id}`)
       .then((res) => {
         console.log(res);
         setCustomer(res.data);
@@ -116,11 +142,10 @@ const CustomerProfile = (props) => {
   }, []);
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:8080/customerdetails/getOneCustomer/${user?.result?._id}`)
+    API.get(`/auth-user/get-user`)
       .then((res) => {
         console.log(res);
-        setCustomer(res.data);
+        setOneUser(res.data);
       })
       .catch((error) => {
         console.log(error);
@@ -129,11 +154,14 @@ const CustomerProfile = (props) => {
 
   //use formik here
   const formik = useFormik({
+    enableReinitialize: true,
+    validateOnMount: true,
     initialValues,
     onSubmit,
+    validationSchema,
   });
 
-
+  console.log("sdsad", oneUser.firstName);
 
   const [defaultModal, setmodalDemo] = useState(false);
 
@@ -154,7 +182,7 @@ const CustomerProfile = (props) => {
                 <Col className="order-lg-2" lg="3">
                   <div className="card-profile-image">
                     <a href="#pablo" onClick={(e) => e.preventDefault()}>
-                      <img alt="..." className="rounded-circle" src={require("../../../assets/img/theme/team-4-800x800.jpg") } />
+                      <img alt="..." className="rounded-circle" src={require("../../../assets/img/theme/team-4-800x800.jpg")} />
                     </a>
                   </div>
                 </Col>
@@ -170,16 +198,6 @@ const CustomerProfile = (props) => {
                     <i className="ni location_pin mr-2" />
                     Kottawa, Colombo.
                   </div>
-                  <div className="h5 mt-4">
-                    <i className="ni business_briefcase-24 mr-2" />
-                    Software Engineer
-                  </div>
-                  <div>
-                    <i className="ni education_hat mr-2" />
-                    Pearson Lanka
-                  </div>
-                  <hr className="my-4" />
-                  <p>Ryan — the name taken by Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs and records all of his own music.</p>
                 </div>
               </CardBody>
             </Card>
@@ -224,26 +242,15 @@ const CustomerProfile = (props) => {
                 </Row>
               </CardHeader>
               <CardBody>
-                <Form onSubmit={formik.handleSubmit} encType="multipart/form-data" >
+                <Form onSubmit={formik.handleSubmit} encType="multipart/form-data">
                   <h6 className="heading-small text-muted mb-4">User information</h6>
                   <div className="pl-lg-4">
                     <Row>
-                      <Col lg="6">
+                      <Col md="6">
                         <FormGroup>
-                          <label className="form-control-label" htmlFor="customername">
-                            Username
-                          </label>
-                          <Input
-                            className="form-control-alternative"
-                            defaultValue="lucky.jesse"
-                            id="customername"
-                            placeholder="Username"
-                            type="text"
-                            name="cus_userName"
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            value={formik.values.cus_userName}
-                          />
+                          <label>Username</label>
+                          <Input id="exampleFormControlInput1" type="text" name="cus_userName" onChange={formik.handleChange} onBlur={formik.handleBlur} defaultValue={oneUser.firstName} />
+                          {formik.touched.cus_userName && formik.errors.cus_userName ? <div style={{ color: "red" }}>{formik.errors.cus_userName}</div> : null}
                         </FormGroup>
                       </Col>
                       <Col lg="6">
@@ -253,15 +260,16 @@ const CustomerProfile = (props) => {
                           </label>
                           <Input
                             className="form-control-alternative"
-                            defaultValue="Lucky"
-                            id="customerEmail"
+                            defaultValue={oneUser.email}
+                            id="exampleFormControlInput1"
                             placeholder="Email"
                             type="text"
                             name="cus_email"
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
-                            value={formik.values.cus_email}
+                            disabled
                           />
+                          {formik.touched.cus_email && formik.errors.cus_email ? <div style={{ color: "red" }}>{formik.errors.cus_email}</div> : null}
                         </FormGroup>
                       </Col>
                     </Row>
@@ -272,34 +280,30 @@ const CustomerProfile = (props) => {
                             First Name
                           </label>
                           <Input
-                            className="form-control-alternative"
-                            defaultValue="Lucky"
-                            id="customerFirstName"
+                            id="exampleFormControlInput1"
                             placeholder="First Name"
                             type="text"
                             name="cus_FName"
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
-                            value={formik.values.cus_Fname}
+                            defaultValue={oneUser.firstName}
                           />
+                          {formik.touched.cus_FName && formik.errors.cus_FName ? <div style={{ color: "red" }}>{formik.errors.cus_FName}</div> : null}
                         </FormGroup>
                       </Col>
                       <Col lg="6">
                         <FormGroup>
-                          <label className="form-control-label" htmlFor="customerLastName">
-                            Last Name
-                          </label>
+                          <label>Last Name</label>
                           <Input
-                            className="form-control-alternative"
-                            defaultValue="Jesse"
-                            id="customerLastName"
+                            id="exampleFormControlInput1"
                             placeholder="Last Name"
                             type="text"
                             name="cus_LName"
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
-                            value={formik.values.cus_Lname}
+                            defaultValue={oneUser.lastName}
                           />
+                          {formik.touched.cus_LName && formik.errors.cus_LName ? <div style={{ color: "red" }}>{formik.errors.cus_LName}</div> : null}
                         </FormGroup>
                       </Col>
                     </Row>
@@ -311,7 +315,6 @@ const CustomerProfile = (props) => {
                           </label>
                           <Input
                             className="form-control-alternative"
-                            defaultValue="Jesse"
                             id="customerConNo"
                             placeholder="Contact Number"
                             type="text"
@@ -320,6 +323,7 @@ const CustomerProfile = (props) => {
                             onBlur={formik.handleBlur}
                             value={formik.values.cus_contact_no}
                           />
+                          {formik.touched.cus_contact_no && formik.errors.cus_contact_no ? <div style={{ color: "red" }}>{formik.errors.cus_contact_no}</div> : null}
                         </FormGroup>
                       </Col>
                       <Col md="6">
@@ -337,6 +341,7 @@ const CustomerProfile = (props) => {
                             onBlur={formik.handleBlur}
                             value={formik.values.cus_nic}
                           />
+                          {formik.touched.cus_nic && formik.errors.cus_nic ? <div style={{ color: "red" }}>{formik.errors.cus_nic}</div> : null}
                         </FormGroup>
                       </Col>
                     </Row>
@@ -345,13 +350,31 @@ const CustomerProfile = (props) => {
                     </label>
                     <div className="ml-5">
                       <div className="custom-control custom-radio mb-3">
-                        <input className="custom-control-input" id="customRadio5" name="custom-radio-2" type="radio" />
+                        <input
+                          className="custom-control-input"
+                          id="customRadio5"
+                          name="cus_gender"
+                          type="radio"
+                          value="male"
+                          as={RadioGroup}
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                        />
                         <label className="custom-control-label" htmlFor="customRadio5">
                           Male
                         </label>
                       </div>
                       <div className="custom-control custom-radio mb-3">
-                        <input className="custom-control-input" defaultChecked id="customRadio6" name="custom-radio-2" type="radio" />
+                        <input
+                          className="custom-control-input"
+                          id="customRadio6"
+                          name="cus_gender"
+                          type="radio"
+                          value="female"
+                          as={RadioGroup}
+                          onChange={formik.handleChange}
+                          onBlur={formik.handleBlur}
+                        />
                         <label className="custom-control-label" htmlFor="customRadio6">
                           Female
                         </label>
@@ -372,7 +395,6 @@ const CustomerProfile = (props) => {
                           </label>
                           <Input
                             className="form-control-alternative"
-                            defaultValue="Bld Mi"
                             id="customerAddress"
                             placeholder="Home Address"
                             type="text"
@@ -381,6 +403,7 @@ const CustomerProfile = (props) => {
                             onBlur={formik.handleBlur}
                             value={formik.values.cus_address}
                           />
+                          {formik.touched.cus_address && formik.errors.cus_address ? <div style={{ color: "red" }}>{formik.errors.cus_address}</div> : null}
                         </FormGroup>
                       </Col>
                     </Row>
@@ -393,7 +416,7 @@ const CustomerProfile = (props) => {
                   </div>
 
                   <h4>File Details</h4>
-                  <ul>{files}</ul>
+                  <ul>{filepath}</ul>
 
                   <hr className="my-4" />
                   {/* Description */}
@@ -405,18 +428,32 @@ const CustomerProfile = (props) => {
                         className="form-control-alternative"
                         placeholder="A few words about you ..."
                         rows="4"
-                        defaultValue="A beautiful Dashboard for Bootstrap 4. It is Free and
-                        Open Source."
                         type="textarea"
                         name="cus_description"
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         value={formik.values.cus_description}
                       />
+                      {formik.touched.cus_description && formik.errors.cus_description ? <div style={{ color: "red" }}>{formik.errors.cus_description}</div> : null}
                     </FormGroup>
                   </div>
-                  <img  className="rounded-circle" src={`uploads/${customer.prof_img}`} />
-                  {/* {customer.prof_img} */}
+
+                  {/* <img style={{ width: 800, height: 600 }} src={require(`http://localhost:8080/uploads/photo.jpeg`).default} /> */}
+                  {/* <div style={{ backgroundImage: "url(" + require(`http://localhost:8080/public/uploads/hose01.jpg`).default + ")" }} /> */}
+
+                  {/* <div
+        className="header pb-8 pt-5 pt-lg-8 d-flex align-items-center"
+        style={{
+          minHeight: "600px",
+          backgroundImage:
+            require( "../../../assets/img/theme/event11.jpg".default ),
+          backgroundSize: "cover",
+          backgroundPosition: "center top",
+        }}
+      /> */}
+
+                  {/* <CardImg style={{ height: "120px" }} alt="..." src={require("../../../assets/img/theme/event11.jpg").default} /> */}
+
                   <div className="text-center">
                     <Button className="mt-4" color="primary" type="submit">
                       Add My Details

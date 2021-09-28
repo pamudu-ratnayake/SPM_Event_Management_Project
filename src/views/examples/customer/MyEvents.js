@@ -67,7 +67,7 @@ const MyEvents = (props) => {
                     <h1 className="mb-0">Published Events</h1>
                   </Col>
                   <Col className="text-right" xs="4">
-                    <Link to={"/admin/add-event"}>
+                    <Link to={"/customer/add-event"}>
                       <Button color="primary" size="sm">
                         Publish An Event
                       </Button>
@@ -107,10 +107,10 @@ const MyEvents = (props) => {
                               <i className="fas fa-ellipsis-v" />
                             </DropdownToggle>
                             <DropdownMenu className="dropdown-menu-arrow" right>
-                              <Link to={`/admin/event-display/${posts._id}`}>
+                              <Link to={`/customer/event-display/${posts._id}`}>
                                 <DropdownItem>View Event</DropdownItem>
                               </Link>
-                              <Link to={`/admin/event-update/${posts._id}`}>
+                              <Link to={`/customer/event-update/${posts._id}`}>
                                 <DropdownItem>Update Event</DropdownItem>
                               </Link>
                               <DropdownItem onClick={() => toggleModal("exampleModal")}> Delete Event</DropdownItem>
