@@ -1,5 +1,4 @@
 
-import DashboardHd from '../assets/img/theme/dashboard.png'
 import { useState } from "react";
 // node.js library that concatenates classes (strings)
 import classnames from "classnames";
