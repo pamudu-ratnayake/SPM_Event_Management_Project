@@ -18,25 +18,6 @@ import { useState, useEffect } from "react";
 const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
 const AddEvent = (props) => {
-  // function AddEvent(props) {
-
-  // let date = '';
-  // const [event_date, setDate] = useState(date);
-
-  // const makeDate = () => {
-  //   date = values.date_event.format('DD-MM-YYYY');
-  //   setDate(date);
-  // }
-
-  // useEffect(() => {
-  //   makeDate();
-  // },[]);
-
-  // const checkboxOptions = [
-  //   { key: "Option 01", value: "cOption1" },
-  //   { key: "Option 02", value: "cOption2" },
-  //   { key: "Option 03", value: "cOption3" },
-  // ];
 
   const user = JSON.parse(localStorage.getItem("profile"));
 
@@ -87,7 +68,7 @@ const AddEvent = (props) => {
         console.log(res);
         console.log("Data", values);
         history.push({
-          pathname: `/admin/my-event`,
+          pathname: `/customer/my-event`,
         });
       })
       .catch((error) => {
@@ -527,13 +508,6 @@ const AddEvent = (props) => {
                       </FormGroup>
                     </Col>
                   </Row>
-                  {/* {({formik}) => {  
-                    <FormikControl 
-                     control="checkbox"
-                     label="Checkbox topic"
-                     name="checkboxOption" 
-                     option={checkboxOptions} />
-                  }} */}
                   <div className="text-center">
                     <Button className="mt-4" color="primary" type="submit">
                       Publish Event

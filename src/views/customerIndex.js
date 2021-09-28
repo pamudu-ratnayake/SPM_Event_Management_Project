@@ -1,4 +1,6 @@
+
 import { useState } from "react";
+import Slider from 'components/Slider/Slider';
 // node.js library that concatenates classes (strings)
 import classnames from "classnames";
 // javascipt plugin for creating charts
@@ -31,7 +33,7 @@ import {
 
 import Header from "components/Headers/Header.js";
 
-const Index = (props) => {
+const CustomerIndex = (props) => {
   const [activeNav, setActiveNav] = useState(1);
   const [chartExample1Data, setChartExample1Data] = useState("data1");
 
@@ -47,6 +49,7 @@ const Index = (props) => {
   return (
     <>
       <Header />
+      <Slider/>
       {/* Page content */}
       <Container className="mt-4" fluid>
       <div
@@ -55,7 +58,7 @@ const Index = (props) => {
           minHeight: "600px",
           backgroundImage:
             "url(" +
-            require("../assets/img/theme/dashboard.png").default +
+            require("../assets/img/theme/event11.jpg").default +
             ")",
           backgroundSize: "cover",
           backgroundPosition: "center top",
@@ -66,4 +69,4 @@ const Index = (props) => {
   );
 };
 
-export default Index;
+export default CustomerIndex;

@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 // node.js library that concatenates classes (strings)
 import classnames from "classnames";
@@ -31,7 +32,7 @@ import {
 
 import Header from "components/Headers/Header.js";
 
-const Index = (props) => {
+const ServiceProviderIndex = (props) => {
   const [activeNav, setActiveNav] = useState(1);
   const [chartExample1Data, setChartExample1Data] = useState("data1");
 
@@ -55,7 +56,7 @@ const Index = (props) => {
           minHeight: "600px",
           backgroundImage:
             "url(" +
-            require("../assets/img/theme/dashboard.png").default +
+            require("../assets/img/theme/event12.png").default +
             ")",
           backgroundSize: "cover",
           backgroundPosition: "center top",
@@ -66,4 +67,4 @@ const Index = (props) => {
   );
 };
 
-export default Index;
+export default ServiceProviderIndex;
