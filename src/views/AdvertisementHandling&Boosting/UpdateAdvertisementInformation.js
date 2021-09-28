@@ -8,9 +8,14 @@ import {
   Form,
   Input,
   Container,
+  CardText,
+  CardTitle,
+  Modal,
+  CardImg,
   Row,
   Col,
 } from "reactstrap";
+
 import * as Yup from "yup";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
@@ -21,12 +26,19 @@ import AdvertisementHeader from "components/Headers/AdvertisementHandling&Boosti
 
 import { useFormik } from "formik";
 
+
 //phoneNumber type
 const phoneRegExp =
   /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
 const UpdateAdvertisementInformation = (props) => {
   console.log("ID is", props.match.params._id);
+
+  const [defaultModal, setmodalDemo] = useState(false);
+
+function toggleModal() {
+  setmodalDemo(!defaultModal);
+}
 
   const [details, setupdateRequest] = useState(0);
   let history = useHistory();
@@ -137,6 +149,7 @@ const UpdateAdvertisementInformation = (props) => {
                         ) : null}
                       </FormGroup>
                     </Col>
+                    
                   </Row>
                   <Row>
                     <Col md="6">
@@ -343,12 +356,72 @@ const UpdateAdvertisementInformation = (props) => {
                       <Button
                         color="primary"
                         type="submit"
-                        //  onClick={(e) => e.preventDefault()}
+                        onClick={() => toggleModal("defaultModal")}
                         size="lm"
                       >
                         Request Advertisement
                       </Button>
                     </Col>
+                    <Modal
+                      className="modal-dialog-centered"
+                      isOpen={defaultModal}
+                      toggle={() => toggleModal("defaultModal")}
+                    >
+                      <div className="modal-header">
+                        <h6 className="modal-title" id="modal-title-default">
+                          Advertisement Preview
+                        </h6>
+                        <button
+                          aria-label="Close"
+                          className="close"
+                          data-dismiss="modal"
+                          type="button"
+                          onClick={() => toggleModal("defaultModal")}
+                        >
+                          <span aria-hidden={true}>×</span>
+                        </button>
+                      </div>
+                      <div className="modal-body">
+                        <Card
+                          className="bg-secondary shadow"
+                          style={{ width: "28rem" }}
+                        >
+                          <Card style={{ width: "28rem" }}>
+                            <CardImg
+                              alt="..."
+                              src={require("assets/img/theme/ui.jpg").default}
+                              top
+                            />
+                            <CardBody>
+                              <CardTitle>{formik.values.advertisement_title}</CardTitle>
+                              <CardText>
+                              {formik.values.advertisement_Des}
+                              </CardText>
+                            </CardBody>
+                          </Card>
+                        </Card>
+                      </div>
+                      <div className="modal-footer">
+                        <Button
+                          color="primary"
+                          type="submit"
+                          onClick={() => {onSubmit(formik.values)}}
+                        >
+                          Confirm Your Request
+                        </Button>
+                        <Button
+                          className="ml-auto"
+                          color="link"
+                          data-dismiss="modal"
+                          type="button"
+                          onClick={() => toggleModal("defaultModal")}
+                        >
+                          Close
+                        </Button>
+                      </div>
+                    </Modal>
+
+
                     <Col className="text-right" xs="4">
                       <Button
                         color="primary"

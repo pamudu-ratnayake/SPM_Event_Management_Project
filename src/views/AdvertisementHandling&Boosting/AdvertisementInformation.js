@@ -61,9 +61,50 @@ const AdvertisementInformation = (props) => {
     borderColor: '#ff1744'
   };
 
+  const thumbsContainer = {
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    marginTop: 16
+  };
+  
+  const thumb = {
+    display: "inline-flex",
+    borderRadius: 2,
+    border: "1px solid #eaeaea",
+    marginBottom: 8,
+    marginRight: 8,
+    width: "auto",
+    height: 200,
+    padding: 4,
+    boxSizing: "border-box"
+  };
+  
+  const thumbInner = {
+    display: "flex",
+    minWidth: 0,
+    overflow: "hidden"
+  };
+  
+  const img = {
+    display: "block",
+    width: "auto",
+    height: "100%"
+  };
+  
+  const [files, setFiles] = useState([]);
+
   const {acceptedFiles, getRootProps, getInputProps, isDragActive,
     isDragAccept,
-    isDragReject} = useDropzone()
+    isDragReject} = useDropzone({onDrop: acceptedFiles => {
+      setFiles(
+        acceptedFiles.map(file =>
+          Object.assign(file, {
+            preview: URL.createObjectURL(file)
+          })
+        )
+      );
+    }})
 
   const style = useMemo(() => ({
     ...baseStyle,
@@ -76,8 +117,15 @@ const AdvertisementInformation = (props) => {
     isDragAccept
   ]);
 
+  const thumbs = files.map(file => (
+    <div style={thumb} key={file.name}>
+      <div style={thumbInner}>
+        <img src={file.preview} style={img} />
+      </div>
+    </div>
+  ));
 
-  const files = acceptedFiles.map(file => (
+  const filepath = acceptedFiles.map(file => (
       <li key={file.name}>
         {file.name} - {file.size} bytes
       </li>
@@ -348,8 +396,10 @@ const AdvertisementInformation = (props) => {
 
                   <h4>File Details</h4>
                   <ul>
-                    {files}
+                    {filepath}
                   </ul>
+
+                  
 
                       {formik.touched.advertisement_Pic &&
                       formik.errors.advertisement_Pic ? (
@@ -447,11 +497,12 @@ const AdvertisementInformation = (props) => {
                           style={{ width: "28rem" }}
                         >
                           <Card style={{ width: "28rem" }}>
-                            <CardImg
+                            {/* <CardImg
                               alt="..."
                               src={require("assets/img/theme/ui.jpg").default}
                               top
-                            />
+                            /> */}
+                               <aside style={thumbsContainer}>{thumbs}</aside>
                             <CardBody>
                               <CardTitle>{formik.values.advertisement_title}</CardTitle>
                               <CardText>
