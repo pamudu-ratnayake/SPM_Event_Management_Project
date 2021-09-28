@@ -9,11 +9,13 @@ import AdminLayout from "layouts/Admin.js";
 import CustomerLayout from "layouts/Customer"
 import AuthLayout from "layouts/Auth.js";
 import AuthServiceProvider from "layouts/AuthServiceProvider.js";
+import ServiceProviderLayout from "layouts/ServiceProvider";
 
 ReactDOM.render(
   <BrowserRouter>
     <Switch>
     <Route path="/customer" render={(props) => <CustomerLayout {...props} />} />
+    <Route path="/serviceprovider" render={(props) => <ServiceProviderLayout {...props} />} />
       <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
       <Route path="/auth" render={(props) => <AuthLayout {...props} />} />
       <Route path="/authServiceProvider" render={(props) => <AuthServiceProvider {...props} />} />

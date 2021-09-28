@@ -1,4 +1,9 @@
+//-------Indexes---------------------------
 import Index from "views/Index.js";
+import CustomerIndex from "views/customerIndex";
+import ServiceProviderIndex from "views/serviceProviderIndex";
+//--------------------------------------------
+
 import AllSignUps from "views/auth/AllSignUps";
 import Register from "views/auth/Register.js";
 import Login from "views/auth/Login.js";
@@ -8,7 +13,6 @@ import ServiceProviderProfile from "views/service-provider/ServiceProviderProfil
 import RegisterServiceProvider from "views/auth/RegisterServiceProvider";
 
 //----------customer & Event---------------------------
-import CustomerIndex from "views/customerIndex";
 import AddEvent from "views/examples/customer/AddEvent.js";
 import EventDisplay from "views/examples/customer/EventDisplay.js";
 import CustomerProfile from "views/examples/customer/CustomerProfile";
@@ -38,9 +42,8 @@ import Sponsorship_Documentation from "views/examples/Sponsorship_Documentation"
 import My_Issue from "views/examples/My_Issue";
 import Event_Support from "views/examples/Event_Support";
 
-
-
 var routes = [
+  //-----------Indexes-----------
   {
     path: "/index",
     name: "Dashboard",
@@ -48,16 +51,24 @@ var routes = [
     component: Index,
     layout: "/admin",
   },
+  {
+    path: "/index",
+    name: "Dashboard",
+    icon: "ni ni-tv-2 text-primary",
+    component: CustomerIndex,
+    layout: "/customer",
+  },
+  {
+    path: "/index",
+    name: "Dashboard",
+    icon: "ni ni-tv-2 text-primary",
+    component: ServiceProviderIndex,
+    layout: "/serviceprovider",
+  },
 
- //--------customer & Events -------------------  
- {
-  path: "/index",
-  name: "Dashboard",
-  icon: "ni ni-tv-2 text-primary",
-  component: CustomerIndex,
-  layout: "/customer",
-},
- {
+  //--------customer & Events -------------------
+
+  {
     path: "/add-event",
     name: "Publish An Event",
     icon: "ni ni-notification-70 text-orange",
@@ -121,6 +132,7 @@ var routes = [
     // icon: "ni ni-notification-70 text-orange",
     component: EventDisplay,
     layout: "/customer",
+    invisible: true,
   },
   {
     path: "/event-update/:_id",
@@ -139,7 +151,7 @@ var routes = [
     //icon: "ni ni-planet text-blue",
     component: Icons,
     layout: "/admin",
-    invisible:true,
+    invisible: true,
   },
 
   {
@@ -147,7 +159,7 @@ var routes = [
     name: "Service Providers",
     icon: "ni ni-pin-3 text-orange",
     component: ServiceProviders,
-    layout: "/admin",
+    layout: "/serviceprovider",
   },
 
   {
@@ -155,7 +167,7 @@ var routes = [
     name: "Service Provider Profile",
     icon: "ni ni-single-02 text-yellow",
     component: ServiceProviderProfile,
-    layout: "/admin",
+    layout: "/serviceprovider",
   },
 
   {
