@@ -75,7 +75,7 @@ const MyEvents = (props) => {
                         onChange={(e) => {
                           setSearch(e.target.value);
                         }}
-                        // value={searchStr}
+              
                       />
                     </div>
                   </Col>
