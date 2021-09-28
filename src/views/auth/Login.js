@@ -28,6 +28,11 @@ const Login = () => {
       }
       if(user?.result?.user_type === "service provider"){
         history.push({
+          pathname: `/serviceprovider`,
+        });
+      }
+      if(user?.result?.user_type === "admin"){
+        history.push({
           pathname: `/admin`,
         });
       }

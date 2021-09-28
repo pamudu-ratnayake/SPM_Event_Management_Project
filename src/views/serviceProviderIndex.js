@@ -1,7 +1,6 @@
 
 import DashboardHd from '../assets/img/theme/dashboard.png'
 import { useState } from "react";
-import Slider from 'components/Slider/Slider';
 // node.js library that concatenates classes (strings)
 import classnames from "classnames";
 // javascipt plugin for creating charts
@@ -34,7 +33,7 @@ import {
 
 import Header from "components/Headers/Header.js";
 
-const CustomerIndex = (props) => {
+const ServiceProviderIndex = (props) => {
   const [activeNav, setActiveNav] = useState(1);
   const [chartExample1Data, setChartExample1Data] = useState("data1");
 
@@ -50,7 +49,6 @@ const CustomerIndex = (props) => {
   return (
     <>
       <Header />
-      <Slider/>
       {/* Page content */}
       <Container className="mt-4" fluid>
       <div
@@ -59,7 +57,7 @@ const CustomerIndex = (props) => {
           minHeight: "600px",
           backgroundImage:
             "url(" +
-            require("../assets/img/theme/event11.jpg").default +
+            require("../assets/img/theme/event12.png").default +
             ")",
           backgroundSize: "cover",
           backgroundPosition: "center top",
@@ -70,4 +68,4 @@ const CustomerIndex = (props) => {
   );
 };
 
-export default CustomerIndex;
+export default ServiceProviderIndex;
