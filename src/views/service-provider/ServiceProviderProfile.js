@@ -31,10 +31,9 @@ const ServiceProviderProfile = (props) => {
 	const [profile, setprofile] = useState(0);
 
 	// Taking Current User
-	const user = JSON.parse(localStorage.getItem("profile"));
-
+	const user = JSON.parse(localStorage.getItem("profile")).result;
+	console.log("user : ", user);
 	useEffect(() => {
-		console.log("res.dat ");
 		API.get(`/company/`)
 			.then((res) => {
 				setPosts(res.data[0]);
@@ -44,7 +43,7 @@ const ServiceProviderProfile = (props) => {
 				console.log(error);
 			});
 
-		API.get(`/serviceProvider/get/${user.result._id}`)
+		API.get(`/serviceProvider/get/${user._id}`)
 			.then((res) => {
 				setprofile(res.data);
 				console.log("SP : ", res.data);
@@ -161,7 +160,7 @@ const ServiceProviderProfile = (props) => {
 							</Row>
 							<CardHeader className="text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
 								<div className="d-flex justify-content-between">
-									<EditProfileModal />
+									<EditProfileModal id="user._id" />
 
 									<Button
 										className="float-right"

@@ -8,7 +8,8 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 
-function EditProfileModal() {
+function EditProfileModal(props) {
+	console.log("props", props);
 	const [showModal, setShowModal] = useState(false);
 
 	const toggleModal = (state) => {
