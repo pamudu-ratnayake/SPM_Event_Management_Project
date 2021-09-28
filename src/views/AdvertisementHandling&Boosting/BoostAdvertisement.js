@@ -64,7 +64,7 @@ const BoostAdvertisement = (props) => {
         // })
       })
       .catch((error) => {
-        console(error);
+        console.log(error);
       });
   };
 
