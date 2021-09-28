@@ -38,6 +38,20 @@ const SelectServiceProvider = (props) => {
         });
     };
 
+    const acceptQuotation = (_id) => {
+      const approved = {approve:true};
+      console.log('check', approved);
+      API.put(`/quotation/update/status/${_id}`, approved)
+      .then((res) => {
+        console.log(res);
+        console.log(approved);
+        console.log(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    }
+
   // const getServiceProvider = async (provider_id) => {
   //   console.log("ser id:", provider_id);
   //   await API.get(`/serviceProvider/get/${provider_id}`)
@@ -95,15 +109,20 @@ const SelectServiceProvider = (props) => {
                     {
                     posts.map((posts) => (
                       <tr key={posts._id}>
-                        {getServiceProvider(posts.provider_id)}
+                        {/* {getServiceProvider(posts.provider_id)} */}
 
-                        <td> {serviceProvider.first_name} </td>
+                        <td> sssssssssss </td>
+                        <td> dfdfdf </td>
+                        <td> dfdfdf </td>
+
+                        {/* <td> {serviceProvider.first_name} </td>
                         <td> {serviceProvider.nic_no} </td>
-                        <td> {serviceProvider.email} </td>
+                        <td> {serviceProvider.email} </td> */}
                         <td> </td>
                         <td>
                           {" "}
-                          <Button className="btn-icon btn-2" size="sm" color="success" type="button">
+                          <Button className="btn-icon btn-2" size="sm" color="success" type="button"
+                          onClick={() => {acceptQuotation(posts._id)}}>
                             <span className="btn-inner--icon">
                               <i className="ni ni-check-bold" />
                             </span>
