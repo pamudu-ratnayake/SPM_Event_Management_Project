@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import StarRatingComponent from "react-star-rating-component";
 import { FaStar } from "react-icons/fa";
+import API from "variables/tokenURL";
 
 // reactstrap components
 import { Button, Card, CardHeader, CardBody, FormGroup, Form, Input, Container, Row, Col, InputGroupAddon, InputGroupText, InputGroup, Modal, Table, Label } from "reactstrap";
@@ -20,6 +21,7 @@ const EventDisplay = (props) => {
   const [notificationModal, setModal] = useState(false);
   const [rating, setRating] = useState(null);
   const [hover, setHover] = useState(null);
+  const [acceptedQuotations, setAcceptedQuotations] = useState([]);
 
   //toggle function
   function toggleModal() {
@@ -45,6 +47,17 @@ const EventDisplay = (props) => {
       .then (async(res) => {
         console.log(res);
         setEvent(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  useEffect(() => {
+    API.get(`/quotation/accepted-quotations/${props.match.params._id}`)
+      .then((res) => {
+        setAcceptedQuotations(res.data);
+        console.log(res.data);
       })
       .catch((error) => {
         console.log(error);
@@ -111,11 +124,14 @@ const EventDisplay = (props) => {
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  <tr>
-                                    <td> {event.event_name} </td>
-                                    <td> {event.event_type} </td>
-                                    <td> {event.event_type}</td>
+                                  {acceptedQuotations.map((acceptedQuotations) => (
+
+                                    <tr key={acceptedQuotations._id}>
+                                    <td> {acceptedQuotations.date_to} </td>
+                                    <td> {acceptedQuotations.date_to} </td>
+                                    <td> {acceptedQuotations.date_to}</td>
                                   </tr>
+                                    ))}
                                 </tbody>
                               </Table>
                             </CardBody>
