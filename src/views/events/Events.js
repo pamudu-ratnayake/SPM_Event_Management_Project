@@ -28,22 +28,33 @@ import { Link } from "react-router-dom";
 
 const Events = (props) => {
 	const [posts, setPosts] = useState([]);
-
+	const user = JSON.parse(localStorage.getItem("profile")).result;
 	useEffect(() => {
-		API.get(`/eventAdd/getevents`)
+		API.get(`/serviceProvider/getByUser/${user._id}`)
 			.then((res) => {
-				const events = res.data;
-				const filterEvents = [];
-				events.forEach((event) => {
-					event.checkboxOption.forEach((option) => {
-						if (option == "Sound Provider") {
-							filterEvents.push(event);
-						}
+				let data = res.data;
+
+				API.get(`/company/get/${data.company_id}`).then((res) => {
+					let providerType = res.data.service_provider_type;
+
+					console.log(providerType);
+
+					API.get(`/eventAdd/events`).then((res) => {
+						const events = res.data;
+						console.log(res.data);
+						const filterEvents = [];
+						events.forEach((event) => {
+							event.checkboxOption.forEach((option) => {
+								if (option == providerType) {
+									filterEvents.push(event);
+								}
+							});
+						});
+						setPosts(filterEvents);
+						console.log(res.data);
+						console.log("filterEvents : ", filterEvents);
 					});
 				});
-				setPosts(filterEvents);
-				console.log(res.data);
-				console.log("filterEvents : ", filterEvents);
 			})
 			.catch((error) => {
 				console.log(error);
@@ -105,7 +116,9 @@ const Events = (props) => {
 												<td> {posts.location} </td>
 												<td> {posts.event_type} </td>
 												<td className="">
-													<Link to={`/admin/event-display-sp/${posts._id}`}>
+													<Link
+														to={`/serviceprovider/event-display-sp/${posts._id}`}
+													>
 														<Button color="primary" size="sm">
 															View Event
 														</Button>

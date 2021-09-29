@@ -38,11 +38,10 @@ const ServiceProviderProfile = (props) => {
 		API.get(`/serviceProvider/getByUser/${user._id}`)
 			.then((res) => {
 				let data = res.data;
-				console.log("SP : ", data);
 				setProvider(data);
+
 				API.get(`/company/get/${data.company_id}`).then((res) => {
 					setPosts(res.data);
-					console.log(res.data);
 				});
 			})
 			.catch((error) => {
@@ -54,8 +53,6 @@ const ServiceProviderProfile = (props) => {
 		if (window.confirm("Are you sure you wish to delete this item?")) {
 			API.delete(`/company/delete/${posts._id}`)
 				.then((res) => {
-					// setPosts(res.data);
-					console.log(res.data);
 					alert(posts.company_name + " has Deleted !");
 					window.location.reload(false);
 				})
@@ -78,8 +75,6 @@ const ServiceProviderProfile = (props) => {
 		company_id: provider.company_id,
 	};
 
-	console.log("initialValues : ", initialValues);
-
 	const validationSchema = Yup.object({
 		servic_provider_Id: Yup.string(),
 		nic_no: Yup.string().required("*Required!"),
@@ -101,15 +96,12 @@ const ServiceProviderProfile = (props) => {
 	});
 
 	const onSubmit = (values) => {
-		console.log("Form Date", values);
 		values.servic_provider_Id = provider.servic_provider_Id;
 		values.user_id = provider.user_id;
+		values.company_id = provider.company_id;
 
-		console.log("Form Date", values);
 		API.put(`/serviceProvider/update/${provider._id}`, values)
 			.then((res) => {
-				console.log(res);
-				console.log("Data", values);
 				alert("Updated Successfully !!");
 				disableInputs();
 			})
@@ -162,7 +154,7 @@ const ServiceProviderProfile = (props) => {
 							</Row>
 							<CardHeader className="text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
 								<div className="d-flex justify-content-between">
-									<EditProfileModal id="user._id" />
+									<EditProfileModal company={posts} />
 
 									<Button
 										className="float-right"

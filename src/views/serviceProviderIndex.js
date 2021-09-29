@@ -35,36 +35,38 @@ const ServiceProviderIndex = (props) => {
 		<>
 			<Header />
 			{/* Page content */}
-			<Container className="mt-4" fluid>
+			<Container className="mt--7" fluid>
 				<Row className="mt-4">
 					<Col className="w-50">
 						<Card style={{ width: "34rem" }}>
 							{/* <CardBody> */}
-							<div
-								className=""
-								style={{
-									width: "540px",
-									height: "360px",
-									backgroundImage:
-										"url(" +
-										require("../assets/img/theme/musicEvent.jpg").default +
-										")",
-									backgroundSize: "cover",
-									backgroundPosition: "center top",
-								}}
-							>
-								<div className="float-end m-1">
-									<Button
-										className=""
-										color="transparent"
-										href="#pablo"
-										onClick={(e) => e.preventDefault()}
-										size="sm"
-									>
-										<i class="bx bxs-cog bx-spin fs-6 text-white"></i>
-									</Button>
+							<div className="ms-2 my-2">
+								<div
+									style={{
+										width: "525px",
+										height: "340px",
+										backgroundImage:
+											"url(" +
+											require("../assets/img/theme/musicEvent.jpg").default +
+											")",
+										backgroundSize: "cover",
+										backgroundPosition: "center top",
+									}}
+								>
+									<div className="float-end m-1">
+										<Button
+											className=""
+											color="transparent"
+											href="#pablo"
+											onClick={(e) => e.preventDefault()}
+											size="sm"
+										>
+											<i class="bx bxs-cog bx-spin fs-6 text-white"></i>
+										</Button>
+									</div>
 								</div>
 							</div>
+
 							{/* </CardBody> */}
 						</Card>
 					</Col>
@@ -72,10 +74,10 @@ const ServiceProviderIndex = (props) => {
 						<Card style={{ width: "34rem" }}>
 							{/* <CardBody> */}
 							<div
-								className=""
+								className="ms-2 my-2"
 								style={{
-									width: "540px",
-									height: "360px",
+									width: "525px",
+									height: "340px",
 									backgroundImage:
 										"url(" +
 										require("../assets/img/theme/musicEvent2.jpg").default +

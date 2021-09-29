@@ -81,7 +81,7 @@ const EventDisplaySP = (props) => {
 									</Col>
 									<Col className="text-right" xs="3"></Col>
 									<Col className="text-right" xs="2">
-										<Link to={`/admin/createQuotation/${event._id}`}>
+										<Link to={`/serviceprovider/createQuotation/${event._id}`}>
 											<Button color="primary" size="sm">
 												Apply Quotation
 											</Button>
