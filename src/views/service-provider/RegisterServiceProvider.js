@@ -1,7 +1,7 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
-import { useHistory } from "react-router";
+import API from "variables/tokenURL";
 
 // reactstrap components
 import {
@@ -19,49 +19,48 @@ import {
 	Col,
 } from "reactstrap";
 
+const phoneRegExp =
+	/^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+
 const RegisterServiceProvider = () => {
 	// Initial Values
 	const initialValues = {
-		// nic_no: "",
-		firstName: "",
-		lastName: "",
+		servic_provider_Id: "SPS00006",
+		nic_no: "",
+		first_name: "",
+		last_name: "",
 		email: "",
+		mobile: "",
 		password: "",
-		conPassword: "",
-		service_type: "",
-		user_type: "service provider",
+		re_password: "",
 	};
 
 	//  Validation Schema
 	const validationSchema = Yup.object({
-		//	servic_provider_Id: Yup.string(),
-		//	nic_no: Yup.string().required("*Required!"),
-		firstName: Yup.string().required("*Required!"),
-		lastName: Yup.string().required("*Required!"),
+		servic_provider_Id: Yup.string(),
+		nic_no: Yup.string().required("*Required!"),
+		first_name: Yup.string().required("*Required!"),
+		last_name: Yup.string().required("*Required!"),
 		email: Yup.string().email("*Invalid email!").required("*Required!"),
-		// mobile: Yup.string()
-		// 	.matches(phoneRegExp, "Phone number is not valid")
-		// 	.required("*Required!")
-		// 	.min(10, "Too short")
-		// 	.max(10, "Too long"),
+		mobile: Yup.string()
+			.matches(phoneRegExp, "Phone number is not valid")
+			.required("*Required!")
+			.min(10, "Too short")
+			.max(10, "Too long"),
 		password: Yup.string().required("*Required!"),
-		conPassword: Yup.string().required("*Required!"),
+		re_password: Yup.string().required("*Required!"),
 	});
-
-	let history = useHistory();
 
 	//  Submit Method
 	const onSubmit = (values) => {
 		console.log("Form Date", values);
-		axios
-			.post("http://localhost:8080/auth-user/signup", values)
+		//  values.date_of_the_event = event_date; //watch
+		API.post(`/serviceProvider/create`, values)
 			.then((res) => {
 				console.log(res);
 				console.log("Data", values);
-				localStorage.setItem("profile", JSON.stringify(res.data));
-				history.push({
-					pathname: `/serviceprovider`,
-				});
+				alert("Registered Successfully !!");
+				window.location = "/admin/service-provider-profile";
 			})
 			.catch((error) => {
 				console.log(error);
@@ -101,14 +100,14 @@ const RegisterServiceProvider = () => {
 											id="input-first-name"
 											placeholder="First name"
 											type="text"
-											name="firstName"
+											name="first_name"
 											onChange={formik.handleChange}
 											onBlur={formik.handleBlur}
-											value={formik.values.firstName}
+											value={formik.values.first_name}
 										/>
-										{formik.touched.firstName && formik.errors.firstName ? (
+										{formik.touched.first_name && formik.errors.first_name ? (
 											<div style={{ color: "red" }}>
-												{formik.errors.firstName}
+												{formik.errors.first_name}
 											</div>
 										) : null}
 									</FormGroup>
@@ -128,50 +127,19 @@ const RegisterServiceProvider = () => {
 											id="input-last-name"
 											placeholder="Last name"
 											type="text"
-											name="lastName"
+											name="last_name"
 											onChange={formik.handleChange}
 											onBlur={formik.handleBlur}
-											value={formik.values.lastName}
+											value={formik.values.last_name}
 										/>
-										{formik.touched.lastName && formik.errors.lastName ? (
+										{formik.touched.last_name && formik.errors.last_name ? (
 											<div style={{ color: "red" }}>
-												{formik.errors.lastName}
+												{formik.errors.last_name}
 											</div>
 										) : null}
 									</FormGroup>
 								</Col>
 							</Row>
-
-							<FormGroup>
-								<label>Service Type</label>
-								<Input
-									className="form-control-alternative"
-									id="exampleFormControlInput1"
-									placeholder="Enter Location"
-									type="select"
-									name="service_type"
-									onChange={formik.handleChange}
-									onBlur={formik.handleBlur}
-									value={formik.values.service_type}
-								>
-									<option>Choose...</option>
-									<option>Photography</option>
-									<option>Sound Provider</option>
-									<option>Florist</option>
-									<option>Catering</option>
-									<option>Cake Designer</option>
-									<option>Costume Designer</option>
-									<option>Event Planner</option>
-									<option>Decorators</option>
-									<option>Dancers</option>
-								</Input>
-								{formik.touched.service_type && formik.errors.service_type ? (
-									<div style={{ color: "red" }}>
-										{formik.errors.service_type}
-									</div>
-								) : null}
-							</FormGroup>
-
 							{/* Email */}
 							<FormGroup>
 								<label className="form-control-label" htmlFor="input-email">
@@ -197,7 +165,7 @@ const RegisterServiceProvider = () => {
 								</InputGroup>
 							</FormGroup>
 
-							{/* <Row>
+							<Row>
 								<Col lg="6">
 									<FormGroup>
 										<label
@@ -246,7 +214,7 @@ const RegisterServiceProvider = () => {
 										) : null}
 									</FormGroup>
 								</Col>
-							</Row> */}
+							</Row>
 							{/* Password */}
 							<FormGroup>
 								<label className="form-control-label" htmlFor="input-password">
@@ -288,14 +256,14 @@ const RegisterServiceProvider = () => {
 									<Input
 										placeholder="Re-Password"
 										type="password"
-										name="conPassword"
+										name="re_password"
 										onChange={formik.handleChange}
 										onBlur={formik.handleBlur}
-										value={formik.values.conPassword}
+										value={formik.values.re_password}
 									/>
-									{formik.touched.conPassword && formik.errors.conPassword ? (
+									{formik.touched.re_password && formik.errors.re_password ? (
 										<div style={{ color: "red" }}>
-											{formik.errors.conPassword}
+											{formik.errors.re_password}
 										</div>
 									) : null}
 								</InputGroup>

@@ -9,17 +9,17 @@ import {
 	Col,
 	Table,
 } from "reactstrap";
+import API from "variables/tokenURL";
 // core components
-import ServiceProviderHeader from "components/Headers/service-provider-header/ServiceProviderHeader";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import HeaderAllServiceProviders from "components/Headers/service-provider-header/HeaderAllServiceProviders";
 
 const ServiceProviders = (props) => {
 	const [posts, setPosts] = useState([]);
 
 	useEffect(() => {
-		axios
-			.get(`http://localhost:8080/serviceProvider/`)
+		API.get(`/serviceProvider/`)
 			.then((res) => {
 				setPosts(res.data);
 				console.log(res.data);
@@ -31,9 +31,9 @@ const ServiceProviders = (props) => {
 
 	return (
 		<>
-			<ServiceProviderHeader />
+			<HeaderAllServiceProviders />
 			{/* Page content */}
-			<Container className="mt--7" fluid>
+			<Container className="mt--9" fluid>
 				<Row>
 					<Col className="order-xl-1" xl="12">
 						<Card className="bg-secondary shadow">
@@ -97,10 +97,9 @@ const ServiceProviders = (props) => {
 																	"Are you sure you wish to delete this item?"
 																)
 															) {
-																axios
-																	.delete(
-																		`http://localhost:8080/serviceProvider/delete/${posts._id}`
-																	)
+																API.delete(
+																	`/serviceProvider/delete/${posts._id}`
+																)
 																	.then((res) => {
 																		// setPosts(res.data);
 																		console.log(res.data);
