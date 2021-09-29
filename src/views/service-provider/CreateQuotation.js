@@ -37,6 +37,7 @@ const CreateQuotation = (props) => {
 	const [totalPriceTemp, setTotalPriceTemp] = useState(0);
 	const [cost, setCost] = useState(0);
 
+	// Form Inputs Varibales
 	const [event_id, setEvent_id] = useState("");
 	const [profile, setprofile] = useState("");
 	const [company, setCompany] = useState("");
