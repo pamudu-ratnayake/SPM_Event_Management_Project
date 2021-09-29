@@ -23,7 +23,9 @@ import axios from "axios";
 import CreateQuotionHeader from "components/Headers/service-provider-header/CreateQuotionHeader";
 
 const CreateQuotation = (props) => {
-	console.log("CQ ID is : ", props.match.params._id);
+	// Taking Current User
+	const user = JSON.parse(localStorage.getItem("profile")).result;
+
 	// Form Inputs Varibales
 	const [item_details, setItem_details] = useState([]);
 	const [date_from, setDate_from] = useState("");
@@ -60,28 +62,20 @@ const CreateQuotation = (props) => {
 		if (total <= 0) {
 			API.get(`/eventAdd/getOneEvent/${props.match.params._id}`)
 				.then((res) => {
-					console.log("E : ", res.data);
 					setEvent(res.data);
 				})
 				.catch((error) => {
 					console.log(error);
 				});
 
-			setEvent_id(props.match.params._id);
-			API.get(`/company/`)
+			API.get(`/serviceProvider/getByUser/${user._id}`)
 				.then((res) => {
-					setCompany(res.data[0]);
-					console.log("C : ", res.data[0]);
-				})
-				.catch((error) => {
-					console.log(error);
-				});
+					let data = res.data;
+					setprofile(data);
 
-			API.get(`/serviceProvider/getOne`)
-				.then((res) => {
-					setprofile(res.data[0]);
-					console.log("SP : ", res.data[0]);
-					console.log(res.data[0].servic_provider_Id);
+					API.get(`/company/get/${data.company_id}`).then((res) => {
+						setCompany(res.data);
+					});
 				})
 				.catch((error) => {
 					console.log(error);
@@ -96,14 +90,7 @@ const CreateQuotation = (props) => {
 	}, [item_details]);
 
 	const onSubmit = (values) => {
-		console.log("Form Date", values);
-		console.log("Form date_from", today);
-		console.log("Form date_to", date_to);
-		console.log("Form item_details", item_details);
-		console.log("Form terms", terms);
-
 		if (item_details && item_details.length > 0) {
-			// 	if (date_to) {
 			let newQuotation = {
 				event_id: event._id,
 				provider_id: profile._id,
@@ -113,11 +100,9 @@ const CreateQuotation = (props) => {
 				terms: values.terms,
 				approve: false,
 			};
-			console.log("Sub : ", newQuotation);
-			console.log("Sub D F : ", newQuotation.date_from);
+
 			API.post(`/quotation/create`, newQuotation)
 				.then((res) => {
-					console.log("res : ", res);
 					alert("Created Successfully !!");
 				})
 				.catch((error) => {
@@ -339,11 +324,8 @@ const CreateQuotation = (props) => {
 																	unit_price: unitPriceTemp,
 																	total_price: quantityTemp * unitPriceTemp,
 																};
-																console.log("item_details F : ", item_details);
-																setItem_details([...item_details, item]);
 
-																console.log("item : ", item);
-																console.log("item_details : ", item_details);
+																setItem_details([...item_details, item]);
 
 																setItemNameTemp("");
 																setQuantityTemp(0);
