@@ -2,6 +2,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import { useHistory } from "react-router";
+import { Alert } from "reactstrap";
 
 // reactstrap components
 import {
@@ -50,23 +51,28 @@ const RegisterServiceProvider = () => {
 
 	let history = useHistory();
 
-	//  Submit Method
-	const onSubmit = (values) => {
-		console.log("Form Date", values);
-		axios
-			.post("http://localhost:8080/auth-user/signup", values)
-			.then((res) => {
-				console.log(res);
-				console.log("Data", values);
-				localStorage.setItem("profile", JSON.stringify(res.data));
-				history.push({
-					pathname: `/serviceprovider`,
-				});
-			})
-			.catch((error) => {
-				console.log(error);
-			});
-	};
+  //  Submit Method
+  const onSubmit = (values) => {
+    console.log("Form Date", values);
+    if (values.password === values.conPassword){
+    axios
+      .post("http://localhost:8080/auth-user/signup", values)
+      .then((res) => {
+        console.log(res);
+        console.log("Data", values);
+        localStorage.setItem("profile", JSON.stringify(res.data));
+        history.push({
+          pathname: `/admin`,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    }
+    else {    
+      alert("Password mismatching! Re-Enter Passwords")
+    }
+  };
 
 	// Formik Options
 	const formik = useFormik({

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import StarRatingComponent from "react-star-rating-component";
 import { FaStar } from "react-icons/fa";
+import API from "variables/tokenURL";
 
 // reactstrap components
 import { Button, Card, CardHeader, CardBody, FormGroup, Form, Input, Container, Row, Col, InputGroupAddon, InputGroupText, InputGroup, Modal, Table, Label } from "reactstrap";
@@ -20,6 +21,8 @@ const EventDisplay = (props) => {
   const [notificationModal, setModal] = useState(false);
   const [rating, setRating] = useState(null);
   const [hover, setHover] = useState(null);
+  const [acceptedQuotations, setAcceptedQuotations] = useState([]);
+  const [providerID, setID] = useState("");
 
   //toggle function
   function toggleModal() {
@@ -35,14 +38,15 @@ const EventDisplay = (props) => {
   // }
 
   console.log("rating", rating);
+  console.log("Provider ID : ", providerID);
 
   const initialValues = {};
 
   //useEffect
   useEffect(async () => {
-   await axios
+    await axios
       .get(`http://localhost:8080/eventAdd/getOneEvent/${props.match.params._id}`)
-      .then (async(res) => {
+      .then(async (res) => {
         console.log(res);
         setEvent(res.data);
       })
@@ -51,7 +55,34 @@ const EventDisplay = (props) => {
       });
   }, []);
 
-  console.log("jjj", event.checkboxOption);
+  useEffect(() => {
+    API.get(`/quotation/accepted-quotations/${props.match.params._id}`)
+      .then((res) => {
+        setAcceptedQuotations(res.data);
+        console.log(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  const setReview = (ID) => {
+    console.log("come to this", ID);
+    // API.get(`/quotation/get/${acceptedQuotations._id}`)
+    // .then((res) => {
+    //   console.log(res);
+    //   console.log('PR ID : ', res.data.provider_id._id)
+
+    // API.put(`/serviceProvider/review-update/${res.data.provider_id._id}`)
+    // .then((res)=> {
+    //   console.log(res);
+    //   console.log('Data', );
+    // })
+    // })
+    // .catch((error) => {
+    //   console.log(error);
+    // });
+  };
 
   const formik = useFormik({
     initialValues,
@@ -111,11 +142,30 @@ const EventDisplay = (props) => {
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  <tr>
-                                    <td> {event.event_name} </td>
-                                    <td> {event.event_type} </td>
-                                    <td> {event.event_type}</td>
-                                  </tr>
+                                  {acceptedQuotations.map((acceptedQuotations) => (
+                                    <tr key={acceptedQuotations._id}>
+                                      <td> {acceptedQuotations.provider_id.first_name} </td>
+                                      <td> {acceptedQuotations.provider_id.service_type} </td>
+                                      {/* {(providerID) => {
+                                        setID(acceptedQuotations.provider_id.first_name);
+                                      }} */}
+
+                                      <td>
+                                        <Button onClick={() => toggleModalNotification("notificationModal")} className="btn-icon btn-2 " size="sm" color="danger" type="button">
+                                          <span className="btn-inner--icon-center">
+                                            <i className="ni ni-like-2" />
+                                          </span>
+                                        </Button>
+                                        <Link to={`/customer/view-quotations/${acceptedQuotations._id}`}>
+                                          <Button className="btn-icon btn-2 " size="sm" color="primary" type="button">
+                                            <span className="btn-inner--icon-center">
+                                              <i className="ni ni-glasses-2" />
+                                            </span>
+                                          </Button>
+                                        </Link>
+                                      </td>
+                                    </tr>
+                                  ))}
                                 </tbody>
                               </Table>
                             </CardBody>
@@ -123,7 +173,7 @@ const EventDisplay = (props) => {
                         </Col>
                       </div>
                       <div className="modal-footer">
-                        <Button className="btn-white" color="default" type="button" onClick={() => toggleModalNotification("notificationModal")}>
+                        <Button className="btn-white" color="default" type="button">
                           Ok, Got it
                         </Button>
                         <Button className="text-white ml-auto" color="link" data-dismiss="modal" type="button" onClick={() => toggleModal("defaultModal")}>
@@ -145,8 +195,8 @@ const EventDisplay = (props) => {
                     <div className="modal-body">
                       <div className="py-3 text-center">
                         <i className="ni ni-bell-55 ni-3x" />
-                        <h4 className="heading mt-4">You should read this!</h4>
-                        <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+                        <h4 className="heading mt-4">Rate Me!</h4>
+                        <p>Rate and Give your comments about my service</p>
 
                         <div>
                           {[...Array(5)].map((star, i) => {
@@ -176,17 +226,23 @@ const EventDisplay = (props) => {
                               rows="3"
                               type="textarea"
                               name="review"
-
-                              // onChange={formik.handleChange}
-                              // onBlur={formik.handleBlur}
-                              // value={formik.values.description}
+                              onChange={formik.handleChange}
+                              onBlur={formik.handleBlur}
+                              value={formik.values.review}
                             />
                           </FormGroup>
                         </Col>
                       </div>
                     </div>
                     <div className="modal-footer">
-                      <Button className="btn-white" color="default" type="button">
+                      <Button
+                        onClick={() => {
+                          setReview();
+                        }}
+                        className="btn-white"
+                        color="default"
+                        type="button"
+                      >
                         Ok, Got it
                       </Button>
                       <Button className="text-white ml-auto" color="link" data-dismiss="modal" type="button" onClick={() => toggleModalNotification("notificationModal")}>
@@ -255,19 +311,16 @@ const EventDisplay = (props) => {
                   </Row>
 
                   <Col>
-                  {
-                          event.checkboxOption && event.checkboxOption.map((checkbox, index) => {
-                            return (
-                              <div className="ml-5" key={index}>
-                                {" "}
-                               <Label> {checkbox}{" "}</Label>
-                              </div>
-                            );
-                          })
-                        }
-                          
+                    {event.checkboxOption &&
+                      event.checkboxOption.map((checkbox, index) => {
+                        return (
+                          <div className="ml-5" key={index}>
+                            {" "}
+                            <Label> {checkbox} </Label>
+                          </div>
+                        );
+                      })}
                   </Col>
-
 
                   <h2 className="mt-5 mb-4">Contact Information</h2>
                   <Row>

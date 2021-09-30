@@ -1,14 +1,22 @@
 import { useFormik } from "formik";
 import axios from "axios";
+import * as Yup from "yup";
 // reactstrap components
 import { useHistory } from "react-router";
 import { Button, Card, CardHeader, CardBody, FormGroup, Form, Input, InputGroupAddon, InputGroupText, InputGroup, Row, Col } from "reactstrap";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const initialValues = {
     email: "",
     password: "",
   };
+
+    //  Validation Schema
+    const validationSchema = Yup.object({
+      email: Yup.string().email("*Invalid email!").required("*Please Enter Email!"),
+      password: Yup.string().required("*Please Enter Password!"),
+    });
 
   let history = useHistory();
 
@@ -17,7 +25,7 @@ const Login = () => {
     axios
       .post("http://localhost:8080/auth-user/login", values)
       .then((res) => {
-        console.log(res);
+        console.log(res.data);
 
         localStorage.setItem("profile", JSON.stringify(res.data));
         const user = JSON.parse(localStorage.getItem("profile"));
@@ -45,6 +53,7 @@ const Login = () => {
 
   const formik = useFormik({
     initialValues,
+    validationSchema,
     onSubmit,
   });
 
@@ -85,6 +94,7 @@ const Login = () => {
                   </InputGroupAddon>
                   <Input placeholder="Email" type="email" name="email" autoComplete="new-email" onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.email} />
                 </InputGroup>
+                {formik.touched.email && formik.errors.email ? <div style={{ color: "red" }}>{formik.errors.email}</div> : null}
               </FormGroup>
               <FormGroup>
                 <InputGroup className="input-group-alternative">
@@ -95,6 +105,7 @@ const Login = () => {
                   </InputGroupAddon>
                   <Input placeholder="Password" type="password" name="password" autoComplete="new-password" onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.password} />
                 </InputGroup>
+                {formik.touched.password && formik.errors.password ? <div style={{ color: "red" }}>{formik.errors.password}</div> : null}
               </FormGroup>
               <div className="custom-control custom-control-alternative custom-checkbox">
                 <input className="custom-control-input" id=" customCheckLogin" type="checkbox" />
@@ -117,9 +128,11 @@ const Login = () => {
             </a>
           </Col>
           <Col className="text-right" xs="6">
-            <a className="text-light" href="#pablo" onClick={(e) => e.preventDefault()}>
+            <Link to={`/auth/register-all`}>
+            <a className="text-light" >
               <small>Create new account</small>
             </a>
+            </Link>
           </Col>
         </Row>
       </Col>

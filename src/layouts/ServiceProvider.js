@@ -5,6 +5,7 @@ import { Container } from "reactstrap";
 // core components
 import AdminNavbar from "components/Navbars/AdminNavbar.js";
 import AdminFooter from "components/Footers/AdminFooter.js";
+import ServiceProviderNavbar from "components/Navbars/ServiceProviderNavbar";
 import Sidebar from "components/Sidebar/Sidebar.js";
 
 import routes from "routes.js";
@@ -59,7 +60,7 @@ const Customer = (props) => {
         }}
       />
       <div className="main-content" ref={mainContent}>
-        <AdminNavbar
+        <ServiceProviderNavbar
           {...props}
           brandText={getBrandText(props.location.pathname)}
         />

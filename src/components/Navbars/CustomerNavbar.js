@@ -6,17 +6,20 @@ import { Link, useHistory, useLocation } from "react-router-dom";
 import { DropdownMenu, DropdownItem, UncontrolledDropdown, DropdownToggle, Form, FormGroup, InputGroupAddon, InputGroupText, Input, InputGroup, Navbar, Nav, Container, Media } from "reactstrap";
 import API from "variables/tokenURL";
 
-const AdminNavbar = (props) => {
+const CustomerNavbar = (props) => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
   const [customer, setCustomer] = useState("");
 
   console.log(user);
 
   const history = useHistory();
-  const location = useLocation();
+  const location= useLocation();
+
+
 
   const logout = () => {
-    history.push("/auth");
+
+    history.push('/auth');
     localStorage.clear();
     setUser(null);
   };
@@ -26,8 +29,10 @@ const AdminNavbar = (props) => {
 
     if (token) {
       // const decodedToken = decode(token);
+
       // if (decodedToken.exp * 1000 < new Date().getTime()) logout();
     }
+
     setUser(JSON.parse(localStorage.getItem("profile")));
   }, []);
 
@@ -37,10 +42,10 @@ const AdminNavbar = (props) => {
         console.log(res);
         setCustomer(res.data);
       })
-      .catch((error) => {
-        console.log(error);
-      });
-  });
+    .catch((error) => {
+      console.log(error);
+    })
+    });
 
   return (
     <>
@@ -66,7 +71,7 @@ const AdminNavbar = (props) => {
               <DropdownToggle className="pr-0" nav>
                 <Media className="align-items-center">
                   <span className="avatar avatar-sm rounded-circle">
-                    <img alt="..." src={require("../../assets/img/theme/team-4-800x800.jpg").default} />
+                    <img alt="..." src={customer && customer.prof_img} />
                   </span>
                   <Media className="ml-2 d-none d-lg-block">
                     <span className="mb-0 text-sm font-weight-bold">{user?.result.firstName}</span>
@@ -89,13 +94,7 @@ const AdminNavbar = (props) => {
                 <DropdownItem divider />
                 <DropdownItem href="#pablo" onClick={(e) => e.preventDefault()}>
                   <i className="ni ni-user-run" />
-                  <span
-                    onClick={() => {
-                      logout();
-                    }}
-                  >
-                    Logout
-                  </span>
+                  <span onClick={()=>{logout()}}>Logout</span>
                 </DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
@@ -106,4 +105,4 @@ const AdminNavbar = (props) => {
   );
 };
 
-export default AdminNavbar;
+export default CustomerNavbar;

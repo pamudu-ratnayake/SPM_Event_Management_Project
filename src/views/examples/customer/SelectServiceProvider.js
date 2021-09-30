@@ -26,22 +26,22 @@ const SelectServiceProvider = (props) => {
       });
   }, []);
 
-  const getServiceProvider = (provider_id) => {
-    console.log("ser id:", provider_id);
-     API.get(`/serviceProvider/get/${provider_id}`)
-        .then((res) => {
-          setServiceProvider(res.data);
-          console.log(res.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    };
+  // const getServiceProvider = (provider_id) => {
+  //   console.log("ser id:", provider_id);
+  //   API.get(`/serviceProvider/get/${provider_id}`)
+  //     .then((res) => {
+  //       setServiceProvider(res.data);
+  //       console.log(res.data);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // };
 
-    const acceptQuotation = (_id) => {
-      const approved = {approve:true};
-      console.log('check', approved);
-      API.put(`/quotation/update/status/${_id}`, approved)
+  const acceptQuotation = (_id) => {
+    const approved = { approve: true };
+    console.log("check", approved);
+    API.put(`/quotation/update/status/${_id}`, approved)
       .then((res) => {
         console.log(res);
         console.log(approved);
@@ -50,7 +50,8 @@ const SelectServiceProvider = (props) => {
       .catch((error) => {
         console.log(error);
       });
-    }
+    window.location.reload(false);
+  };
 
   // const getServiceProvider = async (provider_id) => {
   //   console.log("ser id:", provider_id);
@@ -100,29 +101,29 @@ const SelectServiceProvider = (props) => {
                       <th scope="col">Service Type</th>
                       <th scope="col">Email</th>
                       <th scope="col">Contact Number</th>
-                      <th scope="col">Total</th>
-                      <th scope="col">wwww</th>
+                      <th scope="col">Total</th>                 
                       <th scope="col" />
                     </tr>
                   </thead>
                   <tbody>
-                    {
-                    posts.map((posts) => (
+                    {posts.map((posts) => (
                       <tr key={posts._id}>
-                        {/* {getServiceProvider(posts.provider_id)} */}
-
-                        <td> sssssssssss </td>
-                        <td> dfdfdf </td>
-                        <td> dfdfdf </td>
-
-                        {/* <td> {serviceProvider.first_name} </td>
-                        <td> {serviceProvider.nic_no} </td>
-                        <td> {serviceProvider.email} </td> */}
+                        <td> {posts.provider_id.user_name} </td>
+                        <td> {posts.provider_id.service_type} </td>
+                        <td> {posts.provider_id.email} </td>
+                        <td> {posts.provider_id.mobile} </td>
                         <td> </td>
                         <td>
                           {" "}
-                          <Button className="btn-icon btn-2" size="sm" color="success" type="button"
-                          onClick={() => {acceptQuotation(posts._id)}}>
+                          <Button
+                            className="btn-icon btn-2"
+                            size="sm"
+                            color="success"
+                            type="button"
+                            onClick={() => {
+                              acceptQuotation(posts._id);
+                            }}
+                          >
                             <span className="btn-inner--icon">
                               <i className="ni ni-check-bold" />
                             </span>
