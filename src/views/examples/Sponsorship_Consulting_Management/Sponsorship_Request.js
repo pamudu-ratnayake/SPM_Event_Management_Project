@@ -62,7 +62,7 @@ const Sponsorship_Request = () => {
                 <Col xs="8">
                   <h2 className="mb-0">Sponsors</h2>
                 </Col>
-                {/* <Col xs="3">
+                <Col xs="3">
                   <div>
                     <Input
                       type="text"
@@ -79,7 +79,7 @@ const Sponsorship_Request = () => {
                       }}
                     />
                   </div>
-                </Col> */}
+                </Col>
               </Row>
             </CardHeader>
             <CardBody>
