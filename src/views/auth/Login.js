@@ -12,11 +12,11 @@ const Login = () => {
     password: "",
   };
 
-    //  Validation Schema
-    const validationSchema = Yup.object({
-      email: Yup.string().email("*Invalid email!").required("*Please Enter Email!"),
-      password: Yup.string().required("*Please Enter Password!"),
-    });
+  //  Validation Schema
+  const validationSchema = Yup.object({
+    email: Yup.string().email("*Invalid email!").required("*Please Enter Email!"),
+    password: Yup.string().required("*Please Enter Password!"),
+  });
 
   let history = useHistory();
 
@@ -29,22 +29,22 @@ const Login = () => {
 
         localStorage.setItem("profile", JSON.stringify(res.data));
         const user = JSON.parse(localStorage.getItem("profile"));
-        console.log(user?.result?.user_type)
-        if(user?.result?.user_type === "customer"){
-        history.push({
-          pathname: `/customer`,
-        });
-      }
-      if(user?.result?.user_type === "service provider"){
-        history.push({
-          pathname: `/serviceprovider`,
-        });
-      }
-      if(user?.result?.user_type === "admin"){
-        history.push({
-          pathname: `/admin`,
-        });
-      }
+        console.log(user?.result?.user_type);
+        if (user?.result?.user_type === "customer") {
+          history.push({
+            pathname: `/customer`,
+          });
+        }
+        if (user?.result?.user_type === "service provider") {
+          history.push({
+            pathname: `/serviceprovider`,
+          });
+        }
+        if (user?.result?.user_type === "admin") {
+          history.push({
+            pathname: `/admin`,
+          });
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -129,9 +129,9 @@ const Login = () => {
           </Col>
           <Col className="text-right" xs="6">
             <Link to={`/auth/register-all`}>
-            <a className="text-light" >
-              <small>Create new account</small>
-            </a>
+              <a className="text-light">
+                <small>Create new account</small>
+              </a>
             </Link>
           </Col>
         </Row>

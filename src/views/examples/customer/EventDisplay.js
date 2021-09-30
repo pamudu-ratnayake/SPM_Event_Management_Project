@@ -20,9 +20,10 @@ const EventDisplay = (props) => {
   const [defaultModal, setState] = useState(false);
   const [notificationModal, setModal] = useState(false);
   const [rating, setRating] = useState(null);
+  const [reviews, setReviewInput] = useState("");
   const [hover, setHover] = useState(null);
   const [acceptedQuotations, setAcceptedQuotations] = useState([]);
-  const [providerID, setID] = useState("");
+  const [SPID, setSPID] = useState("");
 
   //toggle function
   function toggleModal() {
@@ -33,14 +34,13 @@ const EventDisplay = (props) => {
     setModal(!notificationModal);
   }
 
-  // function onStarClick(nextValue, prevValue, name) {
-  //   setRating({ rating: nextValue });
-  // }
-
   console.log("rating", rating);
-  console.log("Provider ID : ", providerID);
-
-  const initialValues = {};
+  // console.log("xxx", providerID);
+  const initialValues = {
+    enableReinitialize: true,
+    validateOnMount: true,
+    review: "",
+  };
 
   //useEffect
   useEffect(async () => {
@@ -66,25 +66,40 @@ const EventDisplay = (props) => {
       });
   }, []);
 
-  const setReview = (ID) => {
-    console.log("come to this", ID);
-    // API.get(`/quotation/get/${acceptedQuotations._id}`)
-    // .then((res) => {
-    //   console.log(res);
-    //   console.log('PR ID : ', res.data.provider_id._id)
+  const setID = (providerID) => {
+    setSPID(providerID);
+  };
 
-    // API.put(`/serviceProvider/review-update/${res.data.provider_id._id}`)
-    // .then((res)=> {
-    //   console.log(res);
-    //   console.log('Data', );
-    // })
-    // })
-    // .catch((error) => {
-    //   console.log(error);
-    // });
+  // const review_rate = {
+  //   rate: rating,
+  //   review: review
+  // }
+
+  console.log("come to this", SPID);
+
+  const setReview = () => {
+    console.log("comefffff to this", SPID);
+    console.log("V rate", rating);
+    var rates = {
+      review_rate:{
+        rate:rating,
+        review: reviews,
+      }    
+    }
+
+    API.post(`/serviceProvider/review-update/${SPID}`, rates)
+      .then((res) => {
+        console.log(res.data);
+        console.log("Data", rates);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const formik = useFormik({
+    enableReinitialize: true,
+    validateOnMount: true,
     initialValues,
   });
 
@@ -146,18 +161,23 @@ const EventDisplay = (props) => {
                                     <tr key={acceptedQuotations._id}>
                                       <td> {acceptedQuotations.provider_id.first_name} </td>
                                       <td> {acceptedQuotations.provider_id.service_type} </td>
-                                      {/* {(providerID) => {
-                                        setID(acceptedQuotations.provider_id.first_name);
-                                      }} */}
-
                                       <td>
-                                        <Button onClick={() => toggleModalNotification("notificationModal")} className="btn-icon btn-2 " size="sm" color="danger" type="button">
+                                        <Button
+                                          onClick={function (event) {
+                                            toggleModalNotification("notificationModal");
+                                            setID(acceptedQuotations.provider_id._id);
+                                          }}
+                                          className="btn-icon btn-2 "
+                                          size="sm"
+                                          color="danger"
+                                          type="button"
+                                        >
                                           <span className="btn-inner--icon-center">
                                             <i className="ni ni-like-2" />
                                           </span>
                                         </Button>
                                         <Link to={`/customer/view-quotations/${acceptedQuotations._id}`}>
-                                          <Button className="btn-icon btn-2 " size="sm" color="primary" type="button">
+                                          <Button className="btn-icon btn-2 " size="sm" color="success" type="button">
                                             <span className="btn-inner--icon-center">
                                               <i className="ni ni-glasses-2" />
                                             </span>
@@ -216,23 +236,26 @@ const EventDisplay = (props) => {
                             );
                           })}
                         </div>
-
-                        <Col md="12">
-                          <FormGroup>
-                            <label>Review</label>
-                            <Input
-                              id="exampleFormControlTextarea1"
-                              placeholder="Enter Your Review..."
-                              rows="3"
-                              type="textarea"
-                              name="review"
-                              onChange={formik.handleChange}
-                              onBlur={formik.handleBlur}
-                              value={formik.values.review}
-                            />
-                          </FormGroup>
-                        </Col>
                       </div>
+
+                      <Col md="12">
+                        <FormGroup>
+                          <h4 className="heading mt-4">Review</h4>
+                          <Input
+                            id="exampleFormControlTextarea1"
+                            placeholder="Enter Your Review..."
+                            rows="3"
+                            type="textarea"
+                            name="review"
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            // value={review}
+                            onInput={(e) => {
+                              setReviewInput(e.target.value);
+                            }}
+                          />
+                        </FormGroup>
+                      </Col>
                     </div>
                     <div className="modal-footer">
                       <Button
