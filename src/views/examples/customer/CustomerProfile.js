@@ -70,7 +70,7 @@ const CustomerProfile = (props) => {
 
   const user = JSON.parse(localStorage.getItem("profile"));
 
-  const [customer, setCustomer] = useState(0);
+  const [customer, setCustomer] = useState("");
   const [oneUser, setOneUser] = useState(0);
 
   const initialValues = {
@@ -127,25 +127,31 @@ const CustomerProfile = (props) => {
       .catch((error) => {
         console.log(error);
       });
-    // window.location.reload(false);
+     window.location.reload(false);
   };
 
-  useEffect(() => {
-    API.get(`/customerdetails/getOneCustomer/${user?.result?._id}`)
-      .then((res) => {
-        console.log(res);
-        setCustomer(res.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+  // useEffect(() => {
+  //   API.get(`/customerdetails/getOneCustomer/${user?.result?._id}`)
+  //     .then((res) => {
+  //       console.log(res);
+  //       setCustomer(res.data);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }, []);
 
   useEffect(() => {
     API.get(`/auth-user/get-user`)
       .then((res) => {
         console.log(res);
         setOneUser(res.data);
+
+        API.get(`/customerdetails/getOneCustomer/${user?.result?._id}`)
+        .then((res) => {
+          console.log(res);
+          setCustomer(res.data);
+        })
       })
       .catch((error) => {
         console.log(error);
@@ -182,7 +188,7 @@ const CustomerProfile = (props) => {
                 <Col className="order-lg-2" lg="3">
                   <div className="card-profile-image">
                     <a href="#pablo" onClick={(e) => e.preventDefault()}>
-                      <img alt="..." className="rounded-circle" src={require("../../../assets/img/theme/team-4-800x800.jpg")} />
+                      <img alt="..." className="rounded-circle" src={customer && customer.prof_img} />
                     </a>
                   </div>
                 </Col>
@@ -321,7 +327,8 @@ const CustomerProfile = (props) => {
                             name="cus_contact_no"
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
-                            value={formik.values.cus_contact_no}
+                            // value={formik.values.cus_contact_no}
+                            defaultValue={customer && customer.cus_contact_no}
                           />
                           {formik.touched.cus_contact_no && formik.errors.cus_contact_no ? <div style={{ color: "red" }}>{formik.errors.cus_contact_no}</div> : null}
                         </FormGroup>
@@ -339,7 +346,7 @@ const CustomerProfile = (props) => {
                             name="cus_nic"
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
-                            value={formik.values.cus_nic}
+                            defaultValue={customer && customer.cus_nic}
                           />
                           {formik.touched.cus_nic && formik.errors.cus_nic ? <div style={{ color: "red" }}>{formik.errors.cus_nic}</div> : null}
                         </FormGroup>
@@ -401,7 +408,7 @@ const CustomerProfile = (props) => {
                             name="cus_address"
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
-                            value={formik.values.cus_address}
+                            defaultValue={customer && customer.cus_address}
                           />
                           {formik.touched.cus_address && formik.errors.cus_address ? <div style={{ color: "red" }}>{formik.errors.cus_address}</div> : null}
                         </FormGroup>
@@ -432,28 +439,11 @@ const CustomerProfile = (props) => {
                         name="cus_description"
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        value={formik.values.cus_description}
+                        defaultValue={customer && customer.cus_description}
                       />
                       {formik.touched.cus_description && formik.errors.cus_description ? <div style={{ color: "red" }}>{formik.errors.cus_description}</div> : null}
                     </FormGroup>
                   </div>
-
-                  {/* <img style={{ width: 800, height: 600 }} src={require(`http://localhost:8080/uploads/photo.jpeg`).default} /> */}
-                  {/* <div style={{ backgroundImage: "url(" + require(`http://localhost:8080/public/uploads/hose01.jpg`).default + ")" }} /> */}
-
-                  {/* <div
-        className="header pb-8 pt-5 pt-lg-8 d-flex align-items-center"
-        style={{
-          minHeight: "600px",
-          backgroundImage:
-            require( "../../../assets/img/theme/event11.jpg".default ),
-          backgroundSize: "cover",
-          backgroundPosition: "center top",
-        }}
-      /> */}
-
-                  {/* <CardImg style={{ height: "120px" }} alt="..." src={require("../../../assets/img/theme/event11.jpg").default} /> */}
-
                   <div className="text-center">
                     <Button className="mt-4" color="primary" type="submit">
                       Add My Details
