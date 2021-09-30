@@ -44,22 +44,23 @@ const Send_Request = (props) => {
   // const currentDate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate() + today.getTime();
 
   const user = JSON.parse(localStorage.getItem("profile"));
+  // const userName = user?.result?.firstName;
 
   const initialValues = {
     enableReinitialize: true,
     validateOnMount: true,
-    event_id: "",
+    // event_id: "",
     sender_name: user?.result?.firstName,
     // _id: sDetails._id,
     sponsorEmail: sDetails.sponsorEmail,
     companyName: sDetails.companyName,
-    cus_email: user?.result?.email,
+    cus_email: "",
     rqst: "",
     // reqDate: today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate() + today.getTime(),
   };
 
 
-  const onSubmit = (e, values) => {
+  const sendEmail = (e, values) => {
     console.log('kkkk',values);
     e.preventDefault();
 
@@ -86,7 +87,7 @@ const Send_Request = (props) => {
       })
       .catch((err) => console.log(err));
       
-      dataPost(values);
+      // dataPost(values);
   };
 
   const dataPost = (values) => {
@@ -121,7 +122,7 @@ const Send_Request = (props) => {
     enableReinitialize: true,
     validateOnMount: true,
     initialValues,
-    onSubmit,
+    // onSubmit,
     // sendEmail,
     validationSchema,
   });
@@ -143,7 +144,7 @@ const Send_Request = (props) => {
                 </Row>
               </CardHeader>
               <CardBody>
-                <Form onSubmit={formik.handleSubmit,onSubmit}>
+                <Form onSubmit={formik.handleSubmit, sendEmail}>
                 <Row>
                     <Col md="6">
                       <FormGroup>
@@ -169,11 +170,11 @@ const Send_Request = (props) => {
                     </Col>
                     <Col md="6">
                       <FormGroup>
-                        <label>Name</label>
+                        <label>Event Organizer Name</label>
                         <Input
                           className="h5"
                           id="exampleFormControlInput1"
-                          placeholder="reg000123456"
+                          // placeholder="reg000123456"
                           type="text"
                           name="sender_name"
                           onChange={formik.handleChange}
@@ -214,7 +215,7 @@ const Send_Request = (props) => {
                     </Col>
                     <Col md="6">
                       <FormGroup>
-                        <label>Customer Email</label>
+                        <label>Send From</label>
                         <Input
                           className="h5"
                           id="exampleFormControlInput1"
