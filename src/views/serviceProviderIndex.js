@@ -9,6 +9,7 @@ import {
 	CardBody,
 	CardHeader,
 	Table,
+	Input,
 } from "reactstrap";
 // core components
 
@@ -19,6 +20,7 @@ import { useEffect, useState } from "react";
 const ServiceProviderIndex = (props) => {
 	const [posts, setPosts] = useState([]);
 	const [pieData, setPieData] = useState([]);
+	const [searchStr, setSearch] = useState("");
 
 	const user = JSON.parse(localStorage.getItem("profile")).result;
 	useEffect(() => {
@@ -83,6 +85,24 @@ const ServiceProviderIndex = (props) => {
 									<Col xs="8">
 										<h1 className="mb-0">Applied Quotation</h1>
 									</Col>
+									<Col xs="3">
+										<div>
+											<Input
+												type="text"
+												placeholder="Search..."
+												style={{
+													borderWidth: "2.5px",
+													width: "15rem",
+													height: "2rem",
+													textAlign: "left",
+													borderRadius: "15px",
+												}}
+												onChange={(e) => {
+													setSearch(e.target.value);
+												}}
+											/>
+										</div>
+									</Col>
 								</Row>
 							</CardHeader>
 							<CardBody>
@@ -98,26 +118,38 @@ const ServiceProviderIndex = (props) => {
 										</tr>
 									</thead>
 									<tbody>
-										{posts.map((posts) => (
-											<tr key={posts._id}>
-												<td> {posts.event_id.event_name} </td>
-												<td> {posts.date_from} </td>
-												<td> {posts.date_to} </td>
-												<td> {posts.event_id.event_type} </td>
-												<td> {posts.event_id.cus_con_number} </td>
-												<td className="">
-													{posts.approve ? (
-														<Button color="success" size="sm">
-															Approve
-														</Button>
-													) : (
-														<Button color="warning" size="sm">
-															Pending
-														</Button>
-													)}
-												</td>
-											</tr>
-										))}
+										{posts
+											.filter((r) => {
+												if (searchStr === "") {
+													return r;
+												} else if (
+													r.event_id.event_name
+														.toLowerCase()
+														.includes(searchStr.toLowerCase())
+												) {
+													return r;
+												}
+											})
+											.map((posts) => (
+												<tr key={posts._id}>
+													<td> {posts.event_id.event_name} </td>
+													<td> {posts.date_from} </td>
+													<td> {posts.date_to} </td>
+													<td> {posts.event_id.event_type} </td>
+													<td> {posts.event_id.cus_con_number} </td>
+													<td className="">
+														{posts.approve ? (
+															<Button color="success" size="sm">
+																Approve
+															</Button>
+														) : (
+															<Button color="warning" size="sm">
+																Pending
+															</Button>
+														)}
+													</td>
+												</tr>
+											))}
 									</tbody>
 								</Table>
 							</CardBody>
