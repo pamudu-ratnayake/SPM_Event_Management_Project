@@ -35,16 +35,9 @@ const RegisterServiceProvider = () => {
 
 	//  Validation Schema
 	const validationSchema = Yup.object({
-		//	servic_provider_Id: Yup.string(),
-		//	nic_no: Yup.string().required("*Required!"),
 		firstName: Yup.string().required("*Required!"),
 		lastName: Yup.string().required("*Required!"),
 		email: Yup.string().email("*Invalid email!").required("*Required!"),
-		// mobile: Yup.string()
-		// 	.matches(phoneRegExp, "Phone number is not valid")
-		// 	.required("*Required!")
-		// 	.min(10, "Too short")
-		// 	.max(10, "Too long"),
 		password: Yup.string().required("*Required!"),
 		conPassword: Yup.string().required("*Required!"),
 	});
