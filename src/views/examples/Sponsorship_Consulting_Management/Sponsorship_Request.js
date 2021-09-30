@@ -98,7 +98,7 @@ const Sponsorship_Request = () => {
                   })
                   .map((posts) => (
                     <Col key={posts._id} xl="3">
-                      <Link to={`/admin/Send_Request/${posts._id}`}>
+                      <Link to={`/customer/Send_Request/${posts._id}`}>
                         <Card
                           // onClick={sendMail}
                           className="card-stats mb-4 mb-lg-3 secondary"

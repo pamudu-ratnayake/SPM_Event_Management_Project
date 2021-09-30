@@ -321,7 +321,7 @@ var routes = [
     name: "* Requested Sponsors",
     icon: "ni ni-support-16 text-red",
     component: Requested_Sponsors,
-    layout: "/admin",
+    layout: "/customer",
   },
   {
     path: "/Send_Request/:_id",

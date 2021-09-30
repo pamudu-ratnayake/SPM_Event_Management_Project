@@ -30,8 +30,8 @@ import Requested_Sponsors from "./Requested_Sponsors";
 
 const validationSchema = Yup.object({
   sender_name: Yup.string().required("Required!"),
-  sponsorEmail: Yup.string().required("Required!"), 
-  cus_email: Yup.string().required("Required!").email('Invalid Email'),
+  sponsorEmail: Yup.string().required("Required!"),
+  cus_email: Yup.string().required("Required!").email("Invalid Email"),
   rqst: Yup.string().required("Required!"),
   companyName: Yup.string().required("Required!"),
 });
@@ -44,24 +44,24 @@ const Send_Request = (props) => {
   // const currentDate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate() + today.getTime();
 
   const user = JSON.parse(localStorage.getItem("profile"));
-  // const userName = user?.result?.firstName;
+  const userName = user?.result?.firstName + " " + user?.result?.lastName;
 
+  console.log(userName);
   const initialValues = {
     enableReinitialize: true,
     validateOnMount: true,
-    // event_id: "",
-    sender_name: user?.result?.firstName,
-    // _id: sDetails._id,
+    event_id: "",
+    sender_name: "",
+    _id: sDetails._id,
     sponsorEmail: sDetails.sponsorEmail,
     companyName: sDetails.companyName,
     cus_email: "",
     rqst: "",
-    // reqDate: today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate() + today.getTime(),
+    reqDate: "", //today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate() + today.getTime(),
   };
 
-
   const sendEmail = (e, values) => {
-    console.log('kkkk',values);
+    console.log("kkkk", values);
     e.preventDefault();
 
     emailjs
@@ -83,25 +83,27 @@ const Send_Request = (props) => {
         //   console.log(error);
         // });
 
-        alert('Email Sent');
+        alert("Email Sent");
       })
       .catch((err) => console.log(err));
-      
-      // dataPost(values);
+
+    // dataPost(values);
   };
 
   const dataPost = (values) => {
-  
-    console.log("Dataaaa",values);
+    console.log("Dataaaa", values);
     axios
-        .post("http://localhost:8080/requestedSponsor/addRequestedSponsors", values)
-        .then((res) => {
-          console.log(res);
-          console.log("Data", values);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      .post(
+        "http://localhost:8080/requestedSponsor/addRequestedSponsors",
+        values
+      )
+      .then((res) => {
+        console.log(res);
+        console.log("Data", values);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   useEffect(() => {
@@ -144,8 +146,8 @@ const Send_Request = (props) => {
                 </Row>
               </CardHeader>
               <CardBody>
-                <Form onSubmit={formik.handleSubmit, sendEmail}>
-                <Row>
+                <Form onSubmit={(formik.handleSubmit, sendEmail)}>
+                  <Row>
                     <Col md="6">
                       <FormGroup>
                         <label>Sponsor Name</label>
@@ -155,7 +157,7 @@ const Send_Request = (props) => {
                           placeholder="reg000123456"
                           type="text"
                           name="companyName"
-                          disabled
+                          // disabled
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
                           defaultValue={sDetails.companyName}
@@ -179,7 +181,7 @@ const Send_Request = (props) => {
                           name="sender_name"
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
-                          defautlValue={user?.result?.firstName}
+                          defaultValue={userName}
                         />
                         {formik.touched.sender_name &&
                         formik.errors.sender_name ? (
@@ -226,8 +228,7 @@ const Send_Request = (props) => {
                           onBlur={formik.handleBlur}
                           defaultValue={user?.result?.email}
                         />
-                        {formik.touched.cus_email &&
-                        formik.errors.cus_email ? (
+                        {formik.touched.cus_email && formik.errors.cus_email ? (
                           <div style={{ color: "red" }}>
                             {formik.errors.cus_email}
                           </div>
@@ -260,11 +261,7 @@ const Send_Request = (props) => {
                   </Row>
                   <Row className="d-flex justify-content-between">
                     <Col className="text-center">
-                      <Button
-                        type="submit"
-                        color="primary"
-                        size="sm"
-                      >
+                      <Button type="submit" color="primary" size="sm">
                         Send
                       </Button>
                     </Col>

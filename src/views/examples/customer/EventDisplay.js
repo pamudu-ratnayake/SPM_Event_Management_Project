@@ -361,14 +361,14 @@ const EventDisplay = (props) => {
                   </Row>
                   <Row>
                   <Col className="text-right" xs="4">
-                  <Link to={`/admin/Sponsorship_Documentation/${event._id}`}>
+                  <Link to={`/customer/Sponsorship_Documentation/${event._id}`}>
                     <Button color="primary" href="#pablo">
                       Create Sponsorship Request
                     </Button>
                     </Link>
                   </Col>
                   <Col className="text-right" xs="4">
-                  <Link to={`/admin/My_Issue/${event._id}`}>
+                  <Link to={`/customer/My_Issue/${event._id}`}>
                     <Button color="primary" href="#pablo">
                       Take Support
                     </Button>
