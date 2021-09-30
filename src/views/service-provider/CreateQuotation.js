@@ -21,6 +21,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import CreateQuotionHeader from "components/Headers/service-provider-header/CreateQuotionHeader";
+import QuotationPDF from "./pdfGen/QuotationPDF";
 
 const CreateQuotation = (props) => {
 	// Taking Current User
@@ -36,6 +37,7 @@ const CreateQuotation = (props) => {
 	const [unitPriceTemp, setUnitPriceTemp] = useState(0);
 	const [totalPriceTemp, setTotalPriceTemp] = useState(0);
 	const [cost, setCost] = useState(0);
+	const [newQuotation, setNewQuotation] = useState("");
 
 	// Form Inputs Varibales
 	const [event_id, setEvent_id] = useState("");
@@ -73,7 +75,7 @@ const CreateQuotation = (props) => {
 				.then((res) => {
 					let data = res.data;
 					setprofile(data);
-
+					console.log(data);
 					API.get(`/company/get/${data.company_id}`).then((res) => {
 						setCompany(res.data);
 					});
@@ -92,7 +94,7 @@ const CreateQuotation = (props) => {
 
 	const onSubmit = (values) => {
 		if (item_details && item_details.length > 0) {
-			let newQuotation = {
+			let newQuotationObj = {
 				event_id: event._id,
 				provider_id: profile._id,
 				date_from: today,
@@ -102,7 +104,9 @@ const CreateQuotation = (props) => {
 				approve: false,
 			};
 
-			API.post(`/quotation/create`, newQuotation)
+			setNewQuotation(newQuotationObj);
+
+			API.post(`/quotation/create`, newQuotationObj)
 				.then((res) => {
 					alert("Created Successfully !!");
 				})
@@ -134,7 +138,21 @@ const CreateQuotation = (props) => {
 									<Row className="align-items-center">
 										<Row className="d-flex flex-row-reverse bd-highlight">
 											<div className="col-2 text-right">
-												<Button size="sm"> Download Pdf</Button>
+												<Button
+													size="sm"
+													onClick={() => {
+														QuotationPDF(
+															event,
+															newQuotation,
+															company,
+															profile,
+															today,
+															cost
+														);
+													}}
+												>
+													Download Pdf
+												</Button>
 											</div>
 										</Row>
 										<Row className="mt-3">

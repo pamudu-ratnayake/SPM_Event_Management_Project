@@ -15,8 +15,6 @@ import {
 import API from "variables/tokenURL";
 import Header from "components/Headers/Header.js";
 import { useEffect, useState } from "react";
-import axios from "axios";
-import { Link } from "react-router-dom";
 
 const ServiceProviderIndex = (props) => {
 	const [posts, setPosts] = useState([]);
