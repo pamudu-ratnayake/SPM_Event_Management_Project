@@ -1,4 +1,6 @@
 import Index from "views/Index.js";
+import AdminIndex from "views/AdminIndex";
+
 import Register from "views/examples/Register.js";
 import Login from "views/examples/Login.js";
 import Tables from "views/examples/Tables.js";
@@ -27,7 +29,7 @@ import UpdateAdvertisementInformation from "views/AdvertisementHandling&Boosting
 import AdvertisementDetails from "views/AdvertisementHandling&Boosting/AdvertisementDetails";
 import ViewAdvertisement from "views/AdvertisementHandling&Boosting/ViewAdvertisement";
 import PaidList from "views/PaymentHandling/PaidList";
-import ReportGeneration from "views/PaymentHandling/ReportGeneration";
+import MyAdvertisementList from "views/AdvertisementHandling&Boosting/MyAdvertisementList";
 
 
 import Sponsorship_Request from "views/examples/Sponsorship_Request";
@@ -44,6 +46,13 @@ var routes = [
     name: "Dashboard",
     icon: "ni ni-tv-2 text-primary",
     component: Index,
+    layout: "/admin",
+  },
+  {
+    path: "/adminindex",
+    name: "Admin Dashboard",
+    icon: "ni ni-tv-2 text-primary",
+    component: AdminIndex,
     layout: "/admin",
   },
 
@@ -174,6 +183,14 @@ var routes = [
     layout: "/admin",
   },
  
+  {
+    path: "/myadverisementlist",
+    name: "My Advertisement List",
+    icon: "ni ni-credit-card text-blue",
+    component: MyAdvertisementList,
+    layout: "/admin",
+  },
+
   {
     path: "/advertisementdetails/:_id",
     name: "Advertisement Details ",

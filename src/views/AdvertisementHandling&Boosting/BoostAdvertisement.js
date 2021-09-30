@@ -29,12 +29,7 @@ import { useFormik } from "formik";
 const BoostAdvertisement = (props) => {
   console.log("Id is: ", props.match.params._id);
 
-  const initialValues = {
-    enableReinitialize: true,
-    validateOnMount: true,
-    boosting_Pack:""
-  };
-  
+
 
   const [addsData, setAdd] = useState(0);
 
@@ -44,29 +39,7 @@ const BoostAdvertisement = (props) => {
     setmodalDemo(!notificationModal);
   }
 
-  //Yup validations
-  const validationSchema = Yup.object({
-    boosting_Pack: Yup.string().required("Required"),
 
-  });
-  const onSubmit = (values) => {
-    console.log("form data", values);
-    axios
-      .put(
-        `http://localhost:8080/advertisement/boostadvertisement/${props.match.params._id}`, values)
-      .then((res) => {
-        console.log(res);
-        // history.push({
-        //   pathname: `/admin`,
-        // });
-        // history.pushState({
-        //   pathname: ''
-        // })
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
 
   
  useEffect(() => {
@@ -80,10 +53,14 @@ const BoostAdvertisement = (props) => {
         console.log(error);
       });
   }, []);
+
+  const today = new Date();
+  const currentDate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+
 var boosting_Package = ['1 day','3 day','5 day','10 day','20 day','30 day']
 const [newPackage, setnewPackage] = useState(null);
 
-function handleChange(event) {
+function totalcal(event) {
      
      
 
@@ -129,8 +106,47 @@ function handleChange(event) {
       break;
   }
 }
+
+const total = newPackage;
+
+const initialValues = {
+  enableReinitialize: true,
+  validateOnMount: true,
+  boosting_Pack:"",
+  total:total,
+};
+
+    //Yup validations
+    const validationSchema = Yup.object({
+      boosting_Pack: Yup.string().required("Required"), 
+      total: Yup.string().required("Required")
+  
+    });
+
+    const onSubmit = (values) => {
+      console.log("form data", values);
+      axios
+        .put(
+          `http://localhost:8080/advertisement/boostadvertisement/${props.match.params._id}`, values)
+        .then((res) => {
+          console.log(res);
+          // history.push({
+          //   pathname: `/admin`,
+          // });
+          // history.pushState({
+          //   pathname: ''
+          // })
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
+  
+
  const formik = useFormik({
     onSubmit,
+    enableReinitialize: true,
+    validateOnMount: true,
     initialValues,
     validationSchema
   });
@@ -210,18 +226,18 @@ function handleChange(event) {
                 <Form onSubmit={formik.handleSubmit}>
                   <Row>
                   <Col md="12" >
-                      <FormGroup className = "text-center" >
+                  <FormGroup className = "text-center" >
                         <label>Select Boosting Package </label>
                         <Input
                         onChange={formik.handleChange}
+                        onInput = {totalcal}
                         onBlur={formik.handleBlur}
-                        onChange = {handleChange}
                         value={formik.values.boosting_Pack}
                           id="boosting_Pack"
                           name="boosting_Pack"
                           type="select"
                         >
-                          <option>Select Boosting Package</option>
+                          <option>Choose...</option>
                           <option>1 day </option>
                           <option>3 day </option>
                           <option>5 day </option>
@@ -239,9 +255,6 @@ function handleChange(event) {
                     </Col>
                     </Row>
                     <CardBody>
-
-                    
-
 
               <CardText className="h5" style={{ paddingTop: "0.5rem" }}>
                 <Row>
@@ -280,13 +293,19 @@ function handleChange(event) {
                 <Row>
                   <Col xs="4">Total Payment</Col>
                   <Col xs="1">:</Col>
-                  <Col xs="4">{newPackage}</Col>
+                  <Col xs="4">{total}</Col>
                   <Col xs="3">
+                  
+                  
                   <PaymentModal
 	// Use a unique value for the orderId
-	orderId={45896588}
-	name="Just For You Mom Ribbon Cake"
-	amount="4500"
+  orderId={addsData._id}
+  user_name={addsData.service_Provider_Name}
+	user_email={addsData.email_SP}
+  current_date={currentDate}
+  type = "advertisment"
+  current_date={addsData.advertisment_Duration}
+	name={addsData.advertisment_title}
       />
                   </Col>
                 </Row>

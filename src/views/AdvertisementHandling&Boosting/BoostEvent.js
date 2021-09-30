@@ -30,6 +30,8 @@ import { useFormik } from "formik";
 const BoostEvent = (props) => {
   console.log("ID is : ", props.match.params._id);
 
+  const user = JSON.parse(localStorage.getItem('profile'));
+
   const [event, setEvent] = useState(0);
 
   var boosting_Package = ['1 day','3 day','5 day','10 day','20 day','30 day']
@@ -80,6 +82,8 @@ const BoostEvent = (props) => {
  }
 }
 
+const total_payment = newPackage;
+
   const onSubmit = (values) => {
     console.log("Form Date", values);
     //  values.date_of_the_event = event_date; //watch
@@ -112,7 +116,8 @@ const BoostEvent = (props) => {
     enableReinitialize: true,
     validateOnMount: true,
     boosting_Event:"",
-    boosting_Purpose:""
+    boosting_Purpose:"",
+    total:""
   };
 
   const [notificationModal, setmodalDemo] = useState(false);
@@ -125,7 +130,11 @@ const BoostEvent = (props) => {
     boosting_Event: Yup.string().required("Required"),
     boosting_Purpose: Yup.string().required("Required"),
     
+    
   });
+  const today = new Date();
+  const currentDate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+
   const formik = useFormik({
     initialValues,
     onSubmit,
@@ -298,14 +307,23 @@ const BoostEvent = (props) => {
                 <Row>
                   <Col xs="4">Total Payment</Col>
                   <Col xs="1">:</Col>
-                  <Col xs="4">{newPackage}</Col>
+                  <Col xs="4"
+                  >
+                  {total_payment}</Col>
                   <Col xs="3">
                   <PaymentModal
 	// Use a unique value for the orderId
-	orderId={45896588}
-	name="Just For You Mom Ribbon Cake"
-	amount="4500"
-      />
+	
+	name={event.event_name}
+  type = "event"
+  date_occur={event.date_of_the_event}
+	amount={total_payment}
+  orderId={event._id}
+  user_name={event.org_name}
+  current_date={currentDate}
+  fname={user?.result?.firstName}
+  lname={user?.result?.lastName}
+   />
                       </Col>
 
                 </Row>
@@ -316,7 +334,7 @@ const BoostEvent = (props) => {
                   <br></br>
                   <Row>
                     <Col className="text-right mr-4" xs="4">
-                      <Link to = {`/authPayment/payment-method/`}>
+                    
                       <Button
                         color="primary"
                         onClick={() => {onSubmit(formik.values)}}
@@ -324,7 +342,7 @@ const BoostEvent = (props) => {
                       >
                         Boost My Event
                       </Button>
-                      </Link>
+                      
                     </Col>
                     <Col className="col text-right ml-6" xs="6">
                     {/* <Link to={`/admin/event-update/${posts._id}`}> */}

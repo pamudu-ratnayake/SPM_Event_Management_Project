@@ -158,15 +158,27 @@ const AdvertisementInformation = (props) => {
     advertisement_Duration: Yup.string().required("Required !"),
     advertisement_title:Yup.string().required("Required !"),
     advertisement_Des: Yup.string().required("Required !"),
-    advertisement_Pic: Yup.string().required("Required !"),
+    // advertisement_Pic: Yup.string().required("Required !"),
     
     // cardtype: Yup.string().required("Required"),
   });
 
   const onSubmit = (values) => {
     console.log("form data", values);
+    console.log('files', acceptedFiles);
+    
+    let formdata = new FormData();
+    formdata.append("service_Provider_Name", values.service_Provider_Name);
+    formdata.append("contact_Number_SP", values.contact_Number_SP);
+    formdata.append("email_SP", values.email_SP);
+    formdata.append("service_Type", values.service_Type);
+    formdata.append("advertisement_Duration", values.advertisement_Duration);
+    formdata.append("advertisement_title", values.advertisement_title);
+    formdata.append("advertisement_Des", values.advertisement_Des);
+    formdata.append("file", acceptedFiles[0]);
+
     API
-      .post("/advertisement/addadvertisement", values)
+      .post("/advertisement/addadvertisement", formdata)
       .then((res) => {
         console.log(res);
         console.log("Data", values);
@@ -410,55 +422,7 @@ const AdvertisementInformation = (props) => {
                       ) : null}
                     </Col>
                   </Row>
-                  <Row>
-                    <Col ml="12">
-                      <label className="mb-2 mt-3">Payment Type </label>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col>
-                      <div className="custom-control custom-radio mb-3 ml-5">
-                        <input
-                          onChange={formik.handleChange}
-                          onBlur={formik.handleBlur}
-                          value={formik.cardtype}
-                          className="custom-control-input"
-                          id="cardtype"
-                          name="cardtype"
-                          type="radio"
-                        />
-                        {/* {formik.touched.cardtype && formik.errors.cardtype ? (
-                          <div style={{ color: "red" }}>
-                            {formik.errors.cardtype}
-                          </div>
-                        ) : null} */}
-                        <label
-                          className="custom-control-label"
-                          htmlFor="customRadio5"
-                        >
-                          Card Payment
-                        </label>
-                      </div>
-                    </Col>
-                    <Col>
-                      <div className="custom-control custom-radio mb-3">
-                        <input
-                          className="custom-control-input"
-                          defaultChecked
-                          id="onlinetransfering"
-                          name="onlinetransfering"
-                          type="radio"
-                        />
-                        <label
-                          className="custom-control-label"
-                          htmlFor="customRadio6"
-                        >
-                          Online Transfering
-                        </label>
-                      </div>
-                    </Col>
-                  </Row>
-
+               
                   <br></br>
                   <br></br>
                   <Row>

@@ -24,8 +24,9 @@ import {
 import AdvertisementListHeader from "components/Headers/AdvertisementHandling&BoostingHeaders/AdvertisementListHeader";
 import React from "react";
 import axios from "axios";
+import API from "variables/tokenURL";
 
-const AdvertisementList = (props) => {
+const MyAdvertisementList = (props) => {
   const [defaultModal, setmodalDemo] = useState(false);
 
   function toggleModal() {
@@ -35,8 +36,8 @@ const AdvertisementList = (props) => {
   const [addslist, setviewlist] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:8080/advertisement/list")
+    API
+      .get("/advertisement/provider-adds")
       .then((res) => {
         setviewlist(res.data);
         console.log(res);
@@ -72,9 +73,10 @@ const AdvertisementList = (props) => {
               <thead className="thead-light">
                 <tr>
                   <th scope="col">Advertisement ID</th>
-                  <th scope="col">Service Provider Name </th>
+                  <th scope="col">Service Provider Name</th>
                   <th scope="col">Advertisement Duration </th>
                   <th scope="col">Service Type </th>
+                  
                   {/* <th scope="col">Advertisement Status 
                   </th> */}
                   <th scope="col" />
@@ -166,7 +168,7 @@ const AdvertisementList = (props) => {
                           <i className="fas fa-ellipsis-v" />
                         </DropdownToggle>
                         <DropdownMenu className="dropdown-menu-arrow" right>
-                          <Link to={`/admin/AdvertisementDetails/${addslist._id}`}>
+                          <Link to={`/admin/ViewAdvertisement/${addslist._id}`}>
                             <DropdownItem>View Request</DropdownItem>
                           </Link>
                           <Link
@@ -193,4 +195,4 @@ const AdvertisementList = (props) => {
   );
 };
 
-export default AdvertisementList;
+export default MyAdvertisementList;

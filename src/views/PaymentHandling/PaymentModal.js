@@ -1,9 +1,13 @@
 import React from 'react';
 import { Button } from "reactstrap";
+import API from 'variables/tokenURL';
 // import './payment_modal.css'
 
-const PaymentModal = ({ orderId, name, amount }) => {
-    
+const user = JSON.parse(localStorage.getItem('profile'));
+
+
+const PaymentModal = ({ orderId,name,amount, user_email, user_name, current_date, date_occur, type_name, type }) => {
+  
   // Put the payment variables here
   var payment = {
     sandbox: true, // if the account is sandbox or real
@@ -15,8 +19,8 @@ const PaymentModal = ({ orderId, name, amount }) => {
     items: name,
     amount: amount, 
     currency: 'LKR',
-    first_name: 'Saman',
-    last_name: 'Perera',
+    first_name: user?.result?.firstName,
+    last_name: user?.result?.lastName,
     email: 'samanp@gmail.com',
     phone: '0771234567',
     address: 'No.1, Galle Road',
@@ -28,6 +32,9 @@ const PaymentModal = ({ orderId, name, amount }) => {
     custom_1: '', // optional field
     custom_2: '', // optional field
   };
+
+
+  
     
   // Called when user completed the payment. It can be a successful payment or failure
   window.payhere.onCompleted = function onCompleted(orderId) {
@@ -49,6 +56,46 @@ const PaymentModal = ({ orderId, name, amount }) => {
 
   function pay(){
     window.payhere.startPayment(payment);
+    payBack();
+
+  }
+
+  function payBack(){
+
+    if (type==="event"){
+
+      var pay_details= {
+        type_id: orderId,
+        user_name: user_name,
+        user_email:user_email,
+        total:amount,
+        date_event_occur:date_occur,
+        payment_date:current_date,
+        type:type,
+        type_name:name,
+        
+
+
+      }
+    }
+    if(type==="addvertisment"){
+      var pay_details= {
+        type_id: orderId,
+        user_name: user_name,
+        user_email:user_email,
+        total:amount,
+        payment_date:current_date,
+        type:type,
+        type_name:name,
+    }
+  }
+   API.post("/payment/addpayment",pay_details)
+   .then((res) => {
+     console.lod(res.data)
+   })
+   .catch((err) => {
+     console.log(err)
+  })
   }
 
   return <Button

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import API from "variables/tokenURL";
 
 
 // reactstrap components
@@ -28,6 +29,8 @@ import axios from "axios";
 
 import PaidListHeader from "components/Headers/PaymentHandlingHeaders/PaidListHeader";
 
+const today = new Date();
+const currentDate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
 
 const PaidList = (props) => {
   const [defaultModal, setmodalDemo] = useState(false);
@@ -77,8 +80,8 @@ const PaidList = (props) => {
                 <tr>
                   <th scope="col">Service Provider ID</th>
                   <th scope="col">Service Provider Name </th>
-                  <th scope="col">Service Type </th>
-                  <th scope="col">Advertisement Status 
+                  <th scope="col">Date </th>
+                  <th scope="col">Total Payement 
                   </th>
                   <th scope="col" />
                 </tr>
@@ -91,17 +94,12 @@ const PaidList = (props) => {
                     
                     <td>
                       <div className="avatar-group">
-                        {addslist.service_Type}
+                        {currentDate}
                       </div>
                     </td>
                     <td>
                       <div className="avatar-group">
-                        <Input>
-                        <option>Set Status</option>
-                          <option>Displayed </option>
-                          <option>Now Showing</option>
-                          <option>Requested</option> 
-                        </Input>
+                      {addslist.total}
                       </div>
                     </td>
                     <Modal
