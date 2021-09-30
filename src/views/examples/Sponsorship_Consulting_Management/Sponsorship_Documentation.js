@@ -62,9 +62,6 @@ const Sponsorship_Documentation = (props) => {
   const deletePkg = (itemIndex) => {
     console.log(itemIndex);
 
-    // pkg.splice(itemIndex, 1);
-    // setPackage({ pkg })
-
     const filtered = [...pkg].filter((c) => c.index !== itemIndex);
     console.log(filtered);
     setPackage(filtered);
@@ -96,13 +93,14 @@ const Sponsorship_Documentation = (props) => {
   const e_date = posts.date_of_the_event;
   const e_time = posts.event_time;
   const e_loct = posts.location;
-  const e_days = (posts.days_occurs).toString();
+  // const e_days = posts.days_occurs.toString();
   const e_type = posts.event_type;
   const orz_name = posts.organizer_name;
   const orz_email = posts.cus_email;
   const orz_cont = posts.cus_con_number;
   const e_disc = posts.description;
   const rqs = msg;
+  const yr = new Date().getFullYear().toString();
   // console.log("the value", rqs);
 
   // const logo = require('../../../assets/img/logo/logo.png')
@@ -110,28 +108,34 @@ const Sponsorship_Documentation = (props) => {
     var doc = new jsPDF("portrait", "px", "a4", false);
     // doc.addImage(logo, 'PNG', 65, 20, 400, 400)
     // doc.addPage()
+
+    doc.addImage(logo, "PNG", 40, 10, 50, 50);
+    doc.setFont("Helvertica", "bold");
+    doc.setTextColor(100);
+    doc.text(100, 40, "THE BLISS");
+    doc.setLineWidth(1.5);
+    doc.line(50, 65, 420, 65);
+
     doc.setFont("Helvertica", "bold");
     doc.setTextColor("red");
-    doc.text(140, 30, "SPONSORSHIP REQUEST");
+    doc.text(160, 85, "SPONSORSHIP REQUEST");
     doc.setTextColor("Blue");
-    doc.text(50, 70, "Event Information");
+    doc.text(50, 110, "Event Information");
     doc.setFont("Helvertica", "Normal");
     doc.setTextColor("black");
-    doc.text(50, 100, "Event Name");
-    doc.text(50, 120, "Organization Name");
-    doc.text(50, 140, "Event Date");
-    doc.text(50, 160, "Event Time");
-    doc.text(50, 180, "Location");
-    doc.text(50, 200, "Days Occurs");
-    doc.text(50, 220, "Event Type");
-    doc.text(50, 240, "Organizer Name");
-    doc.text(50, 260, "Organizer Email");
-    doc.text(50, 280, "Organizer Contact No");
-    doc.text(50, 300, "Event Discription");
+    doc.text(50, 140, "Event Name");
+    doc.text(50, 160, "Organization Name");
+    doc.text(50, 180, "Event Date");
+    doc.text(50, 200, "Event Time");
+    doc.text(50, 220, "Location");
+    doc.text(50, 240, "Days Occurs");
+    doc.text(50, 260, "Event Type");
+    doc.text(50, 280, "Organizer Name");
+    doc.text(50, 300, "Organizer Email");
+    doc.text(50, 320, "Organizer Contact No");
+    doc.text(50, 340, "Event Discription");
 
     doc.setFont("Helvertica", "Normal");
-    doc.text(170, 100, ":");
-    doc.text(170, 120, ":");
     doc.text(170, 140, ":");
     doc.text(170, 160, ":");
     doc.text(170, 180, ":");
@@ -141,33 +145,35 @@ const Sponsorship_Documentation = (props) => {
     doc.text(170, 260, ":");
     doc.text(170, 280, ":");
     doc.text(170, 300, ":");
+    doc.text(170, 320, ":");
+    doc.text(170, 340, ":");
 
     doc.setFont("Helvertica", "Normal");
-    doc.text(180, 100, e_name);
-    doc.text(180, 120, or_name);
-    doc.text(180, 140, e_date);
-    doc.text(180, 160, e_time);
-    doc.text(180, 180, e_loct);
-    doc.text(180, 200, e_days);
-    doc.text(180, 220, e_type);
-    doc.text(180, 240, orz_name);
-    doc.text(180, 260, orz_email);
-    doc.text(180, 280, orz_cont);
-    doc.text(180, 300, e_disc);
+    doc.text(180, 140, e_name);
+    doc.text(180, 160, or_name);
+    doc.text(180, 180, e_date);
+    doc.text(180, 200, e_time);
+    doc.text(180, 220, e_loct);
+    // doc.text(180, 240, e_days);
+    doc.text(180, 260, e_type);
+    doc.text(180, 280, orz_name);
+    doc.text(180, 300, orz_email);
+    doc.text(180, 320, orz_cont);
+    doc.text(180, 340, e_disc);
 
-    doc.text(50, 340, rqs);
+    doc.text(50, 360, rqs);
 
     // doc.addPage();
     doc.setFont("Helvertica", "bold");
     doc.setTextColor("blue");
-    doc.text(50, 380, "Sponsorship Criteria");
+    doc.text(50, 400, "Sponsorship Criteria");
     doc.autoTable({
-      margin: { top: 400, bottom: 100, left: 100, right: 100 },
-      head: [["Package Name", "Amount"]],
+      margin: { top: 420, bottom: 0, left: 100, right: 100 },
+      head: [["Package Name", "Amount (LKR.)"]],
       theme: "grid",
     });
     doc.autoTable({
-      margin: { top: 0, bottom: 100, left: 100, right: 100 },
+      margin: { top: 0, bottom: 0, left: 100, right: 100 },
       // Cells in first column centered and green
       // margin: { top: 10 },
       // columns: pkg.map(col=>({...col,dataKey:col.pkg_name})),
@@ -176,12 +182,22 @@ const Sponsorship_Documentation = (props) => {
       theme: "grid",
     });
 
-    doc.addImage(logo, "PNG", 30, 575, 40, 40);
-    doc.setFont("Helvertica", "bold");
-    doc.setTextColor(100);
-    doc.text(80, 600, 'THE BLISS')
+    doc.setLineWidth(1.5);
+    doc.line(50, 600, 420, 600);
 
-    doc.save("a.pdf");
+    doc.setTextColor(100);
+    doc.setFontSize(8);
+    doc.text(50, 610, "©");
+    doc.text(60, 610, yr);
+    doc.setTextColor("red");
+    doc.text(75, 610, "COPYRIGHT");
+
+    doc.setTextColor("black");
+    doc.text(310, 610, "* ALL RIGHTS RESERVED BY");
+    doc.setTextColor("blue");
+    doc.text(398, 610, "Hex Clan");
+
+    doc.save("Sponsorship Request.pdf");
   };
 
   return (
