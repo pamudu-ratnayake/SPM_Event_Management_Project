@@ -4,20 +4,13 @@ import API from "variables/tokenURL";
 // reactstrap components
 import {
 	Button,
-	Modal,
 	Card,
 	CardHeader,
 	CardBody,
-	FormGroup,
-	Form,
 	Input,
 	Container,
 	Row,
 	Col,
-	DropdownMenu,
-	DropdownItem,
-	UncontrolledDropdown,
-	DropdownToggle,
 	Table,
 } from "reactstrap";
 // core components
@@ -29,6 +22,8 @@ import { Link } from "react-router-dom";
 const Events = (props) => {
 	const [posts, setPosts] = useState([]);
 	const user = JSON.parse(localStorage.getItem("profile")).result;
+	const [searchStr, setSearch] = useState("");
+
 	useEffect(() => {
 		API.get(`/serviceProvider/getByUser/${user._id}`)
 			.then((res) => {
@@ -95,6 +90,24 @@ const Events = (props) => {
 									<Col xs="8">
 										<h1 className="mb-0">Published Events</h1>
 									</Col>
+									<Col xs="3">
+										<div>
+											<Input
+												type="text"
+												placeholder="Search..."
+												style={{
+													borderWidth: "2.5px",
+													width: "15rem",
+													height: "2rem",
+													textAlign: "left",
+													borderRadius: "15px",
+												}}
+												onChange={(e) => {
+													setSearch(e.target.value);
+												}}
+											/>
+										</div>
+									</Col>
 								</Row>
 							</CardHeader>
 							<CardBody>
@@ -109,23 +122,35 @@ const Events = (props) => {
 										</tr>
 									</thead>
 									<tbody>
-										{posts.map((posts) => (
-											<tr key={posts._id}>
-												<td> {posts.event_name} </td>
-												<td> {posts.date_of_the_event} </td>
-												<td> {posts.location} </td>
-												<td> {posts.event_type} </td>
-												<td className="">
-													<Link
-														to={`/serviceprovider/event-display-sp/${posts._id}`}
-													>
-														<Button color="primary" size="sm">
-															View Event
-														</Button>
-													</Link>
-												</td>
-											</tr>
-										))}
+										{posts
+											.filter((r) => {
+												if (searchStr === "") {
+													return r;
+												} else if (
+													r.event_name
+														.toLowerCase()
+														.includes(searchStr.toLowerCase())
+												) {
+													return r;
+												}
+											})
+											.map((posts) => (
+												<tr key={posts._id}>
+													<td> {posts.event_name} </td>
+													<td> {posts.date_of_the_event} </td>
+													<td> {posts.location} </td>
+													<td> {posts.event_type} </td>
+													<td className="">
+														<Link
+															to={`/serviceprovider/event-display-sp/${posts._id}`}
+														>
+															<Button color="primary" size="sm">
+																View Event
+															</Button>
+														</Link>
+													</td>
+												</tr>
+											))}
 									</tbody>
 								</Table>
 							</CardBody>

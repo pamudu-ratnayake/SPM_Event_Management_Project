@@ -8,6 +8,7 @@ import {
 	Row,
 	Col,
 	Table,
+	Input,
 } from "reactstrap";
 import API from "variables/tokenURL";
 // core components
@@ -17,6 +18,7 @@ import HeaderAllServiceProviders from "components/Headers/service-provider-heade
 
 const ServiceProviders = (props) => {
 	const [posts, setPosts] = useState([]);
+	const [searchStr, setSearch] = useState("");
 
 	useEffect(() => {
 		API.get(`/serviceProvider/`)
@@ -42,15 +44,23 @@ const ServiceProviders = (props) => {
 									<Col xs="8">
 										<h1 className="mb-0">Aviabale Service Proiders</h1>
 									</Col>
-									<Col className="text-right" xs="4">
-										{/* <Button
-											color="primary"
-											href="#pablo"
-											onClick={(e) => e.preventDefault()}
-											size="sm"
-										>
-											Service Providers
-										</Button> */}
+									<Col xs="3">
+										<div>
+											<Input
+												type="text"
+												placeholder="Search..."
+												style={{
+													borderWidth: "2.5px",
+													width: "15rem",
+													height: "2rem",
+													textAlign: "left",
+													borderRadius: "15px",
+												}}
+												onChange={(e) => {
+													setSearch(e.target.value);
+												}}
+											/>
+										</div>
 									</Col>
 								</Row>
 							</CardHeader>
@@ -79,64 +89,76 @@ const ServiceProviders = (props) => {
 										</tr>
 									</thead>
 									<tbody>
-										{posts.map((posts) => (
-											<tr key={posts._id}>
-												<td> {posts.servic_provider_Id} </td>
-												<td> {posts.user_name} </td>
-												<td> {posts.email} </td>
-												<td> {posts.mobile} </td>
-												<td> {posts.address} </td>
-												<td className="text-right ">
-													<Button
-														className="float-start"
-														color="danger"
-														href="#pablo"
-														onClick={() => {
-															if (
-																window.confirm(
-																	"Are you sure you wish to delete this item?"
-																)
-															) {
-																API.delete(
-																	`/serviceProvider/delete/${posts._id}`
-																)
-																	.then((res) => {
-																		// setPosts(res.data);
-																		console.log(res.data);
-																		window.location.reload(false);
-																	})
-																	.catch((error) => {
-																		console.log(error);
-																	});
-															}
-														}}
-														size="sm"
-													>
-														<i class="ni ni-scissors"></i>
-													</Button>
-													<Button
-														className="float-start"
-														color="info"
-														type="button"
-														href="#pablo"
-														size="sm"
-														onClick={() => alert(posts._id)}
-													>
-														<i class="bx bx-edit-alt"></i>
-													</Button>
-													<Button
-														className="me-2 float-start"
-														color="success"
-														type="button"
-														href="#pablo"
-														size="sm"
-														onClick={() => alert(posts._id)}
-													>
-														<i className="ni ni-collection"></i>
-													</Button>
-												</td>
-											</tr>
-										))}
+										{posts
+											.filter((r) => {
+												if (searchStr === "") {
+													return r;
+												} else if (
+													r.user_name
+														.toLowerCase()
+														.includes(searchStr.toLowerCase())
+												) {
+													return r;
+												}
+											})
+											.map((posts) => (
+												<tr key={posts._id}>
+													<td> {posts.servic_provider_Id} </td>
+													<td> {posts.user_name} </td>
+													<td> {posts.email} </td>
+													<td> {posts.mobile} </td>
+													<td> {posts.address} </td>
+													<td className="text-right ">
+														<Button
+															className="float-start"
+															color="danger"
+															href="#pablo"
+															onClick={() => {
+																if (
+																	window.confirm(
+																		"Are you sure you wish to delete this item?"
+																	)
+																) {
+																	API.delete(
+																		`/serviceProvider/delete/${posts._id}`
+																	)
+																		.then((res) => {
+																			// setPosts(res.data);
+																			console.log(res.data);
+																			window.location.reload(false);
+																		})
+																		.catch((error) => {
+																			console.log(error);
+																		});
+																}
+															}}
+															size="sm"
+														>
+															<i class="ni ni-scissors"></i>
+														</Button>
+														<Button
+															className="float-start"
+															color="info"
+															type="button"
+															href="#pablo"
+															size="sm"
+															onClick={() => alert(posts._id)}
+														>
+															<i class="bx bx-edit-alt"></i>
+														</Button>
+														<Button
+															className="me-2 float-start"
+															color="success"
+															type="button"
+															href="#pablo"
+															size="sm"
+															onClick={() => alert(posts._id)}
+														>
+															<i className="ni ni-collection"></i>
+														</Button>
+													</td>
+												</tr>
+											))}
 									</tbody>
 								</Table>
 							</CardBody>
