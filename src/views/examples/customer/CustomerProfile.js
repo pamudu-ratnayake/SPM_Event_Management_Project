@@ -6,117 +6,137 @@ import * as Yup from "yup";
 import FileBase from "react-file-base64";
 
 // reactstrap components
-import { Button, Card, CardImg, CardHeader, CardBody, FormGroup, Form, Input, Container, Row, Col, Modal } from "reactstrap";
+import {
+	Button,
+	Card,
+	CardImg,
+	CardHeader,
+	CardBody,
+	FormGroup,
+	Form,
+	Input,
+	Container,
+	Row,
+	Col,
+	Modal,
+} from "reactstrap";
 // core components
 import CustomerProfileHeader from "components/Headers/CustomerProfileHeader.js";
 import API from "variables/tokenURL";
 import { Radio, RadioGroup } from "@material-ui/core";
 
 const CustomerProfile = (props) => {
-  const baseStyle = {
-    flex: 1,
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    padding: "90px",
-    borderWidth: 2,
-    borderRadius: 2,
-    borderColor: "#eeeeee",
-    borderStyle: "dashed",
-    backgroundColor: "#bab8b8",
-    color: "#bdbdbd",
-    outline: "none",
-    transition: "border .24s ease-in-out",
-  };
-  const activeStyle = {
-    borderColor: "#2196f3",
-  };
-  const acceptStyle = {
-    borderColor: "#00e676",
-  };
-  const rejectStyle = {
-    borderColor: "#ff1744",
-  };
+	const baseStyle = {
+		flex: 1,
+		display: "flex",
+		flexDirection: "column",
+		alignItems: "center",
+		padding: "90px",
+		borderWidth: 2,
+		borderRadius: 2,
+		borderColor: "#eeeeee",
+		borderStyle: "dashed",
+		backgroundColor: "#bab8b8",
+		color: "#bdbdbd",
+		outline: "none",
+		transition: "border .24s ease-in-out",
+	};
+	const activeStyle = {
+		borderColor: "#2196f3",
+	};
+	const acceptStyle = {
+		borderColor: "#00e676",
+	};
+	const rejectStyle = {
+		borderColor: "#ff1744",
+	};
 
-  const [files, setFiles] = useState([]);
+	const [files, setFiles] = useState([]);
 
-  const { acceptedFiles, getRootProps, getInputProps, isDragActive, isDragAccept, isDragReject, open } = useDropzone({
-    onDrop: (acceptedFiles) => {
-      setFiles(
-        acceptedFiles.map((file) =>
-          Object.assign(file, {
-            preview: URL.createObjectURL(file),
-          })
-        )
-      );
-    },
-  });
+	const {
+		acceptedFiles,
+		getRootProps,
+		getInputProps,
+		isDragActive,
+		isDragAccept,
+		isDragReject,
+		open,
+	} = useDropzone({
+		onDrop: (acceptedFiles) => {
+			setFiles(
+				acceptedFiles.map((file) =>
+					Object.assign(file, {
+						preview: URL.createObjectURL(file),
+					})
+				)
+			);
+		},
+	});
 
-  const style = useMemo(
-    () => ({
-      ...baseStyle,
-      ...(isDragActive ? activeStyle : {}),
-      ...(isDragAccept ? acceptStyle : {}),
-      ...(isDragReject ? rejectStyle : {}),
-    }),
-    [isDragActive, isDragReject, isDragAccept]
-  );
+	const style = useMemo(
+		() => ({
+			...baseStyle,
+			...(isDragActive ? activeStyle : {}),
+			...(isDragAccept ? acceptStyle : {}),
+			...(isDragReject ? rejectStyle : {}),
+		}),
+		[isDragActive, isDragReject, isDragAccept]
+	);
 
-  const filepath = acceptedFiles.map((file) => (
-    <li key={file.name}>
-      {file.name} - {file.size} bytes
-    </li>
-  ));
+	const filepath = acceptedFiles.map((file) => (
+		<li key={file.name}>
+			{file.name} - {file.size} bytes
+		</li>
+	));
 
-  const user = JSON.parse(localStorage.getItem("profile"));
+	const user = JSON.parse(localStorage.getItem("profile"));
 
   const [customer, setCustomer] = useState("");
   const [oneUser, setOneUser] = useState(0);
 
-  const initialValues = {
-    enableReinitialize: true,
-    validateOnMount: true,
-    cus_userName: oneUser.firstName,
-    user_id: user?.result?._id,
-    cus_FName: oneUser.firstName,
-    cus_LName: oneUser.lastName,
-    cus_email: oneUser.email,
-    cus_contact_no: "",
-    cus_address: "",
-    cus_nic: "",
-    cus_description: "",
-    cus_gender: "",
-  };
+	const initialValues = {
+		enableReinitialize: true,
+		validateOnMount: true,
+		cus_userName: oneUser.firstName,
+		user_id: user?.result?._id,
+		cus_FName: oneUser.firstName,
+		cus_LName: oneUser.lastName,
+		cus_email: oneUser.email,
+		cus_contact_no: "",
+		cus_address: "",
+		cus_nic: "",
+		cus_description: "",
+		cus_gender: "",
+	};
 
-  const validationSchema = Yup.object({
-    cus_userName: Yup.string().required("*Required!"),
-    cus_FName: Yup.string().required("*Required!"),
-    cus_LName: Yup.string().required("*Required!"),
-    cus_email: Yup.string().required("*Required!"),
-    cus_contact_no: Yup.string().required("*Required!"),
-    cus_address: Yup.string().required("*Required!"),
-    cus_nic: Yup.string().required("*Required!"),
-    cus_description: Yup.string().required("*Required!"),
-  });
+	const validationSchema = Yup.object({
+		cus_userName: Yup.string().required("*Required!"),
+		cus_FName: Yup.string().required("*Required!"),
+		cus_LName: Yup.string().required("*Required!"),
+		cus_email: Yup.string().required("*Required!"),
+		cus_contact_no: Yup.string().required("*Required!"),
+		cus_address: Yup.string().required("*Required!"),
+		cus_nic: Yup.string().required("*Required!"),
+		cus_description: Yup.string().required("*Required!"),
+	});
 
-  const onSubmit = (values) => {
-    console.log("Form Date", values);
-    console.log("files", acceptedFiles);
-    //  values.date_of_the_event = event_date; //watch
-    let formdata = new FormData();
-    formdata.append("cus_userName", values.cus_userName);
-    formdata.append("cus_FName", values.cus_FName);
-    formdata.append("cus_LName", values.cus_LName);
-    formdata.append("cus_email", values.cus_email);
-    formdata.append("cus_contact_no", values.cus_contact_no);
-    formdata.append("cus_address", values.cus_address);
-    formdata.append("cus_description", values.cus_description);
-    formdata.append("cus_nic", values.cus_nic);
-    formdata.append("file", acceptedFiles[0]);
-    formdata.append("user_id", values.user_id);
-    formdata.append("cus_gender", values.cus_gender);
+	const onSubmit = (values) => {
+		console.log("Form Date", values);
+		console.log("files", acceptedFiles);
+		//  values.date_of_the_event = event_date; //watch
+		let formdata = new FormData();
+		formdata.append("cus_userName", values.cus_userName);
+		formdata.append("cus_FName", values.cus_FName);
+		formdata.append("cus_LName", values.cus_LName);
+		formdata.append("cus_email", values.cus_email);
+		formdata.append("cus_contact_no", values.cus_contact_no);
+		formdata.append("cus_address", values.cus_address);
+		formdata.append("cus_description", values.cus_description);
+		formdata.append("cus_nic", values.cus_nic);
+		formdata.append("file", acceptedFiles[0]);
+		formdata.append("user_id", values.user_id);
+		formdata.append("cus_gender", values.cus_gender);
 
-    // console.log("data",formdata);
 
     axios
       .post("http://localhost:8080/customerdetails/addcustomer", formdata)
@@ -158,23 +178,23 @@ const CustomerProfile = (props) => {
       });
   }, []);
 
-  //use formik here
-  const formik = useFormik({
-    enableReinitialize: true,
-    validateOnMount: true,
-    initialValues,
-    onSubmit,
-    validationSchema,
-  });
+    //use formik here
+    const formik = useFormik({
+      enableReinitialize: true,
+      validateOnMount: true,
+      initialValues,
+      onSubmit,
+      validationSchema,
+    });
 
-  console.log("sdsad", oneUser.firstName);
+	console.log("sdsad", oneUser.firstName);
 
-  const [defaultModal, setmodalDemo] = useState(false);
+	const [defaultModal, setmodalDemo] = useState(false);
 
-  //toggle function here
-  function toggleModal() {
-    setmodalDemo(!defaultModal);
-  }
+	//toggle function here
+	function toggleModal() {
+		setmodalDemo(!defaultModal);
+	}
 
   return (
     <>
@@ -193,55 +213,76 @@ const CustomerProfile = (props) => {
                   </div>
                 </Col>
               </Row>
+							<CardBody className="pt-0 pt-md-4 mt-8">
+								<div className="text-center">
+									<h3>
+										Jessica Jones
+										<span className="font-weight-light">, 27</span>
+									</h3>
+									<div className="h5 font-weight-300">
+										<i className="ni location_pin mr-2" />
+										Kottawa, Colombo.
+									</div>
+								</div>
+							</CardBody>
+						</Card>
+					</Col>
+					<Col className="order-xl-1" xl="8">
+						<Card className="bg-secondary shadow">
+							<CardHeader className="bg-white border-0">
+								<Row className="align-items-center">
+									<Col xs="8">
+										<h3 className="mb-0">My Account</h3>
+									</Col>
+									<Col className="text-right" xs="4">
+										<Button
+											color="primary"
+											href="#pablo"
+											size="sm"
+											type="button"
+											onClick={() => toggleModal("defaultModal")}
+										>
+											Edit Profile
+										</Button>
+										<Modal
+											className="modal-dialog-centered"
+											isOpen={defaultModal}
+											toggle={() => toggleModal("defaultModal")}
+										>
+											<div className="modal-header">
+												<h6 className="modal-title" id="modal-title-default">
+													Type your modal title
+												</h6>
+												<button
+													aria-label="Close"
+													className="close"
+													data-dismiss="modal"
+													type="button"
+													onClick={() => toggleModal("defaultModal")}
+												>
+													<span aria-hidden={true}>×</span>
+												</button>
+											</div>
+											<div className="modal-body">
+												<p>Are you sure?</p>
+											</div>
+											<div className="modal-footer">
+												<Button color="primary" type="button">
+													Save changes
+												</Button>
+												<Button
+													className="ml-auto"
+													color="link"
+													data-dismiss="modal"
+													type="button"
+													onClick={() => toggleModal("defaultModal")}
+												>
+													Close
+												</Button>
+											</div>
+										</Modal>
 
-              <CardBody className="pt-0 pt-md-4 mt-8">
-                <div className="text-center">
-                  <h3>
-                    Jessica Jones
-                    <span className="font-weight-light">, 27</span>
-                  </h3>
-                  <div className="h5 font-weight-300">
-                    <i className="ni location_pin mr-2" />
-                    Kottawa, Colombo.
-                  </div>
-                </div>
-              </CardBody>
-            </Card>
-          </Col>
-          <Col className="order-xl-1" xl="8">
-            <Card className="bg-secondary shadow">
-              <CardHeader className="bg-white border-0">
-                <Row className="align-items-center">
-                  <Col xs="8">
-                    <h3 className="mb-0">My Account</h3>
-                  </Col>
-                  <Col className="text-right" xs="4">
-                    <Button color="primary" href="#pablo" size="sm" type="button" onClick={() => toggleModal("defaultModal")}>
-                      Edit Profile
-                    </Button>
-                    <Modal className="modal-dialog-centered" isOpen={defaultModal} toggle={() => toggleModal("defaultModal")}>
-                      <div className="modal-header">
-                        <h6 className="modal-title" id="modal-title-default">
-                          Type your modal title
-                        </h6>
-                        <button aria-label="Close" className="close" data-dismiss="modal" type="button" onClick={() => toggleModal("defaultModal")}>
-                          <span aria-hidden={true}>×</span>
-                        </button>
-                      </div>
-                      <div className="modal-body">
-                        <p>Are you sure?</p>
-                      </div>
-                      <div className="modal-footer">
-                        <Button color="primary" type="button">
-                          Save changes
-                        </Button>
-                        <Button className="ml-auto" color="link" data-dismiss="modal" type="button" onClick={() => toggleModal("defaultModal")}>
-                          Close
-                        </Button>
-                      </div>
-                    </Modal>
-
-                    {/* <Button color="primary" href="#pablo" onClick={(e) => e.preventDefault()} size="sm">
+										{/* <Button color="primary" href="#pablo" onClick={(e) => e.preventDefault()} size="sm">
                       Edit Profile
                     </Button> */}
                   </Col>
@@ -416,14 +457,17 @@ const CustomerProfile = (props) => {
                     </Row>
                   </div>
 
-                  <div {...getRootProps({ style })}>
-                    <input {...getInputProps()} />
-                    {/* <FileBase><input {...getInputProps()} /></FileBase> */}
-                    <p>Drag 'n' drop your image file here, or click to select files</p>
-                  </div>
+									<div {...getRootProps({ style })}>
+										<input {...getInputProps()} />
+										{/* <FileBase><input {...getInputProps()} /></FileBase> */}
+										<p>
+											Drag 'n' drop your image file here, or click to select
+											files
+										</p>
+									</div>
 
-                  <h4>File Details</h4>
-                  <ul>{filepath}</ul>
+									<h4>File Details</h4>
+									<ul>{filepath}</ul>
 
                   <hr className="my-4" />
                   {/* Description */}

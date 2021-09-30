@@ -13,13 +13,10 @@ const AdminNavbar = (props) => {
   console.log(user);
 
   const history = useHistory();
-  const location= useLocation();
-
-
+  const location = useLocation();
 
   const logout = () => {
-
-    history.push('/auth');
+    history.push("/auth");
     localStorage.clear();
     setUser(null);
   };
@@ -29,10 +26,8 @@ const AdminNavbar = (props) => {
 
     if (token) {
       // const decodedToken = decode(token);
-
       // if (decodedToken.exp * 1000 < new Date().getTime()) logout();
     }
-
     setUser(JSON.parse(localStorage.getItem("profile")));
   }, []);
 
@@ -42,10 +37,10 @@ const AdminNavbar = (props) => {
         console.log(res);
         setCustomer(res.data);
       })
-    .catch((error) => {
-      console.log(error);
-    });
-    });
+      .catch((error) => {
+        console.log(error);
+      });
+  });
 
   return (
     <>
@@ -94,7 +89,13 @@ const AdminNavbar = (props) => {
                 <DropdownItem divider />
                 <DropdownItem href="#pablo" onClick={(e) => e.preventDefault()}>
                   <i className="ni ni-user-run" />
-                  <span onClick={()=>{logout()}}>Logout</span>
+                  <span
+                    onClick={() => {
+                      logout();
+                    }}
+                  >
+                    Logout
+                  </span>
                 </DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
