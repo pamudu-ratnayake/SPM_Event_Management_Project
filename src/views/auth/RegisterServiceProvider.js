@@ -2,6 +2,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import { useHistory } from "react-router";
+import { Alert } from "reactstrap";
 
 // reactstrap components
 import { Button, Card, CardHeader, CardBody, FormGroup, Form, Input, InputGroupAddon, InputGroupText, InputGroup, Row, Col } from "reactstrap";
@@ -40,6 +41,7 @@ const RegisterServiceProvider = () => {
   //  Submit Method
   const onSubmit = (values) => {
     console.log("Form Date", values);
+    if (values.password === values.conPassword){
     axios
       .post("http://localhost:8080/auth-user/signup", values)
       .then((res) => {
@@ -53,6 +55,10 @@ const RegisterServiceProvider = () => {
       .catch((error) => {
         console.log(error);
       });
+    }
+    else {    
+      alert("Password mismatching! Re-Enter Passwords")
+    }
   };
 
   // Formik Options
