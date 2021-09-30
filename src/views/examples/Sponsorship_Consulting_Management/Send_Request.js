@@ -30,27 +30,37 @@ import Requested_Sponsors from "./Requested_Sponsors";
 
 const validationSchema = Yup.object({
   sender_name: Yup.string().required("Required!"),
-  s_mail: Yup.string().required("Required!"),
+  sponsorEmail: Yup.string().required("Required!"), 
+  cus_email: Yup.string().required("Required!").email('Invalid Email'),
   rqst: Yup.string().required("Required!"),
+  companyName: Yup.string().required("Required!"),
 });
 
 const Send_Request = (props) => {
   const [sDetails, setSponsor] = useState(0);
   let history = useHistory();
 
+  // const today = new Date();
+  // const currentDate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate() + today.getTime();
+
+  const user = JSON.parse(localStorage.getItem("profile"));
+
   const initialValues = {
     enableReinitialize: true,
     validateOnMount: true,
-    sender_name: "",
-    _id: sDetails._id,
+    event_id: "",
+    sender_name: user?.result?.firstName,
+    // _id: sDetails._id,
     sponsorEmail: sDetails.sponsorEmail,
     companyName: sDetails.companyName,
+    cus_email: user?.result?.email,
     rqst: "",
-    cus_email: "",
-    reqDate: "",
+    // reqDate: today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate() + today.getTime(),
   };
 
-  const sendEmail = (e) => {
+
+  const onSubmit = (e, values) => {
+    console.log('kkkk',values);
     e.preventDefault();
 
     emailjs
@@ -62,14 +72,35 @@ const Send_Request = (props) => {
       )
       .then((res) => {
         console.log(res);
-        
-        history.push({
-          pathname: "/admin/Sponsorship_Request",
-        });
-        // {<Alert>Email Sent</Alert>}
-        alert('Email Sent', 'dismissible');
+        // axios
+        // .post("http://localhost:8080/requestedSponsor/addRequestedSponsors", values)
+        // .then((res) => {
+        //   console.log(res);
+        //   console.log("Data", values);
+        // })
+        // .catch((error) => {
+        //   console.log(error);
+        // });
+
+        alert('Email Sent');
       })
       .catch((err) => console.log(err));
+      
+      dataPost(values);
+  };
+
+  const dataPost = (values) => {
+  
+    console.log("Dataaaa",values);
+    axios
+        .post("http://localhost:8080/requestedSponsor/addRequestedSponsors", values)
+        .then((res) => {
+          console.log(res);
+          console.log("Data", values);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
   };
 
   useEffect(() => {
@@ -90,7 +121,8 @@ const Send_Request = (props) => {
     enableReinitialize: true,
     validateOnMount: true,
     initialValues,
-    // onSubmit,
+    onSubmit,
+    // sendEmail,
     validationSchema,
   });
 
@@ -111,7 +143,7 @@ const Send_Request = (props) => {
                 </Row>
               </CardHeader>
               <CardBody>
-                <Form onSubmit={(formik.handleSubmit, sendEmail)}>
+                <Form onSubmit={formik.handleSubmit,onSubmit}>
                 <Row>
                     <Col md="6">
                       <FormGroup>
@@ -122,9 +154,10 @@ const Send_Request = (props) => {
                           placeholder="reg000123456"
                           type="text"
                           name="companyName"
+                          disabled
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
-                          value={formik.values.companyName}
+                          defaultValue={sDetails.companyName}
                         />
                         {formik.touched.companyName &&
                         formik.errors.companyName ? (
@@ -134,8 +167,6 @@ const Send_Request = (props) => {
                         ) : null}
                       </FormGroup>
                     </Col>
-                  </Row>
-                  <Row>
                     <Col md="6">
                       <FormGroup>
                         <label>Name</label>
@@ -147,7 +178,7 @@ const Send_Request = (props) => {
                           name="sender_name"
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
-                          value={formik.values.sender_name}
+                          defautlValue={user?.result?.firstName}
                         />
                         {formik.touched.sender_name &&
                         formik.errors.sender_name ? (
@@ -167,6 +198,7 @@ const Send_Request = (props) => {
                           // placeholder="ABC (pvt).Ltd"
                           type="text"
                           name="sponsorEmail"
+                          // disabled
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
                           // value={formik.values.sponsorEmail}
@@ -180,9 +212,6 @@ const Send_Request = (props) => {
                         ) : null}
                       </FormGroup>
                     </Col>
-                  </Row>
-
-                  <Row>
                     <Col md="6">
                       <FormGroup>
                         <label>Customer Email</label>
@@ -194,7 +223,7 @@ const Send_Request = (props) => {
                           name="cus_email"
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
-                          value={formik.values.cus_email}
+                          defaultValue={user?.result?.email}
                         />
                         {formik.touched.cus_email &&
                         formik.errors.cus_email ? (
@@ -205,7 +234,6 @@ const Send_Request = (props) => {
                       </FormGroup>
                     </Col>
                   </Row>
-                  
                   <Row>
                     <Col>
                       <FormGroup>
@@ -213,7 +241,7 @@ const Send_Request = (props) => {
                         <Input
                           className="h5-black"
                           id="exampleFormControlInput1"
-                          placeholder="142, Palm Avenue, Colombo 10 "
+                          // placeholder="142, Palm Avenue, Colombo 10 "
                           rows="3"
                           type="textarea"
                           name="rqst"
@@ -229,16 +257,12 @@ const Send_Request = (props) => {
                       </FormGroup>
                     </Col>
                   </Row>
-
                   <Row className="d-flex justify-content-between">
                     <Col className="text-center">
                       <Button
-                        id="POST"
                         type="submit"
                         color="primary"
                         size="sm"
-                        name=""
-                        // onSubmit= {sendEmail}
                       >
                         Send
                       </Button>

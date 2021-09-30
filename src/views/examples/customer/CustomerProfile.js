@@ -53,7 +53,6 @@ const CustomerProfile = (props) => {
     </li>
   ));
 
-
   const user = JSON.parse(localStorage.getItem('profile'));
 
   const initialValues = {
@@ -132,7 +131,6 @@ const CustomerProfile = (props) => {
     initialValues,
     onSubmit,
   });
-
 
 
   const [defaultModal, setmodalDemo] = useState(false);
