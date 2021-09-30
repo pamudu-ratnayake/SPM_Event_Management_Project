@@ -1,41 +1,130 @@
-import { useState } from "react";
-// node.js library that concatenates classes (strings)
-import classnames from "classnames";
-// javascipt plugin for creating charts
-import Chart from "chart.js";
-// react plugin used to create charts
-import { Line, Bar } from "react-chartjs-2";
+import { Pie } from "react-chartjs-2";
 // reactstrap components
-import { Button, Card, Container, Row, Col } from "reactstrap";
-
-// core components
 import {
-	chartOptions,
-	parseOptions,
-	chartExample1,
-	chartExample2,
-} from "variables/charts.js";
+	Button,
+	Card,
+	Container,
+	Row,
+	Col,
+	CardBody,
+	CardHeader,
+	Table,
+} from "reactstrap";
+// core components
 
+import API from "variables/tokenURL";
 import Header from "components/Headers/Header.js";
+import { useEffect, useState } from "react";
 
 const ServiceProviderIndex = (props) => {
-	const [activeNav, setActiveNav] = useState(1);
-	const [chartExample1Data, setChartExample1Data] = useState("data1");
+	const [posts, setPosts] = useState([]);
+	const [pieData, setPieData] = useState([]);
 
-	if (window.Chart) {
-		parseOptions(Chart, chartOptions());
+	const user = JSON.parse(localStorage.getItem("profile")).result;
+	useEffect(() => {
+		console.log(user._id);
+		API.get(`/quotation/quotation-by-provider/${user._id}`)
+			.then((res) => {
+				let data = res.data;
+				setPosts(data);
+				let approve = 0;
+				let notApprove = 0;
+				data.forEach((element) => {
+					element.approve ? (approve += 1) : (notApprove += 1);
+				});
+				console.log(approve, " ", notApprove);
+				setPieData([approve, notApprove]);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	}, []);
+
+	const data = {
+		labels: ["Approve", "Pending"],
+		datasets: [
+			{
+				data: pieData,
+				backgroundColor: ["#00cc99", "#ffcc00"],
+			},
+		],
+	};
+
+	const [exampleModal, setmodalDemo] = useState(false);
+
+	//toggle function
+	function toggleModal() {
+		setmodalDemo(!exampleModal);
 	}
 
-	const toggleNavs = (e, index) => {
-		e.preventDefault();
-		setActiveNav(index);
-		setChartExample1Data("data" + index);
-	};
 	return (
 		<>
 			<Header />
 			{/* Page content */}
 			<Container className="mt--7" fluid>
+				<div>
+					<div style={{ marginLeft: "10.6rem" }}>
+						<Card style={{ width: "50rem" }}>
+							<CardBody>
+								<CardHeader>
+									<h1 className="text-success">Quotation Status</h1>
+								</CardHeader>
+								<Pie data={data}></Pie>
+							</CardBody>
+						</Card>
+					</div>
+				</div>
+
+				<Row className="mt-5">
+					<Col className="order-xl-1" xl="12">
+						<Card className="bg-secondary shadow me-4">
+							<CardHeader className="bg-white border-0">
+								<Row className="align-items-center">
+									<Col xs="8">
+										<h1 className="mb-0">Applied Quotation</h1>
+									</Col>
+								</Row>
+							</CardHeader>
+							<CardBody>
+								<Table className="align-items-center" responsive>
+									<thead className="thead-light">
+										<tr>
+											<th scope="col">Event Name</th>
+											<th scope="col">Date From</th>
+											<th scope="col">Date To</th>
+											<th scope="col">Event Type</th>
+											<th scope="col">Telephone</th>
+											<th scope="col">Status</th>
+										</tr>
+									</thead>
+									<tbody>
+										{posts.map((posts) => (
+											<tr key={posts._id}>
+												<td> {posts.event_id.event_name} </td>
+												<td> {posts.date_from} </td>
+												<td> {posts.date_to} </td>
+												<td> {posts.event_id.event_type} </td>
+												<td> {posts.event_id.cus_con_number} </td>
+												<td className="">
+													{posts.approve ? (
+														<Button color="success" size="sm">
+															Approve
+														</Button>
+													) : (
+														<Button color="warning" size="sm">
+															Pending
+														</Button>
+													)}
+												</td>
+											</tr>
+										))}
+									</tbody>
+								</Table>
+							</CardBody>
+						</Card>
+					</Col>
+				</Row>
+
 				<Row className="mt-4">
 					<Col className="w-50">
 						<Card style={{ width: "34rem" }}>
@@ -98,7 +187,6 @@ const ServiceProviderIndex = (props) => {
 									</Button>
 								</div>
 							</div>
-							{/* </CardBody> */}
 						</Card>
 					</Col>
 				</Row>
