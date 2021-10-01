@@ -35,7 +35,7 @@ const SponsorList = (props) => {
 
   useEffect(() => {
     API
-      .get("http://localhost:8080/sponsor/getSponsors")
+      .get("/sponsor/getSponsors")
       .then((res) => {
         setPosts(res.data);
         console.log(res.data);
@@ -47,7 +47,7 @@ const SponsorList = (props) => {
 
   const deleteCustomer = () => {
     API
-      .delete(`http://localhost:8080/sponsor/deleteSponsor/${deleteID}`)
+      .delete(`/sponsor/deleteSponsor/${deleteID}`)
       .then((res) => {
         console.log(res);
         // this.props.history.push({
@@ -79,7 +79,7 @@ const SponsorList = (props) => {
                     <div>
                       <Input
                         type="text"
-                        placeholder="Search..."
+                        placeholder="Search by Name..."
                         style={{
                           borderWidth: "2.5px",
                           width: "15rem",

@@ -344,6 +344,20 @@ var routes = [
     component: Event_Support,
     layout: "/customer",
   },
+  {
+    path: "/Event_Support",
+    name: "Event Consulting",
+    icon: "ni ni-support-16 text-red",
+    component: Event_Support,
+    layout: "/admin",
+  },
+  {
+    path: "/Event_Support",
+    name: "Event Consulting",
+    icon: "ni ni-support-16 text-red",
+    component: Event_Support,
+    layout: "/serviceprovider",
+  },
 ];
 
 export default routes;
