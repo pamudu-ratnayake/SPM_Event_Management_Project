@@ -34,6 +34,8 @@ const BoostEvent = (props) => {
 
   const [event, setEvent] = useState(0);
 
+  const [boostPK, setBoostPK] = useState('');
+
   var boosting_Package = ['1 day','3 day','5 day','10 day','20 day','30 day']
   const [newPackage, setnewPackage] = useState(null);
 
@@ -219,10 +221,10 @@ const total = newPackage;
                       <FormGroup className = "text-center" >
                         <label>Select Boosting Package </label>
                         <Input
-                        onChange={formik.handleChange}
+                         onInput = {(e) => {setBoostPK(e.target.value)}}
                         onChange = {handleChange}
                         onBlur={formik.handleBlur}
-                        value={formik.values.boosting_event}
+                        
                           id="boosting_event"
                           name="boosting_event"
                           type="select"

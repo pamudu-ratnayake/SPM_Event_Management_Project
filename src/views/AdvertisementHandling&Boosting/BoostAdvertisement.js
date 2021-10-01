@@ -61,6 +61,9 @@ const BoostAdvertisement = (props) => {
 
 var boosting_Package = ['1 day','3 day','5 day','10 day','20 day','30 day']
 const [newPackage, setnewPackage] = useState(null);
+const [boostPK, setBoostPK] = useState('');
+
+
 
 function totalcal(event) {
      
@@ -114,7 +117,7 @@ const total = newPackage;
 const initialValues = {
   enableReinitialize: true,
   validateOnMount: true,
-  boosting_Pack:"",
+  boosting_Pack: boostPK,
   total:total,
 };
 
@@ -231,10 +234,10 @@ const initialValues = {
                   <FormGroup className = "text-center" >
                         <label>Select Boosting Package </label>
                         <Input
-                        onChange={formik.handleChange}
-                        onInput = {totalcal}
+                        onChange={totalcal}
+                        onInput = {(e) => {setBoostPK(e.target.value)}}
                         onBlur={formik.handleBlur}
-                        value={formik.values.boosting_Pack}
+                       
                           id="boosting_Pack"
                           name="boosting_Pack"
                           type="select"

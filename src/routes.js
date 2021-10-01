@@ -42,6 +42,7 @@ import PaidList from "views/PaymentHandling/PaidList";
 import MyAdvertisementList from "views/AdvertisementHandling&Boosting/MyAdvertisementList";
 import ViewPayment from "views/PaymentHandling/ViewPayment";
 import MyPaymentList from "views/PaymentHandling/MyPaymentList";
+import ViewMyPayment from "views/PaymentHandling/ViewMyPayment";
 
 
 import Sponsorship_Request from "views/examples/Sponsorship_Request";
@@ -225,7 +226,7 @@ var routes = [
     name: "My Advertisement List",
     icon: "ni ni-credit-card text-blue",
     component: MyAdvertisementList,
-    layout: "/admin",
+    layout: "/customer",
   },
 
   {
@@ -235,19 +236,13 @@ var routes = [
     component: AdvertisementDetails,
     layout: "/admin",
   },
-  {
-    path: "/cardpayment",
-    name: "Card Payments",
-    icon: "ni ni-credit-card text-blue",
-    component: CardPayment,
-    layout: "/admin",
-  },
+
   {
     path: "/boostEvent/:_id",
     name: "Boost Event",
     icon: "ni ni-credit-card text-blue",
     component: BoostEvent,
-    layout: "/admin",
+    layout: "/customer",
   },
 
   {
@@ -263,22 +258,22 @@ var routes = [
     name: "My Payments",
     icon: "ni ni-credit-card text-blue",
     component: MyPaymentList,
-    layout: "/admin",
+    layout: "/customer",
   },
   
   {
     path: "/advertisement",
-    name: "Advertisement Information",
+    name: "Add Advertisement",
     icon: "ni ni-tv-2 text-pink",
     component: AdvertisementInformation,
-    layout: "/admin",
+    layout: "/customer",
   },
   {
     path: "/viewadvertisement/:_id",
     name: "View Advertisement",
     icon: "ni ni-tv-2 text-pink",
     component: ViewAdvertisement,
-    layout: "/admin",
+    layout: "/customer",
   },
 
   {
@@ -288,28 +283,30 @@ var routes = [
     component: ViewPayment,
     layout: "/admin",
   },
+
+  {
+    path: "/viewmypayement/:_id",
+    name: "View My Payment",
+    icon: "ni ni-tv-2 text-pink",
+    component: ViewMyPayment,
+    layout: "/customer",
+  },
   {
     path: "/updateadvertisement/:_id",
     name: "Update Advertisement Information",
     icon: "ni ni-tv-2 text-pink",
     component: UpdateAdvertisementInformation,
-    layout: "/admin",
+    layout: "/customer",
   },
   {
     path: "/boostAdd/:_id",
     name: "Boost Advertisement",
     icon: "ni ni-tv-2 text-pink",
     component: BoostAdvertisement,
-    layout: "/admin",
+    layout: "/customer",
   },
 
-  {
-    path: "/payment-method",
-    name: "Card Payment Method",
-    icon: "ni ni-single-02 text-yellow",
-    component: CardPaymentMethod,
-    layout: "/authPayment",
-  },
+  
 
 	{
 		path: "/Sponsorship_Request",

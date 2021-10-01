@@ -54,19 +54,7 @@ const PaidList = (props) => {
       });
   }, []);
 
-  const deleteRequest = (_id) => {
-    console.log('ID eka: ', _id)
-    axios
-      .delete(
-        `http://localhost:8080/advertisement/deleteAdvertisement/${_id}`
-      )
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+
 
   return (
     <>
@@ -102,57 +90,7 @@ const PaidList = (props) => {
                       {addslist.total}
                       </div>
                     </td>
-                    <Modal
-                className="modal-dialog-centered"
-                isOpen={defaultModal}
-                toggle={() => toggleModal("defaultModal")}
-              >
-                <div className="modal-header">
-                  <h6 className="modal-title" id="modal-title-default">
-                    Confirm Your Deletion
-                  </h6>
-                  <button
-                    aria-label="Close"
-                    className="close"
-                    data-dismiss="modal"
-                    type="button"
-                    onClick={() => toggleModal("defaultModal")}
-                  >
-                    <span aria-hidden={true}>×</span>
-                  </button>
-                </div>
-                <div className="modal-body">
-                  <Card
-                    className="bg-secondary shadow"
-                    style={{ width: "28rem" }}
-                  >
-                    <Card style={{ width: "28rem" }}>
-                      <CardBody>
-                        <CardText>
-                          Do you want to delete this request ?
-                        </CardText>
-                      </CardBody>
-                    </Card>
-                  </Card>
-                </div>
-                <div className="modal-footer">
-                  <Button
-                    color="primary"
-                    type="button"
-                    onClick={deleteRequest.bind(props.this, addslist._id)}
-                  //  onClick={() => toggleModal("defaultModal")}
-                  >
-                    Delete Request
-                  </Button>
-                  <Button
-                   color="primary"
-                   type="button"
-                    onClick={() => toggleModal("defaultModal")}
-                  >
-                    Close
-                  </Button>
-                </div>
-              </Modal>
+                    
                     <td className="text-right">
                       <UncontrolledDropdown>
                         <DropdownToggle
@@ -165,18 +103,9 @@ const PaidList = (props) => {
                         </DropdownToggle>
                         <DropdownMenu className="dropdown-menu-arrow" right>
                           <Link to={`/admin/viewpayement/${addslist._id}`}>
-                            <DropdownItem>View Request</DropdownItem>
+                            <DropdownItem>View Payment</DropdownItem>
                           </Link>
-                          <Link
-                            to={`/admin/updateadvertisement/${addslist._id}`}
-                          >
-                            <DropdownItem>Update Request</DropdownItem>
-                          </Link>
-                          <DropdownItem
-                            onClick={() => toggleModal("defaultModal")}
-                          >
-                            Delete Request
-                          </DropdownItem>
+                         
                         </DropdownMenu>
                       </UncontrolledDropdown>
                     </td>

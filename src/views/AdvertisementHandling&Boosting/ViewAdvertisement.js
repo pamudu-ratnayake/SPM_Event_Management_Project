@@ -20,7 +20,7 @@ import axios from "axios";
 const ViewAdvertisement = (props) => {
   console.log("Id is: ", props.match.params._id);
 
-  const [addsData,setAdd] = useState(0);
+  const [addsData,setAdd] = useState([]);
 
   useEffect(() => {
     axios
@@ -33,6 +33,8 @@ const ViewAdvertisement = (props) => {
         console.log(error);
       });
   }, []);
+
+  console.log('img here', addsData.advertisement_Des)
 
   return (
     <>
@@ -52,11 +54,12 @@ const ViewAdvertisement = (props) => {
               </CardHeader>
               <Card style={{ width: "61.3rem" }}>
                 <CardImg
-                  style={{ padding: "3rem" }}
+                style={{ width: "20 rem" , height:"30rem", padding: "3rem"}}
+                  
                   alt="..."
-                  className="mt-5 ml-10 mr-10"
-                  src={require("assets/img/theme/kk.jpg").default}
                   top
+                  src={addsData?.advertisement_Pic}
+                  
                 />
                   <CardHeader style={{ fontSize: "2rem" }}>
                     Advertisement Details

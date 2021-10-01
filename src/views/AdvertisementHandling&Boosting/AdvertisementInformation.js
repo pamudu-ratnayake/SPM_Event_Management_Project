@@ -1,5 +1,6 @@
 // reactstrap components
 import React, { useState , useMemo } from "react";
+import {Link} from "react-router-dom"
 import {useDropzone} from 'react-dropzone'
 import API from "variables/tokenURL";
 
@@ -160,7 +161,7 @@ const AdvertisementInformation = (props) => {
     advertisement_Des: Yup.string().required("Required !"),
     // advertisement_Pic: Yup.string().required("Required !"),
     
-    // cardtype: Yup.string().required("Required"),
+    
   });
 
   const onSubmit = (values) => {
@@ -196,8 +197,7 @@ const AdvertisementInformation = (props) => {
     validationSchema,
   });
 
-  // const Addtitle = formik.value.advertisement_title;
-  // const Adddes = formik.value.advertisement_Des ;
+ 
 
   return (
     <>
@@ -462,11 +462,7 @@ const AdvertisementInformation = (props) => {
                           style={{ width: "28rem" }}
                         >
                           <Card style={{ width: "28rem" }}>
-                            {/* <CardImg
-                              alt="..."
-                              src={require("assets/img/theme/ui.jpg").default}
-                              top
-                            /> */}
+                           
                                <aside style={thumbsContainer}>{thumbs}</aside>
                             <CardBody>
                               <CardTitle>{formik.values.advertisement_title}</CardTitle>
@@ -478,6 +474,7 @@ const AdvertisementInformation = (props) => {
                         </Card>
                       </div>
                       <div className="modal-footer">
+                      <Link to={`/admin/myadverisementlist`}>
                         <Button
                           color="primary"
                           type="submit"
@@ -485,6 +482,7 @@ const AdvertisementInformation = (props) => {
                         >
                           Confirm Your Request
                         </Button>
+                        </Link>
                         <Button
                           className="ml-auto"
                           color="link"
