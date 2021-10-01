@@ -242,7 +242,7 @@ const AdvertisementInformation = (props) => {
                   <Row>
                     <Col md="6">
                       <FormGroup>
-                        <label>Customer Email </label>
+                        <label>Service Provider Email </label>
                         <Input
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
@@ -474,7 +474,7 @@ const AdvertisementInformation = (props) => {
                         </Card>
                       </div>
                       <div className="modal-footer">
-                      <Link to={`/admin/myadverisementlist`}>
+                      <Link to={`/serviceprovider/myadverisementlist`}>
                         <Button
                           color="primary"
                           type="submit"

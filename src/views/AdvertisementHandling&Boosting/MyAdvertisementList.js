@@ -24,7 +24,7 @@ import {
 } from "reactstrap";
 // import ReactDatetime from "react-datetime";
 // core components
-import AdvertisementListHeader from "components/Headers/AdvertisementHandling&BoostingHeaders/AdvertisementListHeader";
+import MyAdvertisementListHeader from "components/Headers/AdvertisementHandling&BoostingHeaders/MyAdvertisementListHeader";
 import React from "react";
 import axios from "axios";
 import API from "variables/tokenURL";
@@ -65,7 +65,7 @@ const MyAdvertisementList = (props) => {
 
   return (
     <>
-      <AdvertisementListHeader />
+      <MyAdvertisementListHeader />
       {/* Page content */}
       <Container className="mt--7" fluid>
         <Card>
@@ -208,12 +208,12 @@ const MyAdvertisementList = (props) => {
                           </DropdownToggle>
                           <DropdownMenu className="dropdown-menu-arrow" right>
                             <Link
-                              to={`/admin/ViewAdvertisement/${addslist._id}`}
+                              to={`/serviceprovider/ViewAdvertisement/${addslist._id}`}
                             >
                               <DropdownItem>View Request</DropdownItem>
                             </Link>
                             <Link
-                              to={`/admin/updateadvertisement/${addslist._id}`}
+                              to={`/serviceprovider/updateadvertisement/${addslist._id}`}
                             >
                               <DropdownItem>Update Request</DropdownItem>
                             </Link>

@@ -82,7 +82,7 @@ const PaidList = (props) => {
                     
                     <td>
                       <div className="avatar-group">
-                        {currentDate}
+                      {addslist.payment_date}
                       </div>
                     </td>
                     <td>

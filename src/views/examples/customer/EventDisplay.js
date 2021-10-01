@@ -361,7 +361,7 @@ const EventDisplay = (props) => {
                     </Col>
                   </Row>
                   <Col className="col text-center">
-                  <Link to={`/admin/boostEvent/${event._id}`}>
+                  <Link to={`/customer/boostEvent/${event._id}`}>
                   <Button
                         color="primary"
                         size="lm"

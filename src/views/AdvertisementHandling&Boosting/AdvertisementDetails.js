@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import {Link} from "react-router-dom";
 import API from "variables/tokenURL"
 
-
 // reactstrap components
 import {
   Button,
@@ -41,7 +40,7 @@ const AdvertisementDetails = (props) => {
 
   return (
     <>
-      {/* <BoostAddHeader /> */}
+     
       {/* Page content */}
       <Container className="mt--7">
         <Row>
@@ -56,12 +55,13 @@ const AdvertisementDetails = (props) => {
                 </Row>
               </CardHeader>
               <Card style={{ width: "61.3rem" }}>
-                <CardImg
-                  style={{ padding: "3rem" }}
+              <CardImg
+                style={{ width: "20 rem" , height:"30rem", padding: "3rem"}}
+                  
                   alt="..."
-                  className="mt-5 ml-10 mr-10"
-                  src={require("assets/img/theme/kk.jpg").default}
                   top
+                  src={addsData?.advertisement_Pic}
+                  
                 />
                   <CardHeader style={{ fontSize: "2rem" }}>
                     Advertisement Details
@@ -335,19 +335,7 @@ const AdvertisementDetails = (props) => {
                 </div>
               </CardBody>
             </Card>  */}
-            <div>
-                  <Col style={{paddingLeft:'29rem'}}>
-                    <Link to={`/admin/updateadvertisement/${addsData._id}`}>
-                    <Button
-                      className="ml-16 mr-8"
-                      color="primary"
-                     
-                    >
-                       Update the Details
-                    </Button>
-                    </Link>
-                  </Col>
-                  </div>
+        
                 </CardBody>
               </Card>
             </Card>

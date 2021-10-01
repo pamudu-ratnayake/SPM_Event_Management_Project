@@ -401,7 +401,7 @@ return (
                     
                   </Col>
                   <Col>
-                  <Link to={`/admin/mypaymentlist`}>
+                  <Link to={`/cutomer/mypaymentlist`}>
                     <Button
                       className="ml-16 mr-8"
                       color="primary"

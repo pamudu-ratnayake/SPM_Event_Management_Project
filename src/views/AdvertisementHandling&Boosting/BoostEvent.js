@@ -86,6 +86,15 @@ const BoostEvent = (props) => {
 
 const total = newPackage;
 
+const initialValues = {
+  enableReinitialize: true,
+  validateOnMount: true,
+  boosting_Event:boostPK,
+  boosting_Purpose:"",
+  // total:total,
+};
+
+
   const onSubmit = (values) => {
     console.log("Form Date", values);
     //  values.date_of_the_event = event_date; //watch
@@ -114,13 +123,6 @@ const total = newPackage;
       });
   }, []);
 
-  const initialValues = {
-    enableReinitialize: true,
-    validateOnMount: true,
-    boosting_Event:"",
-    boosting_Purpose:"",
-    // total:total,
-  };
 
   const [notificationModal, setmodalDemo] = useState(false);
 
@@ -167,7 +169,7 @@ const total = newPackage;
                       
                       <Modal
               className="modal-dialog-centered modal-Success"
-              contentClassName="bg-gradient-Success"
+              contentClassName="bg-gradient-success"
               isOpen={notificationModal}
               toggle={() => toggleModal("notificationModal")}
             >
@@ -221,8 +223,8 @@ const total = newPackage;
                       <FormGroup className = "text-center" >
                         <label>Select Boosting Package </label>
                         <Input
-                         onInput = {(e) => {setBoostPK(e.target.value)}}
                         onChange = {handleChange}
+                        onInput = {(e) => {setBoostPK(e.target.value)}}
                         onBlur={formik.handleBlur}
                         
                           id="boosting_event"
@@ -338,7 +340,7 @@ const total = newPackage;
                   <br></br>
                   <Row>
                     <Col className="text-right mr-4" xs="4">
-                    
+                    <Link to={`/customer/event-display`}>
                       <Button
                         color="primary"
                         onClick={() => {onSubmit(formik.values)}}
@@ -346,17 +348,12 @@ const total = newPackage;
                       >
                         Boost My Event
                       </Button>
-                      
+                      </Link>
                     </Col>
                     <Col className="col text-right ml-6" xs="6">
-                    {/* <Link to={`/admin/event-update/${posts._id}`}> */}
-                      <Button
-                        color="primary"
-                        size="lm"
-                      >
-                         Cancle 
-                      </Button>
-                      {/* </Link> */}
+                    
+                     
+                     
                     </Col>
                   </Row>
                 </Form>

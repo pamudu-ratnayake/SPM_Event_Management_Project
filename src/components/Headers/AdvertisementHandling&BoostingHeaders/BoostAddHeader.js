@@ -9,17 +9,17 @@ const BoostAddHeader = () => {
       <div
         className="header pb-8 pt-5 pt-lg-8 d-flex align-items-center"
         style={{
-          minHeight: "20px",
+          minHeight: "450px",
           backgroundImage:
             "url(" +
-            require("../../../assets/img/theme/65.jpg").default +
+            require("../../../assets/img/theme/you.png").default +
             ")",
           backgroundSize: "cover",
           backgroundPosition: "center top",
         }}
       >
         {/* Mask */}
-        <span className="mask bg-gradient-default opacity-5" />
+        <span className="mask bg-gradient-default opacity-4" />
         {/* Header container */}
         <Container className="d-flex align-items-center" fluid>
           <Row>

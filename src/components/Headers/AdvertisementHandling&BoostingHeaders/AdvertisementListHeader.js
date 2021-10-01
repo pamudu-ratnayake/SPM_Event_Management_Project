@@ -8,17 +8,17 @@ const AdvertisementListHeader = () => {
       <div
         className="header pb-8 pt-5 pt-lg-8 d-flex align-items-center"
         style={{
-          minHeight: "200px",
+          minHeight: "450px",
           backgroundImage:
             "url(" +
-            require("../../../assets/img/theme/h15.jpg").default +
+            require("../../../assets/img/theme/yu.jpg").default +
             ")",
           backgroundSize: "cover",
-          backgroundPosition: "center top",
+          backgroundPosition: "center bottom",
         }}
       >
         {/* Mask */}
-        <span className="mask bg-gradient-default opacity-6" />
+        <span className="mask bg-gradient-default opacity-4" />
         {/* Header container */}
         <Container className="d-flex align-items-center" fluid>
           <Row>

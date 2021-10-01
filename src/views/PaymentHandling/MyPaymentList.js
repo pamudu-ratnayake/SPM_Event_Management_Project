@@ -101,7 +101,7 @@ const PaidList = (props) => {
                           <i className="fas fa-ellipsis-v" />
                         </DropdownToggle>
                         <DropdownMenu className="dropdown-menu-arrow" right>
-                          <Link to={`/admin/viewmypayement/${addslist._id}`}>
+                          <Link to={`/customer/viewmypayement/${addslist._id}`}>
                             <DropdownItem>View Payment</DropdownItem>
                           </Link>
                           

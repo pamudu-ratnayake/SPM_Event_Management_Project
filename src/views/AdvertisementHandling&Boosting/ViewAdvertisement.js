@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import {Link} from "react-router-dom"
+
 // reactstrap components
 import {
   Button,
@@ -38,7 +39,7 @@ const ViewAdvertisement = (props) => {
 
   return (
     <>
-      {/* <BoostAddHeader /> */}
+     
       {/* Page content */}
       <Container className="mt--7">
         <Row>
@@ -255,7 +256,7 @@ const ViewAdvertisement = (props) => {
             <div className = "mt-5">
               <Row>
             <Col>
-            <Link to={`/admin/boostAdd/${addsData._id}`}>
+            <Link to={`/serviceprovider/boostAdd/${addsData._id}`}>
                     <Button
                       className="ml-16 mr-8"
                       color="primary">
@@ -264,7 +265,7 @@ const ViewAdvertisement = (props) => {
                     </Link>
                   </Col>
                   <Col>
-                    <Link to={`/admin/updateadvertisement/${addsData._id}`}>
+                    <Link to={`/serviceprovider/updateadvertisement/${addsData._id}`}>
                     <Button
                       className="ml-16 mr-8"
                       color="primary"

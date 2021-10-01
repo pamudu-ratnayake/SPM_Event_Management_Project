@@ -8,10 +8,10 @@ const AdvertisementHeader = () => {
       <div
         className="header pb-8 pt-5 pt-lg-8 d-flex align-items-center"
         style={{
-          minHeight: "200px",
+          minHeight: "450px",
           backgroundImage:
             "url(" +
-            require("../../../assets/img/theme/kk.jpg").default +
+            require("../../../assets/img/theme/event71.jpg").default +
             ")",
           backgroundSize: "cover",
           backgroundPosition: "center top",
@@ -24,10 +24,7 @@ const AdvertisementHeader = () => {
           <Row>
             <Col lg="7" md="10">
               <h1 className="display-2 text-white">Publish Your Advertisement</h1>
-              <p className="text-white mt-0 mb-3">
-                This is your profile page. You can see the progress you've made
-                with your work and manage your projects or assigned tasks
-              </p>
+              
             </Col>
           </Row>
         </Container>

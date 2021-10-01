@@ -8,10 +8,10 @@ const AdvertisementDetailsHeader = () => {
       <div
         className="header pb-8 pt-5 pt-lg-8 d-flex align-items-center"
         style={{
-          minHeight: "200px",
+          minHeight: "450px",
           backgroundImage:
             "url(" +
-            require("../../assets/img/theme/h02.png").default +
+            require("../../assets/img/theme/event14.png").default +
             ")",
           backgroundSize: "cover",
           backgroundPosition: "center top",

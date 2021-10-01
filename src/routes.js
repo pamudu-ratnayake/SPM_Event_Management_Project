@@ -27,6 +27,9 @@ import SelectServiceProvider from "views/examples/customer/SelectServiceProvider
 import ViewQuotation from "views/examples/customer/ViewQuotation";
 //------------------------------------------------------
 
+import MyPaymentListCustomer from "views/PaymentHandling/MyPaymentList";
+import ViewMyPaymentCustomer from "views/PaymentHandling/ViewMyPayment";
+
 
 // After pull dev 10/09/2021
 import AdvertisementInformation from "views/AdvertisementHandling&Boosting/AdvertisementInformation";
@@ -228,7 +231,7 @@ var routes = [
     name: "My Advertisement List",
     icon: "ni ni-credit-card text-blue",
     component: MyAdvertisementList,
-    layout: "/customer",
+    layout: "/serviceprovider",
   },
 
   {
@@ -237,6 +240,7 @@ var routes = [
     icon: "ni ni-credit-card text-blue",
     component: AdvertisementDetails,
     layout: "/admin",
+    invisible: true,
   },
 
   {
@@ -245,6 +249,7 @@ var routes = [
     icon: "ni ni-credit-card text-blue",
     component: BoostEvent,
     layout: "/customer",
+    invisible: true,
   },
 
   {
@@ -260,6 +265,13 @@ var routes = [
     name: "My Payments",
     icon: "ni ni-credit-card text-blue",
     component: MyPaymentList,
+    layout: "/serviceprovider",
+  },
+  {
+    path: "/mypaymentlist",
+    name: "My Payments",
+    icon: "ni ni-credit-card text-blue",
+    component: MyPaymentListCustomer,
     layout: "/customer",
   },
   
@@ -268,14 +280,15 @@ var routes = [
     name: "Add Advertisement",
     icon: "ni ni-tv-2 text-pink",
     component: AdvertisementInformation,
-    layout: "/customer",
+    layout: "/serviceprovider",
   },
   {
     path: "/viewadvertisement/:_id",
     name: "View Advertisement",
     icon: "ni ni-tv-2 text-pink",
     component: ViewAdvertisement,
-    layout: "/customer",
+    layout: "/serviceprovider",
+    invisible: true,
   },
 
   {
@@ -284,6 +297,7 @@ var routes = [
     icon: "ni ni-tv-2 text-pink",
     component: ViewPayment,
     layout: "/admin",
+    invisible: true,
   },
 
   {
@@ -291,21 +305,32 @@ var routes = [
     name: "View My Payment",
     icon: "ni ni-tv-2 text-pink",
     component: ViewMyPayment,
+    layout: "/serviceprovider",
+    invisible: true,
+  },
+  {
+    path: "/viewmypayement/:_id",
+    name: "View My Payment",
+    icon: "ni ni-tv-2 text-pink",
+    component: ViewMyPaymentCustomer,
     layout: "/customer",
+    invisible: true,
   },
   {
     path: "/updateadvertisement/:_id",
     name: "Update Advertisement Information",
     icon: "ni ni-tv-2 text-pink",
     component: UpdateAdvertisementInformation,
-    layout: "/customer",
+    layout: "/serviceprovider",
+    invisible: true,
   },
   {
     path: "/boostAdd/:_id",
     name: "Boost Advertisement",
     icon: "ni ni-tv-2 text-pink",
     component: BoostAdvertisement,
-    layout: "/customer",
+    layout: "/serviceprovider",
+    invisible: true,
   },
 
   
