@@ -71,13 +71,13 @@ var routes = [
   },
 
 	//-----------Indexes-----------
-	{
-		path: "/index",
-		name: "Dashboard",
-		icon: "ni ni-tv-2 text-primary",
-		component: Index,
-		layout: "/admin",
-	},
+	// {
+	// 	path: "/index",
+	// 	name: "Dashboard",
+	// 	icon: "ni ni-tv-2 text-primary",
+	// 	component: Index,
+	// 	layout: "/admin",
+	// },
 	{
 		path: "/cus-index",
 		name: "Dashboard",
@@ -225,12 +225,14 @@ var routes = [
     path: "/event-display-sp/:_id",
     component: EventDisplaySP,
     layout: "/serviceprovider",
+    invisible: true,
   },
 
   {
     path: "/createQuotation/:_id",
     component: CreateQuotation,
     layout: "/serviceprovider",
+    invisible: true,
   },
 
   {
