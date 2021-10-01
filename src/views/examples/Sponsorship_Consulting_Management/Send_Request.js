@@ -39,6 +39,7 @@ const validationSchema = Yup.object({
 
 const Send_Request = (props) => {
   const [sDetails, setSponsor] = useState(0);
+
   let history = useHistory();
 
   // const today = new Date();
@@ -95,7 +96,7 @@ const Send_Request = (props) => {
     console.log("Dataaaa", values);
     API
       .post(
-        "http://localhost:8080/requestedSponsor/addRequestedSponsors",
+        "/requestedSponsor/addRequestedSponsors",
         values
       )
       .then((res) => {
@@ -111,7 +112,7 @@ const Send_Request = (props) => {
     console.log(props.match.params._id);
 
     API
-      .get(`http://localhost:8080/sponsor/getSponsor/${props.match.params._id}`)
+      .get(`/sponsor/getSponsor/${props.match.params._id}`)
       .then((res) => {
         console.log(res);
         setSponsor(res.data);
@@ -130,8 +131,10 @@ const Send_Request = (props) => {
     validationSchema,
   });
 
+  
   return (
     <>
+
       <UserHeaderSendRequest />
       {/* Page content */}
       <Container className="mt--7" fluid>
@@ -262,7 +265,7 @@ const Send_Request = (props) => {
                   </Row>
                   <Row className="d-flex justify-content-between">
                     <Col className="text-center">
-                      <Button type="submit" color="primary" size="sm">
+                      <Button type="submit" color="success" size="sm">
                         Send
                       </Button>
                     </Col>

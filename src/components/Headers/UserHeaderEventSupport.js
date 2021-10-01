@@ -7,17 +7,17 @@ const UserHeader = () => {
       <div
         className="header pb-8 pt-5 pt-lg-8 d-flex align-items-center"
         style={{
-          minHeight: "500px",
+          minHeight: "450px",
           backgroundImage:
             "url(" +
-            require("../../assets/img/header/header7.jpg").default +
+            require("../../assets/img/header/h3.jpg").default +
             ")",
           backgroundSize: "cover",
           backgroundPosition: "center bottom",
         }}
       >
         {/* Mask */}
-        <span className="mask bg-gradient-default opacity-5" />
+        <span className="mask bg-gradient-default opacity-4" />
         {/* Header container */}
         <Container className="d-flex align-items-center" fluid>
           <Row>

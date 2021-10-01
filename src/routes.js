@@ -328,21 +328,35 @@ var routes = [
 
 	// ================== Event Consulting Routes =============
 
-	{
-		path: "/My_Issue/:_id",
-		name: "Take Help",
-		icon: "ni ni-ungroup text-pink",
-		component: My_Issue,
-		layout: "/customer",
-		invisible: true,
-	},
-	{
-		path: "/Event_Support",
-		name: "Event Consulting",
-		icon: "ni ni-support-16 text-red",
-		component: Event_Support,
-		layout: "/customer",
-	},
+  {
+    path: "/My_Issue/:_id",
+    name: "Take Help",
+    icon: "ni ni-ungroup text-pink",
+    component: My_Issue,
+    layout: "/customer",
+	invisible: true,
+  },
+  {
+    path: "/Event_Support",
+    name: "Event Consulting",
+    icon: "ni ni-support-16 text-red",
+    component: Event_Support,
+    layout: "/customer",
+  },
+  {
+    path: "/Event_Support",
+    name: "Event Consulting",
+    icon: "ni ni-support-16 text-red",
+    component: Event_Support,
+    layout: "/admin",
+  },
+  {
+    path: "/Event_Support",
+    name: "Event Consulting",
+    icon: "ni ni-support-16 text-red",
+    component: Event_Support,
+    layout: "/serviceprovider",
+  },
 ];
 
 export default routes;
