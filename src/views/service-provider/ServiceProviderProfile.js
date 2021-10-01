@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
+import API from "variables/tokenURL";
+import { useDropzone } from "react-dropzone";
 // Modals
 import EditProfileModal from "./moadals/EditProfileModal";
 import RatingModal from "./moadals/RatingModal";
@@ -26,27 +28,85 @@ const phoneRegExp =
 	/^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
 const ServiceProviderProfile = (props) => {
+	const [provider, setProvider] = useState("");
 	const [posts, setPosts] = useState("");
-	const [profile, setprofile] = useState(0);
+	// const [profile, setProfile] = useState("");
+
+	// Taking Current User
+	const user = JSON.parse(localStorage.getItem("profile")).result;
+
+	const baseStyle = {
+		flex: 1,
+		display: "flex",
+		flexDirection: "column",
+		alignItems: "center",
+		padding: "10px",
+		borderWidth: 2,
+		borderRadius: 10,
+		borderColor: "#eeeeee",
+		borderStyle: "dashed",
+		backgroundColor: "#bab8b8",
+		color: "#bdbdbd",
+		outline: "none",
+		transition: "border .24s ease-in-out",
+	};
+	const activeStyle = {
+		borderColor: "#2196f3",
+	};
+	const acceptStyle = {
+		borderColor: "#00e676",
+	};
+	const rejectStyle = {
+		borderColor: "#ff1744",
+	};
+
+	const [files, setFiles] = useState([]);
+
+	const {
+		acceptedFiles,
+		getRootProps,
+		getInputProps,
+		isDragActive,
+		isDragAccept,
+		isDragReject,
+		open,
+	} = useDropzone({
+		onDrop: (acceptedFiles) => {
+			setFiles(
+				acceptedFiles.map((file) =>
+					Object.assign(file, {
+						preview: URL.createObjectURL(file),
+					})
+				)
+			);
+		},
+	});
+
+	const style = useMemo(
+		() => ({
+			...baseStyle,
+			...(isDragActive ? activeStyle : {}),
+			...(isDragAccept ? acceptStyle : {}),
+			...(isDragReject ? rejectStyle : {}),
+		}),
+		[isDragActive, isDragReject, isDragAccept]
+	);
+
+	const filepath = acceptedFiles.map((file) => (
+		<li key={file.name}>
+			{file.name} - {file.size} bytes
+		</li>
+	));
 
 	useEffect(() => {
-		console.log("res.dat ");
-		axios
-			.get(`http://localhost:8080/company/`)
+		API.get(`/serviceProvider/getByUser/${user._id}`)
 			.then((res) => {
-				setPosts(res.data[0]);
-				console.log(res.data[0]);
-			})
-			.catch((error) => {
-				console.log(error);
-			});
+				let data = res.data;
+				setProvider(data);
 
-		axios
-			.get(`http://localhost:8080/serviceProvider/getOne`)
-			.then((res) => {
-				setprofile(res.data[0]);
-				console.log(res.data[0]);
-				console.log(res.data[0].servic_provider_Id);
+				API.get(`/company/get/${data.company_id}`).then((res) => {
+					setPosts(res.data);
+				});
 			})
 			.catch((error) => {
 				console.log(error);
@@ -55,11 +115,8 @@ const ServiceProviderProfile = (props) => {
 
 	const deleteCompany = () => {
 		if (window.confirm("Are you sure you wish to delete this item?")) {
-			axios
-				.delete(`http://localhost:8080/company/delete/${posts._id}`)
+			API.delete(`/company/delete/${posts._id}`)
 				.then((res) => {
-					// setPosts(res.data);
-					console.log(res.data);
 					alert(posts.company_name + " has Deleted !");
 					window.location.reload(false);
 				})
@@ -70,19 +127,20 @@ const ServiceProviderProfile = (props) => {
 	};
 
 	const initialValues = {
-		servic_provider_Id: profile.servic_provider_Id,
-		nic_no: profile.nic_no,
-		first_name: profile.first_name,
-		last_name: profile.last_name,
-		user_name: profile.user_name,
-		email: profile.email,
-		mobile: profile.mobile,
-		telephone: profile.telephone,
-		address: profile.address,
+		servic_provider_Id: provider.servic_provider_Id,
+		nic_no: provider.nic_no ? provider.nic_no : "",
+		first_name: provider.first_name,
+		last_name: provider.last_name,
+		user_name: provider.user_name,
+		email: provider.email,
+		mobile: provider.mobile ? provider.mobile : "",
+		telephone: provider.telephone ? provider.telephone : "",
+		address: provider.address,
+		company_id: provider.company_id,
 	};
 
 	const validationSchema = Yup.object({
-		servic_provider_Id: Yup.string().required("*Required!"),
+		servic_provider_Id: Yup.string(),
 		nic_no: Yup.string().required("*Required!"),
 		user_name: Yup.string().required("*Required!"),
 		first_name: Yup.string().required("*Required!"),
@@ -102,16 +160,40 @@ const ServiceProviderProfile = (props) => {
 	});
 
 	const onSubmit = (values) => {
-		console.log("Form Date", values);
-		//  values.date_of_the_event = event_date; //watch
-		axios
-			.put(
-				`http://localhost:8080/serviceProvider/update/${profile._id}`,
-				values
-			)
+		values.servic_provider_Id = provider.servic_provider_Id;
+		values.user_id = provider.user_id;
+		values.company_id = provider.company_id;
+
+		let nic_no = values.nic_no;
+		// NIC Number Validation
+		var cnic_no_regex = new RegExp("^[0-9+]{9}[vV|xX]$");
+		var new_cnic_no_regex = new RegExp("^[0-9+]{12}$");
+
+		if (nic_no.length == 10 && cnic_no_regex.test(nic_no)) {
+			console.log("Valid NIC");
+		} else if (nic_no.length == 12 && new_cnic_no_regex.test(nic_no)) {
+			console.log("Valid NIC");
+		} else {
+			alert("Invalid NIC No");
+			return null;
+		}
+
+		let formdata = new FormData();
+		formdata.append("servic_provider_Id", provider.servic_provider_Id);
+		formdata.append("user_id", provider.user_id);
+		formdata.append("company_id", provider.company_id);
+		formdata.append("nic_no", values.nic_no);
+		formdata.append("first_name", values.first_name);
+		formdata.append("last_name", values.last_name);
+		formdata.append("user_name", values.user_name);
+		formdata.append("email", values.email);
+		formdata.append("mobile", values.mobile);
+		formdata.append("telephone", values.telephone);
+		formdata.append("address", values.address);
+		formdata.append("file", acceptedFiles[0]);
+
+		API.put(`/serviceProvider/update/${provider._id}`, formdata)
 			.then((res) => {
-				console.log(res);
-				console.log("Data", values);
 				alert("Updated Successfully !!");
 				disableInputs();
 			})
@@ -127,7 +209,6 @@ const ServiceProviderProfile = (props) => {
 	});
 
 	function disableInputs() {
-		document.getElementById("input-service-provider").disabled = true;
 		document.getElementById("input-nic-no").disabled = true;
 		document.getElementById("input-username").disabled = true;
 		document.getElementById("input-first-name").disabled = true;
@@ -154,10 +235,7 @@ const ServiceProviderProfile = (props) => {
 											<img
 												alt="..."
 												className="rounded-circle"
-												src={
-													require("../../assets/img/theme/team-4-800x800.jpg")
-														.default
-												}
+												src={provider?.prof_img}
 											/>
 										</a>
 									</div>
@@ -165,7 +243,7 @@ const ServiceProviderProfile = (props) => {
 							</Row>
 							<CardHeader className="text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
 								<div className="d-flex justify-content-between">
-									<EditProfileModal />
+									<EditProfileModal company={posts} />
 
 									<Button
 										className="float-right"
@@ -185,8 +263,12 @@ const ServiceProviderProfile = (props) => {
 											{/* Rating Modal */}
 											<RatingModal />
 											<div>
-												<span className="heading">10</span>
-												<span className="description">Completed</span>
+												<span className="heading">
+													<i class="bx bx-task text-green fs-2 ">4</i>
+												</span>
+												<span className="description text-green">
+													Completed
+												</span>
 											</div>
 											{/* Comment Modal */}
 											<CommentModal />
@@ -195,12 +277,12 @@ const ServiceProviderProfile = (props) => {
 								</Row>
 								<div className="text-center">
 									<h3>
-										{profile.user_name}
+										{provider.user_name}
 										<span className="font-weight-light"></span>
 									</h3>
 									<div className="h5 font-weight-300">
 										<i className="ni location_pin mr-2" />
-										{profile.address}
+										{provider.address}
 									</div>
 									<div className="h5 mt-4">
 										<i className="ni business_briefcase-24 mr-2" />
@@ -209,7 +291,8 @@ const ServiceProviderProfile = (props) => {
 									</div>
 									<div>
 										<i className="ni education_hat mr-2" />
-										{posts.company_name} (pvt) Ltd
+										{posts.company_name}{" "}
+										{posts.company_name ? " (pvt) Ltd" : ""}
 									</div>
 									<hr className="my-4" />
 									<p>{posts.details}</p>
@@ -219,6 +302,15 @@ const ServiceProviderProfile = (props) => {
 								</div>
 							</CardBody>
 						</Card>
+						<div className="m-2" {...getRootProps({ style })}>
+							<input {...getInputProps()} />
+							{/* <FileBase><input {...getInputProps()} /></FileBase> */}
+							<p>
+								Drag 'n' drop your image file here, or click to select files
+							</p>
+						</div>
+
+						<h4>File Details : {filepath}</h4>
 					</Col>
 					<Col className="order-xl-1" xl="8">
 						<Card className="bg-secondary shadow">
@@ -228,14 +320,10 @@ const ServiceProviderProfile = (props) => {
 										<h3 className="mb-0">My account</h3>
 									</Col>
 									<Col className="text-right" xs="4">
-										<Button size="sm">Download PDF</Button>
 										<Button
 											color="primary"
 											href="#pablo"
 											onClick={(e) => {
-												document.getElementById(
-													"input-service-provider"
-												).disabled = true;
 												document.getElementById(
 													"input-nic-no"
 												).disabled = false;
@@ -284,16 +372,17 @@ const ServiceProviderProfile = (props) => {
 														Service Provider ID
 													</label>
 													<Input
-														className="form-control-alternative"
+														className="form-control-alternative bg-secondary text-black"
 														id="input-service-provider"
 														placeholder="SPS00001"
+														disabled
 														type="text"
 														name="servic_provider_Id"
 														onChange={formik.handleChange}
 														onBlur={formik.handleBlur}
-														defaultValue={profile.servic_provider_Id}
+														defaultValue={provider.servic_provider_Id}
 													>
-														{profile.servic_provider_Id}
+														{provider.servic_provider_Id}
 													</Input>
 													{formik.touched.servic_provider_Id &&
 													formik.errors.servic_provider_Id ? (
@@ -319,9 +408,9 @@ const ServiceProviderProfile = (props) => {
 														name="nic_no"
 														onChange={formik.handleChange}
 														onBlur={formik.handleBlur}
-														defaultValue={profile.nic_no}
+														defaultValue={provider.nic_no}
 													>
-														{profile.nic_no}
+														{provider.nic_no}
 													</Input>
 													{formik.touched.nic_no && formik.errors.nic_no ? (
 														<div style={{ color: "red" }}>
@@ -349,10 +438,8 @@ const ServiceProviderProfile = (props) => {
 														name="user_name"
 														onChange={formik.handleChange}
 														onBlur={formik.handleBlur}
-														defaultValue={profile.user_name}
-													>
-														{profile.user_name}
-													</Input>
+														defaultValue={provider.user_name}
+													></Input>
 													{formik.touched.user_name &&
 													formik.errors.user_name ? (
 														<div style={{ color: "red" }}>
@@ -377,9 +464,9 @@ const ServiceProviderProfile = (props) => {
 														name="email"
 														onChange={formik.handleChange}
 														onBlur={formik.handleBlur}
-														defaultValue={profile.email}
+														defaultValue={provider.email}
 													>
-														{profile.email}
+														{provider.email}
 													</Input>
 													{formik.touched.email && formik.errors.email ? (
 														<div style={{ color: "red" }}>
@@ -406,9 +493,9 @@ const ServiceProviderProfile = (props) => {
 														name="first_name"
 														onChange={formik.handleChange}
 														onBlur={formik.handleBlur}
-														defaultValue={profile.first_name}
+														defaultValue={provider.first_name}
 													>
-														{profile.first_name}
+														{provider.first_name}
 													</Input>
 													{formik.touched.first_name &&
 													formik.errors.first_name ? (
@@ -434,9 +521,9 @@ const ServiceProviderProfile = (props) => {
 														name="last_name"
 														onChange={formik.handleChange}
 														onBlur={formik.handleBlur}
-														defaultValue={profile.last_name}
+														defaultValue={provider.last_name}
 													>
-														{profile.last_name}
+														{provider.last_name}
 													</Input>
 													{formik.touched.last_name &&
 													formik.errors.last_name ? (
@@ -470,9 +557,9 @@ const ServiceProviderProfile = (props) => {
 														name="telephone"
 														onChange={formik.handleChange}
 														onBlur={formik.handleBlur}
-														defaultValue={profile.telephone}
+														defaultValue={provider.telephone}
 													>
-														{profile.telephone}
+														{provider.telephone}
 													</Input>
 													{formik.touched.telephone &&
 													formik.errors.telephone ? (
@@ -498,9 +585,9 @@ const ServiceProviderProfile = (props) => {
 														name="mobile"
 														onChange={formik.handleChange}
 														onBlur={formik.handleBlur}
-														defaultValue={profile.mobile}
+														defaultValue={provider.mobile}
 													>
-														{profile.mobile}
+														{provider.mobile}
 													</Input>
 													{formik.touched.mobile && formik.errors.mobile ? (
 														<div style={{ color: "red" }}>
@@ -528,10 +615,8 @@ const ServiceProviderProfile = (props) => {
 														name="address"
 														onChange={formik.handleChange}
 														onBlur={formik.handleBlur}
-														defaultValue={profile.address}
-													>
-														{profile.address}
-													</Input>
+														defaultValue={provider.address}
+													></Input>
 													{formik.touched.address && formik.errors.address ? (
 														<div style={{ color: "red" }}>
 															{formik.errors.address}
@@ -551,70 +636,6 @@ const ServiceProviderProfile = (props) => {
 									</Button>
 								</Form>
 							</CardBody>
-						</Card>
-					</Col>
-				</Row>
-				<Row className="mt-4">
-					<Col className="w-50">
-						<Card style={{ width: "34rem" }}>
-							{/* <CardBody> */}
-							<div
-								className=""
-								style={{
-									width: "540px",
-									height: "360px",
-									backgroundImage:
-										"url(" +
-										require("../../assets/img/theme/musicEvent.jpg").default +
-										")",
-									backgroundSize: "cover",
-									backgroundPosition: "center top",
-								}}
-							>
-								<div className="float-end m-1">
-									<Button
-										className=""
-										color="transparent"
-										href="#pablo"
-										onClick={(e) => e.preventDefault()}
-										size="sm"
-									>
-										<i class="bx bxs-cog bx-spin fs-6 text-white"></i>
-									</Button>
-								</div>
-							</div>
-							{/* </CardBody> */}
-						</Card>
-					</Col>
-					<Col className="w-50">
-						<Card style={{ width: "34rem" }}>
-							{/* <CardBody> */}
-							<div
-								className=""
-								style={{
-									width: "540px",
-									height: "360px",
-									backgroundImage:
-										"url(" +
-										require("../../assets/img/theme/musicEvent2.jpg").default +
-										")",
-									backgroundSize: "cover",
-									backgroundPosition: "center top",
-								}}
-							>
-								<div className="float-end m-1">
-									<Button
-										className=""
-										color="transparent"
-										href="#pablo"
-										onClick={(e) => e.preventDefault()}
-										size="sm"
-									>
-										<i class="bx bxs-cog bx-spin fs-6 text-white"></i>
-									</Button>
-								</div>
-							</div>
-							{/* </CardBody> */}
 						</Card>
 					</Col>
 				</Row>

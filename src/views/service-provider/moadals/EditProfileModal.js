@@ -1,5 +1,5 @@
-import { React, useState } from "react";
-
+import { React, useEffect, useState } from "react";
+import API from "variables/tokenURL";
 // reactstrap components
 import { Button, FormGroup, Form, Input, Modal, Row, Col } from "reactstrap";
 
@@ -8,38 +8,38 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 
-function EditProfileModal() {
+function EditProfileModal(props) {
+	console.log("props", props.company);
+	const [company, setCompany] = useState("");
 	const [showModal, setShowModal] = useState(false);
 
 	const toggleModal = (state) => {
 		console.log("toggleModal");
 		setShowModal(state);
 	};
-
+	useEffect(() => {
+		setCompany(props.company);
+	}, []);
 	// initial Values
 	const initialValues = {
 		// company Variavles
-		company_Id: "SPC0005",
-		company_name: "",
-		service_provider_type: "",
-		details: "",
-		file: "",
+		company_name: company.company_name,
+		details: company.details,
 	};
 
 	// Validation Schema
 	const validationSchema = Yup.object({
 		company_name: Yup.string().required("*Required!"),
-		service_provider_type: Yup.string().required("*Required!"),
-		details: Yup.string().required("*Required!"),
-		file: Yup.string().required("*Required!"),
+		details: Yup.string(),
 	});
 
 	// Submite Method
 	const onSubmit = (values) => {
-		console.log("Form Date", values);
+		values.service_provider_type = company.service_provider_type;
+
+		console.log(company._id, "Form Date", values);
 		//  values.date_of_the_event = event_date; //watch
-		axios
-			.post("http://localhost:8080/company/create", values)
+		API.put(`/company/update/${company._id}`, values)
 			.then((res) => {
 				console.log(res);
 				console.log("Data", values);
@@ -77,7 +77,7 @@ function EditProfileModal() {
 			>
 				<div className="modal-header">
 					<h5 className="modal-title" id="showModalLabel">
-						Edit Details
+						Edit Company Details
 					</h5>
 					<button
 						aria-label="Close"
@@ -103,21 +103,14 @@ function EditProfileModal() {
 									</label>
 									<Input
 										className="form-control-alternative"
-										defaultValue="SPS00001"
+										defaultValue={company.service_provider_type}
 										id="service_provider_type"
 										placeholder="SPS00001"
 										type="text"
 										name="service_provider_type"
-										onChange={formik.handleChange}
-										onBlur={formik.handleBlur}
-										value={formik.values.service_provider_type}
+										value={company.service_provider_type}
+										disabled
 									/>
-									{formik.touched.service_provider_type &&
-									formik.errors.service_provider_type ? (
-										<div style={{ color: "red" }}>
-											{formik.errors.service_provider_type}
-										</div>
-									) : null}
 								</FormGroup>
 							</Col>
 						</Row>
@@ -165,23 +158,6 @@ function EditProfileModal() {
 									/>
 									{formik.touched.details && formik.errors.details ? (
 										<div style={{ color: "red" }}>{formik.errors.details}</div>
-									) : null}
-								</FormGroup>
-							</Col>
-						</Row>
-						<Row>
-							<Col>
-								<FormGroup>
-									<Input
-										class="btn border border-light w-100"
-										type="file"
-										name="file"
-										onChange={formik.handleChange}
-										onBlur={formik.handleBlur}
-										value={formik.values.file}
-									/>
-									{formik.touched.file && formik.errors.file ? (
-										<div style={{ color: "red" }}>{formik.errors.file}</div>
 									) : null}
 								</FormGroup>
 							</Col>
