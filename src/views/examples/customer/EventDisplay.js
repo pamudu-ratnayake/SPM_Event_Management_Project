@@ -44,8 +44,8 @@ const EventDisplay = (props) => {
 
   //useEffect
   useEffect(async () => {
-    await axios
-      .get(`http://localhost:8080/eventAdd/getOneEvent/${props.match.params._id}`)
+    await API
+      .get(`/eventAdd/getOneEvent/${props.match.params._id}`)
       .then(async (res) => {
         console.log(res);
         setEvent(res.data);
@@ -70,16 +70,9 @@ const EventDisplay = (props) => {
     setSPID(providerID);
   };
 
-  // const review_rate = {
-  //   rate: rating,
-  //   review: review
-  // }
-
   console.log("come to this", SPID);
 
   const setReview = () => {
-    console.log("comefffff to this", SPID);
-    console.log("V rate", rating);
     var rates = {
       review_rate:{
         rate:rating,

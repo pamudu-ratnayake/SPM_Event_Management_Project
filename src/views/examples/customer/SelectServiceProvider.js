@@ -100,8 +100,7 @@ const SelectServiceProvider = (props) => {
                       <th scope="col">Service Provider</th>
                       <th scope="col">Service Type</th>
                       <th scope="col">Email</th>
-                      <th scope="col">Contact Number</th>
-                      <th scope="col">Total</th>                 
+                      <th scope="col">Contact Number</th>              
                       <th scope="col" />
                     </tr>
                   </thead>
@@ -112,7 +111,6 @@ const SelectServiceProvider = (props) => {
                         <td> {posts.provider_id.service_type} </td>
                         <td> {posts.provider_id.email} </td>
                         <td> {posts.provider_id.mobile} </td>
-                        <td> </td>
                         <td>
                           {" "}
                           <Button

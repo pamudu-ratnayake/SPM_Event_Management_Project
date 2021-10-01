@@ -138,8 +138,8 @@ const CustomerProfile = (props) => {
 		formdata.append("cus_gender", values.cus_gender);
 
 
-    axios
-      .post("http://localhost:8080/customerdetails/addcustomer", formdata)
+    API
+      .post("/customerdetails/addcustomer", formdata)
       .then((res) => {
         console.log(res);
         console.log("Data", formdata);

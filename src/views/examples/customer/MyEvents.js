@@ -15,6 +15,7 @@ const MyEvents = (props) => {
   const currentDate = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate() + today.getTime();
   const [status, setStatus] = useState();
   const [searchStr, setSearch] = useState('');
+  const [deleteID, setDeleteID] = useState('');
 
   const user = JSON.parse(localStorage.getItem("profile"));
 
@@ -36,9 +37,9 @@ const MyEvents = (props) => {
     setmodalDemo(!exampleModal);
   }
 
-  const deleteEvent = (_id) => {
-    axios
-      .delete(`http://localhost:8080/eventAdd/deleteevent/${_id}`)
+  const deleteEvent = () => {
+    API
+      .delete(`/eventAdd/deleteevent/${deleteID}`)
       .then((response) => {
         console.log(response);
         // props.history.push('/admin');
@@ -139,7 +140,10 @@ const MyEvents = (props) => {
                               <Link to={`/customer/event-update/${posts._id}`}>
                                 <DropdownItem>Update Event</DropdownItem>
                               </Link>
-                              <DropdownItem onClick={() => toggleModal("exampleModal")}> Delete Event</DropdownItem>
+                              <DropdownItem onClick={function (event) {
+                                            toggleModal("exampleModal");
+                                            setDeleteID(posts._id);
+                                          }}> Delete Event</DropdownItem>
 
                               <Modal className="modal-dialog-centered" isOpen={exampleModal} toggle={() => toggleModal("exampleModal")}>
                                 <div className="modal-header">
@@ -152,7 +156,7 @@ const MyEvents = (props) => {
                                 </div>
                                 <div className="modal-body">Do you want to delete this event?</div>
                                 <div className="modal-footer">
-                                  <Button color="primary" type="button" onClick={deleteEvent.bind(props.this, posts._id)}>
+                                  <Button color="primary" type="button" onClick={() => deleteEvent()}>
                                     Confirm Delete
                                   </Button>
                                   <Button color="secondary" data-dismiss="modal" type="button" onClick={() => toggleModal("exampleModal")}>

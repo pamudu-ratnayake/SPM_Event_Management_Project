@@ -35,12 +35,6 @@ const ViewQuotation = (props) => {
     setModal(!notificationModal);
   }
 
-  // function onStarClick(nextValue, prevValue, name) {
-  //   setRating({ rating: nextValue });
-  // }
-
-  // console.log("rating", quotation.provider_id);
-
   const initialValues = {};
 
   // -------useEffect------------
@@ -186,22 +180,6 @@ const ViewQuotation = (props) => {
     doc.setTextColor("Blue");
     doc.text(50, 110, "Quotation Items Details");
 
-    // doc.autoTable({
-    //   margin: { top: 140, bottom: 100, left: 100, right: 100 },
-    //   head: [["Item ID", "Item Name", "Quantity", "Unit Price"]],
-    //   // body: [[quotation.quotation_details.item_name], [quotation.quotation_details.quantity], [quotation.quotation_details.unit_price]],
-    //   // body:[
-    //   //   quotation.quotation_details.array.forEach(element => {
-    //   //     [element._id, element.item_name,]
-    //   //   })
-    //   // ],
-    //   theme: "grid",
-    // });
-    // doc.autoTable({
-    //   margin: { top: 0, bottom: 100, left: 100, right: 100 },
-    //   // body: items,
-    //   theme: "grid",
-    // });
     doc.autoTable(columns, rows, {
       margin: { top: 160, bottom: 100, left: 60, right: 60 },
       theme: "grid",
