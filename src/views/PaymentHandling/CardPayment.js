@@ -20,7 +20,7 @@ import {
 } from "reactstrap";
 import ReactDatetime from "react-datetime";
 // core components
-import CardPaymentHeader from "components/Headers/CardPaymentHeader";
+import CardPaymentHeader from "components/Headers/PaymentHandlingHeaders/CardPaymentHeader";
 
 const CardPayment = () => {
   const [defaultModal, setmodalDemo] = useState(false);

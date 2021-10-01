@@ -17,14 +17,15 @@ import {
   Modal,
   Button,
   Container,
+  Input,
 } from "reactstrap";
 // import ReactDatetime from "react-datetime";
 // core components
-import DisplayedRequestHeader from "components/Headers/DisplayedRequestHeader";
+import AdvertisementListHeader from "components/Headers/AdvertisementHandling&BoostingHeaders/AdvertisementListHeader";
 import React from "react";
 import axios from "axios";
 
-const DisplayedRequest = (props) => {
+const AdvertisementList = (props) => {
   const [defaultModal, setmodalDemo] = useState(false);
 
   function toggleModal() {
@@ -32,6 +33,7 @@ const DisplayedRequest = (props) => {
   }
 
   const [addslist, setviewlist] = useState([]);
+  const [deleteID, setDeleteID] = useState('');
 
   useEffect(() => {
     axios
@@ -46,11 +48,11 @@ const DisplayedRequest = (props) => {
       });
   }, []);
 
-  const deleteRequest = (_id) => {
-    console.log('ID eka: ', _id)
+  const deleteRequest = () => {
+    console.log('ID eka: ',deleteID)
     axios
       .delete(
-        `http://localhost:8080/advertisement/deleteAdvertisement/${_id}`
+        `http://localhost:8080/advertisement/deleteAdvertisement/${deleteID}`
       )
       .then((res) => {
         console.log(res);
@@ -62,7 +64,7 @@ const DisplayedRequest = (props) => {
 
   return (
     <>
-      <DisplayedRequestHeader />
+      <AdvertisementListHeader />
       {/* Page content */}
       <Container className="mt--7" fluid>
         <Card>
@@ -70,10 +72,12 @@ const DisplayedRequest = (props) => {
             <Table className="align-items-center" responsive>
               <thead className="thead-light">
                 <tr>
-                  <th scope="col">Service Provider ID</th>
+                  <th scope="col">Advertisement ID</th>
                   <th scope="col">Service Provider Name </th>
                   <th scope="col">Advertisement Duration </th>
                   <th scope="col">Service Type </th>
+                  {/* <th scope="col">Advertisement Status 
+                  </th> */}
                   <th scope="col" />
                 </tr>
               </thead>
@@ -91,6 +95,16 @@ const DisplayedRequest = (props) => {
                         {addslist.service_Type}
                       </div>
                     </td>
+                    {/* <td>
+                      <div className="avatar-group">
+                        <Input>
+                        <option>Set Status</option>
+                          <option>Displayed </option>
+                          <option>Now Showing</option>
+                          <option>Requested</option> 
+                        </Input>
+                      </div>
+                    </td> */}
                     <Modal
                 className="modal-dialog-centered"
                 isOpen={defaultModal}
@@ -107,7 +121,7 @@ const DisplayedRequest = (props) => {
                     type="button"
                     onClick={() => toggleModal("defaultModal")}
                   >
-                    <span aria-hidden={true}>×</span>
+                    <span aria-hidden={true}> </span>
                   </button>
                 </div>
                 <div className="modal-body">
@@ -128,7 +142,7 @@ const DisplayedRequest = (props) => {
                   <Button
                     color="primary"
                     type="button"
-                    onClick={deleteRequest.bind(props.this, addslist._id)}
+                    onClick={() => deleteRequest()}
                   //  onClick={() => toggleModal("defaultModal")}
                   >
                     Delete Request
@@ -153,7 +167,7 @@ const DisplayedRequest = (props) => {
                           <i className="fas fa-ellipsis-v" />
                         </DropdownToggle>
                         <DropdownMenu className="dropdown-menu-arrow" right>
-                          <Link to={`/admin/viewadvertisement/${addslist._id}`}>
+                          <Link to={`/admin/AdvertisementDetails/${addslist._id}`}>
                             <DropdownItem>View Request</DropdownItem>
                           </Link>
                           <Link
@@ -161,8 +175,8 @@ const DisplayedRequest = (props) => {
                           >
                             <DropdownItem>Update Request</DropdownItem>
                           </Link>
-                          <DropdownItem
-                            onClick={() => toggleModal("defaultModal")}
+                          <DropdownItem                 
+                          onClick={function(event){toggleModal("defaultModal"); setDeleteID(addslist._id)}}
                           >
                             Delete Request
                           </DropdownItem>
@@ -180,4 +194,4 @@ const DisplayedRequest = (props) => {
   );
 };
 
-export default DisplayedRequest;
+export default AdvertisementList;

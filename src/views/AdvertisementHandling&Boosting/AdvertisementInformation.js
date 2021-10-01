@@ -1,5 +1,8 @@
 // reactstrap components
-import React, { useState } from "react";
+import React, { useState , useMemo } from "react";
+import {Link} from "react-router-dom"
+import {useDropzone} from 'react-dropzone'
+import API from "variables/tokenURL";
 
 import {
   Button,
@@ -20,7 +23,7 @@ import {
 import * as Yup from "yup";
 import axios from "axios";
 // core components
-import AdvertisementHeader from "components/Headers/AdvertisementHeader";
+import AdvertisementHeader from "components/Headers/AdvertisementHandling&BoostingHeaders/AdvertisementHeader";
 
 import { useFormik } from "formik";
 
@@ -35,6 +38,102 @@ const AdvertisementInformation = (props) => {
     setmodalDemo(!defaultModal);
   }
 
+  const baseStyle = {
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    padding: '90px',
+    borderWidth: 2,
+    borderRadius: 2,
+    borderColor: '#eeeeee',
+    borderStyle: 'dashed',
+    backgroundColor: '#ffffff',
+    color: '#bdbdbd',
+    outline: 'none',
+    transition: 'border .24s ease-in-out'
+  };
+  const activeStyle = {
+    borderColor: '#2196f3'
+  };
+  const acceptStyle = {
+    borderColor: '#00e676'
+  };
+  const rejectStyle = {
+    borderColor: '#ff1744'
+  };
+
+  const thumbsContainer = {
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    marginTop: 16
+  };
+  
+  const thumb = {
+    display: "inline-flex",
+    borderRadius: 2,
+    border: "1px solid #eaeaea",
+    marginBottom: 8,
+    marginRight: 8,
+    width: "auto",
+    height: 200,
+    padding: 4,
+    boxSizing: "border-box"
+  };
+  
+  const thumbInner = {
+    display: "flex",
+    minWidth: 0,
+    overflow: "hidden"
+  };
+  
+  const img = {
+    display: "block",
+    width: "auto",
+    height: "100%"
+  };
+  
+  const [files, setFiles] = useState([]);
+
+  const {acceptedFiles, getRootProps, getInputProps, isDragActive,
+    isDragAccept,
+    isDragReject} = useDropzone({onDrop: acceptedFiles => {
+      setFiles(
+        acceptedFiles.map(file =>
+          Object.assign(file, {
+            preview: URL.createObjectURL(file)
+          })
+        )
+      );
+    }})
+
+  const style = useMemo(() => ({
+    ...baseStyle,
+    ...(isDragActive ? activeStyle : {}),
+    ...(isDragAccept ? acceptStyle : {}),
+    ...(isDragReject ? rejectStyle : {})
+  }), [
+    isDragActive,
+    isDragReject,
+    isDragAccept
+  ]);
+
+  const thumbs = files.map(file => (
+    <div style={thumb} key={file.name}>
+      <div style={thumbInner}>
+        <img src={file.preview} style={img} />
+      </div>
+    </div>
+  ));
+
+  const filepath = acceptedFiles.map(file => (
+      <li key={file.name}>
+        {file.name} - {file.size} bytes
+      </li>
+  ));
+
+
   const initialValues = {
     enableReinitialize: true,
     validateOnMount: true,
@@ -46,6 +145,7 @@ const AdvertisementInformation = (props) => {
     advertisement_title:"",
     advertisement_Des: "",
     advertisement_Pic: "",
+    boosting_Pack:""
   };
 
   const validationSchema = Yup.object({
@@ -59,14 +159,27 @@ const AdvertisementInformation = (props) => {
     advertisement_Duration: Yup.string().required("Required !"),
     advertisement_title:Yup.string().required("Required !"),
     advertisement_Des: Yup.string().required("Required !"),
-    advertisement_Pic: Yup.string().required("Required !"),
-    // cardtype: Yup.string().required("Required"),
+    // advertisement_Pic: Yup.string().required("Required !"),
+    
+    
   });
 
   const onSubmit = (values) => {
     console.log("form data", values);
-    axios
-      .post("http://localhost:8080/advertisement/addadvertisement", values)
+    console.log('files', acceptedFiles);
+    
+    let formdata = new FormData();
+    formdata.append("service_Provider_Name", values.service_Provider_Name);
+    formdata.append("contact_Number_SP", values.contact_Number_SP);
+    formdata.append("email_SP", values.email_SP);
+    formdata.append("service_Type", values.service_Type);
+    formdata.append("advertisement_Duration", values.advertisement_Duration);
+    formdata.append("advertisement_title", values.advertisement_title);
+    formdata.append("advertisement_Des", values.advertisement_Des);
+    formdata.append("file", acceptedFiles[0]);
+
+    API
+      .post("/advertisement/addadvertisement", formdata)
       .then((res) => {
         console.log(res);
         console.log("Data", values);
@@ -80,12 +193,11 @@ const AdvertisementInformation = (props) => {
   };
   const formik = useFormik({
     initialValues,
-   // onSubmit,
+    onSubmit,
     validationSchema,
   });
 
-  // const Addtitle = formik.value.advertisement_title;
-  // const Adddes = formik.value.advertisement_Des ;
+ 
 
   return (
     <>
@@ -130,7 +242,7 @@ const AdvertisementInformation = (props) => {
                   <Row>
                     <Col md="6">
                       <FormGroup>
-                        <label>Customer Email </label>
+                        <label>Service Provider Email </label>
                         <Input
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
@@ -183,7 +295,10 @@ const AdvertisementInformation = (props) => {
                           <option>Choose...</option>
                           <option>Photographer</option>
                           <option>Decorater</option>
+                          <option>Dancers</option>
+                          <option>Catering</option>
                           <option>Cake Designer</option>
+                          <option>Costume Designer</option>
                           <option>Event Planner</option>
                           <option>Sound Provider</option>
                           <option>florist</option>
@@ -276,7 +391,8 @@ const AdvertisementInformation = (props) => {
                   <Row>
                     <Col md="12">
                       <label>Upload Advertisement Picture </label>
-                      <Input
+                    
+                      {/* <Input
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         value={formik.advertisement_Pic}
@@ -285,7 +401,19 @@ const AdvertisementInformation = (props) => {
                         placeholder="Enter your Advertisement Picture here ..................."
                         rows="6"
                         type="textarea"
-                      />
+                      /> */}
+                        <div {...getRootProps({style})}>
+                    <input {...getInputProps()} />
+                    <p>Drag 'n' drop your image file here, or click to select files</p>
+                  </div>
+
+                  <h4>File Details</h4>
+                  <ul>
+                    {filepath}
+                  </ul>
+
+                  
+
                       {formik.touched.advertisement_Pic &&
                       formik.errors.advertisement_Pic ? (
                         <div style={{ color: "red" }}>
@@ -294,55 +422,7 @@ const AdvertisementInformation = (props) => {
                       ) : null}
                     </Col>
                   </Row>
-                  <Row>
-                    <Col ml="12">
-                      <label className="mb-2 mt-3">Payment Type </label>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col>
-                      <div className="custom-control custom-radio mb-3 ml-5">
-                        <input
-                          onChange={formik.handleChange}
-                          onBlur={formik.handleBlur}
-                          value={formik.cardtype}
-                          className="custom-control-input"
-                          id="cardtype"
-                          name="cardtype"
-                          type="radio"
-                        />
-                        {/* {formik.touched.cardtype && formik.errors.cardtype ? (
-                          <div style={{ color: "red" }}>
-                            {formik.errors.cardtype}
-                          </div>
-                        ) : null} */}
-                        <label
-                          className="custom-control-label"
-                          htmlFor="customRadio5"
-                        >
-                          Card Payment
-                        </label>
-                      </div>
-                    </Col>
-                    <Col>
-                      <div className="custom-control custom-radio mb-3">
-                        <input
-                          className="custom-control-input"
-                          defaultChecked
-                          id="onlinetransfering"
-                          name="onlinetransfering"
-                          type="radio"
-                        />
-                        <label
-                          className="custom-control-label"
-                          htmlFor="customRadio6"
-                        >
-                          Online Transfering
-                        </label>
-                      </div>
-                    </Col>
-                  </Row>
-
+               
                   <br></br>
                   <br></br>
                   <Row>
@@ -382,11 +462,8 @@ const AdvertisementInformation = (props) => {
                           style={{ width: "28rem" }}
                         >
                           <Card style={{ width: "28rem" }}>
-                            <CardImg
-                              alt="..."
-                              src={require("assets/img/theme/ui.jpg").default}
-                              top
-                            />
+                           
+                               <aside style={thumbsContainer}>{thumbs}</aside>
                             <CardBody>
                               <CardTitle>{formik.values.advertisement_title}</CardTitle>
                               <CardText>
@@ -397,6 +474,7 @@ const AdvertisementInformation = (props) => {
                         </Card>
                       </div>
                       <div className="modal-footer">
+                      <Link to={`/serviceprovider/myadverisementlist`}>
                         <Button
                           color="primary"
                           type="submit"
@@ -404,6 +482,7 @@ const AdvertisementInformation = (props) => {
                         >
                           Confirm Your Request
                         </Button>
+                        </Link>
                         <Button
                           className="ml-auto"
                           color="link"
@@ -415,6 +494,7 @@ const AdvertisementInformation = (props) => {
                         </Button>
                       </div>
                     </Modal>
+                   
                     <Col className="text-center ml-9" xs="4">
                       <Button
                         className="mr-2 ml-9"
