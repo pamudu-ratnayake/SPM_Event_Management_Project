@@ -2,7 +2,7 @@
 // reactstrap components
 import { Button, Container, Row, Col } from "reactstrap";
 
-const DisplayedRequestHeader = () => {
+const BoostAdvertisementListHeader = () => {
   return (
     <>
       <div
@@ -11,7 +11,7 @@ const DisplayedRequestHeader = () => {
           minHeight: "200px",
           backgroundImage:
             "url(" +
-            require("../../assets/img/theme/h15.jpg").default +
+            require("../../../assets/img/theme/65.jpg").default +
             ")",
           backgroundSize: "cover",
           backgroundPosition: "center top",
@@ -22,12 +22,12 @@ const DisplayedRequestHeader = () => {
         {/* Header container */}
         <Container className="d-flex align-items-center" fluid>
           <Row>
-            <Col lg="7" md="10">
-              <h1 className="display-2 text-white">Publish Your Advertisement</h1>
-              <p className="text-white mt-0 mb-3">
+            <Col lg="12" md="16">
+              <h1 className="display-2 text-white">Boost Advertisement List</h1>
+              {/* <p className="text-white mt-0 mb-3">
                 This is your profile page. You can see the progress you've made
                 with your work and manage your projects or assigned tasks
-              </p>
+              </p> */}
             </Col>
           </Row>
         </Container>
@@ -36,4 +36,4 @@ const DisplayedRequestHeader = () => {
   );
 };
 
-export default DisplayedRequestHeader;
+export default BoostAdvertisementListHeader;

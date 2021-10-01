@@ -12,6 +12,7 @@ import { Button, Card, CardHeader, CardBody, FormGroup, Form, Input, Container, 
 import ViewEventHeader from "components/Headers/ViewEventHeader";
 import { useEffect, useState } from "react";
 
+
 const EventDisplay = (props) => {
   console.log("ID is : ", props.match.params._id);
 
@@ -359,6 +360,16 @@ const EventDisplay = (props) => {
                       </FormGroup>
                     </Col>
                   </Row>
+                  <Col className="col text-center">
+                  <Link to={`/customer/boostEvent/${event._id}`}>
+                  <Button
+                        color="primary"
+                        size="lm"
+                      >
+                        Boost My Event 
+                      </Button>
+                      </Link>
+                      </Col>
                   <Row>
                   <Col className="text-right" xs="4">
                   <Link to={`/customer/Sponsorship_Documentation/${event._id}`}>

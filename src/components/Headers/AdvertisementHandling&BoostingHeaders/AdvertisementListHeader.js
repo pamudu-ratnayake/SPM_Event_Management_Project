@@ -2,33 +2,32 @@
 // reactstrap components
 import { Button, Container, Row, Col } from "reactstrap";
 
-
-const BoostHeader = () => {
+const AdvertisementListHeader = () => {
   return (
     <>
       <div
         className="header pb-8 pt-5 pt-lg-8 d-flex align-items-center"
         style={{
-          minHeight: "200px",
+          minHeight: "450px",
           backgroundImage:
             "url(" +
-            require("../../assets/img/theme/hj.jpg").default +
+            require("../../../assets/img/theme/yu.jpg").default +
             ")",
           backgroundSize: "cover",
-          backgroundPosition: "center top",
+          backgroundPosition: "center bottom",
         }}
       >
         {/* Mask */}
-        <span className="mask bg-gradient-default opacity-5" />
+        <span className="mask bg-gradient-default opacity-4" />
         {/* Header container */}
         <Container className="d-flex align-items-center" fluid>
           <Row>
-            <Col lg="7" md="10">
-              <h1 className="display-2 text-white">Boost Your Event</h1>
-              <p className="text-white mt-0 mb-3">
+            <Col lg="12" md="16">
+              <h1 className="display-2 text-white">Advertisement List</h1>
+              {/* <p className="text-white mt-0 mb-3">
                 This is your profile page. You can see the progress you've made
                 with your work and manage your projects or assigned tasks
-              </p>
+              </p> */}
             </Col>
           </Row>
         </Container>
@@ -37,4 +36,4 @@ const BoostHeader = () => {
   );
 };
 
-export default BoostHeader;
+export default AdvertisementListHeader;

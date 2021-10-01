@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import {Link} from "react-router-dom"
+
 // reactstrap components
 import {
   Button,
@@ -15,13 +16,12 @@ import {
 } from "reactstrap";
 import * as Yup from "yup";
 // core components
-import BoostAddHeader from "components/Headers/BoostAddHeader";
 import axios from "axios";
 
 const ViewAdvertisement = (props) => {
   console.log("Id is: ", props.match.params._id);
 
-  const [addsData, setAdd] = useState(0);
+  const [addsData,setAdd] = useState([]);
 
   useEffect(() => {
     axios
@@ -35,9 +35,11 @@ const ViewAdvertisement = (props) => {
       });
   }, []);
 
+  console.log('img here', addsData.advertisement_Des)
+
   return (
     <>
-      {/* <BoostAddHeader /> */}
+     
       {/* Page content */}
       <Container className="mt--7">
         <Row>
@@ -53,25 +55,18 @@ const ViewAdvertisement = (props) => {
               </CardHeader>
               <Card style={{ width: "61.3rem" }}>
                 <CardImg
-                  style={{ padding: "3rem" }}
+                style={{ width: "20 rem" , height:"30rem", padding: "3rem"}}
+                  
                   alt="..."
-                  className="mt-5 ml-10 mr-10"
-                  src={require("assets/img/theme/kk.jpg").default}
                   top
+                  src={addsData?.advertisement_Pic}
+                  
                 />
                   <CardHeader style={{ fontSize: "2rem" }}>
                     Advertisement Details
                   </CardHeader>
                 <CardBody style={{ padding: "2rem" }}>
 
-                  {/* <CardText>Service Provider Name  :  {addsData.service_Provider_Name}</CardText> */}
-                  {/* <CardText>Customer Email :  {addsData.email_SP}</CardText>
-             <CardText>Contact Number  :{addsData.contact_Number_SP}</CardText>
-             <CardText>Service Type :{addsData.service_Type}</CardText>
-             <CardText>Available Duration : {addsData.advertisement_Duration}</CardText>
-             <CardText>Advertisement Description :{addsData.advertisement_Duration}</CardText>
-             <CardText>Upload Advertisement Picture :{addsData.advertisement_Des}</CardText>
-             <CardText>Payment Type :{addsData.advertisement_Pic}</CardText> */}
                   <Card
                     style={({ width: "28rem" }, { height: "2.5rem" })}
                     className="mb-4"
@@ -237,31 +232,6 @@ const ViewAdvertisement = (props) => {
                       </div>
                     </CardBody>
                   </Card>
-
-                  <Card
-                    style={({ width: "28rem" }, { height: "2.5rem" })}
-                    className="mb-4"
-                  >
-                    <CardBody className="pt-1 pt-md-0">
-                      <div>
-                        <CardText>
-                          <Row>
-                            <Col xs="3">
-                              <span className="h5" style={{ font: "menu" }}>
-                                Advertisement Picture
-                              </span>
-                            </Col>
-                            <Col xs="6">
-                              <span className="h5">
-                                : {addsData.advertisement_Pic}
-                              </span>
-                            </Col>
-                          </Row>
-                        </CardText>
-                      </div>
-                    </CardBody>
-                  </Card>
-
                   {/* <Card
              style={({ width: "28rem" }, { height: "2.5rem" })}
               className="mb-4">
@@ -282,18 +252,30 @@ const ViewAdvertisement = (props) => {
                 </div>
               </CardBody>
             </Card>  */}
-            <div>
-                  <Col style={{paddingLeft:'29rem'}}>
-                    <Link to={`/admin/updateadvertisement/${addsData._id}`}>
+            
+            <div className = "mt-5">
+              <Row>
+            <Col>
+            <Link to={`/serviceprovider/boostAdd/${addsData._id}`}>
                     <Button
-                      className="ml-8 mr-8"
-                      color="primary"
-                     
-                    >
-                      Update Request
+                      className="ml-16 mr-8"
+                      color="primary">
+                      Boost My Advertisement
                     </Button>
                     </Link>
                   </Col>
+                  <Col>
+                    <Link to={`/serviceprovider/updateadvertisement/${addsData._id}`}>
+                    <Button
+                      className="ml-16 mr-8"
+                      color="primary"
+                     
+                    >
+                      Request to Update My Advertisement
+                    </Button>
+                    </Link>
+                  </Col>
+                  </Row>
                   </div>
                 </CardBody>
               </Card>
