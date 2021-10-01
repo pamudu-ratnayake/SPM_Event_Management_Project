@@ -94,7 +94,7 @@ const Sponsorship_Documentation = (props) => {
   const e_date = posts.date_of_the_event;
   const e_time = posts.event_time;
   const e_loct = posts.location;
-  // const e_days = posts.days_occurs.toString();
+  const e_days = posts.days_occurs.toString();
   const e_type = posts.event_type;
   const orz_name = posts.organizer_name;
   const orz_email = posts.cus_email;
@@ -165,7 +165,7 @@ const Sponsorship_Documentation = (props) => {
     doc.text(180, 180, e_date);
     doc.text(180, 200, e_time);
     doc.text(180, 220, e_loct);
-    // doc.text(180, 240, e_days);
+    doc.text(180, 240, e_days);
     doc.text(180, 260, e_type);
     doc.text(180, 280, orz_name);
     doc.text(180, 300, orz_email);
