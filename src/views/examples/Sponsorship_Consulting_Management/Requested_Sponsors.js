@@ -19,6 +19,7 @@ import {
 // core components
 import UserHeaderSponsorsList from "components/Headers/UserHeaderSponsorsList.js";
 import { useState, useEffect } from "react";
+import API from "variables/tokenURL";
 
 const Requested_Sponsors = (props) => {
   const [sponsors, setSponsors] = useState([

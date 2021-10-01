@@ -25,6 +25,7 @@ import { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
 import SponsorList from "./SponsorList";
+import API from "variables/tokenURL";
 
 const validationSchema = Yup.object({
   issue: Yup.string().required("Required!"),
@@ -36,7 +37,7 @@ const My_Issue = (props) => {
   const [searchStr, setSearch] = useState("");
 
   useEffect(() => {
-    axios
+    API
       .get(
         `http://localhost:8080/eventAdd/getOneEvent/${props.match.params._id}`
       )
@@ -50,7 +51,7 @@ const My_Issue = (props) => {
   }, []);
 
   useEffect(() => {
-    axios
+    API
       .get("http://localhost:8080/consulting/getIssues")
       .then((res) => {
         setIssue(res.data);
@@ -68,7 +69,7 @@ const My_Issue = (props) => {
   const onSubmit = (values) => {
     console.log("Form Date", values);
     //  values.date_of_the_event = event_date; //watch
-    axios
+    API
       .post("http://localhost:8080/consulting/addIssue", values)
       .then((res) => {
         console.log(res);

@@ -27,6 +27,7 @@ import { Link } from "react-router-dom";
 import emailjs from "emailjs-com";
 import { useEffect, useState } from "react";
 import Requested_Sponsors from "./Requested_Sponsors";
+import API from "variables/tokenURL";
 
 const validationSchema = Yup.object({
   sender_name: Yup.string().required("Required!"),
@@ -92,7 +93,7 @@ const Send_Request = (props) => {
 
   const dataPost = (values) => {
     console.log("Dataaaa", values);
-    axios
+    API
       .post(
         "http://localhost:8080/requestedSponsor/addRequestedSponsors",
         values
@@ -109,7 +110,7 @@ const Send_Request = (props) => {
   useEffect(() => {
     console.log(props.match.params._id);
 
-    axios
+    API
       .get(`http://localhost:8080/sponsor/getSponsor/${props.match.params._id}`)
       .then((res) => {
         console.log(res);

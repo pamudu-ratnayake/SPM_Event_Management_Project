@@ -25,6 +25,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
+import API from "variables/tokenURL";
 
 const Sponsorship_Request = () => {
   const [posts, setPosts] = useState([]);
@@ -32,7 +33,7 @@ const Sponsorship_Request = () => {
   let history = useHistory();
 
   useEffect(() => {
-    axios
+    API
       .get("http://localhost:8080/sponsor/getSponsors")
       .then((res) => {
         setPosts(res.data);
@@ -43,14 +44,7 @@ const Sponsorship_Request = () => {
       });
   }, []);
 
-  // const sendMail = () => {
-  //   console.log(posts._id);
-  //   history.push({
-  //     pathname: "/admin/Send_Request/${posts._id}",
-  //   });
-  // };
-
-  console.log(posts.logo);
+  console.log(posts.sponsorLogo);
 
   return (
     <>
@@ -109,7 +103,7 @@ const Sponsorship_Request = () => {
                           <CardImg
                             style={{ height: "120px" }}
                             alt="..."
-                            src={posts && posts.logo}
+                            src={posts && posts.sponsorLogo}
                             top
                           />
                           <CardBody>

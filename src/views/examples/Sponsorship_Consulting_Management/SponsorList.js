@@ -21,18 +21,20 @@ import UserHeaderSponsorsList from "components/Headers/UserHeaderSponsorsList.js
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import API from "variables/tokenURL";
 
 const SponsorList = (props) => {
   const [posts, setPosts] = useState([]);
   const [exampleModal, setModalDemo] = useState(false);
   const [searchStr, setSearch] = useState("");
+  const [deleteID, setDeleteID] = useState('');
 
   const toggleModal = () => {
     setModalDemo(!exampleModal);
   };
 
   useEffect(() => {
-    axios
+    API
       .get("http://localhost:8080/sponsor/getSponsors")
       .then((res) => {
         setPosts(res.data);
@@ -43,9 +45,9 @@ const SponsorList = (props) => {
       });
   }, []);
 
-  const deleteCustomer = (_id) => {
-    axios
-      .delete(`http://localhost:8080/sponsor/deleteSponsor/${_id}`)
+  const deleteCustomer = () => {
+    API
+      .delete(`http://localhost:8080/sponsor/deleteSponsor/${deleteID}`)
       .then((res) => {
         console.log(res);
         // this.props.history.push({
@@ -206,7 +208,7 @@ const SponsorList = (props) => {
                                 </DropdownItem>
                               </Link>
                               <DropdownItem
-                                onClick={() => toggleModal("exampleModel")}
+                                onClick = {function(event){toggleModal("exampleModel"); setDeleteID(posts._id)}}
                               >
                                 Remove
                               </DropdownItem>
@@ -248,10 +250,7 @@ const SponsorList = (props) => {
                                   <Button
                                     color="primary"
                                     type="button"
-                                    onClick={deleteCustomer.bind(
-                                      props.this,
-                                      posts._id
-                                    )}
+                                    onClick={() => deleteCustomer()}
                                   >
                                     Confirm Remove
                                   </Button>

@@ -23,6 +23,7 @@ import * as Yup from "yup";
 import axios from "axios";
 import React, { useEffect, useState, useMemo } from "react";
 import { useHistory } from "react-router";
+import API from "variables/tokenURL";
 
 const phoneRegExp =
   /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
@@ -61,7 +62,7 @@ const Update_Sponsor = (props) => {
 
   const onSubmit = (values) => {
     console.log("form data", values);
-    axios
+    API
       .put(
         `http://localhost:8080/sponsor/updateSponsor/${props.match.params._id}`,
         values
@@ -78,7 +79,7 @@ const Update_Sponsor = (props) => {
   };
 
   useEffect(() => {
-    axios
+    API
       .get(`http://localhost:8080/sponsor/getSponsor/${props.match.params._id}`)
       .then((res) => {
         console.log(res);

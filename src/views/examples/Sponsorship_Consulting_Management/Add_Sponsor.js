@@ -25,6 +25,7 @@ import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
 import {useDropzone} from 'react-dropzone';
 import { useMemo } from 'react';
+import API from "variables/tokenURL";
 
 const phoneRegExp =
   /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
@@ -118,7 +119,7 @@ const Add_Sponsor = () => {
     formdata.append("sponsorAddress", values.sponsorAddress);
     formdata.append("file", acceptedFiles[0]);
 
-    axios
+    API
       .post("http://localhost:8080/sponsor/addSponsors", formdata)
       .then((res) => {
         console.log(res);

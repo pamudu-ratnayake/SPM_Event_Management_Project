@@ -24,6 +24,7 @@ import jsPDF from "jspdf";
 import "jspdf-autotable";
 import { event } from "jquery";
 import logo from "../../../assets/img/theme/thebliss5.png";
+import API from "variables/tokenURL";
 
 // const phoneRegExp =
 //   /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
@@ -68,7 +69,7 @@ const Sponsorship_Documentation = (props) => {
   };
 
   useEffect(() => {
-    axios
+    API
       .get(
         `http://localhost:8080/eventAdd/getOneEvent/${props.match.params._id}`
       )

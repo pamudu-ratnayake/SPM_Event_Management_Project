@@ -22,6 +22,7 @@ import axios from "axios";
 import { useHistory } from "react-router";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import API from "variables/tokenURL";
 
 const validationSchema = Yup.object({
   // answers: Yup.string().required("Required!"),
@@ -51,7 +52,7 @@ const Event_Support = (props) => {
   };
 
   useEffect(() => {
-    axios
+    API
       .get("http://localhost:8080/consulting/getIssues")
       .then((res) => {
         setIssue(res.data);
@@ -68,7 +69,7 @@ const Event_Support = (props) => {
 
     // e.preventDefault()
 
-    axios
+    API
       .post(`http://localhost:8080/consulting/addAnswer/${_id}`, values)
       .then((res) => {
         console.log(res.data);
