@@ -276,7 +276,7 @@ var routes = [
   {
     path: "/Sponsorship_Request",
     name: "Sponsors",
-    icon: "ni ni-paper-diploma text-pink",
+    icon: "ni ni-paper-diploma text-success",
     component: Sponsorship_Request,
     layout: "/customer",
   },
