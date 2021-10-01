@@ -34,7 +34,7 @@ const Sponsorship_Request = () => {
 
   useEffect(() => {
     API
-      .get("http://localhost:8080/sponsor/getSponsors")
+      .get("/sponsor/getSponsors")
       .then((res) => {
         setPosts(res.data);
         console.log(res.data);
@@ -62,7 +62,7 @@ const Sponsorship_Request = () => {
                   <div>
                     <Input
                       type="text"
-                      placeholder="Search..."
+                      placeholder="Search by Type..."
                       style={{
                         borderWidth: "2.5px",
                         width: "15rem",

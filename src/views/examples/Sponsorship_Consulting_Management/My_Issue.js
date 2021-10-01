@@ -39,7 +39,7 @@ const My_Issue = (props) => {
   useEffect(() => {
     API
       .get(
-        `http://localhost:8080/eventAdd/getOneEvent/${props.match.params._id}`
+        `/eventAdd/getOneEvent/${props.match.params._id}`
       )
       .then((res) => {
         console.log(res);
@@ -52,7 +52,7 @@ const My_Issue = (props) => {
 
   useEffect(() => {
     API
-      .get(`http://localhost:8080/consulting/getByevent/${details._id}`)
+      .get(`/consulting/getByevent/${details._id}`)
       .then((res) => {
         setMyissue(res.data);
         console.log(res.data);
@@ -70,7 +70,7 @@ const My_Issue = (props) => {
     console.log("Form Date", values);
     //  values.date_of_the_event = event_date; //watch
     API
-      .post("http://localhost:8080/consulting/addIssue", values)
+      .post("/consulting/addIssue", values)
       .then((res) => {
         console.log(res);
         console.log("Data", values);
@@ -82,6 +82,8 @@ const My_Issue = (props) => {
       .catch((error) => {
         console.log(error);
       });
+
+      window.location.reload(false);
   };
 
   const initialValues = {
@@ -122,7 +124,7 @@ const My_Issue = (props) => {
             <CardHeader className="border-0">
               <Row>
                 <Col className="border-0" xl="9">
-                  <h3 className="mb-0">Hi! We are here to help now ...</h3>
+                  <h3 className="mb-0">Hi! We are here to help you ...</h3>
                 </Col>
                 <Col className="col text-right" xl="3">
                   <Link
@@ -137,6 +139,7 @@ const My_Issue = (props) => {
             </CardHeader>
 
             <CardBody>
+              <div style={{ paddingLeft: "13rem" }}>
               <CardText className="h5" style={{ paddingTop: "0.5rem" }}>
                 <Row>
                   <Col xs="3">Event Name</Col>
@@ -194,7 +197,7 @@ const My_Issue = (props) => {
                   <Col xs="6">{details.description}</Col>
                 </Row>
               </CardText>
-
+</div>
               <Row>
                 <Form onSubmit={formik.handleSubmit}>
                   <Col style={{ paddingTop: "2rem" }}>
@@ -222,7 +225,7 @@ const My_Issue = (props) => {
                   </Col>
                   <Col className="mb-4 mt-4">
                     <Button
-                      color="primary"
+                      color="success"
                       id="POST"
                       size="sm"
                       type="submit"

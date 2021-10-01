@@ -64,7 +64,7 @@ const Update_Sponsor = (props) => {
     console.log("form data", values);
     API
       .put(
-        `http://localhost:8080/sponsor/updateSponsor/${props.match.params._id}`,
+        `/sponsor/updateSponsor/${props.match.params._id}`,
         values
       )
       .then((res) => {
@@ -80,7 +80,7 @@ const Update_Sponsor = (props) => {
 
   useEffect(() => {
     API
-      .get(`http://localhost:8080/sponsor/getSponsor/${props.match.params._id}`)
+      .get(`/sponsor/getSponsor/${props.match.params._id}`)
       .then((res) => {
         console.log(res);
         setCustomerRequest(res.data);
@@ -291,7 +291,7 @@ const Update_Sponsor = (props) => {
 
                   <div className="d-flex justify-content-between">
                     <Button
-                      color="primary"
+                      color="success"
                       size="sm"
                       type="submit"
                       // href="/admin/SponsorList"

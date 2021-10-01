@@ -121,7 +121,7 @@ const Add_Sponsor = () => {
     formdata.append("file", acceptedFiles[0]);
 
     API
-      .post("http://localhost:8080/sponsor/addSponsors", formdata)
+      .post("/sponsor/addSponsors", formdata)
       .then((res) => {
         console.log(res);
         console.log("Data", formdata);
@@ -134,6 +134,7 @@ const Add_Sponsor = () => {
         console.log(error);
       });
 
+      alert("");
     window.location.reload(false);
   };
 
@@ -331,7 +332,7 @@ const Add_Sponsor = () => {
                       <Button
                         id="POST"
                         type="submit"
-                        color="primary"
+                        color="success"
                         size="sm"
                         name=""
                       >
@@ -340,7 +341,7 @@ const Add_Sponsor = () => {
                     </Col>
                     <Col className="text-center">
                       <Link to={"/admin/SponsorList"}>
-                        <Button color="primary" size="sm" name="" type="reset">
+                        <Button color="info" size="sm" name="" type="reset">
                           Cancle
                         </Button>
                       </Link>

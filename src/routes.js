@@ -46,7 +46,7 @@ import Requested_Sponsors from "views/examples/Sponsorship_Consulting_Management
 import Sponsorship_Documentation from "views/examples/Sponsorship_Consulting_Management/Sponsorship_Documentation";
 import My_Issue from "views/examples/Sponsorship_Consulting_Management/My_Issue";
 import Event_Support from "views/examples/Sponsorship_Consulting_Management/Event_Support";
-import Send_Request from "views/examples/Sponsorship_Consulting_Management/Send_Request"
+import Send_Request from "views/examples/Sponsorship_Consulting_Management/Send_Request";
 import EventDisplaySP from "views/events/EventDisplaySP";
 
 var routes = [
@@ -68,7 +68,7 @@ var routes = [
   {
     path: "/index",
     name: "Dashboard",
-    icon: "ni ni-tv-2 text-success fs-5",
+    icon: "ni ni-tv-2 text-primary fs-5",
     component: ServiceProviderIndex,
     layout: "/serviceprovider",
   },
@@ -159,6 +159,13 @@ var routes = [
     component: TopEvents,
     layout: "/serviceprovider",
   },
+  {
+    path: "/registerServiceProvider",
+    name: "Register Service Provider",
+    icon: "ni ni-circle-08 text-pink",
+    component: RegisterServiceProvider,
+    layout: "/authServiceProvider",
+  },
 
   // ============== Service Provider Routes ==================
 
@@ -170,21 +177,21 @@ var routes = [
     layout: "/serviceprovider",
   },
 
-  {
-    path: "/registerServiceProvider",
-    name: "Register Service Provider",
-    icon: "ni ni-circle-08 text-pink",
-    component: RegisterServiceProvider,
-    layout: "/authServiceProvider",
-  },
+	{
+		path: "/serviceProviders",
+		name: "Service Providers",
+		icon: "bx bxs-user-voice fs-4 text-primary",
+		component: ServiceProviders,
+		layout: "/serviceprovider",
+	},
 
-  {
-    path: "/serviceProviders",
-    name: "Service Providers",
-    icon: "bx bxs-user-voice fs-4 text-success",
-    component: ServiceProviders,
-    layout: "/serviceprovider",
-  },
+	{
+		path: "/service-provider-profile",
+		name: "Profile",
+		icon: "bx bxs-user text-primary fs-4",
+		component: ServiceProviderProfile,
+		layout: "/serviceprovider",
+	},
 
   {
     path: "/service-provider-profile",
@@ -273,69 +280,63 @@ var routes = [
     layout: "/admin",
   },
 
-  {
-    path: "/payment-method",
-    name: "Card Payment Method",
-    icon: "ni ni-single-02 text-yellow",
-    component: CardPaymentMethod,
-    layout: "/auth",
-  },
+	// ================== Sponsorship Routes =============
 
-  {
-    path: "/Sponsorship_Request",
-    name: "Sponsors",
-    icon: "ni ni-paper-diploma text-pink",
-    component: Sponsorship_Request,
-    layout: "/customer",
-  },
-  {
-    path: "/Add_Sponsor",
-    name: "Add Sponsor",
-    icon: "ni ni-single-copy-04 text-primary",
-    component: Add_Sponsor,
-    layout: "/admin",
-  },
-  {
-    path: "/SponsorList",
-    name: "Sponsor List",
-    icon: "ni ni-active-40 text-yellow",
-    component: SponsorList,
-    layout: "/admin",
-  },
-  {
-    path: "/Sponsorship_Documentation/:_id",
-    name: "Sponsorship Documentation",
-    icon: "ni ni-collection text-info",
-    component: Sponsorship_Documentation,
-    layout: "/customer",
-	invisible: true,
-  },
-  {
-    path: "/Requested_Sponsors",
-    name: "Requested Sponsors",
-    icon: "ni ni-support-16 text-red",
-    component: Requested_Sponsors,
-    layout: "/customer",
-	invisible: true,
-  },
-  {
-    path: "/Send_Request/:_id",
-    name: "Send Request",
-    icon: "ni ni-support-16 text-red",
-    component: Send_Request,
-    layout: "/customer",
-	invisible: true,
-  },
-  {
-    path: "/Update_Sponsor/:_id",
-    name: "Update Sponsor",
-    icon: "ni ni-circle-08 text-pink",
-    component: Update_Sponsor,
-    layout: "/admin",
-	invisible: true,
-  },
+	{
+		path: "/Sponsorship_Request",
+		name: "Sponsors",
+		icon: "ni ni-paper-diploma text-pink",
+		component: Sponsorship_Request,
+		layout: "/customer",
+	},
+	{
+		path: "/Add_Sponsor",
+		name: "Add Sponsor",
+		icon: "ni ni-single-copy-04 text-primary",
+		component: Add_Sponsor,
+		layout: "/admin",
+	},
+	{
+		path: "/SponsorList",
+		name: "Sponsor List",
+		icon: "ni ni-active-40 text-yellow",
+		component: SponsorList,
+		layout: "/admin",
+	},
+	{
+		path: "/Sponsorship_Documentation/:_id",
+		name: "Sponsorship Documentation",
+		icon: "ni ni-collection text-info",
+		component: Sponsorship_Documentation,
+		layout: "/customer",
+		invisible: true,
+	},
+	{
+		path: "/Requested_Sponsors",
+		name: "Requested Sponsors",
+		icon: "ni ni-support-16 text-red",
+		component: Requested_Sponsors,
+		layout: "/customer",
+		invisible: true,
+	},
+	{
+		path: "/Send_Request/:_id",
+		name: "Send Request",
+		icon: "ni ni-support-16 text-red",
+		component: Send_Request,
+		layout: "/customer",
+		invisible: true,
+	},
+	{
+		path: "/Update_Sponsor/:_id",
+		name: "Update Sponsor",
+		icon: "ni ni-circle-08 text-pink",
+		component: Update_Sponsor,
+		layout: "/admin",
+		invisible: true,
+	},
 
-  // ================== Event Consulting Routes =============
+	// ================== Event Consulting Routes =============
 
   {
     path: "/My_Issue/:_id",
@@ -351,6 +352,20 @@ var routes = [
     icon: "ni ni-support-16 text-red",
     component: Event_Support,
     layout: "/customer",
+  },
+  {
+    path: "/Event_Support",
+    name: "Event Consulting",
+    icon: "ni ni-support-16 text-red",
+    component: Event_Support,
+    layout: "/admin",
+  },
+  {
+    path: "/Event_Support",
+    name: "Event Consulting",
+    icon: "ni ni-support-16 text-red",
+    component: Event_Support,
+    layout: "/serviceprovider",
   },
 ];
 

@@ -1,10 +1,26 @@
-import { React, useState } from "react";
-
+import React, { useState, useEffect } from "react";
+import API from "variables/tokenURL";
 // reactstrap components
 import { Button, Modal } from "reactstrap";
 
 function RatingModal() {
+	const user = JSON.parse(localStorage.getItem("profile")).result;
 	const [showModal, setShowModal] = useState(false);
+	const [rates, setRates] = useState("");
+	const [reviews, setReviews] = useState([]);
+
+	useEffect(() => {
+		API.get(`/serviceProvider/getByUser/${user._id}`)
+			.then((res) => {
+				let data = res.data;
+				setReviews(data);
+				let count = data.review_rate.length;
+				setRates(count);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	}, []);
 
 	// Toggle Modal
 	const toggleModal = (state) => {
@@ -15,8 +31,10 @@ function RatingModal() {
 		<>
 			{/* Button trigger modal */}
 			<div onClick={() => toggleModal(true)}>
-				<span className="heading">22</span>
-				<span className="description">Rating </span>
+				<span className="heading">
+					<i class="bx bxs-star bx-tada text-danger fs-2">{rates}</i>
+				</span>
+				<span className="description text-danger">Rating</span>
 			</div>
 			{/* Modal */}
 			<Modal
@@ -38,42 +56,24 @@ function RatingModal() {
 						<span aria-hidden={true}>×</span>
 					</button>
 				</div>
-				<div className="card bg-secondary mx-2 mb-2">
-					<div className="card-body-sm row ">
-						<div className="col col-2 mx-2">
-							<img
-								width="75px"
-								alt="..."
-								className="rounded-circle pt-2"
-								src={
-									require("../../../assets/img/theme/team-4-800x800.jpg")
-										.default
-								}
-							/>
-						</div>
-						<div className="col">
-							<div className="row">
-								<div className="d-flex justify-content-between pt-2">
-									<h4 className="">Malith Madusankha</h4>
-
-									<Button size="sm" className=" px-2 me-3" color="primary">
-										Event
-									</Button>
+				<div>
+					{reviews.review_rate?.map((review_rate) => (
+						<div
+							key={review_rate._id}
+							className="card bg-secondary mx-2 mb-2 pt-2 ps-3"
+						>
+							<div className="card-body-sm row ">
+								<div className="col-2">
+									<i class="bx bxs-star bx-tada text-danger fs-2">
+										{review_rate?.rate}
+									</i>
+								</div>
+								<div className="col-10">
+									<h4 className="text-warning">{review_rate?.review}</h4>
 								</div>
 							</div>
-							<div>
-								<i class="bx bxs-star bx-tada"></i>
-								<i class="bx bxs-star bx-tada"></i>
-								<i class="bx bxs-star bx-tada"></i>
-								<i class="bx bxs-star bx-tada"></i>
-							</div>
-							<div>
-								<h4>You have done realy good job</h4>
-							</div>
 						</div>
-						{/* </CardBody> */}
-						{/* </Card> */}
-					</div>
+					))}
 				</div>
 			</Modal>
 		</>
