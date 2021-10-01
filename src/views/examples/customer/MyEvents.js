@@ -12,13 +12,13 @@ import { setConstantValue } from "typescript";
 const MyEvents = (props) => {
   const [posts, setPosts] = useState([]);
   const today = new Date();
-  const currentDate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate() + today.getTime();
+  const currentDate = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate() + today.getTime();
   const [status, setStatus] = useState();
+  const [searchStr, setSearch] = useState('');
 
   const user = JSON.parse(localStorage.getItem("profile"));
 
   useEffect(() => {
-    
     API.get(`/eventAdd/getevents`)
       .then((res) => {
         setPosts(res.data);
@@ -51,7 +51,7 @@ const MyEvents = (props) => {
     window.location.reload(false);
   };
 
-  console.log('status', currentDate);
+  console.log("status", currentDate);
 
   return (
     <>
@@ -63,11 +63,24 @@ const MyEvents = (props) => {
             <Card className="bg-secondary shadow">
               <CardHeader className="bg-white border-0">
                 <Row className="align-items-center">
-                  <Col xs="8">
+                  <Col xs="5">
                     <h1 className="mb-0">Published Events</h1>
                   </Col>
+                  <Col xs="3">
+                    <div >
+                      <Input
+                      type="text"
+                        placeholder="Search..."
+                        style={{ borderWidth: "2.5px", width: "15rem", height: "2rem",  textAlign: "left", borderRadius: "15px" }}
+                        onChange={(e) => {
+                          setSearch(e.target.value);
+                        }}
+              
+                      />
+                    </div>
+                  </Col>
                   <Col className="text-right" xs="4">
-                    <Link to={"/admin/add-event"}>
+                    <Link to={"/customer/add-event"}>
                       <Button color="primary" size="sm">
                         Publish An Event
                       </Button>
@@ -88,29 +101,42 @@ const MyEvents = (props) => {
                     </tr>
                   </thead>
                   <tbody>
-                    {posts.map((posts) => (
+                    {/* {posts */}
+                    
+
+                    {
+                       posts.filter(r => {
+                          if(searchStr === ""){
+                              return r;
+                          } else if (r.event_name.toLowerCase().includes(searchStr.toLowerCase())){
+                            return r
+                          }
+                      } )                      
+                      .map((posts) => (
                       <tr key={posts._id}>
                         <td> {posts.event_name} </td>
                         <td> {posts.date_of_the_event} </td>
                         <td> {posts.location} </td>
                         <td> {posts.event_type} </td>
-                        <td> {()=> {
-                          if(posts.date_of_the_event_end < currentDate )
-                            setStatus("Opend");
-                          else
-                            setStatus("Closed");   
-                            console.log('ssssssssssssssssss')                   
-                        }} {status} </td>
+                        <td>
+                          {" "}
+                          {() => {
+                            if (posts.date_of_the_event_end < currentDate) setStatus("Opend");
+                            else setStatus("Closed");
+                            console.log("ssssssssssssssssss");
+                          }}{" "}
+                          {status}{" "}
+                        </td>
                         <td className="text-right">
                           <UncontrolledDropdown>
                             <DropdownToggle className="btn-icon-only text-light" href="#pablo" role="button" size="sm" color="" onClick={(e) => e.preventDefault()}>
                               <i className="fas fa-ellipsis-v" />
                             </DropdownToggle>
                             <DropdownMenu className="dropdown-menu-arrow" right>
-                              <Link to={`/admin/event-display/${posts._id}`}>
+                              <Link to={`/customer/event-display/${posts._id}`}>
                                 <DropdownItem>View Event</DropdownItem>
                               </Link>
-                              <Link to={`/admin/event-update/${posts._id}`}>
+                              <Link to={`/customer/event-update/${posts._id}`}>
                                 <DropdownItem>Update Event</DropdownItem>
                               </Link>
                               <DropdownItem onClick={() => toggleModal("exampleModal")}> Delete Event</DropdownItem>

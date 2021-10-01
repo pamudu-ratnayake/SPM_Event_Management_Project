@@ -1,12 +1,21 @@
+//-------Indexes---------------------------
 import Index from "views/Index.js";
 import AdminIndex from "views/AdminIndex";
+import CustomerIndex from "views/customerIndex";
+import ServiceProviderIndex from "views/serviceProviderIndex";
+//--------------------------------------------
 
-import Register from "views/examples/Register.js";
-import Login from "views/examples/Login.js";
-import Tables from "views/examples/Tables.js";
-import Icons from "views/examples/Icons.js";
+import AllSignUps from "views/auth/AllSignUps";
+import Register from "views/auth/Register.js";
+import Login from "views/auth/Login.js";
+
+//-------------Servive Providers Routes-------------------------------
 import ServiceProviderProfile from "views/service-provider/ServiceProviderProfile";
 import RegisterServiceProvider from "views/service-provider/RegisterServiceProvider";
+import ServiceProviders from "views/service-provider/ServiceProviders";
+import CreateQuotation from "views/service-provider/CreateQuotation";
+import Events from "views/events/Events";
+//-------------------------------------------------------------------
 
 //----------customer & Event---------------------------
 import AddEvent from "views/examples/customer/AddEvent.js";
@@ -15,9 +24,10 @@ import CustomerProfile from "views/examples/customer/CustomerProfile";
 import MyEvents from "views/examples/customer/MyEvents";
 import UpdateEvent from "views/examples/customer/UpdateEvent";
 import SelectServiceProvider from "views/examples/customer/SelectServiceProvider";
+import ViewQuotation from "views/examples/customer/ViewQuotation";
 //------------------------------------------------------
 
-import ServiceProviders from "views/service-provider/ServiceProviders";
+
 // After pull dev 10/09/2021
 import AdvertisementInformation from "views/AdvertisementHandling&Boosting/AdvertisementInformation";
 import CardPayment from "views/PaymentHandling/CardPayment";
@@ -41,15 +51,10 @@ import SponsorList from "views/examples/SponsorList";
 import Sponsorship_Documentation from "views/examples/Sponsorship_Documentation";
 import My_Issue from "views/examples/My_Issue";
 import Event_Support from "views/examples/Event_Support";
+import EventDisplaySP from "views/events/EventDisplaySP";
 
 var routes = [
-  {
-    path: "/index",
-    name: "Dashboard",
-    icon: "ni ni-tv-2 text-primary",
-    component: Index,
-    layout: "/admin",
-  },
+
   {
     path: "/adminindex",
     name: "Admin Dashboard",
@@ -58,124 +63,154 @@ var routes = [
     layout: "/admin",
   },
 
- //--------customer & Events -------------------  
-  {
-    path: "/add-event",
-    name: "Publish An Event",
-    icon: "ni ni-notification-70 text-orange",
-    component: AddEvent,
-    layout: "/admin",
-  },
+	//-----------Indexes-----------
+	{
+		path: "/index",
+		name: "Dashboard",
+		icon: "ni ni-tv-2 text-primary",
+		component: Index,
+		layout: "/admin",
+	},
+	{
+		path: "/index",
+		name: "Dashboard",
+		icon: "ni ni-tv-2 text-primary",
+		component: CustomerIndex,
+		layout: "/customer",
+	},
+	{
+		path: "/index",
+		name: "Dashboard",
+		icon: "ni ni-tv-2 text-success fs-5",
+		component: ServiceProviderIndex,
+		layout: "/serviceprovider",
+	},
 
-  {
-    path: "/customer-profile",
-    name: "My Profile",
-    icon: "ni ni-single-02 text-orange",
-    component: CustomerProfile,
-    layout: "/admin",
-  },
-  {
-    path: "/my-event",
-    name: "My Events",
-    icon: "ni ni-book-bookmark text-purple",
-    component: MyEvents,
-    layout: "/admin",
-  },
-  {
-    path: "/selectservice-proivider",
-    name: "Select Service Provider",
-    icon: "ni ni-book-bookmark text-purple",
-    component: SelectServiceProvider,
-    layout: "/admin",
-  },
-  // {
-  //   path: "/icons",
-  //   name: "Icons",
-  //   icon: "ni ni-planet text-blue",
-  //   component: Icons,
-  //   layout: "/admin",
-  // },
-  // {
-  //   path: "/maps",
-  //   name: "Maps",
-  //   icon: "ni ni-pin-3 text-orange",
-  //   component: Maps,
-  //   layout: "/admin",
-  // },
-  // {
-  //   path: "/user-profile",
-  //   name: "User Profile",
-  //   icon: "ni ni-single-02 text-yellow",
-  //   component: Profile,
-  //   layout: "/admin",
-  // },
-  // {
-  //   path: "/tables",
-  //   name: "Tables",
-  //   icon: "ni ni-bullet-list-67 text-red",
-  //   component: Tables,
-  //   layout: "/admin",
-  // },
-  {
-    path: "/login",
-    name: "Login",
-    icon: "ni ni-key-25 text-info",
-    component: Login,
-    layout: "/auth",
-  },
-  {
-    path: "/register",
-    name: "Register",
-    icon: "ni ni-circle-08 text-pink",
-    component: Register,
-    layout: "/auth",
-  },
-  {
-    path: "/event-display/:_id",
-    // name: "Display Event",
-    // icon: "ni ni-notification-70 text-orange",
-    component: EventDisplay,
-    layout: "/admin",
-  },
-  {
-    path: "/event-update/:_id",
-    // name: "Update Event",
-    //icon: "ni ni-notification-70 text-orange",
-    component: UpdateEvent,
-    layout: "/admin",
-    invisible: true,
-  },
-  {
-    path: "/icons",
-    // name: "Icons",
-    //icon: "ni ni-planet text-blue",
-    component: Icons,
-    layout: "/admin",
-  },
+	//--------customer & Events -------------------
 
-  {
-    path: "/serviceProviders",
-    name: "Service Providers",
-    icon: "ni ni-pin-3 text-orange",
-    component: ServiceProviders,
-    layout: "/admin",
-  },
+	{
+		path: "/add-event",
+		name: "Publish An Event",
+		icon: "ni ni-notification-70 text-orange",
+		component: AddEvent,
+		layout: "/customer",
+	},
 
-  {
-    path: "/service-provider-profile",
-    name: "Service Provider Profile",
-    icon: "ni ni-single-02 text-yellow",
-    component: ServiceProviderProfile,
-    layout: "/admin",
-  },
+	{
+		path: "/customer-profile",
+		name: "My Profile",
+		icon: "ni ni-single-02 text-orange",
+		component: CustomerProfile,
+		layout: "/customer",
+	},
+	{
+		path: "/my-event",
+		name: "My Events",
+		icon: "ni ni-book-bookmark text-purple",
+		component: MyEvents,
+		layout: "/customer",
+	},
+	{
+		path: "/selectservice-proivider/:_id",
+		name: "Select Service Provider",
+		icon: "ni ni-book-bookmark text-purple",
+		component: SelectServiceProvider,
+		layout: "/customer",
+	},
+	{
+		path: "/view-quotations/:_id",
+		name: "View Quotations",
+		icon: "ni ni-circle-08 text-pink",
+		component: ViewQuotation,
+		layout: "/customer",
+	},
+	{
+		path: "/login",
+		name: "Login",
+		icon: "ni ni-key-25 text-info",
+		component: Login,
+		layout: "/auth",
+	},
+	{
+		path: "/register",
+		name: "Register",
+		icon: "ni ni-circle-08 text-pink",
+		component: Register,
+		layout: "/auth",
+	},
+	{
+		path: "/register-all",
+		name: "All Register",
+		icon: "ni ni-circle-08 text-pink",
+		component: AllSignUps,
+		layout: "/auth",
+		invisible: true,
+	},
+	{
+		path: "/event-display/:_id",
+		// name: "Display Event",
+		// icon: "ni ni-notification-70 text-orange",
+		component: EventDisplay,
+		layout: "/customer",
+		invisible: true,
+	},
+	{
+		path: "/event-update/:_id",
+		// name: "Update Event",
+		//icon: "ni ni-notification-70 text-orange",
+		component: UpdateEvent,
+		layout: "/customer",
+		invisible: true,
+	},
 
-  {
-    path: "/registerServiceProvider",
-    name: "Register Service Provider",
-    icon: "ni ni-circle-08 text-pink",
-    component: RegisterServiceProvider,
-    layout: "/authServiceProvider",
-  },
+	// ============== Service Provider Routes ==================
+
+	{
+		path: "/events",
+		name: "Events",
+		icon: "bx bx-movie-play text-success fs-4",
+		component: Events,
+		layout: "/serviceprovider",
+	},
+
+	{
+		path: "/registerServiceProvider",
+		name: "Register Service Provider",
+		icon: "ni ni-circle-08 text-pink",
+		component: RegisterServiceProvider,
+		layout: "/authServiceProvider",
+	},
+
+	{
+		path: "/serviceProviders",
+		name: "Service Providers",
+		icon: "bx bxs-user-voice fs-4 text-success",
+		component: ServiceProviders,
+		layout: "/serviceprovider",
+	},
+
+	{
+		path: "/service-provider-profile",
+		name: "Profile",
+		icon: "bx bxs-user text-success fs-4",
+		component: ServiceProviderProfile,
+		layout: "/serviceprovider",
+	},
+
+	{
+		path: "/event-display-sp/:_id",
+		component: EventDisplaySP,
+		layout: "/serviceprovider",
+	},
+
+	{
+		path: "/createQuotation/:_id",
+		component: CreateQuotation,
+		layout: "/serviceprovider",
+	},
+
+	// ================== Service Provider Routes =============
+	// ========================= End  =========================
 
   {
     path: "/adverisementlist",
@@ -214,13 +249,7 @@ var routes = [
     component: BoostEvent,
     layout: "/admin",
   },
-  // {
-  //   path: "/boostEventlist",
-  //   name: "Boost Event List",
-  //   icon: "ni ni-credit-card text-blue",
-  //   component: BoostEventList,
-  //   layout: "/admin",
-  // },
+
   {
     path: "/paidlist",
     name: "Paid List",
@@ -236,34 +265,6 @@ var routes = [
     component: MyPaymentList,
     layout: "/admin",
   },
-  // {
-  //   path: "/reportgeneration",
-  //   name: "Report Generation ",
-  //   icon: "ni ni-credit-card text-blue",
-  //   component: ReportGeneration,
-  //   layout: "/admin",
-  // },
-  // {
-  //   path: "/updateboostEvent",
-  //   name: "Update Boost Event",
-  //   icon: "ni ni-credit-card text-blue",
-  //   component: UpdateBoostEvent,
-  //   layout: "/admin",
-  // },
-  // {
-  //   path: "/boostadvertisementlist",
-  //   name: "Boost Advertisement List",
-  //   icon: "ni ni-credit-card text-blue",
-  //   component: BoostAdvertisementList,
-  //   layout: "/admin",
-  // },
-  // {
-  //   path: "/updateboostadvertisement",
-  //   name: "Update Boost Advertisement",
-  //   icon: "ni ni-credit-card text-blue",
-  //   component: UpdateBoostAdvertisement,
-  //   layout: "/admin",
-  // },
   
   {
     path: "/advertisement",
@@ -310,55 +311,55 @@ var routes = [
     layout: "/authPayment",
   },
 
-  {
-    path: "/Sponsorship_Request",
-    name: "Sponsors",
-    icon: "ni ni-paper-diploma text-pink",
-    component: Sponsorship_Request,
-    layout: "/admin",
-  },
-  {
-    path: "/Add_Sponsor",
-    name: "Add Sponsor",
-    icon: "ni ni-single-copy-04 text-primary",
-    component: Add_Sponsor,
-    layout: "/admin",
-  },
-  {
-    path: "/SponsorList",
-    name: "Sponsor List",
-    icon: "ni ni-active-40 text-yellow",
-    component: SponsorList,
-    layout: "/admin",
-  },
-  {
-    path: "/Sponsorship_Documentation",
-    name: "Sponsorship Documentation",
-    icon: "ni ni-collection text-info",
-    component: Sponsorship_Documentation,
-    layout: "/admin",
-  },
-  {
-    path: "/My_Issue",
-    name: "Take Help",
-    icon: "ni ni-ungroup text-pink",
-    component: My_Issue,
-    layout: "/admin",
-  },
-  {
-    path: "/Event_Support",
-    name: "Event Consulting",
-    icon: "ni ni-support-16 text-red",
-    component: Event_Support,
-    layout: "/admin",
-  },
-  {
-    path: "/Update_Sponsor/:_id",
-    // name: "Update Sponsor",
-    // icon: "ni ni-circle-08 text-pink",
-    component: Update_Sponsor,
-    layout: "/admin",
-  },
+	{
+		path: "/Sponsorship_Request",
+		name: "Sponsors",
+		icon: "ni ni-paper-diploma text-pink",
+		component: Sponsorship_Request,
+		layout: "/admin",
+	},
+	{
+		path: "/Add_Sponsor",
+		name: "Add Sponsor",
+		icon: "ni ni-single-copy-04 text-primary",
+		component: Add_Sponsor,
+		layout: "/admin",
+	},
+	{
+		path: "/SponsorList",
+		name: "Sponsor List",
+		icon: "ni ni-active-40 text-yellow",
+		component: SponsorList,
+		layout: "/admin",
+	},
+	{
+		path: "/Sponsorship_Documentation",
+		name: "Sponsorship Documentation",
+		icon: "ni ni-collection text-info",
+		component: Sponsorship_Documentation,
+		layout: "/admin",
+	},
+	{
+		path: "/My_Issue",
+		name: "Take Help",
+		icon: "ni ni-ungroup text-pink",
+		component: My_Issue,
+		layout: "/admin",
+	},
+	{
+		path: "/Event_Support",
+		name: "Event Consulting",
+		icon: "ni ni-support-16 text-red",
+		component: Event_Support,
+		layout: "/admin",
+	},
+	{
+		path: "/Update_Sponsor/:_id",
+		// name: "Update Sponsor",
+		// icon: "ni ni-circle-08 text-pink",
+		component: Update_Sponsor,
+		layout: "/admin",
+	},
 ];
 
 export default routes;

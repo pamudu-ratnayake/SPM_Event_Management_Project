@@ -21,7 +21,7 @@ const AdminNavbar = () => {
 						<img
 							alt="..."
 							src={
-								require("../../assets/img/brand/argon-react-white.png").default
+								require("../../assets/img/theme/thebliss5.png").default
 							}
 						/>
 					</NavbarBrand>
@@ -36,7 +36,7 @@ const AdminNavbar = () => {
 										<img
 											alt="..."
 											src={
-												require("../../assets/img/brand/argon-react.png")
+												require("../../assets/img/theme/thebliss5.png")
 													.default
 											}
 										/>
@@ -60,7 +60,7 @@ const AdminNavbar = () => {
 							<NavItem>
 								<NavLink
 									className="nav-link-icon"
-									to="/auth/register"
+									to="/auth/register-all"
 									tag={Link}
 								>
 									<i className="ni ni-circle-08" />
