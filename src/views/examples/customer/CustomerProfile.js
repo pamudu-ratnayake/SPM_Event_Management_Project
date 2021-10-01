@@ -3,7 +3,7 @@ import React, { useState, useMemo, useEffect, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import axios from "axios";
 import * as Yup from "yup";
-import FileBase from "react-file-base64";
+import myavatar from "assets/img/theme/profile-avatar.png"
 
 // reactstrap components
 import {
@@ -208,7 +208,7 @@ const CustomerProfile = (props) => {
                 <Col className="order-lg-2" lg="3">
                   <div className="card-profile-image">
                     <a href="#pablo" onClick={(e) => e.preventDefault()}>
-                      <img alt="..." className="rounded-circle" src={customer && customer.prof_img} />
+                      <img  className="rounded-circle" src={customer?.prof_img} alt="..." />
                     </a>
                   </div>
                 </Col>

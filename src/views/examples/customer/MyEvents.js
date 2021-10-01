@@ -68,7 +68,7 @@ const MyEvents = (props) => {
                     <h1 className="mb-0">Published Events</h1>
                   </Col>
                   <Col xs="3">
-                    <div >
+                    <div className="text-right">
                       <Input
                       type="text"
                         placeholder="Search..."
