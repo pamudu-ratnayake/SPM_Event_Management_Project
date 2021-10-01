@@ -14,8 +14,8 @@ import {
 // core components
 
 import API from "variables/tokenURL";
-import Header from "components/Headers/Header.js";
 import { useEffect, useState } from "react";
+import DashboardHeader from "components/Headers/service-provider-header/DashboardHeader";
 
 const ServiceProviderIndex = (props) => {
 	const [posts, setPosts] = useState([]);
@@ -61,7 +61,7 @@ const ServiceProviderIndex = (props) => {
 
 	return (
 		<>
-			<Header />
+			<DashboardHeader />
 			{/* Page content */}
 			<Container className="mt--7" fluid>
 				<div>

@@ -47,6 +47,7 @@ import My_Issue from "views/examples/Sponsorship_Consulting_Management/My_Issue"
 import Event_Support from "views/examples/Sponsorship_Consulting_Management/Event_Support";
 import Send_Request from "views/examples/Sponsorship_Consulting_Management/Send_Request";
 import EventDisplaySP from "views/events/EventDisplaySP";
+import CustomerProfileProvider from "views/examples/customer/CustomerProfileProvider";
 
 var routes = [
 	//-----------Indexes-----------
@@ -192,6 +193,12 @@ var routes = [
 	{
 		path: "/createQuotation/:_id",
 		component: CreateQuotation,
+		layout: "/serviceprovider",
+	},
+
+	{
+		path: "/customerProvider/:_id",
+		component: CustomerProfileProvider,
 		layout: "/serviceprovider",
 	},
 
