@@ -34,18 +34,18 @@ const CustomerNavbar = (props) => {
     }
 
     setUser(JSON.parse(localStorage.getItem("profile")));
+
+    API.get(`/customerdetails/getOneCustomer/${user?.result?._id}`)
+    .then((res) => {
+      console.log(res);
+      setCustomer(res.data);
+    })
+  .catch((error) => {
+    console.log(error);
+  })
+
   }, []);
 
-  useEffect(() => {
-    API.get(`/customerdetails/getOneCustomer/${user?.result?._id}`)
-      .then((res) => {
-        console.log(res);
-        setCustomer(res.data);
-      })
-    .catch((error) => {
-      console.log(error);
-    })
-    });
 
   return (
     <>

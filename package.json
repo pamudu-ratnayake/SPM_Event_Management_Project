@@ -51,6 +51,8 @@
     "boxicons": "^2.0.9",
     "chart.js": "^2.9.4",
     "classnames": "2.3.1",
+    "emailjs": "^3.6.0",
+    "emailjs-com": "^3.2.0",
     "formik": "^2.2.9",
     "jspdf": "^2.4.0",
     "jspdf-autotable": "^3.5.20",
@@ -71,6 +73,7 @@
     "react-router-dom": "5.2.0",
     "react-scripts": "4.0.3",
     "react-star-rating-component": "^1.4.1",
+    "react-to-pdf": "^0.0.14",
     "reactstrap": "8.9.0",
     "yup": "^0.32.9"
   },
