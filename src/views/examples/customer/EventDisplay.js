@@ -359,6 +359,22 @@ const EventDisplay = (props) => {
                       </FormGroup>
                     </Col>
                   </Row>
+                  <Row>
+                  <Col className="text-right" xs="4">
+                  <Link to={`/customer/Sponsorship_Documentation/${event._id}`}>
+                    <Button color="primary" href="#pablo">
+                      Create Sponsorship Request
+                    </Button>
+                    </Link>
+                  </Col>
+                  <Col className="text-right" xs="4">
+                  <Link to={`/customer/My_Issue/${event._id}`}>
+                    <Button color="primary" href="#pablo">
+                      Take Support
+                    </Button>
+                    </Link>
+                  </Col>
+                  </Row>
                 </Form>
               </CardBody>
             </Card>

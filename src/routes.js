@@ -37,62 +37,18 @@ import UpdateAdvertisementInformation from "views/examples/UpdateAdvertisementIn
 import AdvertisementDetails from "views/examples/AdvertisementDetails";
 import ViewAdvertisement from "views/examples/ViewAdvertisement";
 
-import Sponsorship_Request from "views/examples/Sponsorship_Request";
-import Add_Sponsor from "views/examples/Add_Sponsor";
-import Update_Sponsor from "views/examples/Update_Sponsor";
-import SponsorList from "views/examples/SponsorList";
-import Sponsorship_Documentation from "views/examples/Sponsorship_Documentation";
-import My_Issue from "views/examples/My_Issue";
-import Event_Support from "views/examples/Event_Support";
+import Sponsorship_Request from "views/examples/Sponsorship_Consulting_Management/Sponsorship_Request";
+import Add_Sponsor from "views/examples/Sponsorship_Consulting_Management/Add_Sponsor";
+import Update_Sponsor from "views/examples/Sponsorship_Consulting_Management/Update_Sponsor";
+import SponsorList from "views/examples/Sponsorship_Consulting_Management/SponsorList";
+import Requested_Sponsors from "views/examples/Sponsorship_Consulting_Management/Requested_Sponsors";
+import Sponsorship_Documentation from "views/examples/Sponsorship_Consulting_Management/Sponsorship_Documentation";
+import My_Issue from "views/examples/Sponsorship_Consulting_Management/My_Issue";
+import Event_Support from "views/examples/Sponsorship_Consulting_Management/Event_Support";
+import Send_Request from "views/examples/Sponsorship_Consulting_Management/Send_Request"
 import EventDisplaySP from "views/events/EventDisplaySP";
 
 var routes = [
-	{
-		path: "/index",
-		name: "Dashboard",
-		icon: "ni ni-tv-2 text-primary",
-		component: Index,
-		layout: "/admin",
-	},
-
-	//--------customer & Events -------------------
-	{
-		path: "/add-event",
-		name: "Publish An Event",
-		icon: "ni ni-notification-70 text-orange",
-		component: AddEvent,
-		layout: "/admin",
-	},
-
-	{
-		path: "/customer-profile",
-		name: "My Profile",
-		icon: "ni ni-single-02 text-orange",
-		component: CustomerProfile,
-		layout: "/admin",
-	},
-	{
-		path: "/my-event",
-		name: "My Events",
-		icon: "ni ni-book-bookmark text-purple",
-		component: MyEvents,
-		layout: "/admin",
-	},
-	{
-		path: "/selectservice-proivider",
-		name: "Select Service Provider",
-		icon: "ni ni-book-bookmark text-purple",
-		component: SelectServiceProvider,
-		layout: "/admin",
-	},
-
-	{
-		path: "/register",
-		name: "Register",
-		icon: "ni ni-circle-08 text-pink",
-		component: Register,
-		layout: "/auth",
-	},
 
 	//-----------Indexes-----------
 	{
@@ -315,55 +271,79 @@ var routes = [
 		layout: "/auth",
 	},
 
-	{
-		path: "/Sponsorship_Request",
-		name: "Sponsors",
-		icon: "ni ni-paper-diploma text-pink",
-		component: Sponsorship_Request,
-		layout: "/admin",
-	},
-	{
-		path: "/Add_Sponsor",
-		name: "Add Sponsor",
-		icon: "ni ni-single-copy-04 text-primary",
-		component: Add_Sponsor,
-		layout: "/admin",
-	},
-	{
-		path: "/SponsorList",
-		name: "Sponsor List",
-		icon: "ni ni-active-40 text-yellow",
-		component: SponsorList,
-		layout: "/admin",
-	},
-	{
-		path: "/Sponsorship_Documentation",
-		name: "Sponsorship Documentation",
-		icon: "ni ni-collection text-info",
-		component: Sponsorship_Documentation,
-		layout: "/admin",
-	},
-	{
-		path: "/My_Issue",
-		name: "Take Help",
-		icon: "ni ni-ungroup text-pink",
-		component: My_Issue,
-		layout: "/admin",
-	},
-	{
-		path: "/Event_Support",
-		name: "Event Consulting",
-		icon: "ni ni-support-16 text-red",
-		component: Event_Support,
-		layout: "/admin",
-	},
-	{
-		path: "/Update_Sponsor/:_id",
-		// name: "Update Sponsor",
-		// icon: "ni ni-circle-08 text-pink",
-		component: Update_Sponsor,
-		layout: "/admin",
-	},
+// ================== Sponsorship Routes =============
+
+  {
+    path: "/Sponsorship_Request",
+    name: "Sponsors",
+    icon: "ni ni-paper-diploma text-pink",
+    component: Sponsorship_Request,
+    layout: "/customer",
+  },
+  {
+    path: "/Add_Sponsor",
+    name: "Add Sponsor",
+    icon: "ni ni-single-copy-04 text-primary",
+    component: Add_Sponsor,
+    layout: "/admin",
+  },
+  {
+    path: "/SponsorList",
+    name: "Sponsor List",
+    icon: "ni ni-active-40 text-yellow",
+    component: SponsorList,
+    layout: "/admin",
+  },
+  {
+    path: "/Sponsorship_Documentation/:_id",
+    name: "Sponsorship Documentation",
+    icon: "ni ni-collection text-info",
+    component: Sponsorship_Documentation,
+    layout: "/customer",
+	invisible: true,
+  },
+  {
+    path: "/Requested_Sponsors",
+    name: "Requested Sponsors",
+    icon: "ni ni-support-16 text-red",
+    component: Requested_Sponsors,
+    layout: "/customer",
+	invisible: true,
+  },
+  {
+    path: "/Send_Request/:_id",
+    name: "Send Request",
+    icon: "ni ni-support-16 text-red",
+    component: Send_Request,
+    layout: "/customer",
+	invisible: true,
+  },
+  {
+    path: "/Update_Sponsor/:_id",
+    name: "Update Sponsor",
+    icon: "ni ni-circle-08 text-pink",
+    component: Update_Sponsor,
+    layout: "/admin",
+	invisible: true,
+  },
+
+  // ================== Event Consulting Routes =============
+
+  {
+    path: "/My_Issue/:_id",
+    name: "Take Help",
+    icon: "ni ni-ungroup text-pink",
+    component: My_Issue,
+    layout: "/customer",
+	invisible: true,
+  },
+  {
+    path: "/Event_Support",
+    name: "Event Consulting",
+    icon: "ni ni-support-16 text-red",
+    component: Event_Support,
+    layout: "/customer",
+  },
 ];
 
 export default routes;
