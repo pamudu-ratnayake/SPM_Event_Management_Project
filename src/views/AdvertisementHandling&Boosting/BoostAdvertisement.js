@@ -1,5 +1,6 @@
 // reactstrap components
 import React, { useState,useEffect} from "react";
+import { Link } from "react-router-dom";
 import {
   Button,
   Card,
@@ -325,6 +326,9 @@ const initialValues = {
                   <br></br>
                   <Row>
                     <Col className="text-right mr-4" xs="4">
+                    <Link
+                              to={`/serviceprovider/viewadvertisement`}
+                            >
                       <Button
                         color="primary"
                         onClick={() => {onSubmit(formik.values)}}
@@ -332,15 +336,9 @@ const initialValues = {
                       >
                         Boost My Advertisement
                       </Button>
+                      </Link>
                     </Col>
-                    <Col className="col text-right ml-6" xs="6">
-                      <Button
-                        color="primary"
-                        size="lm"
-                      >
-                        Cancle  
-                      </Button>
-                    </Col>
+                    
                   </Row>
                 </Form>
               </CardBody>
