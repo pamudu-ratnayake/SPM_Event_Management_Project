@@ -7,8 +7,6 @@ import ServiceProviderIndex from "views/serviceProviderIndex";
 import AllSignUps from "views/auth/AllSignUps";
 import Register from "views/auth/Register.js";
 import Login from "views/auth/Login.js";
-import Tables from "views/examples/Tables.js";
-import Icons from "views/examples/Icons.js";
 
 //-------------Servive Providers Routes-------------------------------
 import ServiceProviderProfile from "views/service-provider/ServiceProviderProfile";

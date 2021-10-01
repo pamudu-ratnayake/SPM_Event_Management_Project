@@ -100,6 +100,20 @@ const ServiceProviderProfile = (props) => {
 		values.user_id = provider.user_id;
 		values.company_id = provider.company_id;
 
+		let nic_no = values.nic_no;
+		// NIC Number Validation
+		var cnic_no_regex = new RegExp("^[0-9+]{9}[vV|xX]$");
+		var new_cnic_no_regex = new RegExp("^[0-9+]{12}$");
+
+		if (nic_no.length == 10 && cnic_no_regex.test(nic_no)) {
+			console.log("Valid NIC");
+		} else if (nic_no.length == 12 && new_cnic_no_regex.test(nic_no)) {
+			console.log("Valid NIC");
+		} else {
+			alert("Invalid NIC No");
+			return null;
+		}
+
 		API.put(`/serviceProvider/update/${provider._id}`, values)
 			.then((res) => {
 				alert("Updated Successfully !!");
