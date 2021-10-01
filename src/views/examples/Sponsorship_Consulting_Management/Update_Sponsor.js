@@ -21,23 +21,28 @@ import UserHeaderSponsorUpdate from "components/Headers/UserHeaderSponserUpdate.
 import { Formik, useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { useHistory } from "react-router";
+import API from "variables/tokenURL";
 
-const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+const phoneRegExp =
+  /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
 const validationSchema = Yup.object({
   regNo: Yup.string().required("Required!"),
   companyName: Yup.string().required("Required!"),
   sponsorType: Yup.string().required("Required!"),
-  SponsorPhoneNo: Yup.string().matches(phoneRegExp, "Phone Number is not Valid!").required("Required!").min(10,"Too short").max(10, "Too long"),
+  SponsorPhoneNo: Yup.string()
+    .matches(phoneRegExp, "Phone Number is not Valid!")
+    .required("Required!")
+    .min(10, "Too short")
+    .max(10, "Too long"),
   sponsorEmail: Yup.string().email("Invalid Email!").required("Required!"),
-  sponsorAddress: Yup.string().required()
+  sponsorAddress: Yup.string().required(),
 });
 
 const Update_Sponsor = (props) => {
-
-  console.log('ID is', props.match.params._id )
+  console.log("ID is", props.match.params._id);
 
   const [details, setCustomerRequest] = useState(0);
   let history = useHistory();
@@ -51,31 +56,38 @@ const Update_Sponsor = (props) => {
     sponsorType: details.sponsorType,
     SponsorPhoneNo: details.SponsorPhoneNo,
     sponsorEmail: details.sponsorEmail,
-    sponsorAddress: details.sponsorAddress
+    sponsorAddress: details.sponsorAddress,
   };
 
-  const onSubmit = values =>{
-    console.log('form data',values)
-    axios.put(`http://localhost:8080/sponsor/updateSponsor/${props.match.params._id}`,values)
-        .then(res => {
-          console.log(res)
-          history.push({
-            pathname: '/admin/SponsorList/${values._id}'
-          })
-        })
-        .catch(error => {
-          console.log(error)
-        })
-  }
-  useEffect(()=>{
 
-    axios.get(`http://localhost:8080/sponsor/getSponsor/${props.match.params._id}`)
-        .then(res => {
-          console.log(res);
-          setCustomerRequest(res.data)
-        }).catch((error) => {
-          console.log(error)
-        })
+  const onSubmit = (values) => {
+    console.log("form data", values);
+    API
+      .put(
+        `http://localhost:8080/sponsor/updateSponsor/${props.match.params._id}`,
+        values
+      )
+      .then((res) => {
+        console.log(res);
+        history.push({
+          pathname: "/admin/SponsorList/${values._id}",
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    API
+      .get(`http://localhost:8080/sponsor/getSponsor/${props.match.params._id}`)
+      .then((res) => {
+        console.log(res);
+        setCustomerRequest(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
 
   const formik = useFormik({
@@ -83,8 +95,9 @@ const Update_Sponsor = (props) => {
     validateOnMount: true,
     initialValues,
     onSubmit,
-    validationSchema
+    validationSchema,
   });
+
   return (
     <>
       <UserHeaderSponsorUpdate />
@@ -118,11 +131,11 @@ const Update_Sponsor = (props) => {
                           // value={formik.values.regNo}
                           defaultValue={details._id}
                         />
-                        {formik.touched._id && 
-                        formik.errors._id ?(
-                        <div style={{color:"red"}}>
-                        {formik.errors._id}</div>) 
-                        : null}
+                        {formik.touched._id && formik.errors._id ? (
+                          <div style={{ color: "red" }}>
+                            {formik.errors._id}
+                          </div>
+                        ) : null}
                       </FormGroup>
                     </Col>
                     <Col md="6">
@@ -138,15 +151,15 @@ const Update_Sponsor = (props) => {
                           // value={formik.values.regNo}
                           defaultValue={details.regNo}
                         />
-                        {formik.touched.regNo && 
-                        formik.errors.regNo ?(
-                        <div style={{color:"red"}}>
-                        {formik.errors.regNo}</div>) 
-                        : null}
+                        {formik.touched.regNo && formik.errors.regNo ? (
+                          <div style={{ color: "red" }}>
+                            {formik.errors.regNo}
+                          </div>
+                        ) : null}
                       </FormGroup>
                     </Col>
-                    </Row>
-                    <Row>
+                  </Row>
+                  <Row>
                     <Col md="12">
                       <FormGroup>
                         <label>Company Name</label>
@@ -159,11 +172,12 @@ const Update_Sponsor = (props) => {
                           // value={formik.values.companyName}
                           defaultValue={details.companyName}
                         />
-                        {formik.touched.companyName && 
-                        formik.errors.companyName ?(
-                        <div style={{color:"red"}}>
-                        {formik.errors.companyName}</div>) 
-                        : null}
+                        {formik.touched.companyName &&
+                        formik.errors.companyName ? (
+                          <div style={{ color: "red" }}>
+                            {formik.errors.companyName}
+                          </div>
+                        ) : null}
                       </FormGroup>
                     </Col>
                   </Row>
@@ -200,11 +214,12 @@ const Update_Sponsor = (props) => {
                           <option>Insurance</option>
                           <option>Other</option>
                         </Input>
-                        {formik.touched.sponsorType && 
-                        formik.errors.sponsorType ?(
-                        <div style={{color:"red"}}>
-                        {formik.errors.sponsorType}</div>) 
-                        : null}
+                        {formik.touched.sponsorType &&
+                        formik.errors.sponsorType ? (
+                          <div style={{ color: "red" }}>
+                            {formik.errors.sponsorType}
+                          </div>
+                        ) : null}
                       </FormGroup>
                     </Col>
                   </Row>
@@ -221,11 +236,12 @@ const Update_Sponsor = (props) => {
                           // value={formik.values.SponsorPhoneNo}
                           defaultValue={details.SponsorPhoneNo}
                         />
-                        {formik.touched.SponsorPhoneNo && 
-                        formik.errors.SponsorPhoneNo ?(
-                        <div style={{color:"red"}}>
-                        {formik.errors.SponsorPhoneNo}</div>) 
-                        : null}
+                        {formik.touched.SponsorPhoneNo &&
+                        formik.errors.SponsorPhoneNo ? (
+                          <div style={{ color: "red" }}>
+                            {formik.errors.SponsorPhoneNo}
+                          </div>
+                        ) : null}
                       </FormGroup>
                     </Col>
                     <Col md="6">
@@ -241,17 +257,18 @@ const Update_Sponsor = (props) => {
                           // value={formik.values.sponsorEmail}
                           defaultValue={details.sponsorEmail}
                         />
-                        {formik.touched.sponsorEmail && 
-                        formik.errors.sponsorEmail ?(
-                        <div style={{color:"red"}}>
-                        {formik.errors.sponsorEmail}</div>) 
-                        : null}
+                        {formik.touched.sponsorEmail &&
+                        formik.errors.sponsorEmail ? (
+                          <div style={{ color: "red" }}>
+                            {formik.errors.sponsorEmail}
+                          </div>
+                        ) : null}
                       </FormGroup>
                     </Col>
                   </Row>
                   <Row>
                     <Col>
-                  <FormGroup>
+                      <FormGroup>
                         <label>Address</label>
                         <Input
                           id="exampleFormControlInput1"
@@ -269,10 +286,10 @@ const Update_Sponsor = (props) => {
                           </div>
                         ) : null}
                       </FormGroup>
-                      </Col>
+                    </Col>
                   </Row>
+
                   <div className="d-flex justify-content-between">
-                    
                     <Button
                       color="primary"
                       size="sm"

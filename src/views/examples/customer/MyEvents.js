@@ -1,7 +1,7 @@
 import ReactDatetime from "react-datetime";
 import API from "variables/tokenURL";
 // reactstrap components
-import { Button, Modal, Card, CardHeader, CardBody, FormGroup, Form, Input, Container, Row, Col, DropdownMenu, DropdownItem, UncontrolledDropdown, DropdownToggle, Table } from "reactstrap";
+import { Button, Modal, Card,Input, CardHeader, CardBody, Container, Row, Col, DropdownMenu, DropdownItem, UncontrolledDropdown, DropdownToggle, Table } from "reactstrap";
 // core components
 import EventListHeader from "components/Headers/EventListHeader";
 import { useEffect, useState } from "react";
@@ -75,8 +75,7 @@ const MyEvents = (props) => {
                         style={{ borderWidth: "2.5px", width: "15rem", height: "2rem",  textAlign: "left", borderRadius: "15px" }}
                         onChange={(e) => {
                           setSearch(e.target.value);
-                        }}
-              
+                        }}              
                       />
                     </div>
                   </Col>

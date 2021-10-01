@@ -7,8 +7,6 @@ import ServiceProviderIndex from "views/serviceProviderIndex";
 import AllSignUps from "views/auth/AllSignUps";
 import Register from "views/auth/Register.js";
 import Login from "views/auth/Login.js";
-import Tables from "views/examples/Tables.js";
-import Icons from "views/examples/Icons.js";
 
 //-------------Servive Providers Routes-------------------------------
 import ServiceProviderProfile from "views/service-provider/ServiceProviderProfile";
@@ -39,13 +37,15 @@ import UpdateAdvertisementInformation from "views/examples/UpdateAdvertisementIn
 import AdvertisementDetails from "views/examples/AdvertisementDetails";
 import ViewAdvertisement from "views/examples/ViewAdvertisement";
 
-import Sponsorship_Request from "views/examples/Sponsorship_Request";
-import Add_Sponsor from "views/examples/Add_Sponsor";
-import Update_Sponsor from "views/examples/Update_Sponsor";
-import SponsorList from "views/examples/SponsorList";
-import Sponsorship_Documentation from "views/examples/Sponsorship_Documentation";
-import My_Issue from "views/examples/My_Issue";
-import Event_Support from "views/examples/Event_Support";
+import Sponsorship_Request from "views/examples/Sponsorship_Consulting_Management/Sponsorship_Request";
+import Add_Sponsor from "views/examples/Sponsorship_Consulting_Management/Add_Sponsor";
+import Update_Sponsor from "views/examples/Sponsorship_Consulting_Management/Update_Sponsor";
+import SponsorList from "views/examples/Sponsorship_Consulting_Management/SponsorList";
+import Requested_Sponsors from "views/examples/Sponsorship_Consulting_Management/Requested_Sponsors";
+import Sponsorship_Documentation from "views/examples/Sponsorship_Consulting_Management/Sponsorship_Documentation";
+import My_Issue from "views/examples/Sponsorship_Consulting_Management/My_Issue";
+import Event_Support from "views/examples/Sponsorship_Consulting_Management/Event_Support";
+import Send_Request from "views/examples/Sponsorship_Consulting_Management/Send_Request"
 import EventDisplaySP from "views/events/EventDisplaySP";
 
 var routes = [
@@ -275,7 +275,7 @@ var routes = [
     name: "Sponsors",
     icon: "ni ni-paper-diploma text-pink",
     component: Sponsorship_Request,
-    layout: "/admin",
+    layout: "/customer",
   },
   {
     path: "/Add_Sponsor",
@@ -292,32 +292,54 @@ var routes = [
     layout: "/admin",
   },
   {
-    path: "/Sponsorship_Documentation",
+    path: "/Sponsorship_Documentation/:_id",
     name: "Sponsorship Documentation",
     icon: "ni ni-collection text-info",
     component: Sponsorship_Documentation,
-    layout: "/admin",
+    layout: "/customer",
+	invisible: true,
   },
   {
-    path: "/My_Issue",
+    path: "/Requested_Sponsors",
+    name: "Requested Sponsors",
+    icon: "ni ni-support-16 text-red",
+    component: Requested_Sponsors,
+    layout: "/customer",
+	invisible: true,
+  },
+  {
+    path: "/Send_Request/:_id",
+    name: "Send Request",
+    icon: "ni ni-support-16 text-red",
+    component: Send_Request,
+    layout: "/customer",
+	invisible: true,
+  },
+  {
+    path: "/Update_Sponsor/:_id",
+    name: "Update Sponsor",
+    icon: "ni ni-circle-08 text-pink",
+    component: Update_Sponsor,
+    layout: "/admin",
+	invisible: true,
+  },
+
+  // ================== Event Consulting Routes =============
+
+  {
+    path: "/My_Issue/:_id",
     name: "Take Help",
     icon: "ni ni-ungroup text-pink",
     component: My_Issue,
-    layout: "/admin",
+    layout: "/customer",
+	invisible: true,
   },
   {
     path: "/Event_Support",
     name: "Event Consulting",
     icon: "ni ni-support-16 text-red",
     component: Event_Support,
-    layout: "/admin",
-  },
-  {
-    path: "/Update_Sponsor/:_id",
-    // name: "Update Sponsor",
-    // icon: "ni ni-circle-08 text-pink",
-    component: Update_Sponsor,
-    layout: "/admin",
+    layout: "/customer",
   },
 ];
 
