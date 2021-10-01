@@ -82,7 +82,7 @@ const BoostEvent = (props) => {
  }
 }
 
-const total_payment = newPackage;
+const total = newPackage;
 
   const onSubmit = (values) => {
     console.log("Form Date", values);
@@ -117,7 +117,7 @@ const total_payment = newPackage;
     validateOnMount: true,
     boosting_Event:"",
     boosting_Purpose:"",
-    total:""
+    // total:total,
   };
 
   const [notificationModal, setmodalDemo] = useState(false);
@@ -164,8 +164,8 @@ const total_payment = newPackage;
                       </Col>
                       
                       <Modal
-              className="modal-dialog-centered modal-primary"
-              contentClassName="bg-gradient-primary"
+              className="modal-dialog-centered modal-Success"
+              contentClassName="bg-gradient-Success"
               isOpen={notificationModal}
               toggle={() => toggleModal("notificationModal")}
             >
@@ -309,20 +309,22 @@ const total_payment = newPackage;
                   <Col xs="1">:</Col>
                   <Col xs="4"
                   >
-                  {total_payment}</Col>
+                  {total}</Col>
                   <Col xs="3">
                   <PaymentModal
 	// Use a unique value for the orderId
 	
 	name={event.event_name}
-  type = "event"
+  boostTY = "event"
   date_occur={event.date_of_the_event}
-	amount={total_payment}
+	amount="1000.00"
+  user_email={event.cus_email}
   orderId={event._id}
   user_name={event.org_name}
   current_date={currentDate}
   fname={user?.result?.firstName}
   lname={user?.result?.lastName}
+
    />
                       </Col>
 

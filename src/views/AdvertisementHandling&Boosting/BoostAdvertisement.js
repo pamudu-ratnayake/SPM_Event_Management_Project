@@ -56,6 +56,8 @@ const BoostAdvertisement = (props) => {
 
   const today = new Date();
   const currentDate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+  console.log("kl",currentDate)
+
 
 var boosting_Package = ['1 day','3 day','5 day','10 day','20 day','30 day']
 const [newPackage, setnewPackage] = useState(null);
@@ -303,9 +305,9 @@ const initialValues = {
   user_name={addsData.service_Provider_Name}
 	user_email={addsData.email_SP}
   current_date={currentDate}
-  type = "advertisment"
-  current_date={addsData.advertisment_Duration}
-	name={addsData.advertisment_title}
+  amount="1000.00"
+  boostTY = "advertisment"
+	name={addsData.advertisement_title}
       />
                   </Col>
                 </Row>

@@ -30,6 +30,8 @@ import AdvertisementDetails from "views/AdvertisementHandling&Boosting/Advertise
 import ViewAdvertisement from "views/AdvertisementHandling&Boosting/ViewAdvertisement";
 import PaidList from "views/PaymentHandling/PaidList";
 import MyAdvertisementList from "views/AdvertisementHandling&Boosting/MyAdvertisementList";
+import ViewPayment from "views/PaymentHandling/ViewPayment";
+import MyPaymentList from "views/PaymentHandling/MyPaymentList";
 
 
 import Sponsorship_Request from "views/examples/Sponsorship_Request";
@@ -226,6 +228,14 @@ var routes = [
     component: PaidList,
     layout: "/admin",
   },
+
+  {
+    path: "/mypaymentlist",
+    name: "My Payments",
+    icon: "ni ni-credit-card text-blue",
+    component: MyPaymentList,
+    layout: "/admin",
+  },
   // {
   //   path: "/reportgeneration",
   //   name: "Report Generation ",
@@ -267,6 +277,14 @@ var routes = [
     name: "View Advertisement",
     icon: "ni ni-tv-2 text-pink",
     component: ViewAdvertisement,
+    layout: "/admin",
+  },
+
+  {
+    path: "/viewpayement/:_id",
+    name: "View Payment",
+    icon: "ni ni-tv-2 text-pink",
+    component: ViewPayment,
     layout: "/admin",
   },
   {

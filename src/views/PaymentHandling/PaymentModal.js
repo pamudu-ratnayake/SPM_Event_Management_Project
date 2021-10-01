@@ -6,7 +6,7 @@ import API from 'variables/tokenURL';
 const user = JSON.parse(localStorage.getItem('profile'));
 
 
-const PaymentModal = ({ orderId,name,amount, user_email, user_name, current_date, date_occur, type_name, type }) => {
+const PaymentModal = ({ orderId,name,amount, user_email, user_name, current_date, date_occur, boostTY }) => {
   
   // Put the payment variables here
   var payment = {
@@ -62,7 +62,7 @@ const PaymentModal = ({ orderId,name,amount, user_email, user_name, current_date
 
   function payBack(){
 
-    if (type==="event"){
+    if (boostTY=="event"){
 
       var pay_details= {
         type_id: orderId,
@@ -71,21 +71,19 @@ const PaymentModal = ({ orderId,name,amount, user_email, user_name, current_date
         total:amount,
         date_event_occur:date_occur,
         payment_date:current_date,
-        type:type,
+        type:boostTY,
         type_name:name,
-        
-
-
+     
       }
     }
-    if(type==="addvertisment"){
+    if(boostTY=="advertisment"){
       var pay_details= {
         type_id: orderId,
         user_name: user_name,
         user_email:user_email,
         total:amount,
         payment_date:current_date,
-        type:type,
+        type:boostTY,
         type_name:name,
     }
   }
@@ -101,7 +99,6 @@ const PaymentModal = ({ orderId,name,amount, user_email, user_name, current_date
   return <Button
   className="mr-1 ml-1"
   color="info"
-  href="#pablo"
   size="lm"
   onClick={pay}>
      Pay Now

@@ -9,6 +9,7 @@ import {
   CardTitle,
   Table,
   CardImg,
+  Col,
   CardBody,
   DropdownItem,
   DropdownToggle,
@@ -18,6 +19,7 @@ import {
   Button,
   Container,
   Input,
+  CardHeader,
 } from "reactstrap";
 // import ReactDatetime from "react-datetime";
 // core components
@@ -32,6 +34,8 @@ const MyAdvertisementList = (props) => {
   function toggleModal() {
     setmodalDemo(!defaultModal);
   }
+  const [searchStr, setSearch] = useState("");
+
 
   const [addslist, setviewlist] = useState([]);
 
@@ -68,6 +72,31 @@ const MyAdvertisementList = (props) => {
       {/* Page content */}
       <Container className="mt--7" fluid>
         <Card>
+          <CardHeader>
+          <Col xs="3">
+
+<div >
+
+  <Input
+
+  type="text"
+
+    placeholder="Search..."
+
+    style={{ borderWidth: "2.5px", width: "15rem", height: "2rem",  textAlign: "left", borderRadius: "15px" }}
+
+    onChange={(e) => {
+
+      setSearch(e.target.value);
+
+    }}              
+
+  />
+
+</div>
+
+</Col>
+            </CardHeader>
           <FormGroup>
             <Table className="align-items-center" responsive>
               <thead className="thead-light">
@@ -83,7 +112,21 @@ const MyAdvertisementList = (props) => {
                 </tr>
               </thead>
               <tbody>
-                {addslist.map((addslist) => (
+              {
+
+addslist.filter(r => {
+
+   if(searchStr === ""){
+
+       return r;
+
+   } else if (r._id.toLowerCase().includes(searchStr.toLowerCase())){
+
+     return r
+
+   }
+
+} ) .map((addslist) => (
                   <tr key={addslist._id}>
                     <td>{addslist._id}</td>
                     <td>{addslist.service_Provider_Name}</td>

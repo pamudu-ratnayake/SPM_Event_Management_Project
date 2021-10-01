@@ -33,6 +33,7 @@ const AdvertisementList = (props) => {
   }
 
   const [addslist, setviewlist] = useState([]);
+  const [deleteID, setDeleteID] = useState('');
 
   useEffect(() => {
     axios
@@ -47,11 +48,11 @@ const AdvertisementList = (props) => {
       });
   }, []);
 
-  const deleteRequest = (_id) => {
-    console.log('ID eka: ', _id)
+  const deleteRequest = () => {
+    console.log('ID eka: ',deleteID)
     axios
       .delete(
-        `http://localhost:8080/advertisement/deleteAdvertisement/${_id}`
+        `http://localhost:8080/advertisement/deleteAdvertisement/${deleteID}`
       )
       .then((res) => {
         console.log(res);
@@ -141,7 +142,7 @@ const AdvertisementList = (props) => {
                   <Button
                     color="primary"
                     type="button"
-                    onClick={deleteRequest.bind(props.this, addslist._id)}
+                    onClick={() => deleteRequest()}
                   //  onClick={() => toggleModal("defaultModal")}
                   >
                     Delete Request
@@ -174,8 +175,8 @@ const AdvertisementList = (props) => {
                           >
                             <DropdownItem>Update Request</DropdownItem>
                           </Link>
-                          <DropdownItem
-                            onClick={() => toggleModal("defaultModal")}
+                          <DropdownItem                 
+                          onClick={function(event){toggleModal("defaultModal"); setDeleteID(addslist._id)}}
                           >
                             Delete Request
                           </DropdownItem>
