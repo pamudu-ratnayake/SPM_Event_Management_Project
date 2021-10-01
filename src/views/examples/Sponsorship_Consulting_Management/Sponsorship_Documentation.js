@@ -29,18 +29,18 @@ import API from "variables/tokenURL";
 // const phoneRegExp =
 //   /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
-// const validationSchema = Yup.object({
-//   package: Yup.string().required("Required!"),
-//   amount: Yup.string().required("Required!"),
-// });
+const validationSchema = Yup.object({
+  package: Yup.string().required("Required!"),
+  amount: Yup.number().required("Required!"),
+});
 
 const Sponsorship_Documentation = (props) => {
-  // const initialValues = {
-  //   enableReinitialize: true,
-  //   validateOnMount: true,
-  //   package: "",
-  //   amount: "",
-  // };
+  const initialValues = {
+    enableReinitialize: true,
+    validateOnMount: true,
+    package: "",
+    amount: "",
+  };
 
   const [posts, setPosts] = useState([]);
   const [pkg, setPackage] = useState([]);
@@ -69,10 +69,7 @@ const Sponsorship_Documentation = (props) => {
   };
 
   useEffect(() => {
-    API
-      .get(
-        `http://localhost:8080/eventAdd/getOneEvent/${props.match.params._id}`
-      )
+    API.get(`/eventAdd/getOneEvent/${props.match.params._id}`)
       .then((res) => {
         console.log(res);
         setPosts(res.data);
@@ -82,10 +79,11 @@ const Sponsorship_Documentation = (props) => {
       });
   }, []);
 
-  // const formik = useFormik({
-  //   initialValues,
-  //   validationSchema,
-  // });
+  const formik = useFormik({
+    initialValues,
+    // onSubmit,
+    validationSchema,
+  });
 
   // const columns = [{ tittle: "Package Name", field: "Amount" }];
 
@@ -94,7 +92,7 @@ const Sponsorship_Documentation = (props) => {
   const e_date = posts.date_of_the_event;
   const e_time = posts.event_time;
   const e_loct = posts.location;
-  // const e_days = posts.days_occurs.toString();
+  const e_days = posts.days_occurs?.toString();
   const e_type = posts.event_type;
   const orz_name = posts.organizer_name;
   const orz_email = posts.cus_email;
@@ -105,12 +103,12 @@ const Sponsorship_Documentation = (props) => {
   // console.log("the value", rqs);
   const columns = [
     { title: "Package Name", dataKey: "pkg_name" },
-    { title: "Amount (LKR.)", dataKey: "amount" }
+    { title: "Amount (LKR.)", dataKey: "amount" },
   ];
 
   var rows = pkg.map((pkgs) => ({
     pkg_name: pkgs?.pkg_name,
-    amount: pkgs?.amount
+    amount: pkgs?.amount,
   }));
 
   // const logo = require('../../../assets/img/logo/logo.png')
@@ -126,7 +124,7 @@ const Sponsorship_Documentation = (props) => {
     doc.setLineWidth(1.5);
     doc.line(50, 65, 420, 65);
 
-    doc.setFontSize(12)
+    doc.setFontSize(12);
     doc.setFont("Helvertica", "bold");
     doc.setTextColor("red");
     doc.text(160, 85, "SPONSORSHIP REQUEST");
@@ -165,7 +163,7 @@ const Sponsorship_Documentation = (props) => {
     doc.text(180, 180, e_date);
     doc.text(180, 200, e_time);
     doc.text(180, 220, e_loct);
-    // doc.text(180, 240, e_days);
+    doc.text(180, 240, e_days);
     doc.text(180, 260, e_type);
     doc.text(180, 280, orz_name);
     doc.text(180, 300, orz_email);
@@ -181,23 +179,8 @@ const Sponsorship_Documentation = (props) => {
 
     doc.autoTable(columns, rows, {
       margin: { top: 420, bottom: 0, left: 100, right: 100 },
-      theme: "grid",
+      theme: "striped",
     });
-
-    // doc.autoTable({
-    //   margin: { top: 420, bottom: 0, left: 100, right: 100 },
-    //   head: [["Package Name", "Amount (LKR.)"]],
-    //   theme: "grid",
-    // });
-    // doc.autoTable({
-    //   margin: { top: 0, bottom: 0, left: 100, right: 100 },
-    //   // Cells in first column centered and green
-    //   // margin: { top: 10 },
-    //   // columns: pkg.map(col=>({...col,dataKey:col.pkg_name})),
-    //   // head: [['Package Name', 'Amount']],
-    //   body: pkg,
-    //   theme: "grid",
-    // });
 
     doc.setLineWidth(1.5);
     doc.line(50, 600, 420, 600);
@@ -359,7 +342,16 @@ const Sponsorship_Documentation = (props) => {
                                   placeholder="Package Name"
                                   type="text"
                                   name="pkg_name"
+                                  onChange={formik.handleChange}
+                                  onBlur={formik.handleBlur}
+                                  value={formik.values.pkg_name}
                                 />
+                                {formik.touched.pkg_name &&
+                                formik.errors.pkg_name ? (
+                                  <div style={{ color: "red" }}>
+                                    {formik.errors.pkg_name}
+                                  </div>
+                                ) : null}
                               </Col>
                               <Col xs="5">
                                 <Input
@@ -367,7 +359,16 @@ const Sponsorship_Documentation = (props) => {
                                   placeholder="Amount in Rupees"
                                   type="text"
                                   name="amount"
+                                  onChange={formik.handleChange}
+                                  onBlur={formik.handleBlur}
+                                  value={formik.values.amount}
                                 />
+                                {formik.touched.amount &&
+                                formik.errors.amount ? (
+                                  <div style={{ color: "red" }}>
+                                    {formik.errors.amount}
+                                  </div>
+                                ) : null}
                               </Col>
 
                               {/* Add Button */}
@@ -436,7 +437,7 @@ const Sponsorship_Documentation = (props) => {
                                   }}
                                   value={props.rqs}
                                   id="exampleFormControlTextarea1"
-                                  placeholder="Write a large text here ..."
+                                  placeholder="Sponsorship Request ..."
                                   rows="3"
                                   type="textarea"
                                 />
@@ -447,7 +448,7 @@ const Sponsorship_Documentation = (props) => {
                       </Row>
                       <div>
                         <Button
-                          color="primary"
+                          color="success"
                           size="sm"
                           type="button"
                           onClick={pdfGenerater}

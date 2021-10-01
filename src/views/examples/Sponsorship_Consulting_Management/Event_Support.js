@@ -53,7 +53,7 @@ const Event_Support = (props) => {
 
   useEffect(() => {
     API
-      .get("http://localhost:8080/consulting/getIssues")
+      .get("/consulting/getIssues")
       .then((res) => {
         setIssue(res.data);
         console.log(res.data);
@@ -70,7 +70,7 @@ const Event_Support = (props) => {
     // e.preventDefault()
 
     API
-      .post(`http://localhost:8080/consulting/addAnswer/${_id}`, values)
+      .post(`/consulting/addAnswer/${_id}`, values)
       .then((res) => {
         console.log(res.data);
         console.log("data", values);
@@ -79,8 +79,8 @@ const Event_Support = (props) => {
         console.log(error);
       });
 
-    // history.push()
-  };
+      window.location.reload(false);
+      };
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -122,7 +122,7 @@ const Event_Support = (props) => {
               <Col className="col text-right" xl="">
                 <Link to={"/customer/my-event"}>
                   <Button color="primary" size="sm" name="">
-                    Display Event
+                    My Event
                   </Button>
                 </Link>
               </Col>
@@ -167,7 +167,7 @@ const Event_Support = (props) => {
                       <Card className="card-stats mb-1">
                         <CardBody>
                           <Row>
-                            <Col xl="11">
+                            <Col xl="10">
                               <FormGroup>
                                 <Input
                                   id="exampleFormControlTextarea1"
@@ -186,17 +186,16 @@ const Event_Support = (props) => {
                                 ) : null}
                               </FormGroup>
                             </Col>
-                            <Col xl="1">
+                            <Col xl="2">
                               <Button
-                                color="primary"
+                                color="success"
                                 size="sm"
                                 type="submit"
-                                className="mt-10"
                                 onClick={() =>
                                   onSubmit(formik.values, issue._id)
                                 }
                               >
-                                add
+                                Publish
                               </Button>
                             </Col>
                           </Row>
