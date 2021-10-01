@@ -44,8 +44,7 @@ const EventDisplay = (props) => {
 
   //useEffect
   useEffect(async () => {
-    await API
-      .get(`/eventAdd/getOneEvent/${props.match.params._id}`)
+    await API.get(`/eventAdd/getOneEvent/${props.match.params._id}`)
       .then(async (res) => {
         console.log(res);
         setEvent(res.data);
@@ -74,11 +73,11 @@ const EventDisplay = (props) => {
 
   const setReview = () => {
     var rates = {
-      review_rate:{
-        rate:rating,
+      review_rate: {
+        rate: rating,
         review: reviews,
-      }    
-    }
+      },
+    };
 
     API.post(`/serviceProvider/review-update/${SPID}`, rates)
       .then((res) => {
@@ -270,126 +269,97 @@ const EventDisplay = (props) => {
               </CardHeader>
               <CardBody>
                 <Form>
-                  <Row>
-                    <Col md="6">
-                      <FormGroup>
-                        <label>Event Name : </label>
-                        <label className="ml-3"> {event.event_name} </label>
-                      </FormGroup>
-                    </Col>
-                    <Col md="6">
-                      <FormGroup>
-                        <label>Event Type : </label>
-                        <label className="ml-3"> {event.event_type} </label>
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col md="6">
-                      <FormGroup>
-                        <label>Organization Name : </label>
-                        <label className="ml-3">{event.org_name}</label>
-                      </FormGroup>
-                    </Col>
-                    <Col md="6">
-                      <FormGroup>
-                        <label>Date of The Event : </label>
-                        <label className="ml-3"> {event.date_of_the_event} </label>
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col md="6">
-                      <FormGroup>
-                        <label>Event Time : </label>
-                        <label className="ml-3"> {event.event_time} </label>
-                      </FormGroup>
-                    </Col>
-                    <Col md="6">
-                      <FormGroup>
-                        <label>Days Event Occurs : </label>
-                        <label className="ml-3"> {event.days_occurs} day</label>
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col md="6">
-                      <FormGroup>
-                        <label>Location : </label>
-                        <label className="ml-3"> {event.location} </label>
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col>
-                      <label className="mb-2">Required Services : </label>
-                    </Col>
-                  </Row>
+                  <FormGroup>
+                    <Row>
+                      <Col md="2">Event Name</Col>
+                      <Col md="4">: {event.event_name}</Col>
+                      <Col md="2">Event Type</Col>
+                      <Col md="4">: {event.event_type}</Col>
+                    </Row>
+                  </FormGroup>
+                  <FormGroup>
+                    <Row>
+                      <Col md="2">Organization Name</Col>
+                      <Col md="4">: {event.org_name}</Col>
+                      <Col md="2">Date of The Event</Col>
+                      <Col md="4">: {event.date_of_the_event}</Col>
+                    </Row>
+                  </FormGroup>
+                  <FormGroup>
+                    <Row>
+                      <Col md="2">Event Time</Col>
+                      <Col md="4">: {event.event_time}</Col>
+                      <Col md="2">Days Event Occurs</Col>
+                      <Col md="4">: {event.days_occurs} day</Col>
+                    </Row>
+                  </FormGroup>
+                  <FormGroup>
+                    <Row>
+                      <Col md="2">Event Closing Date</Col>
+                      <Col md="4">: {event.date_of_the_event_end}</Col>
+                    </Row>
+                  </FormGroup>
+                  <FormGroup>
+                    <Row>
+                      <Col md="2">Required Services</Col>
 
-                  <Col>
-                    {event.checkboxOption &&
-                      event.checkboxOption.map((checkbox, index) => {
-                        return (
-                          <div className="ml-5" key={index}>
-                            {" "}
-                            <Label> {checkbox} </Label>
-                          </div>
-                        );
-                      })}
-                  </Col>
+                      <Col md="8">
+                        :
+                        {event.checkboxOption &&
+                          event.checkboxOption.map((checkbox, index) => {
+                            return (
+                              <div className="ml-5" key={index}>
+                                {" "}
+                                <Label> {checkbox} </Label>
+                              </div>
+                            );
+                          })}
+                      </Col>
+                    </Row>
+                  </FormGroup>
 
                   <h2 className="mt-5 mb-4">Contact Information</h2>
+                  <FormGroup>
+                    <Row>
+                      <Col md="2">Organizer Name</Col>
+                      <Col md="4">: {event.organizer_name}</Col>
+                      <Col md="2">Organizer's NIC</Col>
+                      <Col md="4">: {event.org_nic}</Col>
+                    </Row>
+                  </FormGroup>
+                  <FormGroup>
+                    <Row>
+                      <Col md="2">Email</Col>
+                      <Col md="4">: {event.cus_email}</Col>
+                      <Col md="2">Contact Number </Col>
+                      <Col md="4">: {event.cus_con_number}</Col>
+                    </Row>
+                  </FormGroup>
+                  <FormGroup>
+                    <Row>
+                      <Col md="2">Description</Col>
+                      <Col md="10">: {event.description}</Col>
+                    </Row>
+                  </FormGroup>
+                  <br />
+                  <br />
+                  <br />
+
                   <Row>
-                    <Col md="6">
-                      <FormGroup>
-                        <label>Organizer Name : </label>
-                        <label className="ml-3"> {event.organizer_name} </label>
-                      </FormGroup>
+                    <Col className="text-right" xs="4">
+                      <Link to={`/customer/Sponsorship_Documentation/${event._id}`}>
+                        <Button color="primary" href="#pablo">
+                          Create Sponsorship Request
+                        </Button>
+                      </Link>
                     </Col>
-                    <Col md="6">
-                      <FormGroup>
-                        <label>Organizer's NIC : </label>
-                        <label className="ml-3"> {event.org_nic} </label>
-                      </FormGroup>
+                    <Col className="text-right" xs="4">
+                      <Link to={`/customer/My_Issue/${event._id}`}>
+                        <Button color="primary" href="#pablo">
+                          Take Support
+                        </Button>
+                      </Link>
                     </Col>
-                  </Row>
-                  <Row>
-                    <Col md="6">
-                      <FormGroup>
-                        <label>Email : </label>
-                        <label className="ml-3"> {event.cus_email} </label>
-                      </FormGroup>
-                    </Col>
-                    <Col md="6">
-                      <FormGroup>
-                        <label>Contact Number : </label>
-                        <label className="ml-3"> {event.cus_con_number} </label>
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col md="10">
-                      <FormGroup>
-                        <label>Description : </label>
-                        <label className="ml-3"> {event.description} </label>
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                  <Row>
-                  <Col className="text-right" xs="4">
-                  <Link to={`/customer/Sponsorship_Documentation/${event._id}`}>
-                    <Button color="primary" href="#pablo">
-                      Create Sponsorship Request
-                    </Button>
-                    </Link>
-                  </Col>
-                  <Col className="text-right" xs="4">
-                  <Link to={`/customer/My_Issue/${event._id}`}>
-                    <Button color="primary" href="#pablo">
-                      Take Support
-                    </Button>
-                    </Link>
-                  </Col>
                   </Row>
                 </Form>
               </CardBody>

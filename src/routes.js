@@ -36,6 +36,7 @@ import BoostAdvertisement from "views/examples/BoostAdvertisement";
 import UpdateAdvertisementInformation from "views/examples/UpdateAdvertisementInformation";
 import AdvertisementDetails from "views/examples/AdvertisementDetails";
 import ViewAdvertisement from "views/examples/ViewAdvertisement";
+import TopEvents from "views/examples/customer/TopEvents";
 
 import Sponsorship_Request from "views/examples/Sponsorship_Consulting_Management/Sponsorship_Request";
 import Add_Sponsor from "views/examples/Sponsorship_Consulting_Management/Add_Sponsor";
@@ -85,7 +86,7 @@ var routes = [
   {
     path: "/customer-profile",
     name: "My Profile",
-    icon: "ni ni-single-02 text-orange",
+    icon: "ni ni-single-02 text-success",
     component: CustomerProfile,
     layout: "/customer",
   },
@@ -102,6 +103,7 @@ var routes = [
     icon: "ni ni-book-bookmark text-purple",
     component: SelectServiceProvider,
     layout: "/customer",
+    invisible: true,
   },
   {
     path: "/view-quotations/:_id",
@@ -109,6 +111,7 @@ var routes = [
     icon: "ni ni-circle-08 text-pink",
     component: ViewQuotation,
     layout: "/customer",
+    invisible: true,
   },
   {
     path: "/login",
@@ -147,6 +150,14 @@ var routes = [
     component: UpdateEvent,
     layout: "/customer",
     invisible: true,
+  },
+
+  {
+    path: "/top-events",
+    name: "Top Events",
+    icon: "bx bx-movie-play text-success fs-4",
+    component: TopEvents,
+    layout: "/serviceprovider",
   },
 
   // ============== Service Provider Routes ==================

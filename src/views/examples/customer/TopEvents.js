@@ -9,7 +9,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { setConstantValue } from "typescript";
 
-const MyEvents = (props) => {
+const TopEvents = (props) => {
   const [posts, setPosts] = useState([]);
   const today = new Date();
   const currentDate = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate() + today.getTime();
@@ -20,7 +20,7 @@ const MyEvents = (props) => {
   const user = JSON.parse(localStorage.getItem("profile"));
 
   useEffect(() => {
-    API.get(`/eventAdd/getevents`)
+    API.get(`/eventAdd/gettopevents/${user?.result?.service_type}`)
       .then((res) => {
         setPosts(res.data);
         console.log(res.data);
@@ -37,20 +37,6 @@ const MyEvents = (props) => {
     setmodalDemo(!exampleModal);
   }
 
-  const deleteEvent = () => {
-    API
-      .delete(`/eventAdd/deleteevent/${deleteID}`)
-      .then((response) => {
-        console.log(response);
-        // props.history.push('/admin');
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
-    //refreshing
-    window.location.reload(false);
-  };
 
   console.log("status", currentDate);
 
@@ -65,7 +51,7 @@ const MyEvents = (props) => {
               <CardHeader className="bg-white border-0">
                 <Row className="align-items-center">
                   <Col xs="6">
-                    <h1 className="mb-0">Published Events</h1>
+                    <h1 className="mb-0">Top Events</h1>
                   </Col>
                   <Col xs="4" >
                     <div style={{marginLeft:170}}>
@@ -78,13 +64,6 @@ const MyEvents = (props) => {
                         }}              
                       />
                     </div>
-                  </Col>
-                  <Col  className="text-right ml--6" xs="2">
-                    <Link to={"/customer/add-event"}>
-                      <Button color="primary" size="sm">
-                        Publish An Event
-                      </Button>
-                    </Link>
                   </Col>
                 </Row>
               </CardHeader>
@@ -122,35 +101,11 @@ const MyEvents = (props) => {
                             </DropdownToggle>
                             <DropdownMenu className="dropdown-menu-arrow" right>
                               <Link to={`/customer/event-display/${posts._id}`}>
-                                <DropdownItem>View Event</DropdownItem>
+                              <Button color="primary" size="sm">
+                        View Event
+                      </Button>
                               </Link>
-                              <Link to={`/customer/event-update/${posts._id}`}>
-                                <DropdownItem>Update Event</DropdownItem>
-                              </Link>
-                              <DropdownItem onClick={function (event) {
-                                            toggleModal("exampleModal");
-                                            setDeleteID(posts._id);
-                                          }}> Delete Event</DropdownItem>
 
-                              <Modal className="modal-dialog-centered" isOpen={exampleModal} toggle={() => toggleModal("exampleModal")}>
-                                <div className="modal-header">
-                                  <h5 className="modal-title" id="exampleModalLabel">
-                                    Confirm to delete this event
-                                  </h5>
-                                  <button aria-label="Close" className="close" data-dismiss="modal" type="button" onClick={() => toggleModal("exampleModal")}>
-                                    <span aria-hidden={true}>×</span>
-                                  </button>
-                                </div>
-                                <div className="modal-body">Do you want to delete this event?</div>
-                                <div className="modal-footer">
-                                  <Button color="primary" type="button" onClick={() => deleteEvent()}>
-                                    Confirm Delete
-                                  </Button>
-                                  <Button color="secondary" data-dismiss="modal" type="button" onClick={() => toggleModal("exampleModal")}>
-                                    Close
-                                  </Button>
-                                </div>
-                              </Modal>
                             </DropdownMenu>
                           </UncontrolledDropdown>
                         </td>
@@ -167,4 +122,4 @@ const MyEvents = (props) => {
   );
 };
 
-export default MyEvents;
+export default TopEvents;

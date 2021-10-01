@@ -6,7 +6,7 @@ import Slider from "components/Slider/Slider";
 const CustomerIndexHeader = () => {
   return (
     <>
-      <div className="header bg-gradient-success pb-2 pt-3 pt-md-8">
+      <div className="header bg-gradient-primary pb-2 pt-3 pt-md-8 ">
         <Container fluid>
 
         <Row>
