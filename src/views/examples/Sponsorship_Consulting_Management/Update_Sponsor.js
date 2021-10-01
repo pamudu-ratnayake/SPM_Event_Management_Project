@@ -23,7 +23,6 @@ import * as Yup from "yup";
 import axios from "axios";
 import React, { useEffect, useState, useMemo } from "react";
 import { useHistory } from "react-router";
-import { useDropzone } from "react-dropzone";
 
 const phoneRegExp =
   /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
@@ -59,56 +58,6 @@ const Update_Sponsor = (props) => {
     sponsorAddress: details.sponsorAddress,
   };
 
-  const baseStyle = {
-    flex: 1,
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    padding: "90px",
-    borderWidth: 2,
-    borderRadius: 2,
-    borderColor: "#A9A9B0",
-    borderStyle: "dashed",
-    marginBottom: "20px",
-    backgroundColor: "#ffffff",
-    color: "default",
-    outline: "none",
-    transition: "border .24s ease-in-out",
-  };
-  const activeStyle = {
-    borderColor: "#2196f3",
-  };
-  const acceptStyle = {
-    borderColor: "#00e676",
-  };
-  const rejectStyle = {
-    borderColor: "#ff1744",
-  };
-
-  const {
-    acceptedFiles,
-    getRootProps,
-    getInputProps,
-    isDragActive,
-    isDragAccept,
-    isDragReject,
-  } = useDropzone();
-
-  const style = useMemo(
-    () => ({
-      ...baseStyle,
-      ...(isDragActive ? activeStyle : {}),
-      ...(isDragAccept ? acceptStyle : {}),
-      ...(isDragReject ? rejectStyle : {}),
-    }),
-    [isDragActive, isDragReject, isDragAccept]
-  );
-
-  const files = acceptedFiles.map((file) => (
-    <li key={file.name}>
-      {file.name} - {file.size} bytes
-    </li>
-  ));
 
   const onSubmit = (values) => {
     console.log("form data", values);
@@ -336,22 +285,6 @@ const Update_Sponsor = (props) => {
                           </div>
                         ) : null}
                       </FormGroup>
-                    </Col>
-                  </Row>
-
-                  <Row>
-                    <Col>
-                      <label>Upload Logo</label>
-                      <div {...getRootProps({ style })}>
-                        <input {...getInputProps()} />
-                        <p>
-                          Drag 'n' drop your image file here, or click to select
-                          files
-                        </p>
-                      </div>
-
-                      <h4>File Details</h4>
-                      <ul>{files}</ul>
                     </Col>
                   </Row>
 

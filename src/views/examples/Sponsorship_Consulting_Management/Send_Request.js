@@ -18,7 +18,7 @@ import {
   Alert,
 } from "reactstrap";
 // core components
-import UserHeaderAddSponsor from "components/Headers/UserHeaderAddSponsor.js";
+import UserHeaderSendRequest from "components/Headers/UserHeaderSendRequest.js";
 import { Formik, useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
@@ -131,7 +131,7 @@ const Send_Request = (props) => {
 
   return (
     <>
-      <UserHeaderAddSponsor />
+      <UserHeaderSendRequest />
       {/* Page content */}
       <Container className="mt--7" fluid>
         <Row>

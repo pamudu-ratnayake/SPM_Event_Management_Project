@@ -50,6 +50,8 @@ const Sponsorship_Request = () => {
   //   });
   // };
 
+  console.log(posts.logo);
+
   return (
     <>
       <UserHeaderSponsors />
@@ -107,10 +109,7 @@ const Sponsorship_Request = () => {
                           <CardImg
                             style={{ height: "120px" }}
                             alt="..."
-                            src={
-                              require("../../../assets/img/logo/logo4.jpg")
-                                .default
-                            }
+                            src={posts && posts.logo}
                             top
                           />
                           <CardBody>

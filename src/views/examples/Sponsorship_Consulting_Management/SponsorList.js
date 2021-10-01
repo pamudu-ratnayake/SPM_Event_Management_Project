@@ -1,7 +1,6 @@
 // SponsorList
 
 import {
-  Badge,
   Card,
   CardHeader,
   DropdownMenu,
@@ -15,6 +14,7 @@ import {
   Col,
   Modal,
   Button,
+  Input,
 } from "reactstrap";
 // core components
 import UserHeaderSponsorsList from "components/Headers/UserHeaderSponsorsList.js";
@@ -25,6 +25,7 @@ import { Link } from "react-router-dom";
 const SponsorList = (props) => {
   const [posts, setPosts] = useState([]);
   const [exampleModal, setModalDemo] = useState(false);
+  const [searchStr, setSearch] = useState("");
 
   const toggleModal = () => {
     setModalDemo(!exampleModal);
@@ -69,10 +70,28 @@ const SponsorList = (props) => {
             <Card className="shadow">
               <CardHeader className="border-0">
                 <Row>
-                  <Col className="border-0" xl="9">
+                  <Col className="border-0" xl="7">
                     <h3 className="mb-0">Sponsor List</h3>
                   </Col>
-                  <Col className="col text-right" xl="3">
+                  <Col xs="3">
+                    <div>
+                      <Input
+                        type="text"
+                        placeholder="Search..."
+                        style={{
+                          borderWidth: "2.5px",
+                          width: "15rem",
+                          height: "2rem",
+                          textAlign: "left",
+                          borderRadius: "15px",
+                        }}
+                        onChange={(e) => {
+                          setSearch(e.target.value);
+                        }}
+                      />
+                    </div>
+                  </Col>
+                  <Col className="col text-right" xl="">
                     <Link to={"/admin/Add_Sponsor"}>
                       <Button color="primary" size="sm" name="">
                         Add Sponsor
@@ -95,16 +114,28 @@ const SponsorList = (props) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {posts.map((posts) => (
-                    <tr key={posts._id}>
-                      <td scope="row">
-                        <Media className="align-items-center">
-                          <a
-                            className="avatar rounded-circle mr-3"
-                            href="#pablo"
-                            onClick={(e) => e.preventDefault()}
-                          >
-                            {/* <img
+                  {posts
+                    .filter((r) => {
+                      if (searchStr === "") {
+                        return r;
+                      } else if (
+                        r.companyName
+                          .toLowerCase()
+                          .includes(searchStr.toLowerCase())
+                      ) {
+                        return r;
+                      }
+                    })
+                    .map((posts) => (
+                      <tr key={posts._id}>
+                        <td scope="row">
+                          <Media className="align-items-center">
+                            <a
+                              className="avatar rounded-circle mr-3"
+                              href="#pablo"
+                              onClick={(e) => e.preventDefault()}
+                            >
+                              {/* <img
                                 alt="..."
                                 src={
                                   require("../../assets/img/theme/bootstrap.jpg")
@@ -112,120 +143,125 @@ const SponsorList = (props) => {
                                 }
                               /> */}
 
-                            <i className="ni ni-building" />
-                          </a>
-                          <Media>
-                            <span className="mb-0 text-sm">
-                              {posts.companyName}
-                            </span>
+                              <i className="ni ni-building" />
+                            </a>
+                            <Media>
+                              <span className="mb-0 text-sm">
+                                <i className="bg-warning" />
+                                {posts.companyName}
+                              </span>
+                            </Media>
                           </Media>
-                        </Media>
-                      </td>
-                      <td>{posts._id}</td>
-                      <td>
-                        <Badge color="" className="badge-dot mr-4">
-                          {/* <i className="bg-warning" /> */}
-                          {posts.regNo}
-                        </Badge>
-                      </td>
-                      <td>
-                        <div className="d-flex align-items-center">
-                          <span className="mr-2">{posts.sponsorEmail}</span>
-                        </div>
-                      </td>
-                      <td>
-                        <div className="d-flex align-items-center">
-                          <span className="mr-2">{posts.SponsorPhoneNo}</span>
-                        </div>
-                      </td>
-                      <td>
-                        <div className="d-flex align-items-center">
-                          <span className="mr-2">{posts.sponsorType}</span>
-                        </div>
-                      </td>
-                      <td>
-                        <div className="d-flex align-items-center">
-                          <span className="mr-2">{posts.sponsorAddress}</span>
-                        </div>
-                      </td>
-                      <td className="text-right">
-                        <UncontrolledDropdown>
-                          <DropdownToggle
-                            className="btn-icon-only text-light"
-                            href="#pablo"
-                            role="button"
-                            size="sm"
-                            color=""
-                            onClick={(e) => e.preventDefault()}
-                          >
-                            <i className="fas fa-ellipsis-v" />
-                          </DropdownToggle>
-                          <DropdownMenu className="dropdown-menu-arrow" right>
-                            <Link to={`/admin/Update_Sponsor/${posts._id}`}>
+                        </td>
+                        <td>{posts._id}</td>
+                        <td>
+                          <span color="" className="badge-dot mr-4">
+                            {/* <i className="bg-warning" /> */}
+                            {posts.regNo}
+                          </span>
+                        </td>
+                        <td>
+                          <div className="d-flex align-items-center">
+                            <span className="mr-2">{posts.sponsorEmail}</span>
+                          </div>
+                        </td>
+                        <td>
+                          <div className="d-flex align-items-center">
+                            <span className="mr-2">{posts.SponsorPhoneNo}</span>
+                          </div>
+                        </td>
+                        
+                        <td>
+                          <div className="d-flex align-items-center badge-dot mr-4">
+                            <span className="mr-2">
+                              <i className="bg-warning" />
+                              {posts.sponsorType}
+                            </span>
+                          </div>
+                        </td>
+                        <td>
+                          <div className="d-flex align-items-center">
+                            <span className="mr-2">{posts.sponsorAddress}</span>
+                          </div>
+                        </td>
+                        <td className="text-right">
+                          <UncontrolledDropdown>
+                            <DropdownToggle
+                              className="btn-icon-only text-light"
+                              href="#pablo"
+                              role="button"
+                              size="sm"
+                              color=""
+                              onClick={(e) => e.preventDefault()}
+                            >
+                              <i className="fas fa-ellipsis-v" />
+                            </DropdownToggle>
+                            <DropdownMenu className="dropdown-menu-arrow" right>
+                              <Link to={`/admin/Update_Sponsor/${posts._id}`}>
+                                <DropdownItem
+                                  // onClick={(e) => e.preventDefault()}
+                                  type="submit"
+                                >
+                                  Edit Sponsor
+                                </DropdownItem>
+                              </Link>
                               <DropdownItem
-                                // onClick={(e) => e.preventDefault()}
-                                type="submit"
+                                onClick={() => toggleModal("exampleModel")}
                               >
-                                Edit Sponsor
+                                Remove
                               </DropdownItem>
-                            </Link>
-                            <DropdownItem
-                              onClick={() => toggleModal("exampleModel")}
-                            >
-                              Remove
-                            </DropdownItem>
 
-                            <Modal
-                              className="modal-dialog-centered"
-                              isOpen={exampleModal}
-                              toggle={() => toggleModal("exampleModal")}
-                            >
-                              <div className="modal-header">
-                                <h5
-                                  className="modal-title"
-                                  id="exampleModalLabel"
-                                >
-                                  Confirmation to Remove Sponsor
-                                </h5>
-                                <button
-                                  aria-label="Close"
-                                  className="close"
-                                  data-dismiss="modal"
-                                  type="button"
-                                  onClick={() => toggleModal("exampleModal")}
-                                >
-                                  <span aria-hidden={true}>×</span>
-                                </button>
-                              </div>
-                              <div className="modal-body">
-                                Do you want to remove Sponsor?
-                              </div>
-                              <div className="modal-footer">
-                                <Button
-                                  color="secondary"
-                                  data-dismiss="modal"
-                                  type="button"
-                                  onClick={() => toggleModal("exampleModal")}
-                                >
-                                  Close
-                                </Button>
-                                <Button
-                                  color="primary"
-                                  type="button"
-                                  onClick={deleteCustomer.bind(
-                                    props.this,
-                                    posts._id
-                                  )}
-                                >
-                                  Confirm Remove
-                                </Button>
-                              </div>
-                            </Modal>
-                          </DropdownMenu>
-                        </UncontrolledDropdown>
-                      </td>
-                    </tr>
-                  ))}
+                              <Modal
+                                className="modal-dialog-centered"
+                                isOpen={exampleModal}
+                                toggle={() => toggleModal("exampleModal")}
+                              >
+                                <div className="modal-header">
+                                  <h5
+                                    className="modal-title"
+                                    id="exampleModalLabel"
+                                  >
+                                    Confirmation to Remove Sponsor
+                                  </h5>
+                                  <button
+                                    aria-label="Close"
+                                    className="close"
+                                    data-dismiss="modal"
+                                    type="button"
+                                    onClick={() => toggleModal("exampleModal")}
+                                  >
+                                    <span aria-hidden={true}>×</span>
+                                  </button>
+                                </div>
+                                <div className="modal-body">
+                                  Do you want to remove Sponsor?
+                                </div>
+                                <div className="modal-footer">
+                                  <Button
+                                    color="secondary"
+                                    data-dismiss="modal"
+                                    type="button"
+                                    onClick={() => toggleModal("exampleModal")}
+                                  >
+                                    Close
+                                  </Button>
+                                  <Button
+                                    color="primary"
+                                    type="button"
+                                    onClick={deleteCustomer.bind(
+                                      props.this,
+                                      posts._id
+                                    )}
+                                  >
+                                    Confirm Remove
+                                  </Button>
+                                </div>
+                              </Modal>
+                            </DropdownMenu>
+                          </UncontrolledDropdown>
+                        </td>
+                      </tr>
+                    ))}
                 </tbody>
               </Table>
             </Card>

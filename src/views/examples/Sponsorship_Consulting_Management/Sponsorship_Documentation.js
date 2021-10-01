@@ -93,15 +93,24 @@ const Sponsorship_Documentation = (props) => {
   const e_date = posts.date_of_the_event;
   const e_time = posts.event_time;
   const e_loct = posts.location;
-  const e_days = posts.days_occurs.toString();
+  // const e_days = posts.days_occurs.toString();
   const e_type = posts.event_type;
   const orz_name = posts.organizer_name;
   const orz_email = posts.cus_email;
   const orz_cont = posts.cus_con_number;
   const e_disc = posts.description;
   const rqs = msg;
-  const yr = new Date().getFullYear().toString();
+  const year = new Date().getFullYear().toString();
   // console.log("the value", rqs);
+  const columns = [
+    { title: "Package Name", dataKey: "pkg_name" },
+    { title: "Amount (LKR.)", dataKey: "amount" }
+  ];
+
+  var rows = pkg.map((pkgs) => ({
+    pkg_name: pkgs?.pkg_name,
+    amount: pkgs?.amount
+  }));
 
   // const logo = require('../../../assets/img/logo/logo.png')
   const pdfGenerater = () => {
@@ -116,6 +125,7 @@ const Sponsorship_Documentation = (props) => {
     doc.setLineWidth(1.5);
     doc.line(50, 65, 420, 65);
 
+    doc.setFontSize(12)
     doc.setFont("Helvertica", "bold");
     doc.setTextColor("red");
     doc.text(160, 85, "SPONSORSHIP REQUEST");
@@ -154,33 +164,39 @@ const Sponsorship_Documentation = (props) => {
     doc.text(180, 180, e_date);
     doc.text(180, 200, e_time);
     doc.text(180, 220, e_loct);
-    doc.text(180, 240, e_days);
+    // doc.text(180, 240, e_days);
     doc.text(180, 260, e_type);
     doc.text(180, 280, orz_name);
     doc.text(180, 300, orz_email);
     doc.text(180, 320, orz_cont);
     doc.text(180, 340, e_disc);
 
-    doc.text(50, 360, rqs);
+    doc.text(50, 365, rqs);
 
     // doc.addPage();
     doc.setFont("Helvertica", "bold");
     doc.setTextColor("blue");
     doc.text(50, 400, "Sponsorship Criteria");
-    doc.autoTable({
+
+    doc.autoTable(columns, rows, {
       margin: { top: 420, bottom: 0, left: 100, right: 100 },
-      head: [["Package Name", "Amount (LKR.)"]],
       theme: "grid",
     });
-    doc.autoTable({
-      margin: { top: 0, bottom: 0, left: 100, right: 100 },
-      // Cells in first column centered and green
-      // margin: { top: 10 },
-      // columns: pkg.map(col=>({...col,dataKey:col.pkg_name})),
-      // head: [['Package Name', 'Amount']],
-      body: pkg,
-      theme: "grid",
-    });
+
+    // doc.autoTable({
+    //   margin: { top: 420, bottom: 0, left: 100, right: 100 },
+    //   head: [["Package Name", "Amount (LKR.)"]],
+    //   theme: "grid",
+    // });
+    // doc.autoTable({
+    //   margin: { top: 0, bottom: 0, left: 100, right: 100 },
+    //   // Cells in first column centered and green
+    //   // margin: { top: 10 },
+    //   // columns: pkg.map(col=>({...col,dataKey:col.pkg_name})),
+    //   // head: [['Package Name', 'Amount']],
+    //   body: pkg,
+    //   theme: "grid",
+    // });
 
     doc.setLineWidth(1.5);
     doc.line(50, 600, 420, 600);
@@ -188,7 +204,7 @@ const Sponsorship_Documentation = (props) => {
     doc.setTextColor(100);
     doc.setFontSize(8);
     doc.text(50, 610, "©");
-    doc.text(60, 610, yr);
+    doc.text(60, 610, year);
     doc.setTextColor("red");
     doc.text(75, 610, "COPYRIGHT");
 

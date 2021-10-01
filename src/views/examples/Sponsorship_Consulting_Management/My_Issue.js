@@ -32,6 +32,8 @@ const validationSchema = Yup.object({
 
 const My_Issue = (props) => {
   const [details, setDetails] = useState(0);
+  const [issue, setIssue] = useState([]);
+  const [searchStr, setSearch] = useState("");
 
   useEffect(() => {
     axios
@@ -47,6 +49,20 @@ const My_Issue = (props) => {
       });
   }, []);
 
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/consulting/getIssues")
+      .then((res) => {
+        setIssue(res.data);
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  // console.log(issue.eventObj._id);
+
   let history = useHistory();
 
   const onSubmit = (values) => {
@@ -59,7 +75,7 @@ const My_Issue = (props) => {
         console.log("Data", values);
         console.log(details._id);
         history.push({
-          pathname: `/admin/Event_Support`,
+          pathname: `/customer/Event_Support`,
         });
       })
       .catch((error) => {
@@ -100,7 +116,7 @@ const My_Issue = (props) => {
         <div className="col">
           <Card
             className="bg-secondary shadow"
-            style={({ width: "28rem" }, { height: "50rem" })}
+            // style={({ width: "28rem" }, { height: "50rem" })}
           >
             <CardHeader className="border-0">
               <Row>
@@ -108,7 +124,9 @@ const My_Issue = (props) => {
                   <h3 className="mb-0">Hi! We are here to help now ...</h3>
                 </Col>
                 <Col className="col text-right" xl="3">
-                  <Link to={`/admin/Event_Support/${props.match.params._id}`}>
+                  <Link
+                    to={`/customer/Event_Support/${props.match.params._id}`}
+                  >
                     <Button color="primary" size="sm">
                       Search for Solution
                     </Button>
@@ -222,6 +240,52 @@ const My_Issue = (props) => {
                   </Col>
                 </Form>
               </Row>
+
+              <Card>
+                <CardBody>
+                  {issue
+                    .filter((r) => {
+                      if (issue._id  === details._id) {
+                        return r;
+                      } else if (
+                        r._id.toLowerCase().includes(searchStr.toLowerCase())
+                      ) {
+                        return r;
+                      }
+                    })
+                    .map((issue, index) => (
+                      <div className="mb-4" key={issue._id}>
+                        <Card className="mb-0">
+                          <CardBody className="pt-1 pt-md-0 pb-1">
+                            <CardText className="h5 pt-2 pb-2">
+                              <Col>
+                                <em>{issue.issue}</em>
+                              </Col>
+                            </CardText>
+                          </CardBody>
+                        </Card>
+                        <div className="ml-6">
+                          {/* <Form onSubmit={formik.handleSubmit}> */}
+                          <Form>
+                            <Card className="card-stats mb-1">
+                              <CardBody>
+                                
+                                {issue.answers &&
+                                  issue.answers.map((answer, index) => {
+                                    return (
+                                      <Row className="mt-4" key={index}>
+                                        {answer}
+                                      </Row>
+                                    );
+                                  })}
+                              </CardBody>
+                            </Card>
+                          </Form>
+                        </div>
+                      </div>
+                    ))}
+                </CardBody>
+              </Card>
             </CardBody>
           </Card>
         </div>
