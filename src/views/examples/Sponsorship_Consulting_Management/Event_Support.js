@@ -120,9 +120,9 @@ const Event_Support = (props) => {
                 </div>
               </Col>
               <Col className="col text-right" xl="">
-                <Link to={"/admin/Add_Sponsor"}>
+                <Link to={"/customer/my-event"}>
                   <Button color="primary" size="sm" name="">
-                    Add Sponsor
+                    Display Event
                   </Button>
                 </Link>
               </Col>

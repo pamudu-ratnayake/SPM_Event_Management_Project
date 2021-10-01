@@ -273,69 +273,78 @@ var routes = [
 		layout: "/auth",
 	},
 
+// ================== Sponsorship Routes =============
 
   {
     path: "/Sponsorship_Request",
-    name: "* Sponsors",
+    name: "Sponsors",
     icon: "ni ni-paper-diploma text-pink",
     component: Sponsorship_Request,
     layout: "/customer",
   },
   {
     path: "/Add_Sponsor",
-    name: "* Add Sponsor",
+    name: "Add Sponsor",
     icon: "ni ni-single-copy-04 text-primary",
     component: Add_Sponsor,
     layout: "/admin",
   },
   {
     path: "/SponsorList",
-    name: "* Sponsor List",
+    name: "Sponsor List",
     icon: "ni ni-active-40 text-yellow",
     component: SponsorList,
     layout: "/admin",
   },
   {
     path: "/Sponsorship_Documentation/:_id",
-    name: "* Sponsorship Documentation",
+    name: "Sponsorship Documentation",
     icon: "ni ni-collection text-info",
     component: Sponsorship_Documentation,
     layout: "/customer",
-  },
-  {
-    path: "/My_Issue/:_id",
-    name: "* Take Help",
-    icon: "ni ni-ungroup text-pink",
-    component: My_Issue,
-    layout: "/customer",
-  },
-  {
-    path: "/Event_Support",
-    name: "* Event Consulting",
-    icon: "ni ni-support-16 text-red",
-    component: Event_Support,
-    layout: "/customer",
+	invisible: true,
   },
   {
     path: "/Requested_Sponsors",
-    name: "* Requested Sponsors",
+    name: "Requested Sponsors",
     icon: "ni ni-support-16 text-red",
     component: Requested_Sponsors,
     layout: "/customer",
+	invisible: true,
   },
   {
     path: "/Send_Request/:_id",
-    name: "* Send Request",
+    name: "Send Request",
     icon: "ni ni-support-16 text-red",
     component: Send_Request,
     layout: "/customer",
+	invisible: true,
   },
   {
     path: "/Update_Sponsor/:_id",
-    // name: "Update Sponsor",
-    // icon: "ni ni-circle-08 text-pink",
+    name: "Update Sponsor",
+    icon: "ni ni-circle-08 text-pink",
     component: Update_Sponsor,
     layout: "/admin",
+	invisible: true,
+  },
+
+  // ================== Event Consulting Routes =============
+
+  {
+    path: "/My_Issue/:_id",
+    name: "Take Help",
+    icon: "ni ni-ungroup text-pink",
+    component: My_Issue,
+    layout: "/customer",
+	invisible: true,
+  },
+  {
+    path: "/Event_Support",
+    name: "Event Consulting",
+    icon: "ni ni-support-16 text-red",
+    component: Event_Support,
+    layout: "/customer",
   },
 ];
 

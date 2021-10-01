@@ -33,7 +33,7 @@ const validationSchema = Yup.object({
 
 const My_Issue = (props) => {
   const [details, setDetails] = useState(0);
-  const [issue, setIssue] = useState([]);
+  const [myissue, setMyissue] = useState([]);
   const [searchStr, setSearch] = useState("");
 
   useEffect(() => {
@@ -52,9 +52,9 @@ const My_Issue = (props) => {
 
   useEffect(() => {
     API
-      .get("http://localhost:8080/consulting/getIssues")
+      .get(`http://localhost:8080/consulting/getByevent/${details._id}`)
       .then((res) => {
-        setIssue(res.data);
+        setMyissue(res.data);
         console.log(res.data);
       })
       .catch((err) => {
@@ -244,17 +244,7 @@ const My_Issue = (props) => {
 
               <Card>
                 <CardBody>
-                  {issue
-                    .filter((r) => {
-                      if (issue._id  === details._id) {
-                        return r;
-                      } else if (
-                        r._id.toLowerCase().includes(searchStr.toLowerCase())
-                      ) {
-                        return r;
-                      }
-                    })
-                    .map((issue, index) => (
+                  {myissue.map((issue, index) => (
                       <div className="mb-4" key={issue._id}>
                         <Card className="mb-0">
                           <CardBody className="pt-1 pt-md-0 pb-1">
