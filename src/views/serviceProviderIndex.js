@@ -67,10 +67,10 @@ const ServiceProviderIndex = (props) => {
 				<div>
 					<div style={{ marginLeft: "10.6rem" }}>
 						<Card style={{ width: "50rem" }}>
+							<CardHeader>
+								<h1 className="text-success">Quotation Status</h1>
+							</CardHeader>
 							<CardBody>
-								<CardHeader>
-									<h1 className="text-success">Quotation Status</h1>
-								</CardHeader>
 								<Pie data={data}></Pie>
 							</CardBody>
 						</Card>

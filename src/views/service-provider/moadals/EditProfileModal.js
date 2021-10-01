@@ -25,14 +25,12 @@ function EditProfileModal(props) {
 		// company Variavles
 		company_name: company.company_name,
 		details: company.details,
-		file: company.file,
 	};
 
 	// Validation Schema
 	const validationSchema = Yup.object({
 		company_name: Yup.string().required("*Required!"),
 		details: Yup.string(),
-		file: Yup.string(),
 	});
 
 	// Submite Method
@@ -160,23 +158,6 @@ function EditProfileModal(props) {
 									/>
 									{formik.touched.details && formik.errors.details ? (
 										<div style={{ color: "red" }}>{formik.errors.details}</div>
-									) : null}
-								</FormGroup>
-							</Col>
-						</Row>
-						<Row>
-							<Col>
-								<FormGroup>
-									<Input
-										class="btn border border-light w-100"
-										type="file"
-										name="file"
-										onChange={formik.handleChange}
-										onBlur={formik.handleBlur}
-										value={formik.values.file}
-									/>
-									{formik.touched.file && formik.errors.file ? (
-										<div style={{ color: "red" }}>{formik.errors.file}</div>
 									) : null}
 								</FormGroup>
 							</Col>
