@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import API from "variables/tokenURL";
+import { useDropzone } from "react-dropzone";
 // Modals
 import EditProfileModal from "./moadals/EditProfileModal";
 import RatingModal from "./moadals/RatingModal";
@@ -33,6 +34,69 @@ const ServiceProviderProfile = (props) => {
 
 	// Taking Current User
 	const user = JSON.parse(localStorage.getItem("profile")).result;
+
+	const baseStyle = {
+		flex: 1,
+		display: "flex",
+		flexDirection: "column",
+		alignItems: "center",
+		padding: "10px",
+		borderWidth: 2,
+		borderRadius: 10,
+		borderColor: "#eeeeee",
+		borderStyle: "dashed",
+		backgroundColor: "#bab8b8",
+		color: "#bdbdbd",
+		outline: "none",
+		transition: "border .24s ease-in-out",
+	};
+	const activeStyle = {
+		borderColor: "#2196f3",
+	};
+	const acceptStyle = {
+		borderColor: "#00e676",
+	};
+	const rejectStyle = {
+		borderColor: "#ff1744",
+	};
+
+	const [files, setFiles] = useState([]);
+
+	const {
+		acceptedFiles,
+		getRootProps,
+		getInputProps,
+		isDragActive,
+		isDragAccept,
+		isDragReject,
+		open,
+	} = useDropzone({
+		onDrop: (acceptedFiles) => {
+			setFiles(
+				acceptedFiles.map((file) =>
+					Object.assign(file, {
+						preview: URL.createObjectURL(file),
+					})
+				)
+			);
+		},
+	});
+
+	const style = useMemo(
+		() => ({
+			...baseStyle,
+			...(isDragActive ? activeStyle : {}),
+			...(isDragAccept ? acceptStyle : {}),
+			...(isDragReject ? rejectStyle : {}),
+		}),
+		[isDragActive, isDragReject, isDragAccept]
+	);
+
+	const filepath = acceptedFiles.map((file) => (
+		<li key={file.name}>
+			{file.name} - {file.size} bytes
+		</li>
+	));
 
 	useEffect(() => {
 		API.get(`/serviceProvider/getByUser/${user._id}`)
@@ -114,7 +178,21 @@ const ServiceProviderProfile = (props) => {
 			return null;
 		}
 
-		API.put(`/serviceProvider/update/${provider._id}`, values)
+		let formdata = new FormData();
+		formdata.append("servic_provider_Id", provider.servic_provider_Id);
+		formdata.append("user_id", provider.user_id);
+		formdata.append("company_id", provider.company_id);
+		formdata.append("nic_no", values.nic_no);
+		formdata.append("first_name", values.first_name);
+		formdata.append("last_name", values.last_name);
+		formdata.append("user_name", values.user_name);
+		formdata.append("email", values.email);
+		formdata.append("mobile", values.mobile);
+		formdata.append("telephone", values.telephone);
+		formdata.append("address", values.address);
+		formdata.append("file", acceptedFiles[0]);
+
+		API.put(`/serviceProvider/update/${provider._id}`, formdata)
 			.then((res) => {
 				alert("Updated Successfully !!");
 				disableInputs();
@@ -157,10 +235,7 @@ const ServiceProviderProfile = (props) => {
 											<img
 												alt="..."
 												className="rounded-circle"
-												src={
-													require("../../assets/img/theme/team-4-800x800.jpg")
-														.default
-												}
+												src={provider?.prof_img}
 											/>
 										</a>
 									</div>
@@ -188,8 +263,12 @@ const ServiceProviderProfile = (props) => {
 											{/* Rating Modal */}
 											<RatingModal />
 											<div>
-												<span className="heading">10</span>
-												<span className="description">Completed</span>
+												<span className="heading">
+													<i class="bx bx-task text-green fs-2 ">4</i>
+												</span>
+												<span className="description text-green">
+													Completed
+												</span>
 											</div>
 											{/* Comment Modal */}
 											<CommentModal />
@@ -223,6 +302,15 @@ const ServiceProviderProfile = (props) => {
 								</div>
 							</CardBody>
 						</Card>
+						<div className="m-2" {...getRootProps({ style })}>
+							<input {...getInputProps()} />
+							{/* <FileBase><input {...getInputProps()} /></FileBase> */}
+							<p>
+								Drag 'n' drop your image file here, or click to select files
+							</p>
+						</div>
+
+						<h4>File Details : {filepath}</h4>
 					</Col>
 					<Col className="order-xl-1" xl="8">
 						<Card className="bg-secondary shadow">
@@ -232,7 +320,6 @@ const ServiceProviderProfile = (props) => {
 										<h3 className="mb-0">My account</h3>
 									</Col>
 									<Col className="text-right" xs="4">
-										<Button size="sm">Download PDF</Button>
 										<Button
 											color="primary"
 											href="#pablo"
