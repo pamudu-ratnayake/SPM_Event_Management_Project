@@ -13,11 +13,11 @@ const EventListHeader = () => {
 						require("../../../assets/img/theme/event11.jpg").default +
 						")",
 					backgroundSize: "cover",
-					backgroundPosition: "center top",
+					backgroundPosition: "center bottom",
 				}}
 			>
 				{/* Mask */}
-				<span className="mask bg-gradient-default opacity-7" />
+				<span className="mask bg-gradient-default opacity-5" />
 				{/* Header container */}
 				<Container className="d-flex align-items-center" fluid>
 					<Row>
