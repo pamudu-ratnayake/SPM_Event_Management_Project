@@ -52,8 +52,7 @@ const Event_Support = (props) => {
   };
 
   useEffect(() => {
-    API
-      .get("/consulting/getIssues")
+    API.get("/consulting/getIssues")
       .then((res) => {
         setIssue(res.data);
         console.log(res.data);
@@ -69,8 +68,7 @@ const Event_Support = (props) => {
 
     // e.preventDefault()
 
-    API
-      .post(`/consulting/addAnswer/${_id}`, values)
+    API.post(`/consulting/addAnswer/${_id}`, values)
       .then((res) => {
         console.log(res.data);
         console.log("data", values);
@@ -79,8 +77,8 @@ const Event_Support = (props) => {
         console.log(error);
       });
 
-      window.location.reload(false);
-      };
+    window.location.reload(false);
+  };
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -140,32 +138,34 @@ const Event_Support = (props) => {
                 }
               })
               .map((issue, index) => (
-                <div className="mb-4" key={issue._id}>
+                <div className="mb-4 " key={issue._id}>
                   <Card className="mb-0">
-                    <CardBody className="pt-1 pt-md-0 pb-1">
-                      <CardText className="h5 mt-1">
+                    <CardHeader>
+                      <Row className="h5 mt-1">
                         {issue.eventObj.event_name} will take place on{" "}
                         {issue.eventObj.date_of_the_event}, at{" "}
                         {issue.eventObj.event_time} in {issue.eventObj.location}
                         The event will take place over the course of{" "}
                         {issue.eventObj.days_occurs} days. This event will be
                         held {issue.eventObj.event_type}.
-                      </CardText>
-                      <CardText className="h5 mt-1">
+                      </Row>
+                      <Row className="h5 mt-1">
                         {issue.eventObj.description}
-                      </CardText>
+                      </Row>
+                      </CardHeader>
+                    <CardBody className="pt-1 pt-md-3 pb-3">
                       <CardText className="h5 pt-2 pb-2">
-                        <Col>
+                        <h5>
                           <em>{issue.issue}</em>
-                        </Col>
+                        </h5>
                       </CardText>
-                    </CardBody>
-                  </Card>
+                    {/* </CardBody>
+                  </Card> */}
                   <div className="ml-6">
                     {/* <Form onSubmit={formik.handleSubmit}> */}
                     <Form>
-                      <Card className="card-stats mb-1">
-                        <CardBody>
+                      {/* <Card className="card-stats mb-1">
+                        <CardBody> */}
                           <Row>
                             <Col xl="10">
                               <FormGroup>
@@ -185,8 +185,8 @@ const Event_Support = (props) => {
                                   </div>
                                 ) : null}
                               </FormGroup>
-                            </Col>
-                            <Col xl="2">
+                            {/* </Col>
+                            <Col xl="2"> */}
                               <Button
                                 color="success"
                                 size="sm"
@@ -195,7 +195,10 @@ const Event_Support = (props) => {
                                   onSubmit(formik.values, issue._id)
                                 }
                               >
-                                Publish
+                                <span className="btn-inner--icon">
+                                  <i className="ni ni-active-40" />
+                                </span>
+                                <span className="btn-inner--text">Publish</span>
                               </Button>
                             </Col>
                           </Row>
@@ -207,10 +210,13 @@ const Event_Support = (props) => {
                                 </Row>
                               );
                             })}
-                        </CardBody>
-                      </Card>
+                        {/* </CardBody>
+                      </Card> */}
                     </Form>
                   </div>
+
+                  </CardBody>
+                  </Card>
                 </div>
               ))}
           </CardBody>

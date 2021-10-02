@@ -12,6 +12,7 @@ import {
   Card,
   CardHeader,
   CardBody,
+  CardText,
   FormGroup,
   Form,
   Input,
@@ -187,39 +188,50 @@ const EventDisplay = (props) => {
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  {acceptedQuotations.map((acceptedQuotations) => (
-                                    <tr key={acceptedQuotations._id}>
-                                      <td> {acceptedQuotations.provider_id.first_name} </td>
-                                      <td> {acceptedQuotations.provider_id.service_type} </td>
-                                      <td>
-                                        <Button
-                                          onClick={function (event) {
-                                            toggleModalNotification("notificationModal");
-                                            setID(acceptedQuotations.provider_id._id);
-                                          }}
-                                          className="btn-icon btn-2 "
-                                          size="sm"
-                                          color="danger"
-                                          type="button"
-                                        >
-                                          <span className="btn-inner--icon-center">
-                                            <i className="ni ni-like-2" />
-                                          </span>
-                                        </Button>
-                                        <Link to={`/customer/view-quotations/${acceptedQuotations._id}`}>
-                                          <Button className="btn-icon btn-2 " size="sm" color="success" type="button">
+                                  {acceptedQuotations.map(
+                                    (acceptedQuotations) => (
+                                      <tr key={acceptedQuotations._id}>
+                                        <td>
+                                          {" "}
+                                          {
+                                            acceptedQuotations.provider_id
+                                              .first_name
+                                          }{" "}
+                                        </td>
+                                        <td>
+                                          {" "}
+                                          {
+                                            acceptedQuotations.provider_id
+                                              .service_type
+                                          }{" "}
+                                        </td>
+                                        <td>
+                                          <Button
+                                            onClick={function (event) {
+                                              toggleModalNotification(
+                                                "notificationModal"
+                                              );
+                                              setID(
+                                                acceptedQuotations.provider_id
+                                                  ._id
+                                              );
+                                            }}
+                                            className="btn-icon btn-2 "
+                                            size="sm"
+                                            color="danger"
+                                            type="button"
+                                          >
                                             <span className="btn-inner--icon-center">
                                               <i className="ni ni-like-2" />
                                             </span>
                                           </Button>
-                                          </Link>
                                           <Link
                                             to={`/customer/view-quotations/${acceptedQuotations._id}`}
                                           >
                                             <Button
                                               className="btn-icon btn-2 "
                                               size="sm"
-                                              color="primary"
+                                              color="success"
                                               type="button"
                                             >
                                               <span className="btn-inner--icon-center">
@@ -362,133 +374,227 @@ const EventDisplay = (props) => {
                 </Row>
               </CardHeader>
               <CardBody>
-                <Form>
-                  <FormGroup>
-                    <Row>
-                      <Col md="2">Event Name</Col>
-                      <Col md="4">: {event.event_name}</Col>
-                      <Col md="2">Event Type</Col>
-                      <Col md="4">: {event.event_type}</Col>
-                    </Row>
-                  </FormGroup>
-                  <FormGroup>
-                    <Row>
-                      <Col md="2">Organization Name</Col>
-                      <Col md="4">: {event.org_name}</Col>
-                      <Col md="2">Date of The Event</Col>
-                      <Col md="4">: {event.date_of_the_event}</Col>
-                    </Row>
-                  </FormGroup>
-                  <FormGroup>
-                    <Row>
-                      <Col md="2">Event Time</Col>
-                      <Col md="4">: {event.event_time}</Col>
-                      <Col md="2">Days Event Occurs</Col>
-                      <Col md="4">: {event.days_occurs} day</Col>
-                    </Row>
-                  </FormGroup>
-                  <FormGroup>
-                    <Row>
-                      <Col md="2">Event Closing Date</Col>
-                      <Col md="4">: {event.date_of_the_event_end}</Col>
-                    </Row>
-                  </FormGroup>
-                  <FormGroup>
-                    <Row>
-                      <Col md="2">Required Services</Col>
+                <Row xl="7">
+                  <Col className="order-xl-2 mb-7 mb-xl-1" xl="7">
+                    <Card className="bg-secondary shadow">
+                      <CardHeader className="bg-white border-0">
+                        <Row className="align-items-center">
+                          <Col xs="8">
+                            <h2 className="mb-0">Event Information</h2>
+                          </Col>
+                        </Row>
+                      </CardHeader>
+                      <CardBody>
+                        <CardText
+                          className="h5"
+                          style={{ paddingTop: "0.5rem" }}
+                        >
+                          <Row>
+                            <Col md="5">Event Name</Col>
+                            {/* <Col xs="1">:</Col> */}
+                            <Col md="7">: {event.event_name}</Col>
+                          </Row>
+                        </CardText>
+                        <CardText
+                          className="h5"
+                          style={{ paddingTop: "0.5rem" }}
+                        >
+                          <Row>
+                            <Col md="5">Event Type</Col>
+                            {/* <Col xs="1">:</Col> */}
+                            <Col md="7">: {event.event_type}</Col>
+                          </Row>
+                        </CardText>
 
-                      <Col md="8">
-                        :
-                        {event.checkboxOption &&
-                          event.checkboxOption.map((checkbox, index) => {
-                            return (
-                              <div className="ml-5" key={index}>
-                                {" "}
-                                <Label> {checkbox} </Label>
-                              </div>
-                            );
-                          })}
-                      </Col>
-                    </Row>
-                  </FormGroup>
+                        <CardText
+                          className="h5"
+                          style={{ paddingTop: "0.5rem" }}
+                        >
+                          <Row>
+                            <Col md="5">Organization Name</Col>
+                            {/* <Col xs="1">:</Col> */}
+                            <Col md="7">: {event.org_name}</Col>
+                          </Row>
+                        </CardText>
+                        <CardText
+                          className="h5"
+                          style={{ paddingTop: "0.5rem" }}
+                        >
+                          <Row>
+                            <Col md="5">Date of The Event</Col>
+                            {/* <Col xs="1">:</Col> */}
+                            <Col md="7">: {event.date_of_the_event}</Col>
+                          </Row>
+                        </CardText>
 
-                  <h2 className="mt-5 mb-4">Contact Information</h2>
-                  <FormGroup>
-                    <Row>
-                      <Col md="2">Organizer Name</Col>
-                      <Col md="4">: {event.organizer_name}</Col>
-                      <Col md="2">Organizer's NIC</Col>
-                      <Col md="4">: {event.org_nic}</Col>
-                    </Row>
-                  </FormGroup>
-                  <FormGroup>
-                    <Row>
-                      <Col md="2">Email</Col>
-                      <Col md="4">: {event.cus_email}</Col>
-                      <Col md="2">Contact Number </Col>
-                      <Col md="4">: {event.cus_con_number}</Col>
-                    </Row>
-                  </FormGroup>
-                  <FormGroup>
-                    <Row>
-                      <Col md="2">Description</Col>
-                      <Col md="10">: {event.description}</Col>
-                    </Row>
-                  </FormGroup>
-                  <br />
-                  <br />
-                  <br />
+                        <CardText
+                          className="h5"
+                          style={{ paddingTop: "0.5rem" }}
+                        >
+                          <Row>
+                            <Col md="5">Event Time</Col>
+                            {/* <Col xs="1">:</Col> */}
+                            <Col md="7">: {event.event_time}</Col>
+                          </Row>
+                        </CardText>
+                        <CardText
+                          className="h5"
+                          style={{ paddingTop: "0.5rem" }}
+                        >
+                          <Row>
+                            <Col md="5">Days Event Occurs</Col>
+                            {/* <Col xs="1">:</Col> */}
+                            <Col md="7">: {event.days_occurs} day</Col>
+                          </Row>
+                        </CardText>
 
-                  {/* <Row>
-                    <Col className="text-right" xs="4">
-                      <Link to={`/customer/Sponsorship_Documentation/${event._id}`}>
-                        <Button color="primary" href="#pablo">
-                          Create Sponsorship Request
-                        </Button>
-                      </Link>
-                    </Col>
-                    <Col className="text-right" xs="4">
-                      <Link to={`/customer/My_Issue/${event._id}`}>
-                        <Button color="primary" href="#pablo">
-                          Take Support
-                        </Button>
-                      </Link>
-                    </Col>
-                  </Row> */}
+                        <CardText
+                          className="h5"
+                          style={{ paddingTop: "0.5rem" }}
+                        >
+                          <Row>
+                            <Col md="5">Event Closing Date</Col>
+                            {/* <Col xs="1">:</Col> */}
+                            <Col md="7">: {event.date_of_the_event_end}</Col>
+                          </Row>
+                        </CardText>
 
-                  <Row>
-                    <Col className="col text-center"
-                    style={{ paddingRight: "10rem" }}>
-                      <Link to={`/customer/boostEvent/${event._id}`}>
-                        <Button color="primary" size="lm">
-                          Boost My Event
-                        </Button>
-                      </Link>
-                    </Col>
+                        <CardText
+                          className="h5"
+                          style={{ paddingTop: "0.5rem" }}
+                        >
+                          <Row>
+                            <Col md="5">Required Services</Col>
+                            {/* <Col xs="1">:</Col> */}
 
-                    <Col
-                      className="text-right"
-                      xs="5"
-                      style={{ paddingRight: "10rem" }}
-                    >
-                      <Link to={`/customer/My_Issue/${event._id}`}>
-                        <Button color="primary">Take Support</Button>
-                      </Link>
-                    </Col>
-                  </Row>
-                  <Row className="mt-5">
-                    <Col className="text-right" xs="8"
-                    style={{ paddingLeft: "10rem" , paddingRight:"3rem"}}>
-                      <Link
-                        to={`/customer/Sponsorship_Documentation/${event._id}`}
+                            <Col md="7">
+                              :
+                              {event.checkboxOption &&
+                                event.checkboxOption.map((checkbox, index) => {
+                                  return (
+                                    <Row className="ml-5" key={index}>
+                                      {" "}
+                                      <Label>{checkbox}</Label>
+                                    </Row>
+                                  );
+                                })}
+                            </Col>
+                          </Row>
+                        </CardText>
+                      </CardBody>
+                    </Card>
+                  </Col>
+
+                  <Col className="order-xl-2 mb-7 mb-xl-4" xl="5">
+                    <Card className="bg-secondary shadow">
+                      <CardHeader className="bg-white border-0">
+                        <Row className="align-items-center">
+                          <Col xs="12">
+                            <h2 className="mb-0">Contact Information</h2>
+                          </Col>
+                        </Row>
+                      </CardHeader>
+
+                      <CardBody>
+                        <CardText
+                          className="h5"
+                          style={{ paddingTop: "0.5rem" }}
+                        >
+                          <Row>
+                            <Col md="5">Organizer Name</Col>
+                            {/* <Col xs="1">:</Col> */}
+                            <Col md="7">: {event.organizer_name}</Col>
+                          </Row>
+                        </CardText>
+                        <CardText
+                          className="h5"
+                          style={{ paddingTop: "0.5rem" }}
+                        >
+                          <Row>
+                            <Col md="5">Organizer's NIC</Col>
+                            {/* <Col xs="1">:</Col> */}
+                            <Col md="7">: {event.org_nic}</Col>
+                          </Row>
+                        </CardText>
+
+                        <CardText
+                          className="h5"
+                          style={{ paddingTop: "0.5rem" }}
+                        >
+                          <Row>
+                            <Col md="5">Email</Col>
+                            {/* <Col xs="2">:</Col> */}
+
+                            <Col md="7">: {event.cus_email}</Col>
+                          </Row>
+                        </CardText>
+                        <CardText
+                          className="h5"
+                          style={{ paddingTop: "0.5rem" }}
+                        >
+                          <Row>
+                            <Col md="5">Contact Number </Col>
+                            {/* <Col xs="1">:</Col> */}
+                            <Col md="7">: {event.cus_con_number}</Col>
+                          </Row>
+                        </CardText>
+
+                        <CardText
+                          className="h5"
+                          style={{ paddingTop: "0.5rem" }}
+                        >
+                          <Row>
+                            <Col md="5">Description</Col>
+                            {/* <Col xs="1">:</Col> */}
+                            <Col md="7">: {event.description}</Col>
+                          </Row>
+                        </CardText>
+                      </CardBody>
+                    </Card>
+                  </Col>
+                </Row>
+
+                <Row className="pt-3">
+                  <Col className="col text-center">
+                    <Link to={`/customer/boostEvent/${event._id}`}>
+                      <Button
+                        className="btn-icon btn-2"
+                        color="primary"
+                        size="sm"
                       >
-                        <Button color="primary">
+                        <span className="btn-inner--icon">
+                          <i className="ni ni-credit-card" />
+                        </span>
+                        <span className="btn-inner--text">Boost My Event</span>
+                      </Button>
+                    </Link>
+                  </Col>
+
+                  <Col className="text-center">
+                    <Link
+                      to={`/customer/Sponsorship_Documentation/${event._id}`}
+                    >
+                      <Button color="primary" size="sm">
+                        <span className="btn-inner--icon">
+                          <i className="ni ni-folder-17" />
+                        </span>
+                        <span className="btn-inner--text">
                           Create Sponsorship Request
-                        </Button>
-                      </Link>
-                    </Col>
-                  </Row>
-                </Form>
+                        </span>
+                      </Button>
+                    </Link>
+                  </Col>
+                  <Col className="text-center">
+                    <Link to={`/customer/My_Issue/${event._id}`}>
+                      <Button color="primary" size="sm">
+                        <span className="btn-inner--icon">
+                          <i className="ni ni-basket" />
+                        </span>
+                        <span className="btn-inner--text"> Take Support</span>
+                      </Button>
+                    </Link>
+                  </Col>
+                </Row>
               </CardBody>
             </Card>
           </Col>
