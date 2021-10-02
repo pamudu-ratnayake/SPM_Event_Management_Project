@@ -388,7 +388,7 @@ const Sponsorship_Documentation = (props) => {
                             </Row>
                           </FormGroup>
                           <Row style={{ paddingTop: "1rem" }}>
-                            <span>Packages</span>
+                            <span><h4>Packages</h4></span>
                           </Row>
                           <div>
                             {pkg.map((item, index) => {
@@ -453,7 +453,11 @@ const Sponsorship_Documentation = (props) => {
                           type="button"
                           onClick={pdfGenerater}
                         >
-                          Download Document
+                          <span className="btn-inner--icon">
+                          <i className="ni ni-folder-17" />
+                        </span>
+                        <span className="btn-inner--text">Download Document</span>
+                          
                         </Button>
                       </div>
                     </Form>

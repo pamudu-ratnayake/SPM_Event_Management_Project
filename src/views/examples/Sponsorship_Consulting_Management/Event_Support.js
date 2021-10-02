@@ -96,10 +96,10 @@ const Event_Support = (props) => {
         <Card className="bg-secondary shadow">
           <CardHeader className="bg-white border-0">
             <Row>
-              <Col xl="4">
+              <Col xl="6">
                 <h2 className="mb-0"> Event Consulting</h2>
               </Col>
-              <Col xs="4">
+              <Col xs="2">
                 <div>
                   <Input
                     type="text"
@@ -117,13 +117,13 @@ const Event_Support = (props) => {
                   />
                 </div>
               </Col>
-              <Col className="col text-right" xl="">
+              {/* <Col className="col text-right" xl="">
                 <Link to={"/customer/my-event"}>
                   <Button color="primary" size="sm" name="">
                     My Event
                   </Button>
                 </Link>
-              </Col>
+              </Col> */}
             </Row>
           </CardHeader>
           <CardBody>
@@ -167,7 +167,7 @@ const Event_Support = (props) => {
                       {/* <Card className="card-stats mb-1">
                         <CardBody> */}
                           <Row>
-                            <Col xl="10">
+                            <Col xl="12">
                               <FormGroup>
                                 <Input
                                   id="exampleFormControlTextarea1"

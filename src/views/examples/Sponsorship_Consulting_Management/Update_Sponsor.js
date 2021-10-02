@@ -119,7 +119,7 @@ const Update_Sponsor = (props) => {
                   <Row>
                     <Col md="6">
                       <FormGroup>
-                        <label>Sponsor ID</label>
+                        <label><h4>Sponsor ID</h4></label>
                         <Input
                           id="exampleFormControlInput1"
                           placeholder="Sponsor ID"
@@ -140,7 +140,7 @@ const Update_Sponsor = (props) => {
                     </Col>
                     <Col md="6">
                       <FormGroup>
-                        <label>Compay Registration Number</label>
+                        <label><h4>Compay Registration Number</h4></label>
                         <Input
                           id="exampleFormControlInput1"
                           placeholder="Sponsor ID"
@@ -162,7 +162,7 @@ const Update_Sponsor = (props) => {
                   <Row>
                     <Col md="12">
                       <FormGroup>
-                        <label>Company Name</label>
+                        <label><h4>Company Name</h4></label>
                         <Input
                           placeholder="Event ID"
                           type="text"
@@ -184,7 +184,7 @@ const Update_Sponsor = (props) => {
                   <Row>
                     <Col md="12">
                       <FormGroup>
-                        <label>Sponsor Type</label>
+                        <label><h4>Sponsor Type</h4></label>
                         <Input
                           id="exampleFormControlInput1"
                           placeholder="Enter Location"
@@ -226,7 +226,7 @@ const Update_Sponsor = (props) => {
                   <Row>
                     <Col md="6">
                       <FormGroup>
-                        <label>Phone Number</label>
+                        <label><h4>Phone Number</h4></label>
                         <Input
                           placeholder="Event ID"
                           type="text"
@@ -246,7 +246,7 @@ const Update_Sponsor = (props) => {
                     </Col>
                     <Col md="6">
                       <FormGroup>
-                        <label>Email</label>
+                        <label><h4>Email</h4></label>
                         <Input
                           id="exampleFormControlInput1"
                           placeholder="name@example.com"
@@ -269,7 +269,7 @@ const Update_Sponsor = (props) => {
                   <Row>
                     <Col>
                       <FormGroup>
-                        <label>Address</label>
+                        <label><h4>Address</h4></label>
                         <Input
                           id="exampleFormControlInput1"
                           placeholder="142, Palm Avenue, Colombo 10 "
@@ -296,6 +296,10 @@ const Update_Sponsor = (props) => {
                       type="submit"
                       // href="/admin/SponsorList"
                     >
+                      <span className="btn-inner--icon">
+                          <i className="ni ni-ruler-pencil" />
+                        </span>
+                        <span className="btn-inner--text">Update</span>
                       Update
                     </Button>
                   </div>

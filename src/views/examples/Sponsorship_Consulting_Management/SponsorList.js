@@ -105,13 +105,13 @@ const SponsorList = (props) => {
               <Table className="align-items-center table-flush" responsive>
                 <thead className="thead-light">
                   <tr>
-                    <th scope="col">Company</th>
-                    <th scope="col">Sponsor ID</th>
-                    <th scope="col">Registration No</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Tell</th>
-                    <th scope="col">Sponsor Type</th>
-                    <th scope="col">Address</th>
+                    <th scope="col"><h5>Company</h5></th>
+                    <th scope="col"><h5>Sponsor ID</h5></th>
+                    <th scope="col"><h5>Registration No</h5></th>
+                    <th scope="col"><h5>Email</h5></th>
+                    <th scope="col"><h5>Tell</h5></th>
+                    <th scope="col"><h5>Sponsor Type</h5></th>
+                    <th scope="col"><h5>Address</h5></th>
                     <th scope="col" />
                   </tr>
                 </thead>
@@ -134,22 +134,13 @@ const SponsorList = (props) => {
                           <Media className="align-items-center">
                             <a
                               className="avatar rounded-circle mr-3"
-                              href="#pablo"
                               onClick={(e) => e.preventDefault()}
                             >
-                              {/* <img
-                                alt="..."
-                                src={
-                                  require("../../assets/img/theme/bootstrap.jpg")
-                                    .default
-                                }
-                              /> */}
-
-                              <i className="ni ni-building" />
+                              <i className="ni ni-building text-default" />
                             </a>
                             <Media>
                               <span className="mb-0 text-sm">
-                                <i className="bg-warning" />
+                                {/* <i className="text-Primary" /> */}
                                 {posts.companyName}
                               </span>
                             </Media>
@@ -223,7 +214,7 @@ const SponsorList = (props) => {
                                     className="modal-title"
                                     id="exampleModalLabel"
                                   >
-                                    Confirmation to Remove Sponsor
+                                    Delete Confirmation
                                   </h5>
                                   <button
                                     aria-label="Close"

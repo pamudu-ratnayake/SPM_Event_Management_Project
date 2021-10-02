@@ -32,7 +32,7 @@ const phoneRegExp =
 
 //Validation
 const validationSchema = Yup.object({
-  regNo: Yup.string().required("Required!"),
+  // regNo: Yup.string().required("Required!"),
   companyName: Yup.string().required("Required!"),
   sponsorType: Yup.string().required("Required!"),
   SponsorPhoneNo: Yup.string()
@@ -134,7 +134,7 @@ const Add_Sponsor = () => {
         console.log(error);
       });
 
-      alert("");
+      alert("Successfully Added");
     window.location.reload(false);
   };
 
@@ -156,7 +156,7 @@ const Add_Sponsor = () => {
               <CardHeader className="bg-white border-0">
                 <Row className="align-items-center">
                   <Col xs="8">
-                    <h2 className="mb-0">Add Sponsor</h2>
+                    <h2 className="mb-0">Add Sponsors</h2>
                   </Col>
                 </Row>
               </CardHeader>
@@ -165,7 +165,7 @@ const Add_Sponsor = () => {
                   <Row>
                     <Col md="6">
                       <FormGroup>
-                        <label>Company Registration Number</label>
+                        <label><h4>Company Registration Number</h4></label>
                         <Input
                           className="h5"
                           id="exampleFormControlInput1"
@@ -185,7 +185,7 @@ const Add_Sponsor = () => {
                     </Col>
                     <Col md="6">
                       <FormGroup>
-                        <label>Company Name</label>
+                        <label><h4>Company Name</h4></label>
                         <Input
                           className="h5"
                           placeholder="ABC (pvt).Ltd"
@@ -207,7 +207,7 @@ const Add_Sponsor = () => {
                   <Row>
                     <Col md="12">
                       <FormGroup>
-                        <label>Sponsor Type</label>
+                        <label><h4>Sponsor Type</h4></label>
                         <Input
                           className="h5"
                           id="exampleFormControlInput1"
@@ -248,7 +248,7 @@ const Add_Sponsor = () => {
                   <Row>
                     <Col md="6">
                       <FormGroup>
-                        <label>Phone Number</label>
+                        <label><h4>Phone Number</h4></label>
                         <Input
                           className="h5"
                           placeholder="+94768945678"
@@ -268,7 +268,7 @@ const Add_Sponsor = () => {
                     </Col>
                     <Col md="6">
                       <FormGroup>
-                        <label>Email</label>
+                        <label><h4>Email</h4></label>
                         <Input
                           className="h5"
                           id="exampleFormControlInput1"
@@ -291,7 +291,7 @@ const Add_Sponsor = () => {
                   <Row>
                     <Col>
                       <FormGroup>
-                        <label>Address</label>
+                        <label><h4>Address</h4></label>
                         <Input
                           className="h5-black"
                           id="exampleFormControlInput1"
@@ -313,7 +313,7 @@ const Add_Sponsor = () => {
                   </Row>
                   <Row>
                     <Col>
-                    <label>Upload Logo</label>
+                    <label><h4>Upload Logo</h4></label>
                   <div {...getRootProps({style})}>
                     <input
                     {...getInputProps()} />
@@ -336,12 +336,16 @@ const Add_Sponsor = () => {
                         size="sm"
                         name=""
                       >
-                        Add
+                        <span className="btn-inner--icon">
+                          <i className="ni ni-check-bold" />
+                        </span>
+                        <span className="btn-inner--text">Add</span>
+                        
                       </Button>
                     </Col>
                     <Col className="text-center">
                       <Link to={"/admin/SponsorList"}>
-                        <Button color="info" size="sm" name="" type="reset">
+                        <Button color="primary" size="sm" name="" type="reset">
                           Cancle
                         </Button>
                       </Link>
