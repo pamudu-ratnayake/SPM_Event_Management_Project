@@ -101,7 +101,12 @@ const PaymentModal = ({ orderId,name,amount, user_email, user_name, current_date
   color="info"
   size="lm"
   onClick={pay}>
+    <span className="btn-inner--icon">
+                        < i className="ni ni-credit-card"/>
+                        </span>
+                        <span className="btn-inner--text">
      Pay Now
+     </span>
      </Button>;
 };
 

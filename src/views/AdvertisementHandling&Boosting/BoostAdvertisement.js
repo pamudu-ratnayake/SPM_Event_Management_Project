@@ -202,13 +202,34 @@ const initialValues = {
                 </button>
               </div>
               <div className="modal-body">
-                <div className="py-3 text-center">
+              <div className="py-3 text-center">
                   <i className="ni ni-bell-55 ni-3x" />
-                  <h4 className="heading mt-4">You should read this!</h4>
+                  
                   <p>
-                    A small river named Duden flows by their place and
-                    supplies it with the necessary regelialia.
-                  </p>
+                 <h1> What does it mean to boost an Advertisement? </h1>
+                 
+<h5>After you have created an event on your Page, you may boost it to help spread the word and encourage people to attend.
+Let's look at an example of how promoting an event might help you achieve your objectives.</h5>
+<br></br>
+
+<h3>Boosting an Advertisement :- </h3>
+
+<h5>By boosting an Advertisement, it will extend the duration of the advertisement.
+The boosting advertisement appear to customers and they continue to focus to the service providers and their services.</h5>
+
+<br></br></p>
+<p className="text-left">
+<h3>Prcing for event boosting :-</h3></p>
+
+<p><ul className="ml-4">
+
+<li>For One day     ----- LKR.500</li>
+<li>For Three days  ----- LKR.750</li>
+<li>For Five days   ----- LKR.1000</li>
+<li>For Ten days    ----- LKR.1500</li>
+<li>For Twenty days ----- LKR.3000</li>
+<li>For Thirty days ----- LKR.5000</li>
+                 </ul> </p>
                 </div>
               </div>
               <div className="modal-footer">

@@ -42,7 +42,10 @@ const EventDisplay = (props) => {
   const [hover, setHover] = useState(null);
   const [acceptedQuotations, setAcceptedQuotations] = useState([]);
   const [SPID, setSPID] = useState("");
-
+  
+  const [checked, setChecked] = useState(false);
+  const [radioValue, setRadioValue] = useState('1');
+ 
   //toggle function
   function toggleModal() {
     setState(!defaultModal);

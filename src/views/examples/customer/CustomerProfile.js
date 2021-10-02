@@ -237,13 +237,19 @@ const CustomerProfile = (props) => {
 									</Col>
 									<Col className="text-right" xs="4">
 										<Button
+                    
 											color="primary"
 											href="#pablo"
 											size="sm"
 											type="button"
 											onClick={() => toggleModal("defaultModal")}
 										>
+                          <span className="btn-inner--icon">
+                        < i className="ni ni-ruler-pencil"/>
+                        </span>
+                        <span className="btn-inner--text"> 
 											Edit Profile
+                      </span>
 										</Button>
 										<Modal
 											className="modal-dialog-centered"
@@ -491,7 +497,12 @@ const CustomerProfile = (props) => {
                   </div>
                   <div className="text-center">
                     <Button className="mt-4" color="primary" type="submit">
+                    <span className="btn-inner--icon">
+                        < i className="ni ni-single-copy-04"/>
+                        </span>
+                        <span className="btn-inner--text">
                       Add My Details
+                      </span>
                     </Button>
                   </div>
                 </Form>
