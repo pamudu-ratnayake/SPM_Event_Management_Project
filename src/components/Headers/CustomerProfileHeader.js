@@ -5,21 +5,21 @@ const CustomerProfileHeader = () => {
   return (
     <>
       <div
-        className="header pb-3 pt-5 pt-lg-8 d-flex align-items-center"
+        className="header pb-8 pt-5 pt-lg-8 d-flex align-items-center"
         style={{
-          minHeight: "600px",
+          minHeight: "450px",
           backgroundImage:
             "url(" +
-            require("../../assets/img/theme/profile-cover.jpg").default +
+            require("../../assets/img/theme/header46.png").default +
             ")",
           backgroundSize: "cover",
-          backgroundPosition: "center top",
+          backgroundPosition: "center bottom",
         }}
       >
         {/* Mask */}
-        <span className="mask bg-gradient-default opacity-8" />
+        <span className="mask bg-gradient-default opacity-6" />
         {/* Header container */}
-        <Container className="d-flex align-items-center" fluid>
+        <Container className="d-flex align-items-center" fluid >
           <Row>
             <Col lg="12" md="10">
               <h1 className="display-2 text-white">My Profile</h1>

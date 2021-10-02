@@ -57,7 +57,7 @@ function RatingModal() {
 					</button>
 				</div>
 				<div>
-					{reviews.review_rate?.map((review_rate) => (
+					{reviews && reviews.review_rate.map((review_rate) => (
 						<div
 							key={review_rate._id}
 							className="card bg-secondary mx-2 mb-2 pt-2 ps-3"

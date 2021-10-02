@@ -26,6 +26,7 @@ import axios from "axios";
 import BoostHeader from "components/Headers/AdvertisementHandling&BoostingHeaders/BoostHeader";
 
 import { useFormik } from "formik";
+import API from "variables/tokenURL";
 
 const BoostEvent = (props) => {
   console.log("ID is : ", props.match.params._id);
@@ -98,8 +99,8 @@ const initialValues = {
   const onSubmit = (values) => {
     console.log("Form Date", values);
     //  values.date_of_the_event = event_date; //watch
-    axios
-      .put(`http://localhost:8080/eventAdd/boostevent/${props.match.params._id}`, values)
+    API
+      .put(`/eventAdd/boostevent/${props.match.params._id}`, values)
       .then((res) => {
         console.log(res);
         console.log("Data", values);
@@ -112,8 +113,8 @@ const initialValues = {
       });
   };
   useEffect(() => {
-    axios
-      .get(`http://localhost:8080/eventAdd/getOneEvent/${props.match.params._id}`)
+    API
+      .get(`eventAdd/getOneEvent/${props.match.params._id}`)
       .then((res) => {
         console.log(res);
         setEvent(res.data);
@@ -163,19 +164,24 @@ const initialValues = {
                     color="primary" 
                     size="lm"
                     onClick={() => toggleModal("notificationModal")}>
+                      <span className="btn-inner--icon">
+                        < i className="ni ni-key-25"/>
+                        </span>
+                        <span className="btn-inner--text">
                         What's Boosting
+                        </span>
                       </Button>
                       </Col>
                       
                       <Modal
               className="modal-dialog-centered modal-Success"
-              contentClassName="bg-gradient-success"
+              contentClassName="bg-gradient-primary"
               isOpen={notificationModal}
               toggle={() => toggleModal("notificationModal")}
             >
               <div className="modal-header">
                 <h6 className="modal-title" id="modal-title-notification">
-                  Advertisement Boosting 
+                  Event Boosting 
                 </h6>
                 <button
                   aria-label="Close"
@@ -190,15 +196,38 @@ const initialValues = {
               <div className="modal-body">
                 <div className="py-3 text-center">
                   <i className="ni ni-bell-55 ni-3x" />
-                  <h4 className="heading mt-4">You should read this!</h4>
+                  
                   <p>
-                    A small river named Duden flows by their place and
-                    supplies it with the necessary regelialia.
-                  </p>
+                 <h1> What does it mean to boost an event? </h1>
+                 
+<h5>After you have created an event on your Page, you may boost it to help spread the word and encourage people to attend.
+Let's look at an example of how promoting an event might help you achieve your objectives.</h5>
+<br></br>
+
+<h3>Boosting an event :- </h3>
+
+<h5>By boosting an event, it will be added to the top event list.
+The boosting events appear to service providers as 
+top events, and service providers continue to focus to the top events.</h5>
+
+<br></br></p>
+<p className="text-left">
+<h3>Prcing for event boosting :-</h3></p>
+
+<p><ul className="ml-4">
+
+<li>For One day     ----- LKR.500</li>
+<li>For Three days  ----- LKR.750</li>
+<li>For Five days   ----- LKR.1000</li>
+<li>For Ten days    ----- LKR.1500</li>
+<li>For Twenty days ----- LKR.3000</li>
+<li>For Thirty days ----- LKR.5000</li>
+                 </ul> </p>
                 </div>
               </div>
               <div className="modal-footer">
-                <Button className="btn-white" color="default" type="button">
+                <Button className="btn-white" color="default" type="button"
+                onClick={() => toggleModal("notificationModal")}>
                   Ok, Got it
                 </Button>
                 <Button
@@ -339,22 +368,24 @@ const initialValues = {
                   <br></br>
                   <br></br>
                   <Row>
-                    <Col className="text-right mr-4" xs="4">
+                    <Col className="text-right mr-4" xs="7" 
+                    style={{paddingLeft:"18rem"}}>
                     <Link to={`/customer/event-display`}>
                       <Button
                         color="primary"
                         onClick={() => {onSubmit(formik.values)}}
                         size="lm"
-                      >
+                      ><span className="btn-inner--icon">
+                        < i className="ni ni-credit-card"/>
+                        </span>
+                        <span className="btn-inner--text">
                         Boost My Event
+                        </span>
                       </Button>
                       </Link>
                     </Col>
                     <Col className="col text-right ml-6" xs="6">
-                    
-                     
-                     
-                    </Col>
+                  </Col>
                   </Row>
                 </Form>
               </CardBody>

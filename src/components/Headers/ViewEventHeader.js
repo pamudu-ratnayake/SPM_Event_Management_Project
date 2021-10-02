@@ -7,15 +7,15 @@ const ViewEventHeader = () => {
       <div
         className="header pb-8 pt-5 pt-lg-8 d-flex align-items-center"
         style={{
-          minHeight: "600px",
+          minHeight: "450px",
           backgroundImage:
-            "url(" + require("../../assets/img/theme/event8.jpg").default + ")",
+            "url(" + require("../../assets/img/theme/pooo.png").default + ")",
           backgroundSize: "cover",
           backgroundPosition: "center bottom",
         }}
       >
         {/* Mask */}
-        <span className="mask bg-gradient-default opacity-7" />
+        <span className="mask bg-gradient-default opacity-4" />
         {/* Header container */}
         <Container className="d-flex align-items-center" fluid>
           <Row>

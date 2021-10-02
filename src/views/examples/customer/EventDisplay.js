@@ -7,11 +7,27 @@ import { FaStar } from "react-icons/fa";
 import API from "variables/tokenURL";
 
 // reactstrap components
-import { Button, Card, CardHeader, CardBody, FormGroup, Form, Input, Container, Row, Col, InputGroupAddon, InputGroupText, InputGroup, Modal, Table, Label } from "reactstrap";
+import {
+  Button,
+  Card,
+  CardHeader,
+  CardBody,
+  FormGroup,
+  Form,
+  Input,
+  Container,
+  Row,
+  Col,
+  InputGroupAddon,
+  InputGroupText,
+  InputGroup,
+  Modal,
+  Table,
+  Label,
+} from "reactstrap";
 // core components
 import ViewEventHeader from "components/Headers/ViewEventHeader";
 import { useEffect, useState } from "react";
-
 
 const EventDisplay = (props) => {
   console.log("ID is : ", props.match.params._id);
@@ -25,7 +41,10 @@ const EventDisplay = (props) => {
   const [hover, setHover] = useState(null);
   const [acceptedQuotations, setAcceptedQuotations] = useState([]);
   const [SPID, setSPID] = useState("");
-
+  
+  const [checked, setChecked] = useState(false);
+  const [radioValue, setRadioValue] = useState('1');
+ 
   //toggle function
   function toggleModal() {
     setState(!defaultModal);
@@ -110,7 +129,11 @@ const EventDisplay = (props) => {
                     <h1 className="mb-0">Details of The Event</h1>
                   </Col>
                   <Col className="text-right" xs="3">
-                    <Button color="primary" size="sm" onClick={() => toggleModal("defaultModal")}>
+                    <Button
+                      color="primary"
+                      size="sm"
+                      onClick={() => toggleModal("defaultModal")}
+                    >
                       Service Providers
                     </Button>
                   </Col>
@@ -121,12 +144,26 @@ const EventDisplay = (props) => {
                       </Button>
                     </Link>
 
-                    <Modal className="modal-dialog-centered modal-danger" contentClassName="bg-gradient-danger" isOpen={defaultModal} toggle={() => toggleModal("defaultModal")}>
+                    <Modal
+                      className="modal-dialog-centered modal-danger"
+                      contentClassName="bg-gradient-danger"
+                      isOpen={defaultModal}
+                      toggle={() => toggleModal("defaultModal")}
+                    >
                       <div className="modal-header">
-                        <h6 className="modal-title" id="modal-title-notification">
+                        <h6
+                          className="modal-title"
+                          id="modal-title-notification"
+                        >
                           Give your Rate & Review
                         </h6>
-                        <button aria-label="Close" className="close" data-dismiss="modal" type="button" onClick={() => toggleModal("defaultModal")}>
+                        <button
+                          aria-label="Close"
+                          className="close"
+                          data-dismiss="modal"
+                          type="button"
+                          onClick={() => toggleModal("defaultModal")}
+                        >
                           <span aria-hidden={true}>×</span>
                         </button>
                       </div>
@@ -172,13 +209,28 @@ const EventDisplay = (props) => {
                                         <Link to={`/customer/view-quotations/${acceptedQuotations._id}`}>
                                           <Button className="btn-icon btn-2 " size="sm" color="success" type="button">
                                             <span className="btn-inner--icon-center">
-                                              <i className="ni ni-glasses-2" />
+                                              <i className="ni ni-like-2" />
                                             </span>
                                           </Button>
-                                        </Link>
-                                      </td>
-                                    </tr>
-                                  ))}
+                                          </Link>
+                                          <Link
+                                            to={`/customer/view-quotations/${acceptedQuotations._id}`}
+                                          >
+                                            <Button
+                                              className="btn-icon btn-2 "
+                                              size="sm"
+                                              color="primary"
+                                              type="button"
+                                            >
+                                              <span className="btn-inner--icon-center">
+                                                <i className="ni ni-glasses-2" />
+                                              </span>
+                                            </Button>
+                                          </Link>
+                                        </td>
+                                      </tr>
+                                    )
+                                  )}
                                 </tbody>
                               </Table>
                             </CardBody>
@@ -186,22 +238,45 @@ const EventDisplay = (props) => {
                         </Col>
                       </div>
                       <div className="modal-footer">
-                        <Button className="btn-white" color="default" type="button">
+                        <Button
+                          className="btn-white"
+                          color="default"
+                          type="button"
+                        >
                           Ok, Got it
                         </Button>
-                        <Button className="text-white ml-auto" color="link" data-dismiss="modal" type="button" onClick={() => toggleModal("defaultModal")}>
+                        <Button
+                          className="text-white ml-auto"
+                          color="link"
+                          data-dismiss="modal"
+                          type="button"
+                          onClick={() => toggleModal("defaultModal")}
+                        >
                           Close
                         </Button>
                       </div>
                     </Modal>
                   </Col>
 
-                  <Modal className="modal-dialog-centered modal-danger" contentClassName="bg-gradient-danger" isOpen={notificationModal} toggle={() => toggleModalNotification("notificationModal")}>
+                  <Modal
+                    className="modal-dialog-centered modal-danger"
+                    contentClassName="bg-gradient-danger"
+                    isOpen={notificationModal}
+                    toggle={() => toggleModalNotification("notificationModal")}
+                  >
                     <div className="modal-header">
                       <h6 className="modal-title" id="modal-title-notification">
                         Your attention is required
                       </h6>
-                      <button aria-label="Close" className="close" data-dismiss="modal" type="button" onClick={() => toggleModalNotification("notificationModal")}>
+                      <button
+                        aria-label="Close"
+                        className="close"
+                        data-dismiss="modal"
+                        type="button"
+                        onClick={() =>
+                          toggleModalNotification("notificationModal")
+                        }
+                      >
                         <span aria-hidden={true}>×</span>
                       </button>
                     </div>
@@ -217,10 +292,20 @@ const EventDisplay = (props) => {
 
                             return (
                               <label>
-                                <Input style={{ display: "none" }} type="radio" name="rating" value={ratingValue} onClick={() => setRating(ratingValue)} />
+                                <Input
+                                  style={{ display: "none" }}
+                                  type="radio"
+                                  name="rating"
+                                  value={ratingValue}
+                                  onClick={() => setRating(ratingValue)}
+                                />
                                 <FaStar
                                   className="star"
-                                  color={ratingValue <= (hover || rating) ? "#ffc107" : "#e4e5e9"}
+                                  color={
+                                    ratingValue <= (hover || rating)
+                                      ? "#ffc107"
+                                      : "#e4e5e9"
+                                  }
                                   size={50}
                                   onMouseOver={() => setHover(ratingValue)}
                                   onMouseOut={() => setHover(null)}
@@ -261,7 +346,15 @@ const EventDisplay = (props) => {
                       >
                         Ok, Got it
                       </Button>
-                      <Button className="text-white ml-auto" color="link" data-dismiss="modal" type="button" onClick={() => toggleModalNotification("notificationModal")}>
+                      <Button
+                        className="text-white ml-auto"
+                        color="link"
+                        data-dismiss="modal"
+                        type="button"
+                        onClick={() =>
+                          toggleModalNotification("notificationModal")
+                        }
+                      >
                         Close
                       </Button>
                     </div>
@@ -346,7 +439,7 @@ const EventDisplay = (props) => {
                   <br />
                   <br />
 
-                  <Row>
+                  {/* <Row>
                     <Col className="text-right" xs="4">
                       <Link to={`/customer/Sponsorship_Documentation/${event._id}`}>
                         <Button color="primary" href="#pablo">
@@ -361,32 +454,39 @@ const EventDisplay = (props) => {
                         </Button>
                       </Link>
                     </Col>
-                  </Row>
-                  <Col className="col text-center">
-                  <Link to={`/customer/boostEvent/${event._id}`}>
-                  <Button
-                        color="primary"
-                        size="lm"
-                      >
-                        Boost My Event 
-                      </Button>
-                      </Link>
-                      </Col>
+                  </Row> */}
+
                   <Row>
-                  <Col className="text-right" xs="4">
-                  <Link to={`/customer/Sponsorship_Documentation/${event._id}`}>
-                    <Button color="primary" href="#pablo">
-                      Create Sponsorship Request
-                    </Button>
-                    </Link>
-                  </Col>
-                  <Col className="text-right" xs="4">
-                  <Link to={`/customer/My_Issue/${event._id}`}>
-                    <Button color="primary" href="#pablo">
-                      Take Support
-                    </Button>
-                    </Link>
-                  </Col>
+                    <Col className="col text-center"
+                    style={{ paddingRight: "10rem" }}>
+                      <Link to={`/customer/boostEvent/${event._id}`}>
+                        <Button color="primary" size="lm">
+                          Boost My Event
+                        </Button>
+                      </Link>
+                    </Col>
+
+                    <Col
+                      className="text-right"
+                      xs="5"
+                      style={{ paddingRight: "10rem" }}
+                    >
+                      <Link to={`/customer/My_Issue/${event._id}`}>
+                        <Button color="primary">Take Support</Button>
+                      </Link>
+                    </Col>
+                  </Row>
+                  <Row className="mt-5">
+                    <Col className="text-right" xs="8"
+                    style={{ paddingLeft: "10rem" , paddingRight:"3rem"}}>
+                      <Link
+                        to={`/customer/Sponsorship_Documentation/${event._id}`}
+                      >
+                        <Button color="primary">
+                          Create Sponsorship Request
+                        </Button>
+                      </Link>
+                    </Col>
                   </Row>
                 </Form>
               </CardBody>
