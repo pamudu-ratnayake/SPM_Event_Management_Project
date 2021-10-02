@@ -7,7 +7,24 @@ import { FaStar } from "react-icons/fa";
 import API from "variables/tokenURL";
 
 // reactstrap components
-import { Button, Card, CardHeader, CardBody, FormGroup, Form, Input, Container, Row, Col, InputGroupAddon, InputGroupText, InputGroup, Modal, Table, Label } from "reactstrap";
+import {
+  Button,
+  Card,
+  CardHeader,
+  CardBody,
+  FormGroup,
+  Form,
+  Input,
+  Container,
+  Row,
+  Col,
+  InputGroupAddon,
+  InputGroupText,
+  InputGroup,
+  Modal,
+  Table,
+  Label,
+} from "reactstrap";
 // core components
 import ViewEventHeader from "components/Headers/ViewEventHeader";
 import { useEffect, useState } from "react";
@@ -24,7 +41,10 @@ const EventDisplay = (props) => {
   const [hover, setHover] = useState(null);
   const [acceptedQuotations, setAcceptedQuotations] = useState([]);
   const [SPID, setSPID] = useState("");
-
+  
+  const [checked, setChecked] = useState(false);
+  const [radioValue, setRadioValue] = useState('1');
+ 
   //toggle function
   function toggleModal() {
     setState(!defaultModal);
@@ -109,7 +129,11 @@ const EventDisplay = (props) => {
                     <h1 className="mb-0">Details of The Event</h1>
                   </Col>
                   <Col className="text-right" xs="3">
-                    <Button color="primary" size="sm" onClick={() => toggleModal("defaultModal")}>
+                    <Button
+                      color="primary"
+                      size="sm"
+                      onClick={() => toggleModal("defaultModal")}
+                    >
                       Service Providers
                     </Button>
                   </Col>
@@ -174,10 +198,11 @@ const EventDisplay = (props) => {
                                               <i className="ni ni-glasses-2" />
                                             </span>
                                           </Button>
-                                        </Link>
-                                      </td>
-                                    </tr>
-                                  ))}
+                                          </Link>
+                                        </td>
+                                      </tr>
+                                    )
+                                  )}
                                 </tbody>
                               </Table>
                             </CardBody>
@@ -188,7 +213,13 @@ const EventDisplay = (props) => {
                         <Button className="btn-white" color="default" type="button" onClick={() => toggleModal("defaultModal")}>
                           Ok, Got it
                         </Button>
-                        <Button className="text-white ml-auto" color="link" data-dismiss="modal" type="button" onClick={() => toggleModal("defaultModal")}>
+                        <Button
+                          className="text-white ml-auto"
+                          color="link"
+                          data-dismiss="modal"
+                          type="button"
+                          onClick={() => toggleModal("defaultModal")}
+                        >
                           Close
                         </Button>
                       </div>
@@ -216,10 +247,20 @@ const EventDisplay = (props) => {
 
                             return (
                               <label>
-                                <Input style={{ display: "none" }} type="radio" name="rating" value={ratingValue} onClick={() => setRating(ratingValue)} />
+                                <Input
+                                  style={{ display: "none" }}
+                                  type="radio"
+                                  name="rating"
+                                  value={ratingValue}
+                                  onClick={() => setRating(ratingValue)}
+                                />
                                 <FaStar
                                   className="star"
-                                  color={ratingValue <= (hover || rating) ? "#ffc107" : "#e4e5e9"}
+                                  color={
+                                    ratingValue <= (hover || rating)
+                                      ? "#ffc107"
+                                      : "#e4e5e9"
+                                  }
                                   size={50}
                                   onMouseOver={() => setHover(ratingValue)}
                                   onMouseOut={() => setHover(null)}
@@ -262,7 +303,15 @@ const EventDisplay = (props) => {
                       >
                         Ok, Got it
                       </Button>
-                      <Button className="text-white ml-auto" color="link" data-dismiss="modal" type="button" onClick={() => toggleModalNotification("notificationModal")}>
+                      <Button
+                        className="text-white ml-auto"
+                        color="link"
+                        data-dismiss="modal"
+                        type="button"
+                        onClick={() =>
+                          toggleModalNotification("notificationModal")
+                        }
+                      >
                         Close
                       </Button>
                     </div>
@@ -347,19 +396,16 @@ const EventDisplay = (props) => {
                   <br />
                   <br />
 
+
                   <Row>
-                    <Col className="text-right" xs="4">
-                      <Link to={`/customer/Sponsorship_Documentation/${event._id}`}>
-                        <Button color="primary" href="#pablo">
-                          Create Sponsorship Request
-                        </Button>
-                      </Link>
-                    </Col>
-                    <Col className="text-right" xs="4">
+
+                    <Col
+                      className="text-right"
+                      xs="5"
+                      style={{ paddingRight: "10rem" }}
+                    >
                       <Link to={`/customer/My_Issue/${event._id}`}>
-                        <Button color="primary" href="#pablo">
-                          Take Support
-                        </Button>
+                        <Button color="primary">Take Support</Button>
                       </Link>
                     </Col>
                   </Row>
