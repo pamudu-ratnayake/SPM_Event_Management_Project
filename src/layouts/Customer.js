@@ -66,7 +66,7 @@ const Customer = (props) => {
         />
         <Switch>
           {getRoutes(routes)}
-          <Redirect from="*" to="/customer/index" />
+          <Redirect from="*" to="/customer/cus-index" />
         </Switch>
         <Container fluid>
           <AdminFooter />

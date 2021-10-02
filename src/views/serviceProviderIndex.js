@@ -14,7 +14,8 @@ import {
 // core components
 
 import API from "variables/tokenURL";
-import Header from "components/Headers/Header.js";
+
+import AdminHeader from "components/Headers/AdminHeader";
 import { useEffect, useState } from "react";
 
 const ServiceProviderIndex = (props) => {
@@ -61,7 +62,7 @@ const ServiceProviderIndex = (props) => {
 
 	return (
 		<>
-			<Header />
+			<AdminHeader />
 			{/* Page content */}
 			<Container className="mt--7" fluid>
 				<div>
