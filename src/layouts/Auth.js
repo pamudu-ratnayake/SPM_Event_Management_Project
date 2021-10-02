@@ -43,7 +43,16 @@ const Auth = (props) => {
 
 	return (
 		<>
-			<div className="main-content" ref={mainContent}>
+			<div className="main-content" ref={mainContent}
+			        // style={{
+					// 	minHeight: "600px",
+					// 	backgroundImage:
+					// 	  "url(" + require("../assets/img/theme/event1.jpg").default + ")",
+					// 	backgroundSize: "cover",
+					// 	backgroundPosition: "center top",
+					//   }}
+					  >
+						          {/* <span className="mask bg-gradient-default opacity-5" /> */}
 				<AuthNavbar />
 				<div className="header bg-gradient-info py-7 py-lg-8">
 					<Container>

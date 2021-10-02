@@ -12,7 +12,6 @@ import { Button, Card, CardHeader, CardBody, FormGroup, Form, Input, Container, 
 import ViewEventHeader from "components/Headers/ViewEventHeader";
 import { useEffect, useState } from "react";
 
-
 const EventDisplay = (props) => {
   console.log("ID is : ", props.match.params._id);
 
@@ -121,11 +120,11 @@ const EventDisplay = (props) => {
                       </Button>
                     </Link>
 
-                    <Modal className="modal-dialog-centered modal-danger" contentClassName="bg-gradient-danger" isOpen={defaultModal} toggle={() => toggleModal("defaultModal")}>
-                      <div className="modal-header">
-                        <h6 className="modal-title" id="modal-title-notification">
-                          Give your Rate & Review
-                        </h6>
+                    <Modal className="modal-dialog-centered modal-primary " contentClassName="bg-gradient-primary" isOpen={defaultModal} toggle={() => toggleModal("defaultModal")}>
+                      <div className="modal-header ">
+                        <h3 className="modal-title" id="modal-title-notification">
+                          Accepted Service Providers
+                        </h3>
                         <button aria-label="Close" className="close" data-dismiss="modal" type="button" onClick={() => toggleModal("defaultModal")}>
                           <span aria-hidden={true}>×</span>
                         </button>
@@ -186,7 +185,7 @@ const EventDisplay = (props) => {
                         </Col>
                       </div>
                       <div className="modal-footer">
-                        <Button className="btn-white" color="default" type="button">
+                        <Button className="btn-white" color="default" type="button" onClick={() => toggleModal("defaultModal")}>
                           Ok, Got it
                         </Button>
                         <Button className="text-white ml-auto" color="link" data-dismiss="modal" type="button" onClick={() => toggleModal("defaultModal")}>
@@ -196,18 +195,18 @@ const EventDisplay = (props) => {
                     </Modal>
                   </Col>
 
-                  <Modal className="modal-dialog-centered modal-danger" contentClassName="bg-gradient-danger" isOpen={notificationModal} toggle={() => toggleModalNotification("notificationModal")}>
+                  <Modal className="modal-dialog-centered modal-danger" contentClassName="bg-gradient-primary" isOpen={notificationModal} toggle={() => toggleModalNotification("notificationModal")}>
                     <div className="modal-header">
-                      <h6 className="modal-title" id="modal-title-notification">
-                        Your attention is required
-                      </h6>
+                      <h3 className="modal-title" id="modal-title-notification">
+                         Give Your Rate & Review
+                      </h3>
                       <button aria-label="Close" className="close" data-dismiss="modal" type="button" onClick={() => toggleModalNotification("notificationModal")}>
                         <span aria-hidden={true}>×</span>
                       </button>
                     </div>
                     <div className="modal-body">
                       <div className="py-3 text-center">
-                        <i className="ni ni-bell-55 ni-3x" />
+                        <i className="ni ni-bell-55 ni-5x text-yellow" />
                         <h4 className="heading mt-4">Rate Me!</h4>
                         <p>Rate and Give your comments about my service</p>
 
@@ -252,9 +251,11 @@ const EventDisplay = (props) => {
                     </div>
                     <div className="modal-footer">
                       <Button
-                        onClick={() => {
-                          setReview();
-                        }}
+                        // onClick={() => {
+                        //   setReview();
+                        // }}
+                        onClick={function (event) {
+                          toggleModalNotification("notificationModal"); setReview();}}
                         className="btn-white"
                         color="default"
                         type="button"
@@ -363,30 +364,27 @@ const EventDisplay = (props) => {
                     </Col>
                   </Row>
                   <Col className="col text-center">
-                  <Link to={`/customer/boostEvent/${event._id}`}>
-                  <Button
-                        color="primary"
-                        size="lm"
-                      >
-                        Boost My Event 
+                    <Link to={`/customer/boostEvent/${event._id}`}>
+                      <Button color="primary" size="lm">
+                        Boost My Event
                       </Button>
-                      </Link>
-                      </Col>
+                    </Link>
+                  </Col>
                   <Row>
-                  <Col className="text-right" xs="4">
-                  <Link to={`/customer/Sponsorship_Documentation/${event._id}`}>
-                    <Button color="primary" href="#pablo">
-                      Create Sponsorship Request
-                    </Button>
-                    </Link>
-                  </Col>
-                  <Col className="text-right" xs="4">
-                  <Link to={`/customer/My_Issue/${event._id}`}>
-                    <Button color="primary" href="#pablo">
-                      Take Support
-                    </Button>
-                    </Link>
-                  </Col>
+                    <Col className="text-right" xs="4">
+                      <Link to={`/customer/Sponsorship_Documentation/${event._id}`}>
+                        <Button color="primary" href="#pablo">
+                          Create Sponsorship Request
+                        </Button>
+                      </Link>
+                    </Col>
+                    <Col className="text-right" xs="4">
+                      <Link to={`/customer/My_Issue/${event._id}`}>
+                        <Button color="primary" href="#pablo">
+                          Take Support
+                        </Button>
+                      </Link>
+                    </Col>
                   </Row>
                 </Form>
               </CardBody>

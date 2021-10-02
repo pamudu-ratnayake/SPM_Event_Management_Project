@@ -231,73 +231,57 @@ const ViewQuotation = (props) => {
               </CardHeader>
               <CardBody>
                 <Form>
-                  <Row>
-                    <Col md="6">
-                      <FormGroup>
-                        <label>Event Name : {event.event_name} </label>
-                        <label className="ml-3"> </label>
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col md="6">
-                      <FormGroup>
-                        <label>Service Provider Name : {quotation.event_id && quotation.provider_id.user_name} </label>
-                        <label className="ml-3"> </label>
-                      </FormGroup>
-                    </Col>
-                    <Col md="6">
-                      <FormGroup>
-                        <label>Service Type : {quotation.event_id && quotation.provider_id.service_type} </label>
-                        <label className="ml-3"> </label>
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col md="6">
-                      <FormGroup>
-                        <label>Service Provider's Email : {quotation.event_id && quotation.provider_id.email}</label>
-                        <label className="ml-3"></label>
-                      </FormGroup>
-                    </Col>
-                    <Col md="6">
-                      <FormGroup>
-                        <label>Service Provider Contact Number : {quotation.event_id && quotation.provider_id.mobile}</label>
-                        <label className="ml-3"> </label>
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col md="6">
-                      <FormGroup>
-                        <label>
-                          Valid :{""} {quotation.date_from} {""} to {""} {quotation.date_to}
-                        </label>
-                        <label className="ml-3"> </label>
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col md="6">
-                      <FormGroup>
-                        <label>Terms : {quotation.terms} </label>
-                        <label className="ml-3"> </label>
-                      </FormGroup>
-                    </Col>
-                  </Row>
+                    <FormGroup>
+                    <Row>
+                      <Col md="2">Event Name</Col>
+                      <Col md="4">: {event.event_name}</Col>
+                    </Row>
+                  </FormGroup>
+                  <FormGroup>
+                    <Row>
+                      <Col md="2">Service Provider Name</Col>
+                      <Col md="4">: {quotation.provider_id?.user_name}</Col>
+                      <Col md="2">Service Type</Col>
+                      <Col md="4">: {quotation.provider_id?.service_type} day</Col>
+                    </Row>
+                  </FormGroup>
+                  <FormGroup>
+                    <Row>
+                      <Col md="2">Service Provider's Email</Col>
+                      <Col md="4">: {quotation.provider_id?.email}</Col>
+                      <Col md="2">Contact Number</Col>
+                      <Col md="4">: {quotation.provider_id?.mobile} day</Col>
+                    </Row>
+                  </FormGroup>
+                  <FormGroup>
+                    <Row>
+                      <Col md="2">Valid</Col>
+                      <Col md="6">: {""} {quotation.date_from} {""} to {""} {quotation.date_to}</Col>
+                    </Row>
+                  </FormGroup>
+                  <FormGroup>
+                    <Row>
+                    <Col md="2">Terms </Col>
+                      <Col md="4">: {quotation.terms}</Col>
+                    </Row>
+                  </FormGroup>
+
                   <Row>
                     <Col>
                       <label className="mb-2">Quotation Items : </label>
                     </Col>
                   </Row>
-                  <Row style={{ marginLeft: 20, marginTop: 10 }}>
+                <br/>
+                <br/>
+                  <Row style={{ marginLeft: 70 }}>
                     <Col md="8">
+                      <Card >
                       <Table className="align-items-center" responsive>
-                        <thead className="thead-dark">
+                        <thead className=" bg-gradient-primary">
                           <tr>
-                            <th scope="col">Item Name</th>
-                            <th scope="col">Quantity</th>
-                            <th scope="col">Unit Price</th>
+                            <th scope="col" className="text-white">Item Name</th>
+                            <th scope="col" className="text-white">Quantity</th>
+                            <th scope="col" className="text-white">Unit Price</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -313,8 +297,11 @@ const ViewQuotation = (props) => {
                             ))}
                         </tbody>
                       </Table>
+                      </Card>
                     </Col>
                   </Row>
+                  <br/>
+                  <br/>
                 </Form>
               </CardBody>
             </Card>

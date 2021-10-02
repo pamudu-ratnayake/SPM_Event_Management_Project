@@ -37,7 +37,7 @@ const Register = () => {
           console.log("Data", values);
           localStorage.setItem("profile", JSON.stringify(res.data));
           history.push({
-            pathname: `/admin`,
+            pathname: `/customer`,
           });
         })
         .catch((error) => {

@@ -85,12 +85,6 @@ const SelectServiceProvider = (props) => {
                   <Col xs="8">
                     <h1 className="mb-0">Select Service Providers</h1>
                   </Col>
-                  <Col className="text-right" xs="4">
-                    <Label>Sort by: </Label>
-                    <Button color="primary" size="sm">
-                      Publish An Event
-                    </Button>
-                  </Col>
                 </Row>
               </CardHeader>
               <CardBody>
