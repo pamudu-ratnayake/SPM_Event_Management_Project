@@ -13,6 +13,7 @@ import { Button, Card, CardHeader, CardBody, FormGroup, Form, Input, Container, 
 // core components
 import AddEventHeader from "components/Headers/AddEventHeader";
 import { useState, useEffect } from "react";
+import API from "variables/tokenURL";
 
 //phone number definition
 const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
@@ -62,8 +63,8 @@ const AddEvent = (props) => {
   const onSubmit = (values) => {
     console.log("Form Date", values);
     //  values.date_of_the_event = event_date; //watch
-    axios
-      .post("http://localhost:8080/eventAdd/addevent", values)
+    API
+      .post("/eventAdd/addevent", values)
       .then((res) => {
         console.log(res);
         console.log("Data", values);

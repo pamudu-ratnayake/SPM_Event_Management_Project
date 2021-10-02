@@ -26,6 +26,7 @@ import UpdateEvent from "views/examples/customer/UpdateEvent";
 import SelectServiceProvider from "views/examples/customer/SelectServiceProvider";
 import ViewQuotation from "views/examples/customer/ViewQuotation";
 //------------------------------------------------------
+import TopEvents from "views/examples/customer/TopEvents";
 
 import MyPaymentListCustomer from "views/PaymentHandling/MyPaymentList";
 import ViewMyPaymentCustomer from "views/PaymentHandling/ViewMyPayment";
@@ -70,15 +71,15 @@ var routes = [
   },
 
 	//-----------Indexes-----------
+	// {
+	// 	path: "/index",
+	// 	name: "Dashboard",
+	// 	icon: "ni ni-tv-2 text-primary",
+	// 	component: Index,
+	// 	layout: "/admin",
+	// },
 	{
-		path: "/index",
-		name: "Dashboard",
-		icon: "ni ni-tv-2 text-primary",
-		component: Index,
-		layout: "/admin",
-	},
-	{
-		path: "/index",
+		path: "/cus-index",
 		name: "Dashboard",
 		icon: "ni ni-tv-2 text-primary",
 		component: CustomerIndex,
@@ -92,100 +93,109 @@ var routes = [
 		layout: "/serviceprovider",
 	},
 
-	//--------customer & Events -------------------
+  //--------customer & Events -------------------
 
-	{
-		path: "/add-event",
-		name: "Publish An Event",
-		icon: "ni ni-notification-70 text-orange",
-		component: AddEvent,
-		layout: "/customer",
-	},
+  {
+    path: "/add-event",
+    name: "Publish An Event",
+    icon: "ni ni-notification-70 text-orange",
+    component: AddEvent,
+    layout: "/customer",
+  },
 
-	{
-		path: "/customer-profile",
-		name: "My Profile",
-		icon: "ni ni-single-02 text-orange",
-		component: CustomerProfile,
-		layout: "/customer",
-	},
-	{
-		path: "/my-event",
-		name: "My Events",
-		icon: "ni ni-book-bookmark text-purple",
-		component: MyEvents,
-		layout: "/customer",
-	},
-	{
-		path: "/selectservice-proivider/:_id",
-		name: "Select Service Provider",
-		icon: "ni ni-book-bookmark text-purple",
-		component: SelectServiceProvider,
-		layout: "/customer",
-	},
-	{
-		path: "/view-quotations/:_id",
-		name: "View Quotations",
-		icon: "ni ni-circle-08 text-pink",
-		component: ViewQuotation,
-		layout: "/customer",
-	},
-	{
-		path: "/login",
-		name: "Login",
-		icon: "ni ni-key-25 text-info",
-		component: Login,
-		layout: "/auth",
-	},
-	{
-		path: "/register",
-		name: "Register",
-		icon: "ni ni-circle-08 text-pink",
-		component: Register,
-		layout: "/auth",
-	},
-	{
-		path: "/register-all",
-		name: "All Register",
-		icon: "ni ni-circle-08 text-pink",
-		component: AllSignUps,
-		layout: "/auth",
-		invisible: true,
-	},
-	{
-		path: "/event-display/:_id",
-		// name: "Display Event",
-		// icon: "ni ni-notification-70 text-orange",
-		component: EventDisplay,
-		layout: "/customer",
-		invisible: true,
-	},
-	{
-		path: "/event-update/:_id",
-		// name: "Update Event",
-		//icon: "ni ni-notification-70 text-orange",
-		component: UpdateEvent,
-		layout: "/customer",
-		invisible: true,
-	},
+  {
+    path: "/customer-profile",
+    name: "My Profile",
+    icon: "ni ni-single-02 text-success",
+    component: CustomerProfile,
+    layout: "/customer",
+  },
+  {
+    path: "/my-event",
+    name: "My Events",
+    icon: "ni ni-book-bookmark text-purple",
+    component: MyEvents,
+    layout: "/customer",
+  },
+  {
+    path: "/selectservice-proivider/:_id",
+    name: "Select Service Provider",
+    icon: "ni ni-book-bookmark text-purple",
+    component: SelectServiceProvider,
+    layout: "/customer",
+    invisible: true,
+  },
+  {
+    path: "/view-quotations/:_id",
+    name: "View Quotations",
+    icon: "ni ni-circle-08 text-pink",
+    component: ViewQuotation,
+    layout: "/customer",
+    invisible: true,
+  },
+  {
+    path: "/login",
+    name: "Login",
+    icon: "ni ni-key-25 text-info",
+    component: Login,
+    layout: "/auth",
+  },
+  {
+    path: "/register",
+    name: "Register",
+    icon: "ni ni-circle-08 text-pink",
+    component: Register,
+    layout: "/auth",
+  },
+  {
+    path: "/register-all",
+    name: "All Register",
+    icon: "ni ni-circle-08 text-pink",
+    component: AllSignUps,
+    layout: "/auth",
+    invisible: true,
+  },
+  {
+    path: "/event-display/:_id",
+    // name: "Display Event",
+    // icon: "ni ni-notification-70 text-orange",
+    component: EventDisplay,
+    layout: "/customer",
+    invisible: true,
+  },
+  {
+    path: "/event-update/:_id",
+    // name: "Update Event",
+    //icon: "ni ni-notification-70 text-orange",
+    component: UpdateEvent,
+    layout: "/customer",
+    invisible: true,
+  },
 
-	// ============== Service Provider Routes ==================
+  {
+    path: "/top-events",
+    name: "Top Events",
+    icon: "bx bx-movie-play text-success fs-4",
+    component: TopEvents,
+    layout: "/serviceprovider",
+  },
+  {
+    path: "/registerServiceProvider",
+    name: "Register Service Provider",
+    icon: "ni ni-circle-08 text-pink",
+    component: RegisterServiceProvider,
+    layout: "/authServiceProvider",
+  },
 
-	{
-		path: "/events",
-		name: "Events",
-		icon: "bx bx-movie-play text-primary fs-4",
-		component: Events,
-		layout: "/serviceprovider",
-	},
+  // ============== Service Provider Routes ==================
 
-	{
-		path: "/registerServiceProvider",
-		name: "Register Service Provider",
-		icon: "ni ni-circle-08 text-pink",
-		component: RegisterServiceProvider,
-		layout: "/authServiceProvider",
-	},
+  {
+    path: "/events",
+    name: "Events",
+    icon: "bx bx-movie-play text-success fs-4",
+    component: Events,
+    layout: "/serviceprovider",
+  },
 
 	{
 		path: "/serviceProviders",
@@ -203,20 +213,27 @@ var routes = [
 		layout: "/serviceprovider",
 	},
 
-	{
-		path: "/event-display-sp/:_id",
-		component: EventDisplaySP,
-		layout: "/serviceprovider",
-	},
+  {
+    path: "/service-provider-profile",
+    name: "Profile",
+    icon: "bx bxs-user text-success fs-4",
+    component: ServiceProviderProfile,
+    layout: "/serviceprovider",
+  },
 
-	{
-		path: "/createQuotation/:_id",
-		component: CreateQuotation,
-		layout: "/serviceprovider",
-	},
+  {
+    path: "/event-display-sp/:_id",
+    component: EventDisplaySP,
+    layout: "/serviceprovider",
+    invisible: true,
+  },
 
-	// ================== Service Provider Routes =============
-	// ========================= End  =========================
+  {
+    path: "/createQuotation/:_id",
+    component: CreateQuotation,
+    layout: "/serviceprovider",
+    invisible: true,
+  },
 
   {
     path: "/adverisementlist",
@@ -287,6 +304,7 @@ var routes = [
     name: "View Advertisement",
     icon: "ni ni-tv-2 text-pink",
     component: ViewAdvertisement,
+    layout: "/admin",
     layout: "/serviceprovider",
     invisible: true,
   },
@@ -321,6 +339,14 @@ var routes = [
     name: "Update Advertisement Information",
     icon: "ni ni-tv-2 text-pink",
     component: UpdateAdvertisementInformation,
+    layout: "/admin",
+    invisible: true,
+  },
+  {
+    path: "/boostAdd",
+    name: "Boost Advertisement",
+    icon: "ni ni-tv-2 text-pink",
+    component: BoostAdvertisement,
     layout: "/serviceprovider",
     invisible: true,
   },
