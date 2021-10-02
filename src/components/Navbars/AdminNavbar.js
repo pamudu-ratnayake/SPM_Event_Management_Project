@@ -32,7 +32,7 @@ const AdminNavbar = (props) => {
   }, []);
 
   useEffect(() => {
-    API.get(`/customerdetails/getOneCustomer/${user?.result?._id}`)
+    API.get(`/serviceProvider/getByUser/${user?.result?._id}`)
       .then((res) => {
         console.log(res);
         setCustomer(res.data);
@@ -66,7 +66,7 @@ const AdminNavbar = (props) => {
               <DropdownToggle className="pr-0" nav>
                 <Media className="align-items-center">
                   <span className="avatar avatar-sm rounded-circle">
-                    <img alt="..." src={require("../../assets/img/theme/team-4-800x800.jpg").default} />
+                    <img alt="..." src={customer?.prof_img} />
                   </span>
                   <Media className="ml-2 d-none d-lg-block">
                     <span className="mb-0 text-sm font-weight-bold">{user?.result.firstName}</span>

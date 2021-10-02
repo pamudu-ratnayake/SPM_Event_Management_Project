@@ -3,7 +3,7 @@ import React, { useState, useMemo, useEffect, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import axios from "axios";
 import * as Yup from "yup";
-import FileBase from "react-file-base64";
+import myavatar from "assets/img/theme/profile-avatar.png"
 
 // reactstrap components
 import {
@@ -34,10 +34,11 @@ const CustomerProfile = (props) => {
 		padding: "90px",
 		borderWidth: 2,
 		borderRadius: 2,
-		borderColor: "#eeeeee",
+		borderColor: "#A9A9B0",
 		borderStyle: "dashed",
-		backgroundColor: "#bab8b8",
-		color: "#bdbdbd",
+    marginBottom: '20px',
+		backgroundColor: "#ffffff",
+		color: "default",
 		outline: "none",
 		transition: "border .24s ease-in-out",
 	};
@@ -138,8 +139,8 @@ const CustomerProfile = (props) => {
 		formdata.append("cus_gender", values.cus_gender);
 
 
-    axios
-      .post("http://localhost:8080/customerdetails/addcustomer", formdata)
+    API
+      .post("/customerdetails/addcustomer", formdata)
       .then((res) => {
         console.log(res);
         console.log("Data", formdata);
@@ -208,7 +209,7 @@ const CustomerProfile = (props) => {
                 <Col className="order-lg-2" lg="3">
                   <div className="card-profile-image">
                     <a href="#pablo" onClick={(e) => e.preventDefault()}>
-                      <img alt="..." className="rounded-circle" src={customer && customer.prof_img} />
+                      <img  className="rounded-circle" src={customer?.prof_img} alt="..." />
                     </a>
                   </div>
                 </Col>

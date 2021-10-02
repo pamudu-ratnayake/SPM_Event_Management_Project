@@ -37,9 +37,10 @@ const EventDisplay = (props) => {
   const [defaultModal, setState] = useState(false);
   const [notificationModal, setModal] = useState(false);
   const [rating, setRating] = useState(null);
+  const [reviews, setReviewInput] = useState("");
   const [hover, setHover] = useState(null);
   const [acceptedQuotations, setAcceptedQuotations] = useState([]);
-  const [providerID, setID] = useState("");
+  const [SPID, setSPID] = useState("");
 
   //toggle function
   function toggleModal() {
@@ -50,21 +51,17 @@ const EventDisplay = (props) => {
     setModal(!notificationModal);
   }
 
-  // function onStarClick(nextValue, prevValue, name) {
-  //   setRating({ rating: nextValue });
-  // }
-
   console.log("rating", rating);
-  console.log("Provider ID : ", providerID);
-
-  const initialValues = {};
+  // console.log("xxx", providerID);
+  const initialValues = {
+    enableReinitialize: true,
+    validateOnMount: true,
+    review: "",
+  };
 
   //useEffect
   useEffect(async () => {
-    await axios
-      .get(
-        `http://localhost:8080/eventAdd/getOneEvent/${props.match.params._id}`
-      )
+    await API.get(`/eventAdd/getOneEvent/${props.match.params._id}`)
       .then(async (res) => {
         console.log(res);
         setEvent(res.data);
@@ -85,25 +82,33 @@ const EventDisplay = (props) => {
       });
   }, []);
 
-  const setReview = (ID) => {
-    console.log("come to this", ID);
-    // API.get(`/quotation/get/${acceptedQuotations._id}`)
-    // .then((res) => {
-    //   console.log(res);
-    //   console.log('PR ID : ', res.data.provider_id._id)
+  const setID = (providerID) => {
+    setSPID(providerID);
+  };
 
-    // API.put(`/serviceProvider/review-update/${res.data.provider_id._id}`)
-    // .then((res)=> {
-    //   console.log(res);
-    //   console.log('Data', );
-    // })
-    // })
-    // .catch((error) => {
-    //   console.log(error);
-    // });
+  console.log("come to this", SPID);
+
+  const setReview = () => {
+    var rates = {
+      review_rate: {
+        rate: rating,
+        review: reviews,
+      },
+    };
+
+    API.post(`/serviceProvider/review-update/${SPID}`, rates)
+      .then((res) => {
+        console.log(res.data);
+        console.log("Data", rates);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const formik = useFormik({
+    enableReinitialize: true,
+    validateOnMount: true,
     initialValues,
   });
 
@@ -179,43 +184,32 @@ const EventDisplay = (props) => {
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  {acceptedQuotations.map(
-                                    (acceptedQuotations) => (
-                                      <tr key={acceptedQuotations._id}>
-                                        <td>
-                                          {" "}
-                                          {
-                                            acceptedQuotations.provider_id
-                                              .first_name
-                                          }{" "}
-                                        </td>
-                                        <td>
-                                          {" "}
-                                          {
-                                            acceptedQuotations.provider_id
-                                              .service_type
-                                          }{" "}
-                                        </td>
-                                        {/* {(providerID) => {
-                                        setID(acceptedQuotations.provider_id.first_name);
-                                      }} */}
-
-                                        <td>
-                                          <Button
-                                            onClick={() =>
-                                              toggleModalNotification(
-                                                "notificationModal"
-                                              )
-                                            }
-                                            className="btn-icon btn-2 "
-                                            size="sm"
-                                            color="danger"
-                                            type="button"
-                                          >
+                                  {acceptedQuotations.map((acceptedQuotations) => (
+                                    <tr key={acceptedQuotations._id}>
+                                      <td> {acceptedQuotations.provider_id.first_name} </td>
+                                      <td> {acceptedQuotations.provider_id.service_type} </td>
+                                      <td>
+                                        <Button
+                                          onClick={function (event) {
+                                            toggleModalNotification("notificationModal");
+                                            setID(acceptedQuotations.provider_id._id);
+                                          }}
+                                          className="btn-icon btn-2 "
+                                          size="sm"
+                                          color="danger"
+                                          type="button"
+                                        >
+                                          <span className="btn-inner--icon-center">
+                                            <i className="ni ni-like-2" />
+                                          </span>
+                                        </Button>
+                                        <Link to={`/customer/view-quotations/${acceptedQuotations._id}`}>
+                                          <Button className="btn-icon btn-2 " size="sm" color="success" type="button">
                                             <span className="btn-inner--icon-center">
                                               <i className="ni ni-like-2" />
                                             </span>
                                           </Button>
+                                          </Link>
                                           <Link
                                             to={`/customer/view-quotations/${acceptedQuotations._id}`}
                                           >
@@ -317,23 +311,26 @@ const EventDisplay = (props) => {
                             );
                           })}
                         </div>
-
-                        <Col md="12">
-                          <FormGroup>
-                            <label>Review</label>
-                            <Input
-                              id="exampleFormControlTextarea1"
-                              placeholder="Enter Your Review..."
-                              rows="3"
-                              type="textarea"
-                              name="review"
-                              onChange={formik.handleChange}
-                              onBlur={formik.handleBlur}
-                              value={formik.values.review}
-                            />
-                          </FormGroup>
-                        </Col>
                       </div>
+
+                      <Col md="12">
+                        <FormGroup>
+                          <h4 className="heading mt-4">Review</h4>
+                          <Input
+                            id="exampleFormControlTextarea1"
+                            placeholder="Enter Your Review..."
+                            rows="3"
+                            type="textarea"
+                            name="review"
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            // value={review}
+                            onInput={(e) => {
+                              setReviewInput(e.target.value);
+                            }}
+                          />
+                        </FormGroup>
+                      </Col>
                     </div>
                     <div className="modal-footer">
                       <Button
@@ -363,114 +360,98 @@ const EventDisplay = (props) => {
               </CardHeader>
               <CardBody>
                 <Form>
-                  <Row>
-                    <Col md="6">
-                      <FormGroup>
-                        <label>Event Name : </label>
-                        <label className="ml-3"> {event.event_name} </label>
-                      </FormGroup>
-                    </Col>
-                    <Col md="6">
-                      <FormGroup>
-                        <label>Event Type : </label>
-                        <label className="ml-3"> {event.event_type} </label>
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col md="6">
-                      <FormGroup>
-                        <label>Organization Name : </label>
-                        <label className="ml-3">{event.org_name}</label>
-                      </FormGroup>
-                    </Col>
-                    <Col md="6">
-                      <FormGroup>
-                        <label>Date of The Event : </label>
-                        <label className="ml-3">
-                          {" "}
-                          {event.date_of_the_event}{" "}
-                        </label>
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col md="6">
-                      <FormGroup>
-                        <label>Event Time : </label>
-                        <label className="ml-3"> {event.event_time} </label>
-                      </FormGroup>
-                    </Col>
-                    <Col md="6">
-                      <FormGroup>
-                        <label>Days Event Occurs : </label>
-                        <label className="ml-3"> {event.days_occurs} day</label>
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col md="6">
-                      <FormGroup>
-                        <label>Location : </label>
-                        <label className="ml-3"> {event.location} </label>
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col>
-                      <label className="mb-2">Required Services : </label>
-                    </Col>
-                  </Row>
+                  <FormGroup>
+                    <Row>
+                      <Col md="2">Event Name</Col>
+                      <Col md="4">: {event.event_name}</Col>
+                      <Col md="2">Event Type</Col>
+                      <Col md="4">: {event.event_type}</Col>
+                    </Row>
+                  </FormGroup>
+                  <FormGroup>
+                    <Row>
+                      <Col md="2">Organization Name</Col>
+                      <Col md="4">: {event.org_name}</Col>
+                      <Col md="2">Date of The Event</Col>
+                      <Col md="4">: {event.date_of_the_event}</Col>
+                    </Row>
+                  </FormGroup>
+                  <FormGroup>
+                    <Row>
+                      <Col md="2">Event Time</Col>
+                      <Col md="4">: {event.event_time}</Col>
+                      <Col md="2">Days Event Occurs</Col>
+                      <Col md="4">: {event.days_occurs} day</Col>
+                    </Row>
+                  </FormGroup>
+                  <FormGroup>
+                    <Row>
+                      <Col md="2">Event Closing Date</Col>
+                      <Col md="4">: {event.date_of_the_event_end}</Col>
+                    </Row>
+                  </FormGroup>
+                  <FormGroup>
+                    <Row>
+                      <Col md="2">Required Services</Col>
 
-                  <Col>
-                    {event.checkboxOption &&
-                      event.checkboxOption.map((checkbox, index) => {
-                        return (
-                          <div className="ml-5" key={index}>
-                            {" "}
-                            <Label> {checkbox} </Label>
-                          </div>
-                        );
-                      })}
-                  </Col>
+                      <Col md="8">
+                        :
+                        {event.checkboxOption &&
+                          event.checkboxOption.map((checkbox, index) => {
+                            return (
+                              <div className="ml-5" key={index}>
+                                {" "}
+                                <Label> {checkbox} </Label>
+                              </div>
+                            );
+                          })}
+                      </Col>
+                    </Row>
+                  </FormGroup>
 
                   <h2 className="mt-5 mb-4">Contact Information</h2>
-                  <Row>
-                    <Col md="6">
-                      <FormGroup>
-                        <label>Organizer Name : </label>
-                        <label className="ml-3"> {event.organizer_name} </label>
-                      </FormGroup>
+                  <FormGroup>
+                    <Row>
+                      <Col md="2">Organizer Name</Col>
+                      <Col md="4">: {event.organizer_name}</Col>
+                      <Col md="2">Organizer's NIC</Col>
+                      <Col md="4">: {event.org_nic}</Col>
+                    </Row>
+                  </FormGroup>
+                  <FormGroup>
+                    <Row>
+                      <Col md="2">Email</Col>
+                      <Col md="4">: {event.cus_email}</Col>
+                      <Col md="2">Contact Number </Col>
+                      <Col md="4">: {event.cus_con_number}</Col>
+                    </Row>
+                  </FormGroup>
+                  <FormGroup>
+                    <Row>
+                      <Col md="2">Description</Col>
+                      <Col md="10">: {event.description}</Col>
+                    </Row>
+                  </FormGroup>
+                  <br />
+                  <br />
+                  <br />
+
+                  {/* <Row>
+                    <Col className="text-right" xs="4">
+                      <Link to={`/customer/Sponsorship_Documentation/${event._id}`}>
+                        <Button color="primary" href="#pablo">
+                          Create Sponsorship Request
+                        </Button>
+                      </Link>
                     </Col>
-                    <Col md="6">
-                      <FormGroup>
-                        <label>Organizer's NIC : </label>
-                        <label className="ml-3"> {event.org_nic} </label>
-                      </FormGroup>
+                    <Col className="text-right" xs="4">
+                      <Link to={`/customer/My_Issue/${event._id}`}>
+                        <Button color="primary" href="#pablo">
+                          Take Support
+                        </Button>
+                      </Link>
                     </Col>
-                  </Row>
-                  <Row>
-                    <Col md="6">
-                      <FormGroup>
-                        <label>Email : </label>
-                        <label className="ml-3"> {event.cus_email} </label>
-                      </FormGroup>
-                    </Col>
-                    <Col md="6">
-                      <FormGroup>
-                        <label>Contact Number : </label>
-                        <label className="ml-3"> {event.cus_con_number} </label>
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col md="10">
-                      <FormGroup>
-                        <label>Description : </label>
-                        <label className="ml-3"> {event.description} </label>
-                      </FormGroup>
-                    </Col>
-                  </Row>
+                  </Row> */}
 
                   <Row>
                     <Col className="col text-center"
