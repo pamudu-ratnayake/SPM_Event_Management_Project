@@ -46,7 +46,7 @@ const ServiceProviderNavbar = (props) => {
 	}, []);
 
 	useEffect(() => {
-		API.get(`/customerdetails/getOneCustomer/${user?.result?._id}`)
+		API.get(`/serviceProvider/getByUser/${user?.result?._id}`)
 			.then((res) => {
 				console.log(res);
 				setCustomer(res.data);

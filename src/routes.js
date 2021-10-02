@@ -173,7 +173,7 @@ var routes = [
 	{
 		path: "/top-events",
 		name: "Top Events",
-		icon: "bx bx-movie-play text-success fs-4",
+		icon: "bx bx-movie-play text-primary fs-4",
 		component: TopEvents,
 		layout: "/serviceprovider",
 	},
@@ -190,7 +190,7 @@ var routes = [
 	{
 		path: "/events",
 		name: "Events",
-		icon: "bx bx-movie-play text-success fs-4",
+		icon: "bx bx-movie-play text-primary fs-4",
 		component: Events,
 		layout: "/serviceprovider",
 	},
@@ -207,14 +207,6 @@ var routes = [
 		path: "/service-provider-profile",
 		name: "Profile",
 		icon: "bx bxs-user text-primary fs-4",
-		component: ServiceProviderProfile,
-		layout: "/serviceprovider",
-	},
-
-	{
-		path: "/service-provider-profile",
-		name: "Profile",
-		icon: "bx bxs-user text-success fs-4",
 		component: ServiceProviderProfile,
 		layout: "/serviceprovider",
 	},
@@ -253,8 +245,8 @@ var routes = [
 
 	{
 		path: "/myadverisementlist",
-		name: "My Advertisement List",
-		icon: "ni ni-credit-card text-blue",
+		name: "My Advertisement",
+		icon: "ni ni-credit-card text-blue fs-5",
 		component: MyAdvertisementList,
 		layout: "/serviceprovider",
 	},
@@ -288,7 +280,7 @@ var routes = [
 	{
 		path: "/mypaymentlist",
 		name: "My Payments",
-		icon: "ni ni-credit-card text-blue",
+		icon: "ni ni-credit-card text-blue fs-5",
 		component: MyPaymentList,
 		layout: "/serviceprovider",
 	},
@@ -303,7 +295,7 @@ var routes = [
 	{
 		path: "/advertisement",
 		name: "Add Advertisement",
-		icon: "ni ni-tv-2 text-pink",
+		icon: "bx bxs-alarm-add bx-burst text-primary fs-4",
 		component: AdvertisementInformation,
 		layout: "/serviceprovider",
 	},
@@ -443,14 +435,14 @@ var routes = [
 	{
 		path: "/Event_Support",
 		name: "Event Consulting",
-		icon: "ni ni-support-16 text-red",
+		icon: "ni ni-support-16 text-red ",
 		component: Event_Support,
 		layout: "/admin",
 	},
 	{
 		path: "/Event_Support",
 		name: "Event Consulting",
-		icon: "ni ni-support-16 text-red",
+		icon: "ni ni-support-16 text-primary fs-5",
 		component: Event_Support,
 		layout: "/serviceprovider",
 	},

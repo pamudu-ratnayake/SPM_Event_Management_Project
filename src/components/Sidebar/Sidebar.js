@@ -55,18 +55,20 @@ const Sidebar = (props) => {
 	// creates the links that appear in the left menu / Sidebar
 	const createLinks = (routes) => {
 		return routes.map((prop, key) => {
-      if (prop.invisible === true) return null;
-      if (props.location.pathname.indexOf(prop.layout) === -1) return null;
+			if (prop.invisible === true) return null;
+			if (props.location.pathname.indexOf(prop.layout) === -1) return null;
 			return (
 				<NavItem key={key}>
 					<NavLink
+						// className="text-primary"
 						to={prop.layout + prop.path}
 						tag={NavLinkRRD}
 						onClick={closeCollapse}
 						activeClassName="active"
+						activeClassName="fw-bold"
 					>
 						<i className={prop.icon} />
-						{prop.name}
+						<span>{prop.name}</span>
 					</NavLink>
 				</NavItem>
 			);
@@ -75,58 +77,79 @@ const Sidebar = (props) => {
 
 	const { bgColor, routes, logo } = props;
 
-  return (
-    <Navbar className="navbar-vertical fixed-left navbar-light bg-white" expand="md" id="sidenav-main">
-      <Container fluid>
-        {/* Toggler */}
-        <button className="navbar-toggler" type="button" onClick={toggleCollapse}>
-          <span className="navbar-toggler-icon" />
-        </button>
-        {/* Brand */}
-        <div
-          className="header pb-9 pt-2 pt-lg-8 d-flex align-items-center"
-          style={{
-            backgroundImage: "url(" + require("../../assets/img/theme/thebliss5.png").default + ")",
-            backgroundSize: "290px",
-            backgroundPosition: "center bottom",
-          }}
-        />
-        <br/>
-                <hr className="my-3" />
-        {/* User */}
-        <Nav className="align-items-center d-md-none">
-          <UncontrolledDropdown nav>
-            <DropdownToggle nav className="nav-link-icon">
-              <i className="ni ni-bell-55" />
-            </DropdownToggle>
-            <DropdownMenu aria-labelledby="navbar-default_dropdown_1" className="dropdown-menu-arrow" right>
-              <DropdownItem>Action</DropdownItem>
-              <DropdownItem>Another action</DropdownItem>
-              <DropdownItem divider />
-              <DropdownItem>Something else here</DropdownItem>
-            </DropdownMenu>
-          </UncontrolledDropdown>
-          <UncontrolledDropdown nav>
-            <DropdownToggle nav>
-              <Media className="align-items-center">
-                <span className="avatar avatar-sm rounded-circle">
-                  <img alt="..." src={require("../../assets/img/theme/team-1-800x800.jpg").default} />
-                </span>
-              </Media>
-            </DropdownToggle>
-            <DropdownMenu className="dropdown-menu-arrow" right>
-              <DropdownItem className="noti-title" header tag="div">
-                <h6 className="text-overflow m-0">Welcome!</h6>
-              </DropdownItem>
-              <DropdownItem to="/admin/user-profile" tag={Link}>
-                <i className="ni ni-single-02" />
-                <span>My profile</span>
-              </DropdownItem>
-              <DropdownItem to="/admin/user-profile" tag={Link}>
-                <i className="ni ni-settings-gear-65" />
-                <span>Settings</span>
-              </DropdownItem>
-              {/* <DropdownItem to="/admin/user-profile" tag={Link}>
+	return (
+		<Navbar
+			className="navbar-vertical fixed-left navbar-light bg-white"
+			expand="md"
+			id="sidenav-main"
+		>
+			<Container>
+				{/* Toggler */}
+				<button
+					className="navbar-toggler"
+					type="button"
+					onClick={toggleCollapse}
+				>
+					<span className="navbar-toggler-icon" />
+				</button>
+				{/* Brand */}
+				<div
+					className="header pb-9 pt-2 pt-lg-8 d-flex align-items-center"
+					style={{
+						backgroundImage:
+							"url(" +
+							require("../../assets/img/theme/thebliss5.png").default +
+							")",
+						backgroundSize: "290px",
+						backgroundPosition: "center bottom",
+					}}
+				/>
+				<br />
+				<hr className="my-3" />
+				{/* User */}
+				<Nav className="align-items-center d-md-none">
+					<UncontrolledDropdown nav>
+						<DropdownToggle nav className="nav-link-icon">
+							<i className="ni ni-bell-55" />
+						</DropdownToggle>
+						<DropdownMenu
+							aria-labelledby="navbar-default_dropdown_1"
+							className="dropdown-menu-arrow"
+							right
+						>
+							<DropdownItem>Action</DropdownItem>
+							<DropdownItem>Another action</DropdownItem>
+							<DropdownItem divider />
+							<DropdownItem>Something else here</DropdownItem>
+						</DropdownMenu>
+					</UncontrolledDropdown>
+					<UncontrolledDropdown nav>
+						<DropdownToggle nav>
+							<Media className="align-items-center">
+								<span className="avatar avatar-sm rounded-circle">
+									<img
+										alt="..."
+										src={
+											require("../../assets/img/theme/team-1-800x800.jpg")
+												.default
+										}
+									/>
+								</span>
+							</Media>
+						</DropdownToggle>
+						<DropdownMenu className="dropdown-menu-arrow" right>
+							<DropdownItem className="noti-title" header tag="div">
+								<h6 className="text-overflow m-0">Welcome!</h6>
+							</DropdownItem>
+							<DropdownItem to="/admin/user-profile" tag={Link}>
+								<i className="ni ni-single-02" />
+								<span>My profile</span>
+							</DropdownItem>
+							<DropdownItem to="/admin/user-profile" tag={Link}>
+								<i className="ni ni-settings-gear-65" />
+								<span>Settings</span>
+							</DropdownItem>
+							{/* <DropdownItem to="/admin/user-profile" tag={Link}>
                 <i className="ni ni-calendar-grid-58" />
                 <span>Activity</span>
               </DropdownItem>
@@ -134,58 +157,66 @@ const Sidebar = (props) => {
                 <i className="ni ni-support-16" />
                 <span>Support</span>
               </DropdownItem> */}
-              <DropdownItem divider />
-              <DropdownItem href="#pablo" onClick={(e) => e.preventDefault()}>
-                <i className="ni ni-user-run" />
-                <span>Logout</span>
-              </DropdownItem>
-            </DropdownMenu>
-          </UncontrolledDropdown>
-        </Nav>
-        {/* Collapse */}
-        <Collapse navbar isOpen={collapseOpen}>
-          {/* Collapse header */}
-          <div className="navbar-collapse-header d-md-none">
-            <Row>
-              {logo ? (
-                <Col className="collapse-brand" xs="6">
-                  {logo.innerLink ? (
-                    <Link to={logo.innerLink}>
-                      <img alt={logo.imgAlt} src={logo.imgSrc} />
-                    </Link>
-                  ) : (
-                    <a href={logo.outterLink}>
-                      <img alt={logo.imgAlt} src={logo.imgSrc} />
-                    </a>
-                  )}
-                </Col>
-              ) : null}
-              <Col className="collapse-close" xs="6">
-                <button className="navbar-toggler" type="button" onClick={toggleCollapse}>
-                  <span />
-                  <span />
-                </button>
-              </Col>
-            </Row>
-          </div>
-          {/* Form */}
-          <Form className="mt-4 mb-3 d-md-none">
-            <InputGroup className="input-group-rounded input-group-merge">
-              <Input aria-label="Search" className="form-control-rounded form-control-prepended" placeholder="Search" type="search" />
-              <InputGroupAddon addonType="prepend">
-                <InputGroupText>
-                  <span className="fa fa-search" />
-                </InputGroupText>
-              </InputGroupAddon>
-            </InputGroup>
-          </Form>
-          {/* Navigation */}
-          <Nav navbar>{createLinks(routes)}</Nav>
-        
-        </Collapse>
-      </Container>
-    </Navbar>
-  );
+							<DropdownItem divider />
+							<DropdownItem href="#pablo" onClick={(e) => e.preventDefault()}>
+								<i className="ni ni-user-run" />
+								<span>Logout</span>
+							</DropdownItem>
+						</DropdownMenu>
+					</UncontrolledDropdown>
+				</Nav>
+				{/* Collapse */}
+				<Collapse navbar isOpen={collapseOpen}>
+					{/* Collapse header */}
+					<div className="navbar-collapse-header d-md-none">
+						<Row>
+							{logo ? (
+								<Col className="collapse-brand" xs="6">
+									{logo.innerLink ? (
+										<Link to={logo.innerLink}>
+											<img alt={logo.imgAlt} src={logo.imgSrc} />
+										</Link>
+									) : (
+										<a href={logo.outterLink}>
+											<img alt={logo.imgAlt} src={logo.imgSrc} />
+										</a>
+									)}
+								</Col>
+							) : null}
+							<Col className="collapse-close" xs="6">
+								<button
+									className="navbar-toggler"
+									type="button"
+									onClick={toggleCollapse}
+								>
+									<span />
+									<span />
+								</button>
+							</Col>
+						</Row>
+					</div>
+					{/* Form */}
+					<Form className="mt-4 mb-3 d-md-none">
+						<InputGroup className="input-group-rounded input-group-merge">
+							<Input
+								aria-label="Search"
+								className="form-control-rounded form-control-prepended"
+								placeholder="Search"
+								type="search"
+							/>
+							<InputGroupAddon addonType="prepend">
+								<InputGroupText>
+									<span className="fa fa-search" />
+								</InputGroupText>
+							</InputGroupAddon>
+						</InputGroup>
+					</Form>
+					{/* Navigation */}
+					<Nav navbar>{createLinks(routes)}</Nav>
+				</Collapse>
+			</Container>
+		</Navbar>
+	);
 };
 
 Sidebar.defaultProps = {
