@@ -7,11 +7,28 @@ import { FaStar } from "react-icons/fa";
 import API from "variables/tokenURL";
 
 // reactstrap components
-import { Button, Card, CardHeader, CardBody, FormGroup, Form, Input, Container, Row, Col, InputGroupAddon, InputGroupText, InputGroup, Modal, Table, Label } from "reactstrap";
+import {
+  Button,
+  Card,
+  CardHeader,
+  CardBody,
+  CardText,
+  FormGroup,
+  Form,
+  Input,
+  Container,
+  Row,
+  Col,
+  InputGroupAddon,
+  InputGroupText,
+  InputGroup,
+  Modal,
+  Table,
+  Label,
+} from "reactstrap";
 // core components
 import ViewEventHeader from "components/Headers/ViewEventHeader";
 import { useEffect, useState } from "react";
-
 
 const EventDisplay = (props) => {
   console.log("ID is : ", props.match.params._id);
@@ -110,7 +127,11 @@ const EventDisplay = (props) => {
                     <h1 className="mb-0">Details of The Event</h1>
                   </Col>
                   <Col className="text-right" xs="3">
-                    <Button color="primary" size="sm" onClick={() => toggleModal("defaultModal")}>
+                    <Button
+                      color="primary"
+                      size="sm"
+                      onClick={() => toggleModal("defaultModal")}
+                    >
                       Service Providers
                     </Button>
                   </Col>
@@ -121,12 +142,26 @@ const EventDisplay = (props) => {
                       </Button>
                     </Link>
 
-                    <Modal className="modal-dialog-centered modal-danger" contentClassName="bg-gradient-danger" isOpen={defaultModal} toggle={() => toggleModal("defaultModal")}>
+                    <Modal
+                      className="modal-dialog-centered modal-danger"
+                      contentClassName="bg-gradient-danger"
+                      isOpen={defaultModal}
+                      toggle={() => toggleModal("defaultModal")}
+                    >
                       <div className="modal-header">
-                        <h6 className="modal-title" id="modal-title-notification">
+                        <h6
+                          className="modal-title"
+                          id="modal-title-notification"
+                        >
                           Give your Rate & Review
                         </h6>
-                        <button aria-label="Close" className="close" data-dismiss="modal" type="button" onClick={() => toggleModal("defaultModal")}>
+                        <button
+                          aria-label="Close"
+                          className="close"
+                          data-dismiss="modal"
+                          type="button"
+                          onClick={() => toggleModal("defaultModal")}
+                        >
                           <span aria-hidden={true}>×</span>
                         </button>
                       </div>
@@ -150,35 +185,61 @@ const EventDisplay = (props) => {
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  {acceptedQuotations.map((acceptedQuotations) => (
-                                    <tr key={acceptedQuotations._id}>
-                                      <td> {acceptedQuotations.provider_id.first_name} </td>
-                                      <td> {acceptedQuotations.provider_id.service_type} </td>
-                                      <td>
-                                        <Button
-                                          onClick={function (event) {
-                                            toggleModalNotification("notificationModal");
-                                            setID(acceptedQuotations.provider_id._id);
-                                          }}
-                                          className="btn-icon btn-2 "
-                                          size="sm"
-                                          color="danger"
-                                          type="button"
-                                        >
-                                          <span className="btn-inner--icon-center">
-                                            <i className="ni ni-like-2" />
-                                          </span>
-                                        </Button>
-                                        <Link to={`/customer/view-quotations/${acceptedQuotations._id}`}>
-                                          <Button className="btn-icon btn-2 " size="sm" color="success" type="button">
+                                  {acceptedQuotations.map(
+                                    (acceptedQuotations) => (
+                                      <tr key={acceptedQuotations._id}>
+                                        <td>
+                                          {" "}
+                                          {
+                                            acceptedQuotations.provider_id
+                                              .first_name
+                                          }{" "}
+                                        </td>
+                                        <td>
+                                          {" "}
+                                          {
+                                            acceptedQuotations.provider_id
+                                              .service_type
+                                          }{" "}
+                                        </td>
+                                        <td>
+                                          <Button
+                                            onClick={function (event) {
+                                              toggleModalNotification(
+                                                "notificationModal"
+                                              );
+                                              setID(
+                                                acceptedQuotations.provider_id
+                                                  ._id
+                                              );
+                                            }}
+                                            className="btn-icon btn-2 "
+                                            size="sm"
+                                            color="danger"
+                                            type="button"
+                                          >
                                             <span className="btn-inner--icon-center">
-                                              <i className="ni ni-glasses-2" />
+                                              <i className="ni ni-like-2" />
                                             </span>
                                           </Button>
-                                        </Link>
-                                      </td>
-                                    </tr>
-                                  ))}
+                                          <Link
+                                            to={`/customer/view-quotations/${acceptedQuotations._id}`}
+                                          >
+                                            <Button
+                                              className="btn-icon btn-2 "
+                                              size="sm"
+                                              color="success"
+                                              type="button"
+                                            >
+                                              <span className="btn-inner--icon-center">
+                                                <i className="ni ni-glasses-2" />
+                                              </span>
+                                            </Button>
+                                          </Link>
+                                        </td>
+                                      </tr>
+                                    )
+                                  )}
                                 </tbody>
                               </Table>
                             </CardBody>
@@ -186,22 +247,45 @@ const EventDisplay = (props) => {
                         </Col>
                       </div>
                       <div className="modal-footer">
-                        <Button className="btn-white" color="default" type="button">
+                        <Button
+                          className="btn-white"
+                          color="default"
+                          type="button"
+                        >
                           Ok, Got it
                         </Button>
-                        <Button className="text-white ml-auto" color="link" data-dismiss="modal" type="button" onClick={() => toggleModal("defaultModal")}>
+                        <Button
+                          className="text-white ml-auto"
+                          color="link"
+                          data-dismiss="modal"
+                          type="button"
+                          onClick={() => toggleModal("defaultModal")}
+                        >
                           Close
                         </Button>
                       </div>
                     </Modal>
                   </Col>
 
-                  <Modal className="modal-dialog-centered modal-danger" contentClassName="bg-gradient-danger" isOpen={notificationModal} toggle={() => toggleModalNotification("notificationModal")}>
+                  <Modal
+                    className="modal-dialog-centered modal-danger"
+                    contentClassName="bg-gradient-danger"
+                    isOpen={notificationModal}
+                    toggle={() => toggleModalNotification("notificationModal")}
+                  >
                     <div className="modal-header">
                       <h6 className="modal-title" id="modal-title-notification">
                         Your attention is required
                       </h6>
-                      <button aria-label="Close" className="close" data-dismiss="modal" type="button" onClick={() => toggleModalNotification("notificationModal")}>
+                      <button
+                        aria-label="Close"
+                        className="close"
+                        data-dismiss="modal"
+                        type="button"
+                        onClick={() =>
+                          toggleModalNotification("notificationModal")
+                        }
+                      >
                         <span aria-hidden={true}>×</span>
                       </button>
                     </div>
@@ -217,10 +301,20 @@ const EventDisplay = (props) => {
 
                             return (
                               <label>
-                                <Input style={{ display: "none" }} type="radio" name="rating" value={ratingValue} onClick={() => setRating(ratingValue)} />
+                                <Input
+                                  style={{ display: "none" }}
+                                  type="radio"
+                                  name="rating"
+                                  value={ratingValue}
+                                  onClick={() => setRating(ratingValue)}
+                                />
                                 <FaStar
                                   className="star"
-                                  color={ratingValue <= (hover || rating) ? "#ffc107" : "#e4e5e9"}
+                                  color={
+                                    ratingValue <= (hover || rating)
+                                      ? "#ffc107"
+                                      : "#e4e5e9"
+                                  }
                                   size={50}
                                   onMouseOver={() => setHover(ratingValue)}
                                   onMouseOut={() => setHover(null)}
@@ -261,7 +355,15 @@ const EventDisplay = (props) => {
                       >
                         Ok, Got it
                       </Button>
-                      <Button className="text-white ml-auto" color="link" data-dismiss="modal" type="button" onClick={() => toggleModalNotification("notificationModal")}>
+                      <Button
+                        className="text-white ml-auto"
+                        color="link"
+                        data-dismiss="modal"
+                        type="button"
+                        onClick={() =>
+                          toggleModalNotification("notificationModal")
+                        }
+                      >
                         Close
                       </Button>
                     </div>
@@ -269,126 +371,227 @@ const EventDisplay = (props) => {
                 </Row>
               </CardHeader>
               <CardBody>
-                <Form>
-                  <FormGroup>
-                    <Row>
-                      <Col md="2">Event Name</Col>
-                      <Col md="4">: {event.event_name}</Col>
-                      <Col md="2">Event Type</Col>
-                      <Col md="4">: {event.event_type}</Col>
-                    </Row>
-                  </FormGroup>
-                  <FormGroup>
-                    <Row>
-                      <Col md="2">Organization Name</Col>
-                      <Col md="4">: {event.org_name}</Col>
-                      <Col md="2">Date of The Event</Col>
-                      <Col md="4">: {event.date_of_the_event}</Col>
-                    </Row>
-                  </FormGroup>
-                  <FormGroup>
-                    <Row>
-                      <Col md="2">Event Time</Col>
-                      <Col md="4">: {event.event_time}</Col>
-                      <Col md="2">Days Event Occurs</Col>
-                      <Col md="4">: {event.days_occurs} day</Col>
-                    </Row>
-                  </FormGroup>
-                  <FormGroup>
-                    <Row>
-                      <Col md="2">Event Closing Date</Col>
-                      <Col md="4">: {event.date_of_the_event_end}</Col>
-                    </Row>
-                  </FormGroup>
-                  <FormGroup>
-                    <Row>
-                      <Col md="2">Required Services</Col>
+                <Row xl="7">
+                  <Col className="order-xl-2 mb-7 mb-xl-1" xl="7">
+                    <Card className="bg-secondary shadow">
+                      <CardHeader className="bg-white border-0">
+                        <Row className="align-items-center">
+                          <Col xs="8">
+                            <h2 className="mb-0">Event Information</h2>
+                          </Col>
+                        </Row>
+                      </CardHeader>
+                      <CardBody>
+                        <CardText
+                          className="h5"
+                          style={{ paddingTop: "0.5rem" }}
+                        >
+                          <Row>
+                            <Col md="5">Event Name</Col>
+                            {/* <Col xs="1">:</Col> */}
+                            <Col md="7">: {event.event_name}</Col>
+                          </Row>
+                        </CardText>
+                        <CardText
+                          className="h5"
+                          style={{ paddingTop: "0.5rem" }}
+                        >
+                          <Row>
+                            <Col md="5">Event Type</Col>
+                            {/* <Col xs="1">:</Col> */}
+                            <Col md="7">: {event.event_type}</Col>
+                          </Row>
+                        </CardText>
 
-                      <Col md="8">
-                        :
-                        {event.checkboxOption &&
-                          event.checkboxOption.map((checkbox, index) => {
-                            return (
-                              <div className="ml-5" key={index}>
-                                {" "}
-                                <Label> {checkbox} </Label>
-                              </div>
-                            );
-                          })}
-                      </Col>
-                    </Row>
-                  </FormGroup>
+                        <CardText
+                          className="h5"
+                          style={{ paddingTop: "0.5rem" }}
+                        >
+                          <Row>
+                            <Col md="5">Organization Name</Col>
+                            {/* <Col xs="1">:</Col> */}
+                            <Col md="7">: {event.org_name}</Col>
+                          </Row>
+                        </CardText>
+                        <CardText
+                          className="h5"
+                          style={{ paddingTop: "0.5rem" }}
+                        >
+                          <Row>
+                            <Col md="5">Date of The Event</Col>
+                            {/* <Col xs="1">:</Col> */}
+                            <Col md="7">: {event.date_of_the_event}</Col>
+                          </Row>
+                        </CardText>
 
-                  <h2 className="mt-5 mb-4">Contact Information</h2>
-                  <FormGroup>
-                    <Row>
-                      <Col md="2">Organizer Name</Col>
-                      <Col md="4">: {event.organizer_name}</Col>
-                      <Col md="2">Organizer's NIC</Col>
-                      <Col md="4">: {event.org_nic}</Col>
-                    </Row>
-                  </FormGroup>
-                  <FormGroup>
-                    <Row>
-                      <Col md="2">Email</Col>
-                      <Col md="4">: {event.cus_email}</Col>
-                      <Col md="2">Contact Number </Col>
-                      <Col md="4">: {event.cus_con_number}</Col>
-                    </Row>
-                  </FormGroup>
-                  <FormGroup>
-                    <Row>
-                      <Col md="2">Description</Col>
-                      <Col md="10">: {event.description}</Col>
-                    </Row>
-                  </FormGroup>
-                  <br />
-                  <br />
-                  <br />
+                        <CardText
+                          className="h5"
+                          style={{ paddingTop: "0.5rem" }}
+                        >
+                          <Row>
+                            <Col md="5">Event Time</Col>
+                            {/* <Col xs="1">:</Col> */}
+                            <Col md="7">: {event.event_time}</Col>
+                          </Row>
+                        </CardText>
+                        <CardText
+                          className="h5"
+                          style={{ paddingTop: "0.5rem" }}
+                        >
+                          <Row>
+                            <Col md="5">Days Event Occurs</Col>
+                            {/* <Col xs="1">:</Col> */}
+                            <Col md="7">: {event.days_occurs} day</Col>
+                          </Row>
+                        </CardText>
 
-                  <Row>
-                    <Col className="text-right" xs="4">
-                      <Link to={`/customer/Sponsorship_Documentation/${event._id}`}>
-                        <Button color="primary" href="#pablo">
-                          Create Sponsorship Request
-                        </Button>
-                      </Link>
-                    </Col>
-                    <Col className="text-right" xs="4">
-                      <Link to={`/customer/My_Issue/${event._id}`}>
-                        <Button color="primary" href="#pablo">
-                          Take Support
-                        </Button>
-                      </Link>
-                    </Col>
-                  </Row>
+                        <CardText
+                          className="h5"
+                          style={{ paddingTop: "0.5rem" }}
+                        >
+                          <Row>
+                            <Col md="5">Event Closing Date</Col>
+                            {/* <Col xs="1">:</Col> */}
+                            <Col md="7">: {event.date_of_the_event_end}</Col>
+                          </Row>
+                        </CardText>
+
+                        <CardText
+                          className="h5"
+                          style={{ paddingTop: "0.5rem" }}
+                        >
+                          <Row>
+                            <Col md="5">Required Services</Col>
+                            {/* <Col xs="1">:</Col> */}
+
+                            <Col md="7">
+                              :
+                              {event.checkboxOption &&
+                                event.checkboxOption.map((checkbox, index) => {
+                                  return (
+                                    <Row className="ml-5" key={index}>
+                                      {" "}
+                                      <Label>{checkbox}</Label>
+                                    </Row>
+                                  );
+                                })}
+                            </Col>
+                          </Row>
+                        </CardText>
+                      </CardBody>
+                    </Card>
+                  </Col>
+
+                  <Col className="order-xl-2 mb-7 mb-xl-4" xl="5">
+                    <Card className="bg-secondary shadow">
+                      <CardHeader className="bg-white border-0">
+                        <Row className="align-items-center">
+                          <Col xs="12">
+                            <h2 className="mb-0">Contact Information</h2>
+                          </Col>
+                        </Row>
+                      </CardHeader>
+
+                      <CardBody>
+                        <CardText
+                          className="h5"
+                          style={{ paddingTop: "0.5rem" }}
+                        >
+                          <Row>
+                            <Col md="5">Organizer Name</Col>
+                            {/* <Col xs="1">:</Col> */}
+                            <Col md="7">: {event.organizer_name}</Col>
+                          </Row>
+                        </CardText>
+                        <CardText
+                          className="h5"
+                          style={{ paddingTop: "0.5rem" }}
+                        >
+                          <Row>
+                            <Col md="5">Organizer's NIC</Col>
+                            {/* <Col xs="1">:</Col> */}
+                            <Col md="7">: {event.org_nic}</Col>
+                          </Row>
+                        </CardText>
+
+                        <CardText
+                          className="h5"
+                          style={{ paddingTop: "0.5rem" }}
+                        >
+                          <Row>
+                            <Col md="5">Email</Col>
+                            {/* <Col xs="2">:</Col> */}
+
+                            <Col md="7">: {event.cus_email}</Col>
+                          </Row>
+                        </CardText>
+                        <CardText
+                          className="h5"
+                          style={{ paddingTop: "0.5rem" }}
+                        >
+                          <Row>
+                            <Col md="5">Contact Number </Col>
+                            {/* <Col xs="1">:</Col> */}
+                            <Col md="7">: {event.cus_con_number}</Col>
+                          </Row>
+                        </CardText>
+
+                        <CardText
+                          className="h5"
+                          style={{ paddingTop: "0.5rem" }}
+                        >
+                          <Row>
+                            <Col md="5">Description</Col>
+                            {/* <Col xs="1">:</Col> */}
+                            <Col md="7">: {event.description}</Col>
+                          </Row>
+                        </CardText>
+                      </CardBody>
+                    </Card>
+                  </Col>
+                </Row>
+
+                <Row className="pt-3">
                   <Col className="col text-center">
-                  <Link to={`/customer/boostEvent/${event._id}`}>
-                  <Button
+                    <Link to={`/customer/boostEvent/${event._id}`}>
+                      <Button
+                        className="btn-icon btn-2"
                         color="primary"
-                        size="lm"
+                        size="sm"
                       >
-                        Boost My Event 
+                        <span className="btn-inner--icon">
+                          <i className="ni ni-credit-card" />
+                        </span>
+                        <span className="btn-inner--text">Boost My Event</span>
                       </Button>
-                      </Link>
-                      </Col>
-                  <Row>
-                  <Col className="text-right" xs="4">
-                  <Link to={`/customer/Sponsorship_Documentation/${event._id}`}>
-                    <Button color="primary" href="#pablo">
-                      Create Sponsorship Request
-                    </Button>
                     </Link>
                   </Col>
-                  <Col className="text-right" xs="4">
-                  <Link to={`/customer/My_Issue/${event._id}`}>
-                    <Button color="primary" href="#pablo">
-                      Take Support
-                    </Button>
+
+                  <Col className="text-center">
+                    <Link
+                      to={`/customer/Sponsorship_Documentation/${event._id}`}
+                    >
+                      <Button color="primary" size="sm">
+                        <span className="btn-inner--icon">
+                          <i className="ni ni-folder-17" />
+                        </span>
+                        <span className="btn-inner--text">
+                          Create Sponsorship Request
+                        </span>
+                      </Button>
                     </Link>
                   </Col>
-                  </Row>
-                </Form>
+                  <Col className="text-center">
+                    <Link to={`/customer/My_Issue/${event._id}`}>
+                      <Button color="primary" size="sm">
+                        <span className="btn-inner--icon">
+                          <i className="ni ni-basket" />
+                        </span>
+                        <span className="btn-inner--text"> Take Support</span>
+                      </Button>
+                    </Link>
+                  </Col>
+                </Row>
               </CardBody>
             </Card>
           </Col>
