@@ -351,10 +351,7 @@ const initialValues = {
                       </Link>
                     </Col>
                     <Col className="col text-right ml-6" xs="6">
-                    
-                     
-                     
-                    </Col>
+                  </Col>
                   </Row>
                 </Form>
               </CardBody>
