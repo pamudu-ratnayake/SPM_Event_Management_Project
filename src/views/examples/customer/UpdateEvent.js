@@ -12,31 +12,13 @@ import { Button, Card, CardHeader, CardBody, FormGroup, Form, Input, Container, 
 import UpdateEventHeader from "components/Headers/UpdateEventHeader";
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import API from "variables/tokenURL";
 
 //type of the phone number
 const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
 
 const UpdateEvent = (props) => {
-  // function AddEvent(props) {
-
-  // let date = '';
-  // const [event_date, setDate] = useState(date);
-
-  // const makeDate = () => {
-  //   date = values.date_event.format('DD-MM-YYYY');
-  //   setDate(date);
-  // }
-
-  // useEffect(() => {
-  //   makeDate();
-  // },[]);
-
-  // const checkboxOptions = [
-  //   { key: "Option 01", value: "cOption1" },
-  //   { key: "Option 02", value: "cOption2" },
-  //   { key: "Option 03", value: "cOption3" },
-  // ];
 
   const [event, setEvent] = useState(0);
 
@@ -80,8 +62,8 @@ const UpdateEvent = (props) => {
   const onSubmit = (values) => {
     console.log("Form Date", values);
     //  values.date_of_the_event = event_date; //watch
-    axios
-      .put(`http://localhost:8080/eventAdd/updateevent/${props.match.params._id}`, values)
+    API
+      .put(`/eventAdd/updateevent/${props.match.params._id}`, values)
       .then((res) => {
         console.log(res);
         console.log("Data", values);
@@ -95,8 +77,8 @@ const UpdateEvent = (props) => {
   };
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:8080/eventAdd/getOneEvent/${props.match.params._id}`)
+    API
+      .get(`/eventAdd/getOneEvent/${props.match.params._id}`)
       .then((res) => {
         console.log(res);
         setEvent(res.data);

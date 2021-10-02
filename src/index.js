@@ -8,6 +8,7 @@ import "assets/scss/argon-dashboard-react.scss";
 import AdminLayout from "layouts/Admin.js";
 import CustomerLayout from "layouts/Customer"
 import AuthLayout from "layouts/Auth.js";
+import AuthPayment from "layouts/AuthPayment";
 import AuthServiceProvider from "layouts/AuthServiceProvider.js";
 import ServiceProviderLayout from "layouts/ServiceProvider";
 

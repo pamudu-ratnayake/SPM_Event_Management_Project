@@ -15,6 +15,7 @@ const MyEvents = (props) => {
   const currentDate = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate() + today.getTime();
   const [status, setStatus] = useState();
   const [searchStr, setSearch] = useState('');
+  const [deleteID, setDeleteID] = useState('');
 
   const user = JSON.parse(localStorage.getItem("profile"));
 
@@ -36,9 +37,9 @@ const MyEvents = (props) => {
     setmodalDemo(!exampleModal);
   }
 
-  const deleteEvent = (_id) => {
-    axios
-      .delete(`http://localhost:8080/eventAdd/deleteevent/${_id}`)
+  const deleteEvent = () => {
+    API
+      .delete(`/eventAdd/deleteevent/${deleteID}`)
       .then((response) => {
         console.log(response);
         // props.history.push('/admin');
@@ -63,12 +64,12 @@ const MyEvents = (props) => {
             <Card className="bg-secondary shadow">
               <CardHeader className="bg-white border-0">
                 <Row className="align-items-center">
-                  <Col xs="5">
+                  <Col xs="6">
                     <h1 className="mb-0">Published Events</h1>
                   </Col>
-                  <Col xs="3">
-                    <div >
-                      <Input
+                  <Col xs="4" >
+                    <div style={{marginLeft:170}}>
+                      <Input                      
                       type="text"
                         placeholder="Search..."
                         style={{ borderWidth: "2.5px", width: "15rem", height: "2rem",  textAlign: "left", borderRadius: "15px" }}
@@ -78,7 +79,7 @@ const MyEvents = (props) => {
                       />
                     </div>
                   </Col>
-                  <Col className="text-right" xs="4">
+                  <Col  className="text-right ml--6" xs="2">
                     <Link to={"/customer/add-event"}>
                       <Button color="primary" size="sm">
                         Publish An Event
@@ -95,14 +96,11 @@ const MyEvents = (props) => {
                       <th scope="col">Date</th>
                       <th scope="col">Location</th>
                       <th scope="col">Event Type</th>
-                      <th scope="col">Event Status</th>
                       <th scope="col" />
                     </tr>
                   </thead>
                   <tbody>
                     {/* {posts */}
-                    
-
                     {
                        posts.filter(r => {
                           if(searchStr === ""){
@@ -117,15 +115,6 @@ const MyEvents = (props) => {
                         <td> {posts.date_of_the_event} </td>
                         <td> {posts.location} </td>
                         <td> {posts.event_type} </td>
-                        <td>
-                          {" "}
-                          {() => {
-                            if (posts.date_of_the_event_end < currentDate) setStatus("Opend");
-                            else setStatus("Closed");
-                            console.log("ssssssssssssssssss");
-                          }}{" "}
-                          {status}{" "}
-                        </td>
                         <td className="text-right">
                           <UncontrolledDropdown>
                             <DropdownToggle className="btn-icon-only text-light" href="#pablo" role="button" size="sm" color="" onClick={(e) => e.preventDefault()}>
@@ -138,7 +127,10 @@ const MyEvents = (props) => {
                               <Link to={`/customer/event-update/${posts._id}`}>
                                 <DropdownItem>Update Event</DropdownItem>
                               </Link>
-                              <DropdownItem onClick={() => toggleModal("exampleModal")}> Delete Event</DropdownItem>
+                              <DropdownItem onClick={function (event) {
+                                            toggleModal("exampleModal");
+                                            setDeleteID(posts._id);
+                                          }}> Delete Event</DropdownItem>
 
                               <Modal className="modal-dialog-centered" isOpen={exampleModal} toggle={() => toggleModal("exampleModal")}>
                                 <div className="modal-header">
@@ -151,7 +143,7 @@ const MyEvents = (props) => {
                                 </div>
                                 <div className="modal-body">Do you want to delete this event?</div>
                                 <div className="modal-footer">
-                                  <Button color="primary" type="button" onClick={deleteEvent.bind(props.this, posts._id)}>
+                                  <Button color="primary" type="button" onClick={() => deleteEvent()}>
                                     Confirm Delete
                                   </Button>
                                   <Button color="secondary" data-dismiss="modal" type="button" onClick={() => toggleModal("exampleModal")}>

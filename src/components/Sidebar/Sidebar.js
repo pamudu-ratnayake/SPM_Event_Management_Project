@@ -91,6 +91,8 @@ const Sidebar = (props) => {
             backgroundPosition: "center bottom",
           }}
         />
+        <br/>
+                <hr className="my-3" />
         {/* User */}
         <Nav className="align-items-center d-md-none">
           <UncontrolledDropdown nav>

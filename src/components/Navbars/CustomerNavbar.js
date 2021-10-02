@@ -13,13 +13,10 @@ const CustomerNavbar = (props) => {
   console.log(user);
 
   const history = useHistory();
-  const location= useLocation();
-
-
+  const location = useLocation();
 
   const logout = () => {
-
-    history.push('/auth');
+    history.push("/auth");
     localStorage.clear();
     setUser(null);
   };
@@ -29,23 +26,20 @@ const CustomerNavbar = (props) => {
 
     if (token) {
       // const decodedToken = decode(token);
-
       // if (decodedToken.exp * 1000 < new Date().getTime()) logout();
     }
 
     setUser(JSON.parse(localStorage.getItem("profile")));
 
     API.get(`/customerdetails/getOneCustomer/${user?.result?._id}`)
-    .then((res) => {
-      console.log(res);
-      setCustomer(res.data);
-    })
-  .catch((error) => {
-    console.log(error);
-  })
-
+      .then((res) => {
+        console.log(res);
+        setCustomer(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
-
 
   return (
     <>
@@ -94,7 +88,13 @@ const CustomerNavbar = (props) => {
                 <DropdownItem divider />
                 <DropdownItem href="#pablo" onClick={(e) => e.preventDefault()}>
                   <i className="ni ni-user-run" />
-                  <span onClick={()=>{logout()}}>Logout</span>
+                  <span
+                    onClick={() => {
+                      logout();
+                    }}
+                  >
+                    Logout
+                  </span>
                 </DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>

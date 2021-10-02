@@ -3,7 +3,7 @@ import ReactDatetime from "react-datetime";
 // reactstrap components
 import { Button, Modal, Card, CardHeader, CardBody, FormGroup, Form, Input, Container, Row, Col, DropdownMenu, DropdownItem, UncontrolledDropdown, DropdownToggle, Table, Label } from "reactstrap";
 // core components
-import EventListHeader from "components/Headers/EventListHeader";
+import SelectServiceProviderHeader from "components/Headers/Events/SelectServiceProviderHeader.js";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -74,7 +74,7 @@ const SelectServiceProvider = (props) => {
 
   return (
     <>
-      <EventListHeader />
+      <SelectServiceProviderHeader />
       {/* Page content */}
       <Container className="mt--9" fluid>
         <Row>
@@ -100,8 +100,7 @@ const SelectServiceProvider = (props) => {
                       <th scope="col">Service Provider</th>
                       <th scope="col">Service Type</th>
                       <th scope="col">Email</th>
-                      <th scope="col">Contact Number</th>
-                      <th scope="col">Total</th>                 
+                      <th scope="col">Contact Number</th>              
                       <th scope="col" />
                     </tr>
                   </thead>
@@ -112,7 +111,6 @@ const SelectServiceProvider = (props) => {
                         <td> {posts.provider_id.service_type} </td>
                         <td> {posts.provider_id.email} </td>
                         <td> {posts.provider_id.mobile} </td>
-                        <td> </td>
                         <td>
                           {" "}
                           <Button
