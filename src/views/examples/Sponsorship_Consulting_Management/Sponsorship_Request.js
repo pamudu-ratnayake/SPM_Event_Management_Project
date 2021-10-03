@@ -52,20 +52,20 @@ const Sponsorship_Request = () => {
       {/* Page content */}
       <Container className="mt--7" fluid>
         <Col className="order-xl-1" xl="12">
-          <Card className="bg">
-            <CardHeader className="bg-white border-0">
+          <Card className="bg-secondary shadow pl-1 pr-1">
+            <CardHeader className="bg-white border-0 ">
               <Row className="align-items-center">
-                <Col xs="8">
+                <Col xs="7">
                   <h2 className="mb-0">Sponsors</h2>
                 </Col>
-                <Col xs="3">
+                <Col xs="4">
                   <div>
                     <Input
                       type="text"
                       placeholder="Search by Type..."
                       style={{
                         borderWidth: "2.5px",
-                        width: "15rem",
+                        width: "20rem",
                         height: "2rem",
                         textAlign: "left",
                         borderRadius: "15px",

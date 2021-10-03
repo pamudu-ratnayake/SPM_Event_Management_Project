@@ -154,7 +154,7 @@ const Send_Request = (props) => {
                   <Row>
                     <Col md="6">
                       <FormGroup>
-                        <label>Sponsor Name</label>
+                        <label><h4>Sponsor Name</h4></label>
                         <Input
                           className="h5"
                           id="exampleFormControlInput1"
@@ -176,7 +176,7 @@ const Send_Request = (props) => {
                     </Col>
                     <Col md="6">
                       <FormGroup>
-                        <label>Event Organizer Name</label>
+                        <label><h4>Event Organizer Name</h4></label>
                         <Input
                           className="h5"
                           id="exampleFormControlInput1"
@@ -199,7 +199,7 @@ const Send_Request = (props) => {
                   <Row>
                     <Col md="6">
                       <FormGroup>
-                        <label>Send To</label>
+                        <label><h4>Send To</h4></label>
                         <Input
                           className="h5"
                           // placeholder="ABC (pvt).Ltd"
@@ -221,7 +221,7 @@ const Send_Request = (props) => {
                     </Col>
                     <Col md="6">
                       <FormGroup>
-                        <label>Send From</label>
+                        <label><h4>Send From</h4></label>
                         <Input
                           className="h5"
                           id="exampleFormControlInput1"
@@ -243,7 +243,7 @@ const Send_Request = (props) => {
                   <Row>
                     <Col>
                       <FormGroup>
-                        <label>Sponsorship Request</label>
+                        <label><h4>Sponsorship Request</h4></label>
                         <Input
                           className="h5-black"
                           id="exampleFormControlInput1"
@@ -266,7 +266,11 @@ const Send_Request = (props) => {
                   <Row className="d-flex justify-content-between">
                     <Col className="text-center">
                       <Button type="submit" color="success" size="sm">
-                        Send
+                      <span className="btn-inner--icon">
+                          <i className="ni ni-send" />
+                        </span>
+                        <span className="btn-inner--text">Send</span>
+                        
                       </Button>
                     </Col>
                   </Row>
