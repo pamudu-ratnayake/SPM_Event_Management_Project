@@ -96,7 +96,11 @@ const SponsorList = (props) => {
                   <Col className="col text-right" xl="">
                     <Link to={"/admin/Add_Sponsor"}>
                       <Button color="primary" size="sm" name="">
-                        Add Sponsor
+                      <span className="btn-inner--icon">
+                          <i className="ni ni-collection" />
+                        </span>
+                        <span className="btn-inner--text">Add Sponsor</span>
+                        
                       </Button>
                     </Link>
                   </Col>

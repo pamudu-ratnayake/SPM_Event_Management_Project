@@ -126,7 +126,11 @@ const My_Issue = (props) => {
                     to={`/customer/Event_Support/${props.match.params._id}`}
                   >
                     <Button color="primary" size="sm">
-                      Search for Solution
+                    <span className="btn-inner--icon">
+                          <i className="ni ni-world-2" />
+                        </span>
+                        <span className="btn-inner--text">Search for Solution</span>
+                     
                     </Button>
                   </Link>
                 </Col>
