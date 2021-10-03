@@ -18,6 +18,7 @@ import {
 import * as Yup from "yup";
 // core components
 import axios from "axios";
+import API from "variables/tokenURL";
 
 
 const ViewPayment = (props) => {
@@ -26,8 +27,8 @@ const ViewPayment = (props) => {
   const [addsData,setAdd] = useState(0);
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:8080/payment/get/${props.match.params._id}`)
+   API
+      .get(`/payment/get/${props.match.params._id}`)
       .then((res) => {
         console.log(res);
         setAdd(res.data);

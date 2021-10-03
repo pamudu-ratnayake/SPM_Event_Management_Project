@@ -53,14 +53,15 @@ const MyAdvertisementList = (props) => {
 
   const deleteRequest = (_id) => {
     console.log("ID eka: ", _id);
-    axios
-      .delete(`http://localhost:8080/advertisement/deleteAdvertisement/${_id}`)
+    API
+      .delete(`/advertisement/deleteAdvertisement/${_id}`)
       .then((res) => {
         console.log(res);
       })
       .catch((error) => {
         console.log(error);
       });
+      window.location.reload(false);
   };
 
   return (

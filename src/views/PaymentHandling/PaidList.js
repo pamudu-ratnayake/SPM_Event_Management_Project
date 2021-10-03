@@ -42,8 +42,8 @@ const PaidList = (props) => {
   const [addslist, setviewlist] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:8080/payment/paidlist")
+   API
+      .get("/payment/paidlist")
       .then((res) => {
         setviewlist(res.data);
         console.log(res);

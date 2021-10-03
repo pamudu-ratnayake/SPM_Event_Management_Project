@@ -24,6 +24,7 @@ import {
 import AdvertisementListHeader from "components/Headers/AdvertisementHandling&BoostingHeaders/AdvertisementListHeader";
 import React from "react";
 import axios from "axios";
+import API from "variables/tokenURL";
 
 const AdvertisementList = (props) => {
   const [defaultModal, setmodalDemo] = useState(false);
@@ -36,8 +37,8 @@ const AdvertisementList = (props) => {
   const [deleteID, setDeleteID] = useState('');
 
   useEffect(() => {
-    axios
-      .get("http://localhost:8080/advertisement/list")
+   API
+      .get("/advertisement/list")
       .then((res) => {
         setviewlist(res.data);
         console.log(res);
@@ -50,9 +51,9 @@ const AdvertisementList = (props) => {
 
   const deleteRequest = () => {
     console.log('ID eka: ',deleteID)
-    axios
+    API
       .delete(
-        `http://localhost:8080/advertisement/deleteAdvertisement/${deleteID}`
+        `/advertisement/deleteAdvertisement/${deleteID}`
       )
       .then((res) => {
         console.log(res);
@@ -60,6 +61,7 @@ const AdvertisementList = (props) => {
       .catch((error) => {
         console.log(error);
       });
+      window.location.reload(false);
   };
 
   return (
@@ -142,9 +144,10 @@ const AdvertisementList = (props) => {
                   <Button
                     color="primary"
                     type="button"
-                    onClick={() => deleteRequest()}
-                  //  onClick={() => toggleModal("defaultModal")}
+                   onClick={function(event){toggleModal("defaultModal"); deleteRequest()}}
+                 
                   >
+                    
                     Delete Request
                   </Button>
                   <Button
@@ -170,11 +173,7 @@ const AdvertisementList = (props) => {
                           <Link to={`/admin/AdvertisementDetails/${addslist._id}`}>
                             <DropdownItem>View Request</DropdownItem>
                           </Link>
-                          <Link
-                            to={`/admin/updateadvertisement/${addslist._id}`}
-                          >
-                            <DropdownItem>Update Request</DropdownItem>
-                          </Link>
+                          
                           <DropdownItem                 
                           onClick={function(event){toggleModal("defaultModal"); setDeleteID(addslist._id)}}
                           >

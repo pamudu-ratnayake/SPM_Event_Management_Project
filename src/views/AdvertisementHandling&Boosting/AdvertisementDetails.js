@@ -27,8 +27,8 @@ const AdvertisementDetails = (props) => {
   const [addsData, setAdd] = useState(0);
 
   useEffect(() => {
-    axios
-    .get(`http://localhost:8080/advertisement/get/${props.match.params._id}`)
+   API
+    .get(`/advertisement/get/${props.match.params._id}`)
       .then((res) => {
         console.log(res);
         setAdd(res.data);

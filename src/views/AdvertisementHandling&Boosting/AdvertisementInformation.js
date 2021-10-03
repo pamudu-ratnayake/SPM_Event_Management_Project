@@ -433,8 +433,12 @@ const AdvertisementInformation = (props) => {
                         color="primary"
                         type="button"
                         onClick={() => toggleModal("defaultModal")}
-                      >
-                        Request Advertisement
+                      ><span className="btn-inner--icon">
+                      < i className="ni ni-tv-2"/>
+                      </span>
+                      <span className="btn-inner--text"> 
+                        Add Advertisement
+                        </span>
                       </Button>
                     </Col>
                     <Modal

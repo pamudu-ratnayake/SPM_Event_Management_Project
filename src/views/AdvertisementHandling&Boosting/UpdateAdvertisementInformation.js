@@ -474,7 +474,7 @@ function toggleModal() {
                         </Card>
                       </div>
                       <div className="modal-footer">
-                      <Link to={`/admin/myadverisementlist`}>
+                      <Link to={`/serviceprovider/myadverisementlist`}>
                         <Button
                           color="primary"
                           type="submit"

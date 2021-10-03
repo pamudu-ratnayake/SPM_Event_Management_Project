@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom";
 
 // reactstrap components
 import {
@@ -17,15 +17,15 @@ import {
 import * as Yup from "yup";
 // core components
 import axios from "axios";
+import API from "variables/tokenURL";
 
 const ViewAdvertisement = (props) => {
   console.log("Id is: ", props.match.params._id);
 
-  const [addsData,setAdd] = useState([]);
+  const [addsData, setAdd] = useState([]);
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:8080/advertisement/get/${props.match.params._id}`)
+    API.get(`/advertisement/get/${props.match.params._id}`)
       .then((res) => {
         console.log(res);
         setAdd(res.data);
@@ -35,11 +35,10 @@ const ViewAdvertisement = (props) => {
       });
   }, []);
 
-  console.log('img here', addsData.advertisement_Des)
+  console.log("img here", addsData.advertisement_Des);
 
   return (
     <>
-     
       {/* Page content */}
       <Container className="mt--7">
         <Row>
@@ -55,18 +54,15 @@ const ViewAdvertisement = (props) => {
               </CardHeader>
               <Card style={{ width: "61.3rem" }}>
                 <CardImg
-                style={{ width: "20 rem" , height:"30rem", padding: "3rem"}}
-                  
+                  style={{ width: "20 rem", height: "30rem", padding: "3rem" }}
                   alt="..."
                   top
                   src={addsData?.advertisement_Pic}
-                  
                 />
-                  <CardHeader style={{ fontSize: "2rem" }}>
-                    Advertisement Details
-                  </CardHeader>
+                <CardHeader style={{ fontSize: "2rem" }}>
+                  Advertisement Details
+                </CardHeader>
                 <CardBody style={{ padding: "2rem" }}>
-
                   <Card
                     style={({ width: "28rem" }, { height: "2.5rem" })}
                     className="mb-4"
@@ -252,30 +248,36 @@ const ViewAdvertisement = (props) => {
                 </div>
               </CardBody>
             </Card>  */}
-            
-            <div className = "mt-5">
-              <Row>
-            <Col>
-            <Link to={`/serviceprovider/boostAdd/${addsData._id}`}>
-                    <Button
-                      className="ml-16 mr-8"
-                      color="primary">
-                      Boost My Advertisement
-                    </Button>
-                    </Link>
-                  </Col>
-                  <Col>
-                    <Link to={`/serviceprovider/updateadvertisement/${addsData._id}`}>
-                    <Button
-                      className="ml-16 mr-8"
-                      color="primary"
-                     
-                    >
-                      Request to Update My Advertisement
-                    </Button>
-                    </Link>
-                  </Col>
-                  </Row>
+
+                  <div className="mt-5">
+                    <Row>
+                      <Col>
+                        <Link to={`/serviceprovider/boostAdd/${addsData._id}`}>
+                          <Button className="ml-16 mr-8" color="primary">
+                            <span className="btn-inner--icon">
+                              <i className="ni ni-credit-card" />
+                            </span>
+                            <span className="btn-inner--text">
+                              Boost My Advertisement
+                            </span>
+                          </Button>
+                        </Link>
+                      </Col>
+                      <Col>
+                        <Link
+                          to={`/serviceprovider/updateadvertisement/${addsData._id}`}
+                        >
+                          <Button className="ml-16 mr-8" color="primary">
+                            <span className="btn-inner--icon">
+                              <i className="ni ni-ruler-pencil" />
+                            </span>
+                            <span className="btn-inner--text">
+                              Update My Advertisement
+                            </span>
+                          </Button>
+                        </Link>
+                      </Col>
+                    </Row>
                   </div>
                 </CardBody>
               </Card>

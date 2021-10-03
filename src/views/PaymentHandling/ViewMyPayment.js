@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import BoostHeader from "components/Headers/AdvertisementHandling&BoostingHeaders/BoostHeader";
+import ViewMyPaymentHeader from "components/Headers/PaymentHandlingHeaders/ViewMyPaymentHeader";
 import {Link} from "react-router-dom"
 import jsPDF from "jspdf";
 import "jspdf-autotable";
@@ -20,6 +20,9 @@ import * as Yup from "yup";
 // core components
 import axios from "axios";
 import logo from '../../assets/img/theme/thebliss5.png';
+// import PaidListHeader from "components/Headers/PaymentHandlingHeaders/PaidListHeader";
+import MyPaymentHeader from "components/Headers/PaymentHandlingHeaders/ViewMyPaymentHeader";
+import API from "variables/tokenURL";
 
 const ViewMyPayment = (props) => {
   console.log("Id is: ", props.match.params._id);
@@ -27,8 +30,8 @@ const ViewMyPayment = (props) => {
   const [addsData,setAdd] = useState(0);
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:8080/payment/get/${props.match.params._id}`)
+   API
+      .get(`/payment/get/${props.match.params._id}`)
       .then((res) => {
         console.log(res);
         setAdd(res.data);
@@ -153,7 +156,7 @@ const Tot = addsData.total;
 
 return (
     <>
-      <BoostHeader />
+      <MyPaymentHeader />
       {/* Page content */}
       <Container className="mt--7">
         <Row>
@@ -401,7 +404,7 @@ return (
                     
                   </Col>
                   <Col>
-                  <Link to={`/cutomer/mypaymentlist`}>
+                  <Link to={`/serviceprovider/mypaymentlist`}>
                     <Button
                       className="ml-16 mr-8"
                       color="primary"

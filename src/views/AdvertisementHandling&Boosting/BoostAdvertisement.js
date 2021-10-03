@@ -1,6 +1,7 @@
 // reactstrap components
 import React, { useState,useEffect} from "react";
 import { Link } from "react-router-dom";
+import API from "variables/tokenURL";
 import {
   Button,
   Card,
@@ -44,8 +45,8 @@ const BoostAdvertisement = (props) => {
 
   
  useEffect(() => {
-    axios
-      .get(`http://localhost:8080/advertisement/get/${props.match.params._id}`)
+    API
+      .get(`/advertisement/get/${props.match.params._id}`)
       .then((res) => {
         console.log(res);
         setAdd(res.data);
@@ -177,7 +178,12 @@ const initialValues = {
                     color="primary" 
                     size="lm"
                     onClick={() => toggleModal("notificationModal")}>
+                      <span className="btn-inner--icon">
+                              <i className="ni ni-key-25" />
+                            </span>
+                            <span className="btn-inner--text">
                         What's Boosting
+                        </span>
                       </Button>
                       </Col>
                       
@@ -346,7 +352,7 @@ The boosting advertisement appear to customers and they continue to focus to the
                   <br></br>
                   <br></br>
                   <Row>
-                    <Col className="text-right mr-4" xs="4">
+                    <Col className="text-right mr-4" xs="6">
                     <Link
                               to={`/serviceprovider/viewadvertisement`}
                             >
@@ -354,8 +360,12 @@ The boosting advertisement appear to customers and they continue to focus to the
                         color="primary"
                         onClick={() => {onSubmit(formik.values)}}
                         size="lm"
-                      >
+                      ><span className="btn-inner--icon">
+                      <i className="ni ni-money-coins" />
+                    </span>
+                    <span className="btn-inner--text">
                         Boost My Advertisement
+                        </span>
                       </Button>
                       </Link>
                     </Col>
