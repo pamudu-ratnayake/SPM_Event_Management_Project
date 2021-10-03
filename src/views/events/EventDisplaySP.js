@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import StarRatingComponent from "react-star-rating-component";
 import { FaStar } from "react-icons/fa";
-
+import API from "variables/tokenURL";
 // reactstrap components
 import {
 	Button,
@@ -49,11 +49,11 @@ const EventDisplaySP = (props) => {
 
 	//useEffect
 	useEffect(() => {
-		axios
-			.get(
-				`http://localhost:8080/eventAdd/getOneEvent/${props.match.params._id}`
-			)
+		API.get(
+			`http://localhost:8080/eventAdd/getOneEvent/${props.match.params._id}`
+		)
 			.then((res) => {
+				console.log("event ");
 				console.log("event ", res.data);
 				setEvent(res.data);
 			})
@@ -79,13 +79,7 @@ const EventDisplaySP = (props) => {
 									<Col xs="7">
 										<h1 className="mb-0">Details of The Event</h1>
 									</Col>
-									<Col className="text-right" xs="3">
-										<Link to={`/customerProvider/${event._id}`}>
-											<Button color="primary" size="sm">
-												Customer Details
-											</Button>
-										</Link>
-									</Col>
+									<Col className="text-right" xs="3"></Col>
 									<Col className="text-right" xs="2">
 										<Link to={`/serviceprovider/createQuotation/${event._id}`}>
 											<Button color="primary" size="sm">
@@ -234,8 +228,7 @@ const EventDisplaySP = (props) => {
 											<FormGroup>
 												<label>Date of The Event : </label>
 												<label className="ml-3">
-													{" "}
-													{event.date_of_the_event}{" "}
+													{event.date_of_the_event}
 												</label>
 											</FormGroup>
 										</Col>

@@ -37,9 +37,9 @@ function EditProfileModal(props) {
 	const onSubmit = (values) => {
 		values.service_provider_type = company.service_provider_type;
 
-		console.log(company._id, "Form Date", values);
+		console.log(props.company._id, "Form Date", values);
 		//  values.date_of_the_event = event_date; //watch
-		API.put(`/company/update/${company._id}`, values)
+		API.put(`/company/update/${props.company._id}`, values)
 			.then((res) => {
 				console.log(res);
 				console.log("Data", values);
@@ -124,7 +124,7 @@ function EditProfileModal(props) {
 									<Input
 										className="form-control-alternative"
 										id="company_name"
-										placeholder="jesse@example.com"
+										placeholder="JSound"
 										type="text"
 										name="company_name"
 										onChange={formik.handleChange}

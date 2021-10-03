@@ -141,6 +141,14 @@ const CreateQuotation = (props) => {
 												<Button
 													size="sm"
 													onClick={() => {
+														console.log(
+															event,
+															newQuotation,
+															company,
+															profile,
+															today,
+															cost
+														);
 														QuotationPDF(
 															event,
 															newQuotation,

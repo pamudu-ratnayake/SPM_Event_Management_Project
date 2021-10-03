@@ -133,7 +133,11 @@ const QuotationPDF = (event, quotation, company, profile, today, cost) => {
 	doc.setTextColor("blue");
 	doc.text(395, 610, "Hex Clan");
 
-	doc.save("test.pdf");
+	const date = Date().split(" ");
+	// we use a date string to generate our filename.
+	const dateStr = date[0] + date[1] + date[2] + date[3] + date[4];
+
+	doc.save(`quotation_criteria${dateStr}.pdf`);
 };
 
 export default QuotationPDF;
