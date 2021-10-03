@@ -44,17 +44,17 @@ const Auth = (props) => {
 	return (
 		<>
 			<div className="main-content" ref={mainContent}
-			        // style={{
-					// 	minHeight: "600px",
-					// 	backgroundImage:
-					// 	  "url(" + require("../assets/img/theme/event1.jpg").default + ")",
-					// 	backgroundSize: "cover",
-					// 	backgroundPosition: "center top",
-					//   }}
+			        style={{
+						minHeight: "600px",
+						backgroundImage:
+						  "url(" + require("../assets/img/theme/event1.jpg").default + ")",
+						backgroundSize: "cover",
+						backgroundPosition: "center top",
+					  }}
 					  >
 						          {/* <span className="mask bg-gradient-default opacity-5" /> */}
 				<AuthNavbar />
-				<div className="header bg-gradient-info py-7 py-lg-8">
+				<div className="header  py-7 py-lg-8">
 					<Container>
 						<div className="header-body text-center mb-7">
 							<Row className="justify-content-center">
@@ -64,7 +64,7 @@ const Auth = (props) => {
 							</Row>
 						</div>
 					</Container>
-					<div className="separator separator-bottom separator-skew zindex-100">
+					{/* <div className="separator separator-bottom separator-skew zindex-100">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							preserveAspectRatio="none"
@@ -78,7 +78,7 @@ const Auth = (props) => {
 								points="2560 0 2560 100 0 100"
 							/>
 						</svg>
-					</div>
+					</div> */}
 				</div>
 				{/* Page content */}
 				<Container className="mt--8 pb-5">

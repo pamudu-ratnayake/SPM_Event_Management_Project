@@ -217,12 +217,12 @@ const CustomerProfile = (props) => {
 							<CardBody className="pt-0 pt-md-4 mt-8">
 								<div className="text-center">
 									<h3>
-										Jessica Jones
+										{oneUser.firstName} {" "} { oneUser.lastName}
 										<span className="font-weight-light">, 27</span>
 									</h3>
 									<div className="h5 font-weight-300">
 										<i className="ni location_pin mr-2" />
-										Kottawa, Colombo.
+										{customer?.cus_address}
 									</div>
 								</div>
 							</CardBody>

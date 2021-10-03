@@ -10,7 +10,7 @@ const CustomerProfileHeader = () => {
           minHeight: "450px",
           backgroundImage:
             "url(" +
-            require("../../assets/img/theme/header46.png").default +
+            require("../../assets/img/header/auth1.jpg").default +
             ")",
           backgroundSize: "cover",
           backgroundPosition: "center bottom",
