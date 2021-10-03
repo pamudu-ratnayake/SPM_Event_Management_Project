@@ -31,7 +31,6 @@ import TopEvents from "views/examples/customer/TopEvents";
 import MyPaymentListCustomer from "views/PaymentHandling/MyPaymentList";
 import ViewMyPaymentCustomer from "views/PaymentHandling/ViewMyPayment";
 
-
 // After pull dev 10/09/2021
 import AdvertisementInformation from "views/AdvertisementHandling&Boosting/AdvertisementInformation";
 import CardPayment from "views/PaymentHandling/CardPayment";
@@ -48,7 +47,6 @@ import ViewPayment from "views/PaymentHandling/ViewPayment";
 import MyPaymentList from "views/PaymentHandling/MyPaymentList";
 import ViewMyPayment from "views/PaymentHandling/ViewMyPayment";
 
-
 import Sponsorship_Request from "views/examples/Sponsorship_Consulting_Management/Sponsorship_Request";
 import Add_Sponsor from "views/examples/Sponsorship_Consulting_Management/Add_Sponsor";
 import Update_Sponsor from "views/examples/Sponsorship_Consulting_Management/Update_Sponsor";
@@ -59,16 +57,16 @@ import My_Issue from "views/examples/Sponsorship_Consulting_Management/My_Issue"
 import Event_Support from "views/examples/Sponsorship_Consulting_Management/Event_Support";
 import Send_Request from "views/examples/Sponsorship_Consulting_Management/Send_Request";
 import EventDisplaySP from "views/events/EventDisplaySP";
+import CustomerProfileProvider from "views/examples/customer/CustomerProfileProvider";
 
 var routes = [
-
-  {
-    path: "/adminindex",
-    name: "Admin Dashboard",
-    icon: "ni ni-tv-2 text-primary",
-    component: AdminIndex,
-    layout: "/admin",
-  },
+	{
+		path: "/adminindex",
+		name: "Admin Dashboard",
+		icon: "ni ni-tv-2 text-primary",
+		component: AdminIndex,
+		layout: "/admin",
+	},
 
 	//-----------Indexes-----------
 	// {
@@ -93,109 +91,109 @@ var routes = [
 		layout: "/serviceprovider",
 	},
 
-  //--------customer & Events -------------------
+	//--------customer & Events -------------------
 
-  {
-    path: "/add-event",
-    name: "Publish An Event",
-    icon: "ni ni-notification-70 text-orange",
-    component: AddEvent,
-    layout: "/customer",
-  },
+	{
+		path: "/add-event",
+		name: "Publish An Event",
+		icon: "ni ni-notification-70 text-orange",
+		component: AddEvent,
+		layout: "/customer",
+	},
 
-  {
-    path: "/customer-profile",
-    name: "My Profile",
-    icon: "ni ni-single-02 text-success",
-    component: CustomerProfile,
-    layout: "/customer",
-  },
-  {
-    path: "/my-event",
-    name: "My Events",
-    icon: "ni ni-book-bookmark text-purple",
-    component: MyEvents,
-    layout: "/customer",
-  },
-  {
-    path: "/selectservice-proivider/:_id",
-    name: "Select Service Provider",
-    icon: "ni ni-book-bookmark text-purple",
-    component: SelectServiceProvider,
-    layout: "/customer",
-    invisible: true,
-  },
-  {
-    path: "/view-quotations/:_id",
-    name: "View Quotations",
-    icon: "ni ni-circle-08 text-pink",
-    component: ViewQuotation,
-    layout: "/customer",
-    invisible: true,
-  },
-  {
-    path: "/login",
-    name: "Login",
-    icon: "ni ni-key-25 text-info",
-    component: Login,
-    layout: "/auth",
-  },
-  {
-    path: "/register",
-    name: "Register",
-    icon: "ni ni-circle-08 text-pink",
-    component: Register,
-    layout: "/auth",
-  },
-  {
-    path: "/register-all",
-    name: "All Register",
-    icon: "ni ni-circle-08 text-pink",
-    component: AllSignUps,
-    layout: "/auth",
-    invisible: true,
-  },
-  {
-    path: "/event-display/:_id",
-    // name: "Display Event",
-    // icon: "ni ni-notification-70 text-orange",
-    component: EventDisplay,
-    layout: "/customer",
-    invisible: true,
-  },
-  {
-    path: "/event-update/:_id",
-    // name: "Update Event",
-    //icon: "ni ni-notification-70 text-orange",
-    component: UpdateEvent,
-    layout: "/customer",
-    invisible: true,
-  },
+	{
+		path: "/customer-profile",
+		name: "My Profile",
+		icon: "ni ni-single-02 text-success",
+		component: CustomerProfile,
+		layout: "/customer",
+	},
+	{
+		path: "/my-event",
+		name: "My Events",
+		icon: "ni ni-book-bookmark text-purple",
+		component: MyEvents,
+		layout: "/customer",
+	},
+	{
+		path: "/selectservice-proivider/:_id",
+		name: "Select Service Provider",
+		icon: "ni ni-book-bookmark text-purple",
+		component: SelectServiceProvider,
+		layout: "/customer",
+		invisible: true,
+	},
+	{
+		path: "/view-quotations/:_id",
+		name: "View Quotations",
+		icon: "ni ni-circle-08 text-pink",
+		component: ViewQuotation,
+		layout: "/customer",
+		invisible: true,
+	},
+	{
+		path: "/login",
+		name: "Login",
+		icon: "ni ni-key-25 text-info",
+		component: Login,
+		layout: "/auth",
+	},
+	{
+		path: "/register",
+		name: "Register",
+		icon: "ni ni-circle-08 text-pink",
+		component: Register,
+		layout: "/auth",
+	},
+	{
+		path: "/register-all",
+		name: "All Register",
+		icon: "ni ni-circle-08 text-pink",
+		component: AllSignUps,
+		layout: "/auth",
+		invisible: true,
+	},
+	{
+		path: "/event-display/:_id",
+		// name: "Display Event",
+		// icon: "ni ni-notification-70 text-orange",
+		component: EventDisplay,
+		layout: "/customer",
+		invisible: true,
+	},
+	{
+		path: "/event-update/:_id",
+		// name: "Update Event",
+		//icon: "ni ni-notification-70 text-orange",
+		component: UpdateEvent,
+		layout: "/customer",
+		invisible: true,
+	},
 
-  {
-    path: "/top-events",
-    name: "Top Events",
-    icon: "bx bx-movie-play text-success fs-4",
-    component: TopEvents,
-    layout: "/serviceprovider",
-  },
-  {
-    path: "/registerServiceProvider",
-    name: "Register Service Provider",
-    icon: "ni ni-circle-08 text-pink",
-    component: RegisterServiceProvider,
-    layout: "/authServiceProvider",
-  },
+	{
+		path: "/top-events",
+		name: "Top Events",
+		icon: "bx bx-movie-play text-primary fs-4",
+		component: TopEvents,
+		layout: "/serviceprovider",
+	},
+	{
+		path: "/registerServiceProvider",
+		name: "Register Service Provider",
+		icon: "ni ni-circle-08 text-pink",
+		component: RegisterServiceProvider,
+		layout: "/authServiceProvider",
+	},
 
-  // ============== Service Provider Routes ==================
+	// ============== Service Provider Routes ==================
 
-  {
-    path: "/events",
-    name: "Events",
-    icon: "bx bx-movie-play text-success fs-4",
-    component: Events,
-    layout: "/serviceprovider",
-  },
+	{
+		path: "/events",
+		name: "Events",
+		icon: "bx bx-movie-play text-primary fs-4",
+		component: Events,
+		layout: "/serviceprovider",
+	},
 
 	{
 		path: "/serviceProviders",
@@ -213,153 +211,153 @@ var routes = [
 		layout: "/serviceprovider",
 	},
 
-  {
-    path: "/service-provider-profile",
-    name: "Profile",
-    icon: "bx bxs-user text-success fs-4",
-    component: ServiceProviderProfile,
-    layout: "/serviceprovider",
-  },
+	{
+		path: "/event-display-sp/:_id",
+		component: EventDisplaySP,
+		layout: "/serviceprovider",
+		invisible: true,
+	},
 
-  {
-    path: "/event-display-sp/:_id",
-    component: EventDisplaySP,
-    layout: "/serviceprovider",
-    invisible: true,
-  },
+	{
+		path: "/customerProvider/:_id",
+		component: CustomerProfileProvider,
+		layout: "/serviceprovider",
+		invisible: true,
+	},
 
-  {
-    path: "/createQuotation/:_id",
-    component: CreateQuotation,
-    layout: "/serviceprovider",
-    invisible: true,
-  },
+	{
+		path: "/createQuotation/:_id",
+		component: CreateQuotation,
+		layout: "/serviceprovider",
+		invisible: true,
+	},
 
-  {
-    path: "/adverisementlist",
-    name: "Advertisement List",
-    icon: "ni ni-credit-card text-blue",
-    component: AdvertisementList,
-    layout: "/admin",
-  },
- 
-  {
-    path: "/myadverisementlist",
-    name: "My Advertisement List",
-    icon: "ni ni-credit-card text-blue",
-    component: MyAdvertisementList,
-    layout: "/serviceprovider",
-  },
+	// ================== Service Provider Routes =============
+	// ========================= End  =========================
 
-  {
-    path: "/advertisementdetails/:_id",
-    name: "Advertisement Details ",
-    icon: "ni ni-credit-card text-blue",
-    component: AdvertisementDetails,
-    layout: "/admin",
-    invisible: true,
-  },
+	{
+		path: "/adverisementlist",
+		name: "Advertisement List",
+		icon: "ni ni-credit-card text-blue",
+		component: AdvertisementList,
+		layout: "/admin",
+	},
 
-  {
-    path: "/boostEvent/:_id",
-    name: "Boost Event",
-    icon: "ni ni-credit-card text-blue",
-    component: BoostEvent,
-    layout: "/customer",
-    invisible: true,
-  },
+	{
+		path: "/myadverisementlist",
+		name: "My Advertisement",
+		icon: "ni ni-credit-card text-blue fs-5",
+		component: MyAdvertisementList,
+		layout: "/serviceprovider",
+	},
 
-  {
-    path: "/paidlist",
-    name: "Paid List",
-    icon: "ni ni-credit-card text-blue",
-    component: PaidList,
-    layout: "/admin",
-  },
+	{
+		path: "/advertisementdetails/:_id",
+		name: "Advertisement Details ",
+		icon: "ni ni-credit-card text-blue",
+		component: AdvertisementDetails,
+		layout: "/admin",
+		invisible: true,
+	},
 
-  {
-    path: "/mypaymentlist",
-    name: "My Payments",
-    icon: "ni ni-credit-card text-blue",
-    component: MyPaymentList,
-    layout: "/serviceprovider",
-  },
-  {
-    path: "/mypaymentlist",
-    name: "My Payments",
-    icon: "ni ni-credit-card text-blue",
-    component: MyPaymentListCustomer,
-    layout: "/customer",
-  },
-  
-  {
-    path: "/advertisement",
-    name: "Add Advertisement",
-    icon: "ni ni-tv-2 text-pink",
-    component: AdvertisementInformation,
-    layout: "/serviceprovider",
-  },
-  {
-    path: "/viewadvertisement/:_id",
-    name: "View Advertisement",
-    icon: "ni ni-tv-2 text-pink",
-    component: ViewAdvertisement,
-    layout: "/admin",
-    layout: "/serviceprovider",
-    invisible: true,
-  },
+	{
+		path: "/boostEvent/:_id",
+		name: "Boost Event",
+		icon: "ni ni-credit-card text-blue",
+		component: BoostEvent,
+		layout: "/customer",
+		invisible: true,
+	},
 
-  {
-    path: "/viewpayement/:_id",
-    name: "View Payment",
-    icon: "ni ni-tv-2 text-pink",
-    component: ViewPayment,
-    layout: "/admin",
-    invisible: true,
-  },
+	{
+		path: "/paidlist",
+		name: "Paid List",
+		icon: "ni ni-credit-card text-blue",
+		component: PaidList,
+		layout: "/admin",
+	},
 
-  {
-    path: "/viewmypayement/:_id",
-    name: "View My Payment",
-    icon: "ni ni-tv-2 text-pink",
-    component: ViewMyPayment,
-    layout: "/serviceprovider",
-    invisible: true,
-  },
-  {
-    path: "/viewmypayement/:_id",
-    name: "View My Payment",
-    icon: "ni ni-tv-2 text-pink",
-    component: ViewMyPaymentCustomer,
-    layout: "/customer",
-    invisible: true,
-  },
-  {
-    path: "/updateadvertisement/:_id",
-    name: "Update Advertisement Information",
-    icon: "ni ni-tv-2 text-pink",
-    component: UpdateAdvertisementInformation,
-    layout: "/admin",
-    invisible: true,
-  },
-  {
-    path: "/boostAdd",
-    name: "Boost Advertisement",
-    icon: "ni ni-tv-2 text-pink",
-    component: BoostAdvertisement,
-    layout: "/serviceprovider",
-    invisible: true,
-  },
-  {
-    path: "/boostAdd/:_id",
-    name: "Boost Advertisement",
-    icon: "ni ni-tv-2 text-pink",
-    component: BoostAdvertisement,
-    layout: "/serviceprovider",
-    invisible: true,
-  },
+	{
+		path: "/mypaymentlist",
+		name: "My Payments",
+		icon: "ni ni-credit-card text-blue fs-5",
+		component: MyPaymentList,
+		layout: "/serviceprovider",
+	},
+	{
+		path: "/mypaymentlist",
+		name: "My Payments",
+		icon: "ni ni-credit-card text-blue",
+		component: MyPaymentListCustomer,
+		layout: "/customer",
+	},
 
-  
+	{
+		path: "/advertisement",
+		name: "Add Advertisement",
+		icon: "bx bxs-alarm-add bx-burst text-primary fs-4",
+		component: AdvertisementInformation,
+		layout: "/serviceprovider",
+	},
+	{
+		path: "/viewadvertisement/:_id",
+		name: "View Advertisement",
+		icon: "ni ni-tv-2 text-pink",
+		component: ViewAdvertisement,
+		layout: "/admin",
+		layout: "/serviceprovider",
+		invisible: true,
+	},
+
+	{
+		path: "/viewpayement/:_id",
+		name: "View Payment",
+		icon: "ni ni-tv-2 text-pink",
+		component: ViewPayment,
+		layout: "/admin",
+		invisible: true,
+	},
+
+	{
+		path: "/viewmypayement/:_id",
+		name: "View My Payment",
+		icon: "ni ni-tv-2 text-pink",
+		component: ViewMyPayment,
+		layout: "/serviceprovider",
+		invisible: true,
+	},
+	{
+		path: "/viewmypayement/:_id",
+		name: "View My Payment",
+		icon: "ni ni-tv-2 text-pink",
+		component: ViewMyPaymentCustomer,
+		layout: "/customer",
+		invisible: true,
+	},
+	{
+		path: "/updateadvertisement/:_id",
+		name: "Update Advertisement Information",
+		icon: "ni ni-tv-2 text-pink",
+		component: UpdateAdvertisementInformation,
+		layout: "/admin",
+		invisible: true,
+	},
+	{
+		path: "/boostAdd",
+		name: "Boost Advertisement",
+		icon: "ni ni-tv-2 text-pink",
+		component: BoostAdvertisement,
+		layout: "/serviceprovider",
+		invisible: true,
+	},
+	{
+		path: "/boostAdd/:_id",
+		name: "Boost Advertisement",
+		icon: "ni ni-tv-2 text-pink",
+		component: BoostAdvertisement,
+		layout: "/serviceprovider",
+		invisible: true,
+	},
 
 	// ================== Sponsorship Routes =============
 
@@ -419,35 +417,35 @@ var routes = [
 
 	// ================== Event Consulting Routes =============
 
-  {
-    path: "/My_Issue/:_id",
-    name: "Take Help",
-    icon: "ni ni-ungroup text-pink",
-    component: My_Issue,
-    layout: "/customer",
-	invisible: true,
-  },
-  {
-    path: "/Event_Support",
-    name: "Event Consulting",
-    icon: "ni ni-support-16 text-red",
-    component: Event_Support,
-    layout: "/customer",
-  },
-  {
-    path: "/Event_Support",
-    name: "Event Consulting",
-    icon: "ni ni-support-16 text-red",
-    component: Event_Support,
-    layout: "/admin",
-  },
-  {
-    path: "/Event_Support",
-    name: "Event Consulting",
-    icon: "ni ni-support-16 text-red",
-    component: Event_Support,
-    layout: "/serviceprovider",
-  },
+	{
+		path: "/My_Issue/:_id",
+		name: "Take Help",
+		icon: "ni ni-ungroup text-pink",
+		component: My_Issue,
+		layout: "/customer",
+		invisible: true,
+	},
+	{
+		path: "/Event_Support",
+		name: "Event Consulting",
+		icon: "ni ni-support-16 text-red",
+		component: Event_Support,
+		layout: "/customer",
+	},
+	{
+		path: "/Event_Support",
+		name: "Event Consulting",
+		icon: "ni ni-support-16 text-red ",
+		component: Event_Support,
+		layout: "/admin",
+	},
+	{
+		path: "/Event_Support",
+		name: "Event Consulting",
+		icon: "ni ni-support-16 text-primary fs-5",
+		component: Event_Support,
+		layout: "/serviceprovider",
+	},
 ];
 
 export default routes;

@@ -54,7 +54,7 @@ const EventDisplaySP = (props) => {
 				`http://localhost:8080/eventAdd/getOneEvent/${props.match.params._id}`
 			)
 			.then((res) => {
-				console.log(res.data);
+				console.log("event ", res.data);
 				setEvent(res.data);
 			})
 			.catch((error) => {
@@ -79,7 +79,13 @@ const EventDisplaySP = (props) => {
 									<Col xs="7">
 										<h1 className="mb-0">Details of The Event</h1>
 									</Col>
-									<Col className="text-right" xs="3"></Col>
+									<Col className="text-right" xs="3">
+										<Link to={`/customerProvider/${event._id}`}>
+											<Button color="primary" size="sm">
+												Customer Details
+											</Button>
+										</Link>
+									</Col>
 									<Col className="text-right" xs="2">
 										<Link to={`/serviceprovider/createQuotation/${event._id}`}>
 											<Button color="primary" size="sm">
